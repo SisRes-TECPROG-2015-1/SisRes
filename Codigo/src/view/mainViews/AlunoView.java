@@ -26,6 +26,7 @@ public class AlunoView extends ClienteView {
         this.setName("AlunoView");
     }
 
+    //Metodo para obter o iterator
     public Iterator getIterator() {
         try {
             return ManterAluno.getInstance().getAluno_vet().iterator();
@@ -38,6 +39,7 @@ public class AlunoView extends ClienteView {
         return null;
     }
 
+    // Metodo que realiza o cadastro de um novo aluno na view
     @Override public void cadastrarAction() {
 
         CadastroCliente cadastrar = new CadastroAluno(new javax.swing.JFrame(), true);
@@ -47,6 +49,7 @@ public class AlunoView extends ClienteView {
 
     }
 
+    // Metodo para alterar uma action na view
     @Override public void alterarAction(int index) {
 
         AlterarAluno alterar = new AlterarAluno(new javax.swing.JFrame(), true, index);
@@ -55,6 +58,7 @@ public class AlunoView extends ClienteView {
         this.tabelaCliente.setModel(fillTable());
     }
 
+    // Metodo para excluir uma action na view
     @Override public void excluirAction() {
         try {
             int index = this.tabelaCliente.getSelectedRow();
