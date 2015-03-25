@@ -45,14 +45,12 @@ public abstract class DAO {
 		PreparedStatement pst = con.prepareStatement(query);
 		ResultSet rs = pst.executeQuery();
 		
-		if(!rs.next())
-		{
+		if ( !rs.next() ) {
 			rs.close();
 			pst.close();
 			con.close();
 			return false;
-		}
-		else {
+		} else {
 			rs.close();
 			pst.close();
 			con.close();
