@@ -16,28 +16,28 @@ public class AlterarEquipamento extends CadastroPatrimonio {
 
     private int index2 = 0;
 
-    public AlterarEquipamento(java.awt.Frame parent, boolean modal, int index) {
+    public AlterarEquipamento( java.awt.Frame parent, boolean modal, int index ) {
         super(parent, modal);
-        this.setTitle("Alterar");
-        this.setName("AlterarEquipamento");
-        this.cadastroBtn.setText("Alterar");
-        this.cadastroBtn.setName("Alterar");
-        this.capacidadeLbl.setVisible(false);
-        this.capacidadeTxtField.setVisible(false);
+        this.setTitle( "Alterar" );
+        this.setName( "AlterarEquipamento" );
+        this.cadastroBtn.setText( "Alterar" );
+        this.cadastroBtn.setName( "Alterar" );
+        this.capacidadeLbl.setVisible( false );
+        this.capacidadeTxtField.setVisible( false );
         index2 = index;
 
         try {
 
-            this.codigoTxtField.setText(ManterEquipamento.getInstance().getEquipamento_vet().get(index).getCodigo());
-            this.descricaoTextArea.setText(ManterEquipamento.getInstance().getEquipamento_vet().get(index).getDescricao());
+            this.codigoTxtField.setText( ManterEquipamento.getInstance().getEquipamento_vet().get( index ).getCodigo() );
+            this.descricaoTextArea.setText(ManterEquipamento.getInstance().getEquipamento_vet().get( index ).getDescricao() );
             this.index2 = index;
 
-        } catch (PatrimonioException ex) {
-            JOptionPane.showMessageDialog(this, ex.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE, null);
-        } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(this, ex.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE, null);
+        } catch ( PatrimonioException ex ) {
+            JOptionPane.showMessageDialog( this, ex.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE, null );
+        } catch ( SQLException ex ) {
+            JOptionPane.showMessageDialog( this, ex.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE, null );
         } catch (NullPointerException ex) {
-            JOptionPane.showMessageDialog(this, ex.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE, null);
+            JOptionPane.showMessageDialog( this, ex.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE, null );
         }
 
     }
@@ -45,17 +45,17 @@ public class AlterarEquipamento extends CadastroPatrimonio {
     @Override protected void cadastroAction() {
         try {
 
-            ManterEquipamento.getInstance().alterar(codigoTxtField.getText(), descricaoTextArea.getText(),
-                    ManterEquipamento.getInstance().getEquipamento_vet().get(index2));
+            ManterEquipamento.getInstance().alterar( codigoTxtField.getText(), descricaoTextArea.getText(),
+                    ManterEquipamento.getInstance().getEquipamento_vet().get( index2 ) );
 
-            JOptionPane.showMessageDialog(this, "Equipamento alterado com sucesso", "Sucesso", JOptionPane.INFORMATION_MESSAGE,
-                    null);
-            this.setVisible(false);
+            JOptionPane.showMessageDialog( this, "Equipamento alterado com sucesso", "Sucesso", JOptionPane.INFORMATION_MESSAGE,
+                    null );
+            this.setVisible( false );
 
-        } catch (PatrimonioException ex) {
-            JOptionPane.showMessageDialog(this, ex.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE, null);
-        } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(this, ex.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE, null);
+        } catch ( PatrimonioException ex ) {
+            JOptionPane.showMessageDialog( this, ex.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE, null );
+        } catch ( SQLException ex ) {
+            JOptionPane.showMessageDialog( this, ex.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE, null );
         }
     }
 }
