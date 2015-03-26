@@ -12,24 +12,24 @@ import exception.ReservaException;
 
 public abstract class DAO {
 	//Esta classe nao sera testada diretamente.
-	
-	
+		
 	/**
 	 * O vetor obtido deste metodo deve ser convertido pra o vetor
 	 * do tipo que se vai utilizar, se necessario.
 	 * */
-	@SuppressWarnings({ "rawtypes", "unchecked" })
+
+	@SuppressWarnings( { "rawtypes", "unchecked" } )
 	protected Vector buscar(String query) throws SQLException, ClienteException, 
-													PatrimonioException, ReservaException{
+													PatrimonioException, ReservaException {
 		Vector vet = new Vector();
 		
 		Connection con =  FactoryConnection.getInstance().getConnection();
 		
-		PreparedStatement pst = con.prepareStatement(query);
+		PreparedStatement pst = con.prepareStatement( query );
 		ResultSet rs = pst.executeQuery();
 		
-		while(rs.next())
-			vet.add(this.fetch(rs));
+		while ( rs.next() )
+			vet.add( this.fetch( rs ) );
 		
 		pst.close();
 		rs.close();
@@ -40,9 +40,9 @@ public abstract class DAO {
 	/**
 	 * Continua funcionando como antes, checa se o resgistro esta no banco.
 	 * */
-	protected boolean inDBGeneric(String query) throws SQLException{
+	protected boolean inDBGeneric( String query ) throws SQLException {
 		Connection con = FactoryConnection.getInstance().getConnection();
-		PreparedStatement pst = con.prepareStatement(query);
+		PreparedStatement pst = con.prepareStatement( query );
 		ResultSet rs = pst.executeQuery();
 		
 		if ( !rs.next() ) {
@@ -63,7 +63,7 @@ public abstract class DAO {
 	 * Ja foi implementada nas outras classes DAO. A implementacao eh
 	 * semelhante.
 	 * */
-	protected abstract Object fetch(ResultSet rs) throws SQLException, ClienteException,
+	protected abstract Object fetch( ResultSet rs ) throws SQLException, ClienteException,
 														PatrimonioException, ReservaException;
 	
 	
@@ -71,9 +71,9 @@ public abstract class DAO {
 	 * Este metodo eh utilizado para Incluir e Excluir algum registro do
 	 * banco, dependendo da query.
 	 * */
-	protected void executeQuery(String msg) throws SQLException{
+	protected void executeQuery( String msg ) throws SQLException {
 		Connection con =  FactoryConnection.getInstance().getConnection();
-		PreparedStatement pst = con.prepareStatement(msg);
+		PreparedStatement pst = con.prepareStatement( msg );
 		pst.executeUpdate();		
 		pst.close();
 		con.close();
@@ -82,10 +82,10 @@ public abstract class DAO {
 	/**
 	 * Este metodo eh utilizado para Alterar alguma coisa no Banco
 	 * */
-	protected void updateQuery(String msg) throws SQLException{
+	protected void updateQuery( String msg ) throws SQLException {
 		Connection con =  FactoryConnection.getInstance().getConnection();
-		con.setAutoCommit(false);
-		PreparedStatement pst = con.prepareStatement(msg);
+		con.setAutoCommit( false );
+		PreparedStatement pst = con.prepareStatement( msg );
 		pst.executeUpdate();
 		con.commit();
 		pst.close();
