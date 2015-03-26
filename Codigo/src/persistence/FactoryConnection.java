@@ -6,6 +6,7 @@ import java.sql.SQLException;
 
 
 public class FactoryConnection {
+
 	static String statusConnection = "";
 	
 	private String local = "jdbc:mysql://localhost/sisres_db";
@@ -14,19 +15,20 @@ public class FactoryConnection {
 	
 	//Singleton
 		private static FactoryConnection instance;
-		private FactoryConnection(){
+		private FactoryConnection() {
+			
 		}
-		public static FactoryConnection getInstance(){
-			if(instance == null)
+		public static FactoryConnection getInstance() {
+			if( instance == null )
 				instance = new FactoryConnection();
 			return instance;
 		}
 	//
 		
 		
-	public Connection getConnection() throws SQLException{
+	public Connection getConnection() throws SQLException {
 		Connection con = null;
-		con = DriverManager.getConnection(local, user, password);
+		con = DriverManager.getConnection( local, user, password );
 		return con;
 	}
 
