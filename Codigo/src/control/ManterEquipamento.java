@@ -8,33 +8,51 @@ import model.Equipamento;
 
 public class ManterEquipamento {
 
-	private Vector<Equipamento> Equipamento_vet = new Vector<Equipamento>();
+	private Vector <Equipamento> Equipamento_vet = new Vector <Equipamento>();
 	
-//Singleton
-
+	//Singleton
 	private static ManterEquipamento instance;
 	private ManterEquipamento() {
 		
 	}
+	
+	/**
+	 * Creates an instance of an equipment if it isn't allready instanciated.
+	 * @return Equipamento - An equipment
+	 */
 	public static ManterEquipamento getInstance() {
-		if (instance == null) {
+		if ( instance == null ) {
 			instance = new ManterEquipamento();
 		}
 		return instance;
 	}
-//
-		
+
+	
+	/**
+	 * Captures all the equipments in the database
+	 * @return Vector - All equipments
+	 */	
 	public Vector<Equipamento> getEquipamento_vet() throws SQLException, PatrimonioException {
 		this.Equipamento_vet = EquipamentoDAO.getInstance().buscarTodos();
 		return this.Equipamento_vet;
 	}
 
+	
+	/**
+	 * Inserts a new equipment and its atributes
+	 * @return Equipamento - An equipment
+	 */
 	public void inserir(String codigo, String descricao) throws PatrimonioException, SQLException {
 		Equipamento equipamento = new Equipamento(codigo, descricao);
 		EquipamentoDAO.getInstance().incluir(equipamento);
 		getEquipamento_vet();
 	}
 
+	
+	/**
+	 * Alterates an equipment's attributes
+	 * @return void
+	 */
 	public void alterar(String codigo, String descricao, Equipamento equipamento) throws PatrimonioException, SQLException {
 		if (equipamento == null) {
 			throw new PatrimonioException("Equipamento em branco");
@@ -46,6 +64,11 @@ public class ManterEquipamento {
 		getEquipamento_vet();
 	}
 
+	
+	/**
+	 * Excludes an equipment from the database
+	 * @return void
+	 */
 	public void excluir(Equipamento equipamento) throws SQLException, PatrimonioException {
 		if (equipamento == null) {
 			throw new PatrimonioException("Equipamento em branco");
