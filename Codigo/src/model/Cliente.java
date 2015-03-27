@@ -16,7 +16,7 @@ public abstract class Cliente {
 
 	/**
 	 * Defining constants for error messages and alerts. Constants
-	 * 'TELEFONE_BRANCO', 'EMAIL_INVALIDO', 'EMAIL_BRANCO' was already marked as
+	 * 'TELEFONE_BRANCO', 'EMAIL_INVALIDO', 'EMAIL_BRANCO' were already marked as
 	 * comment. It will stay like that for future analyse
 	 */
 	private final String NOME_INVALIDO = "Nome Invalido.";
