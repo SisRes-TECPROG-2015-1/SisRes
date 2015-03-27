@@ -49,6 +49,6 @@ public class Aluno extends Cliente {
 		 * throw new ClienteException(MATRICULA_INVALIDO); 
 		 */
 		 
-		super.matricula = matricula;//
+		super.matricula = matricula;
 	}
 }
