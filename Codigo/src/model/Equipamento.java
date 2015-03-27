@@ -2,9 +2,16 @@ package model;
 
 import exception.PatrimonioException;
 
-public class Equipamento extends Patrimonio{
+public class Equipamento extends Patrimonio {
 
-	public Equipamento(String codigo, String descricao) throws PatrimonioException {
+	/**
+	 * Constructor method for class Equipamento
+	 * @param codigo
+	 * @param descricao
+	 * @throws PatrimonioException
+	 */
+	public Equipamento(String codigo, String descricao)
+			throws PatrimonioException {
 		super(codigo, descricao);
 	}
 
