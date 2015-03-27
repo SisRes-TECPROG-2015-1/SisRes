@@ -42,13 +42,13 @@ public abstract class Cliente {
 	 * @param email
 	 * @throws ClienteException
 	 */
-	public Cliente(String nome, String cpf, String matricula, String telefone,
-			String email) throws ClienteException {
-		this.setNome(nome);
-		this.setCpf(cpf);
-		this.setMatricula(matricula);
-		this.setTelefone(telefone);
-		this.setEmail(email);
+	public Cliente( String nome, String cpf, String matricula, String telefone,
+			String email ) throws ClienteException {
+		this.setNome( nome );
+		this.setCpf( cpf );
+		this.setMatricula( matricula );
+		this.setTelefone( telefone );
+		this.setEmail( email );
 	}
 
 	/**
@@ -102,15 +102,15 @@ public abstract class Cliente {
 	 * @param nome
 	 * @throws ClienteException
 	 */
-	public void setNome(String nome) throws ClienteException {
+	public void setNome( String nome ) throws ClienteException {
 		if ( nome == null ) {
-			throw new ClienteException(NOME_NULO);
-		} else if ( "".equals(nome.trim()) ) {
-			throw new ClienteException(NOME_BRANCO);
-		} else if ( nome.trim().matches("[a-zA-Z][a-zA-Z\\s]+") ) {
+			throw new ClienteException( NOME_NULO );
+		} else if ( "".equals( nome.trim() ) ) {
+			throw new ClienteException( NOME_BRANCO );
+		} else if ( nome.trim().matches( "[a-zA-Z][a-zA-Z\\s]+" ) ) {
 			this.nome = nome.trim();
 		} else {
-			throw new ClienteException(NOME_INVALIDO);
+			throw new ClienteException( NOME_INVALIDO );
 		}
 	}
 
@@ -120,15 +120,15 @@ public abstract class Cliente {
 	 * @param cpf
 	 * @throws ClienteException
 	 */
-	public void setCpf(String cpf) throws ClienteException {
+	public void setCpf( String cpf ) throws ClienteException {
 		if ( cpf == null ) {
-			throw new ClienteException(CPF_NULO);
+			throw new ClienteException( CPF_NULO );
 		} else if ( "".equals(cpf) ) {
-			throw new ClienteException(CPF_BRANCO);
-		} else if ( cpf.matches("[\\d]{3,3}.[\\d]{3,3}.[\\d]{3,3}-[\\d]{2,2}$") ) {
-			if ( this.validarCpf(cpf.split("[\\. | -]")[0]
-					+ cpf.split("[\\. | -]")[1] + cpf.split("[\\. | -]")[2]
-					+ cpf.split("[\\. | -]")[3]) ) {
+			throw new ClienteException( CPF_BRANCO );
+		} else if ( cpf.matches( "[\\d]{3,3}.[\\d]{3,3}.[\\d]{3,3}-[\\d]{2,2}$" ) ) {
+			if ( this.validarCpf( cpf.split( "[\\. | -]" )[0]
+					+ cpf.split( "[\\. | -]" )[1] + cpf.split( "[\\. | -]" )[2]
+					+ cpf.split( "[\\. | -]" )[3] ) ) {
 				this.cpf = cpf;
 			} else {
 				throw new ClienteException(CPF_INVALIDO);
@@ -144,17 +144,17 @@ public abstract class Cliente {
 	 * @param telefone
 	 * @throws ClienteException
 	 */
-	public void setTelefone(String telefone) throws ClienteException {
+	public void setTelefone( String telefone ) throws ClienteException {
 		if ( telefone == null ) {
-			throw new ClienteException(TELEFONE_NULO);
-		} else if ( "".equals(telefone) ) {
+			throw new ClienteException( TELEFONE_NULO );
+		} else if ( "".equals( telefone ) ) {
 			this.telefone = telefone;
 		} else if ( telefone
-				.matches("(\\([ ]*[\\d]{2,3}[ ]*\\))?[ ]*[\\d]{4,4}[ ]*-?[ ]*[\\d]{4,4}[ ]*$") ) {
+				.matches( "(\\([ ]*[\\d]{2,3}[ ]*\\))?[ ]*[\\d]{4,4}[ ]*-?[ ]*[\\d]{4,4}[ ]*$" ) ) {
 			// The phone number will be saved without blank spaces
-			this.telefone = telefone.replaceAll(" ", "");
+			this.telefone = telefone.replaceAll( " ", "" );
 		} else {
-			throw new ClienteException(TELEFONE_INVALIDO);
+			throw new ClienteException( TELEFONE_INVALIDO );
 		}
 	}
 
@@ -164,9 +164,9 @@ public abstract class Cliente {
 	 * @param email
 	 * @throws ClienteException
 	 */
-	public void setEmail(String email) throws ClienteException {
+	public void setEmail( String email ) throws ClienteException {
 		if ( email == null ) { 
-			throw new ClienteException(EMAIL_NULO);
+			throw new ClienteException( EMAIL_NULO );
 		} else {
 			this.email = email;
 		}
@@ -178,7 +178,7 @@ public abstract class Cliente {
 	 * @param matricula
 	 * @throws ClienteException
 	 */
-	public abstract void setMatricula(String matricula) throws ClienteException;
+	public abstract void setMatricula( String matricula ) throws ClienteException;
 
 	@Override
 	/**
@@ -198,12 +198,12 @@ public abstract class Cliente {
 	 * @param Cliente b
 	 * @return boolean
 	 */
-	public boolean equals(Cliente b) {
-		if (this.getNome().equals(b.getNome())
-				&& this.getCpf().equals(b.getCpf())
-				&& this.getMatricula().equals(b.getMatricula())
-				&& this.getTelefone().equals(b.getTelefone())
-				&& this.getEmail().equals(b.getEmail())) {
+	public boolean equals( Cliente b ) {
+		if ( this.getNome().equals( b.getNome() )
+				&& this.getCpf().equals( b.getCpf() )
+				&& this.getMatricula().equals( b.getMatricula() )
+				&& this.getTelefone().equals( b.getTelefone() )
+				&& this.getEmail().equals( b.getEmail() ) ) {
 
 			return true;
 		}
@@ -216,7 +216,7 @@ public abstract class Cliente {
 	 * @param cpf
 	 * @return boolean
 	 */
-	private boolean validarCpf(String cpf) {
+	private boolean validarCpf( String cpf ) {
 
 		int d1, d2;
 		int digito1, digito2, resto;
@@ -227,27 +227,27 @@ public abstract class Cliente {
 		digito1 = digito2 = resto = 0;
 
 		for ( int nCount = 1; nCount < cpf.length() - 1; nCount++ ) {
-			digitoCPF = Integer.valueOf(cpf.substring(nCount - 1, nCount))
+			digitoCPF = Integer.valueOf( cpf.substring( nCount - 1, nCount ) )
 					.intValue();
 
 			/**
 			 * In this line is made a multiplication of the lasts digits 
 			 * by 2 for the last, 3 for the antepenult and so on
 			 */
-			d1 = d1 + (11 - nCount) * digitoCPF;
+			d1 = d1 + ( 11 - nCount ) * digitoCPF;
 
 			/**
 			 * For the second digit it will repeat the operation made
 			 * in the previous line
 			 */
-			d2 = d2 + (12 - nCount) * digitoCPF;
+			d2 = d2 + ( 12 - nCount ) * digitoCPF;
 		}
 
 		/**
 		 *  Calculating the first rest of division per 11.
 		 *  11 is the quantity of digits in a cpf
 		 */
-		resto = (d1 % 11);
+		resto = ( d1 % 11 );
 
 		/**
 		 * If the result is 0 or 1, the first verification digit is 0,
@@ -262,7 +262,7 @@ public abstract class Cliente {
 		d2 += 2 * digito1;
 
 		//Calculating the second rest of division per 11.
-		resto = (d2 % 11);
+		resto = ( d2 % 11 );
 
 		/**
 		 * If the result is 0 or 1, the second verification digit is 0,
@@ -275,13 +275,13 @@ public abstract class Cliente {
 		}
 		
 		// Generating the validation digit for the analysed cpf
-		String nDigVerific = cpf.substring(cpf.length() - 2, cpf.length());
+		String nDigVerific = cpf.substring( cpf.length() - 2, cpf.length() );
 
 		// Concatenating the firs and the second verification digit to make the validation digit
-		nDigResult = String.valueOf(digito1) + String.valueOf(digito2);
+		nDigResult = String.valueOf( digito1 ) + String.valueOf( digito2 );
 
 		// Comparing the two validation digits to know if the cpf is valid
-		return nDigVerific.equals(nDigResult);
+		return nDigVerific.equals( nDigResult );
 
 	}
 
