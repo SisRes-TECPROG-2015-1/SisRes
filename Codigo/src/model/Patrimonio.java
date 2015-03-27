@@ -25,10 +25,10 @@ public class Patrimonio {
 	 * @param descricao
 	 * @throws PatrimonioException
 	 */
-	public Patrimonio(String codigo, String descricao)
+	public Patrimonio( String codigo, String descricao )
 			throws PatrimonioException {
-		this.setCodigo(codigo);
-		this.setDescricao(descricao);
+		this.setCodigo( codigo );
+		this.setDescricao( descricao );
 	}
 
 	/**
@@ -52,11 +52,11 @@ public class Patrimonio {
 	 * @param codigo
 	 * @throws PatrimonioException
 	 */
-	public void setCodigo(String codigo) throws PatrimonioException {
+	public void setCodigo( String codigo ) throws PatrimonioException {
 		if ( codigo == null ) {
-			throw new PatrimonioException(CODIGO_NULO);
-		} else if ( "".equals(codigo.trim()) ) {
-			throw new PatrimonioException(CODIGO_BRANCO);
+			throw new PatrimonioException( CODIGO_NULO );
+		} else if ( "".equals( codigo.trim() ) ) {
+			throw new PatrimonioException( CODIGO_BRANCO );
 		}
 		 /**
 		  * This block of code was already commented. It will stay like this
@@ -76,11 +76,11 @@ public class Patrimonio {
 	 * @param descricao
 	 * @throws PatrimonioException
 	 */
-	public void setDescricao(String descricao) throws PatrimonioException {
+	public void setDescricao( String descricao ) throws PatrimonioException {
 		if ( descricao == null ) { 
-			throw new PatrimonioException(DESCRICAO_NULO);
-		} else if ( "".equals(descricao.trim()) ) {
-			throw new PatrimonioException(DESCRICAO_BRANCO);
+			throw new PatrimonioException( DESCRICAO_NULO );
+		} else if ( "".equals( descricao.trim() ) ) {
+			throw new PatrimonioException( DESCRICAO_BRANCO );
 		} else { 
 			// Nothing to do 
 		}
@@ -93,9 +93,9 @@ public class Patrimonio {
 	 * @param Patrimonio e
 	 * @return boolean
 	 */
-	public boolean equals(Patrimonio e) {
-		if ( this.getCodigo().equals(e.getCodigo())
-				&& this.getDescricao().equals(e.getDescricao()) ) {
+	public boolean equals( Patrimonio e ) {
+		if ( this.getCodigo().equals( e.getCodigo() )
+				&& this.getDescricao().equals( e.getDescricao() ) ) {
 			return true;
 		} else {
 			return false;
