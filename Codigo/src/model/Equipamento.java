@@ -10,9 +10,9 @@ public class Equipamento extends Patrimonio {
 	 * @param descricao
 	 * @throws PatrimonioException
 	 */
-	public Equipamento(String codigo, String descricao)
+	public Equipamento( String codigo, String descricao )
 			throws PatrimonioException {
-		super(codigo, descricao);
+		super( codigo, descricao );
 	}
 
 }
