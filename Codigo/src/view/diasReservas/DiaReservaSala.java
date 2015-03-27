@@ -22,16 +22,16 @@ public class DiaReservaSala extends DiaReservaPatrimonio {
 
     Sala sala;
 
-    public DiaReservaSala(Frame parent, boolean modal, int indexSala) throws SQLException, PatrimonioException {
-        super(parent, modal);
+    public DiaReservaSala( Frame parent, boolean modal, int indexSala ) throws SQLException, PatrimonioException {
+        super( parent, modal );
         sala = ManterSala.getInstance().getSalas_vet().get(indexSala);
-        this.setName("DiaReservaSala");
+        this.setName( "DiaReservaSala" );
     }
 
-    @Override protected void visualizarAction(String data) {
-        HorariosReservaSala reserva = new HorariosReservaSala(new JFrame(), true, data, sala);
-        reserva.setVisible(true);
-        reserva.setResizable(false);
+    @Override protected void visualizarAction( String data ) {
+        HorariosReservaSala reserva = new HorariosReservaSala( new JFrame(), true, data, sala );
+        reserva.setVisible( true );
+        reserva.setResizable( false );
     }
 
 }

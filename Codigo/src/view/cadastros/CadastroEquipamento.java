@@ -17,27 +17,27 @@ import exception.PatrimonioException;
  */
 public class CadastroEquipamento extends CadastroPatrimonio {
 
-    public CadastroEquipamento(java.awt.Frame parent, boolean modal) {
-        super(parent, modal);
-        this.setName("CadastroEquipamento");
-        this.capacidadeLbl.setVisible(false);
-        this.capacidadeTxtField.setVisible(false);
+    public CadastroEquipamento( java.awt.Frame parent, boolean modal ) {
+        super( parent, modal );
+        this.setName( "CadastroEquipamento" );
+        this.capacidadeLbl.setVisible( false );
+        this.capacidadeTxtField.setVisible( false );
     }
 
     @Override protected void cadastroAction() {
 
         try {
-            ManterEquipamento.getInstance().inserir(codigoTxtField.getText(), descricaoTextArea.getText());
-            JOptionPane.showMessageDialog(this, "Equipamento Cadastrado com sucesso", "Sucesso", JOptionPane.INFORMATION_MESSAGE,
-                    null);
-            this.setVisible(false);
+            ManterEquipamento.getInstance().inserir( codigoTxtField.getText(), descricaoTextArea.getText() );
+            JOptionPane.showMessageDialog( this, "Equipamento Cadastrado com sucesso", "Sucesso", JOptionPane.INFORMATION_MESSAGE,
+                    null );
+            this.setVisible( false );
 
-        } catch (PatrimonioException ex) {
-            JOptionPane.showMessageDialog(this, ex.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE, null);
-        } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(this, ex.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE, null);
-        } catch (NullPointerException ex) {
-            JOptionPane.showMessageDialog(this, ex.getLocalizedMessage(), "Erro", JOptionPane.ERROR_MESSAGE, null);
+        } catch ( PatrimonioException ex ) {
+            JOptionPane.showMessageDialog( this, ex.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE, null );
+        } catch ( SQLException ex ) {
+            JOptionPane.showMessageDialog( this, ex.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE, null );
+        } catch ( NullPointerException ex ) {
+            JOptionPane.showMessageDialog( this, ex.getLocalizedMessage(), "Erro", JOptionPane.ERROR_MESSAGE, null );
         }
 
     }

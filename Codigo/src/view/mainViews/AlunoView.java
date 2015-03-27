@@ -26,6 +26,7 @@ public class AlunoView extends ClienteView {
         this.setName("AlunoView");
     }
 
+    //Metodo para obter o iterator
     public Iterator getIterator() {
         try {
             return ManterAluno.getInstance().getAluno_vet().iterator();
@@ -38,6 +39,7 @@ public class AlunoView extends ClienteView {
         return null;
     }
 
+    // Metodo que realiza o cadastro de um novo aluno na view
     @Override public void cadastrarAction() {
 
         CadastroCliente cadastrar = new CadastroAluno(new javax.swing.JFrame(), true);
@@ -47,6 +49,7 @@ public class AlunoView extends ClienteView {
 
     }
 
+    // Metodo para alterar uma action na view
     @Override public void alterarAction(int index) {
 
         AlterarAluno alterar = new AlterarAluno(new javax.swing.JFrame(), true, index);
@@ -55,26 +58,27 @@ public class AlunoView extends ClienteView {
         this.tabelaCliente.setModel(fillTable());
     }
 
+    // Metodo para excluir uma action na view
     @Override public void excluirAction() {
         try {
             int index = this.tabelaCliente.getSelectedRow();
-            if (index < 0) {
+            if ( index < 0 ) {
                 JOptionPane.showMessageDialog(this, "Selecione uma linha!", "Erro", JOptionPane.ERROR_MESSAGE, null);
                 return;
             }
 
-            int confirm = JOptionPane.showConfirmDialog(this, "Deseja mesmo excluir Aluno: "
+            int confirm = JOptionPane.showConfirmDialog( this, "Deseja mesmo excluir Aluno: "
                     + ManterAluno.getInstance().getAluno_vet().get(index).getNome() + "?", "Excluir", JOptionPane.YES_NO_OPTION);
-            if (confirm == JOptionPane.YES_OPTION) {
-                ManterAluno.getInstance().excluir(ManterAluno.getInstance().getAluno_vet().get(index));
-                JOptionPane.showMessageDialog(this, "Aluno excluido com sucesso", "Sucesso", JOptionPane.INFORMATION_MESSAGE, null);
+            if (confirm == JOptionPane.YES_OPTION ) {
+                ManterAluno.getInstance().excluir( ManterAluno.getInstance().getAluno_vet().get(index) );
+                JOptionPane.showMessageDialog( this, "Aluno excluido com sucesso", "Sucesso", JOptionPane.INFORMATION_MESSAGE, null );
             }
-            this.tabelaCliente.setModel(fillTable());
+            this.tabelaCliente.setModel( fillTable() );
 
-        } catch (ClienteException ex) {
-            JOptionPane.showMessageDialog(this, ex.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE, null);
+        } catch ( ClienteException ex ) {
+            JOptionPane.showMessageDialog( this, ex.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE, null );
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(this, ex.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE, null);
+            JOptionPane.showMessageDialog( this, ex.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE, null );
         }
     }
 
