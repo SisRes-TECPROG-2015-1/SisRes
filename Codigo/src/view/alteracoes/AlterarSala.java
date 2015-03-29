@@ -45,6 +45,7 @@ public class AlterarSala extends CadastroPatrimonio {
 
     }
 
+    // This method is the action to the cadastre button
     @Override protected void cadastroAction() {
         try {
 

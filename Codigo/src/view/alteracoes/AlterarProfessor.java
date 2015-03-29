@@ -41,6 +41,7 @@ public class AlterarProfessor extends CadastroCliente {
         }
     }
 
+    // This method is the action to the cadastre button
     @Override public void cadastroAction() {
         try {
             ManterProfessor.getInstance().alterar(nomeTxtField.getText(), cpfTxtField.getText(), matriculaTxtField.getText(),

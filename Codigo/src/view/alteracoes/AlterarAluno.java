@@ -20,6 +20,7 @@ public class AlterarAluno extends CadastroCliente {
 
     int index2 = 0;
 
+    //Constructor
     public AlterarAluno( java.awt.Frame parent, boolean modal, int index ) {
         super( parent, modal );
         this.setTitle( "Alterar" );
@@ -42,6 +43,7 @@ public class AlterarAluno extends CadastroCliente {
         }
     }
 
+    // This method is the action to the button of cadastre
     @Override public void cadastroAction() {
         try {
             ManterAluno.getInstance().alterar( nomeTxtField.getText(), cpfTxtField.getText(), matriculaTxtField.getText(),
