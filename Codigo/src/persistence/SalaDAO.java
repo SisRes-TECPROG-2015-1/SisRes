@@ -26,18 +26,20 @@ public class SalaDAO {
 	}
 
 	public static SalaDAO getInstance() {
-		if ( instance == null )
+		if ( instance == null ) {
 			instance = new SalaDAO();
+		}
 		return instance;
 	}
 
 	//
 
 	public void incluir( Sala sala ) throws SQLException, PatrimonioException {
-		if ( sala == null )
+		if ( sala == null ) {
 			throw new PatrimonioException( SALA_NULA );
-		else if ( this.inDBCodigo( sala.getCodigo() ) )
+		} else if ( this.inDBCodigo( sala.getCodigo() ) ) {
 			throw new PatrimonioException( CODIGO_JA_EXISTENTE );
+		}
 		this.updateQuery( "INSERT INTO "
 				+ "sala (codigo, descricao, capacidade) VALUES (" + "\""
 				+ sala.getCodigo() + "\", " + "\"" + sala.getDescricao()
@@ -46,21 +48,24 @@ public class SalaDAO {
 
 	public void alterar( Sala old_sala, Sala new_sala ) throws SQLException,
 			PatrimonioException {
-		if ( new_sala == null )
+		if ( new_sala == null ) {
 			throw new PatrimonioException( SALA_NULA );
-		if ( old_sala == null )
+		}
+		if ( old_sala == null ) {
 			throw new PatrimonioException( SALA_NULA );
+		}
 
 		Connection con = FactoryConnection.getInstance().getConnection();
 		PreparedStatement pst;
 
-		if ( !this.inDB( old_sala ) )
+		if ( !this.inDB( old_sala ) ) {
 			throw new PatrimonioException( SALA_NAO_EXISTENTE );
-		else if ( this.inOtherDB( old_sala ) )
+		} else if ( this.inOtherDB( old_sala ) ) {
 			throw new PatrimonioException( SALA_EM_USO );
-		else if ( !old_sala.getCodigo().equals( new_sala.getCodigo() )
-				&& this.inDBCodigo( new_sala.getCodigo() ) )
+		} else if ( !old_sala.getCodigo().equals( new_sala.getCodigo() )
+				&& this.inDBCodigo( new_sala.getCodigo() ) ) {
 			throw new PatrimonioException( CODIGO_JA_EXISTENTE );
+		}
 		if ( !this.inDB( new_sala ) ) {
 			String msg = "UPDATE sala SET " + "codigo = \""
 					+ new_sala.getCodigo() + "\", " + "descricao = \""
@@ -73,25 +78,27 @@ public class SalaDAO {
 			pst = con.prepareStatement( msg );
 			pst.executeUpdate();
 			con.commit();
-		} else
+		} else {
 			throw new PatrimonioException( SALA_JA_EXISTENTE );
+		}
 
 		pst.close();
 		con.close();
 	}
 
 	public void excluir( Sala sala ) throws SQLException, PatrimonioException {
-		if ( sala == null )
+		if ( sala == null ) {
 			throw new PatrimonioException( SALA_NULA );
-		else if ( this.inOtherDB( sala ) )
+		} else if ( this.inOtherDB( sala ) ) {
 			throw new PatrimonioException( SALA_EM_USO );
-		else if ( this.inDB( sala ) ) {
+		} else if ( this.inDB( sala ) ) {
 			this.updateQuery( "DELETE FROM sala WHERE " + "sala.codigo = \""
 					+ sala.getCodigo() + "\" and " + "sala.descricao = \""
 					+ sala.getDescricao() + "\" and " + "sala.capacidade = "
 					+ sala.getCapacidade() + ";" );
-		} else
+		} else {
 			throw new PatrimonioException( SALA_NAO_EXISTENTE );
+		}
 	}
 
 	public Vector<Sala> buscarTodos() throws SQLException, PatrimonioException {
@@ -129,8 +136,9 @@ public class SalaDAO {
 		PreparedStatement pst = con.prepareStatement( query );
 		ResultSet rs = pst.executeQuery();
 
-		while ( rs.next() )
+		while ( rs.next() ) {
 			vet.add( this.fetchSala( rs ) );
+		}
 
 		pst.close();
 		rs.close();
