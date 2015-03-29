@@ -9,11 +9,14 @@ public abstract class DiaReservaPatrimonio extends javax.swing.JDialog {
         super( parent, modal );
         initComponents();
     }
-
+    
+    // This method sets the action visible to the user
     protected abstract void visualizarAction(String data);
 
     @SuppressWarnings( "unchecked" )// <editor-fold defaultstate="collapsed"
                                   // desc="Generated Code">//GEN-BEGIN:initComponents
+    
+    // This method initialize the swing components
     private void initComponents() {
 
         visualizarButton = new javax.swing.JButton();
@@ -63,7 +66,9 @@ public abstract class DiaReservaPatrimonio extends javax.swing.JDialog {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
+    
+    
+    // This method is the action to make appear the data to the user
     private void visualizarButtonActionPerformed( java.awt.event.ActionEvent evt ) {// GEN-FIRST:event_visualizarButtonActionPerformed
         String data;
         int mes = 1 + this.jCalendar1.getMonthChooser().getMonth();
