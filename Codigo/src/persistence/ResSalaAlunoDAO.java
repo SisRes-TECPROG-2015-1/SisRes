@@ -37,8 +37,9 @@ public class ResSalaAlunoDAO extends DAO {
 	}
 
 	public static ResSalaAlunoDAO getInstance() {
-		if ( instance == null )
+		if ( instance == null ) {
 			instance = new ResSalaAlunoDAO();
+		}
 		return instance;
 	}
 
@@ -103,55 +104,59 @@ public class ResSalaAlunoDAO extends DAO {
 
 	public void incluir( ReservaSalaAluno r ) throws ReservaException,
 			SQLException, ClienteException, PatrimonioException {
-		if ( r == null )
+		if ( r == null ) {
 			throw new ReservaException( NULA );
-		else if ( !this.alunoinDB( r.getAluno() )  )
+		} else if ( !this.alunoinDB( r.getAluno() )  ) {
 			throw new ReservaException( ALUNO_INEXISTENTE );
-		else if ( !this.salainDB( r.getSala() ) )
+		} else if ( !this.salainDB( r.getSala() ) ) {
 			throw new ReservaException(SALA_INEXISTENTE);
-		else if ( this.salainReservaProfessorDB( r.getSala(), r.getData(),
-				r.getHora() ) )
+		} else if ( this.salainReservaProfessorDB( r.getSala(), r.getData(),
+				r.getHora() ) ) {
 			throw new ReservaException( SALA_INDISPONIVEL );
-		else if (this.alunoinReservaDB( r.getAluno(), r.getData(), r.getHora() ) )
+		} else if (this.alunoinReservaDB( r.getAluno(), r.getData(), r.getHora() ) ) {
 			throw new ReservaException( ALUNO_INDISPONIVEL );
-		else if ( !this.haCadeiras( r.getCadeiras_reservadas(), r.getSala(),
-				r.getData(), r.getHora() ) )
+		} else if ( !this.haCadeiras( r.getCadeiras_reservadas(), r.getSala(),
+				r.getData(), r.getHora() ) ) {
 			throw new ReservaException( CADEIRAS_INDISPONIVEIS );
-		if ( this.dataPassou( r.getData() ) )
+		}
+		if ( this.dataPassou( r.getData() ) ) {
 			throw new ReservaException( DATA_JA_PASSOU );
+		}
 		if ( this.dataIgual( r.getData() ) ) {
-			if ( this.horaPassou( r.getHora() ) )
+			if ( this.horaPassou( r.getHora() ) ) {
 				throw new ReservaException( HORA_JA_PASSOU );
-			else
+			} else {
 				super.executeQuery( this.insert_into( r ) );
-		} else
+			}
+		} else {
 			super.executeQuery( this.insert_into( r ) );
+		}
 	}
 
 	public void alterar( ReservaSalaAluno r, ReservaSalaAluno r_new )
 			throws ReservaException, SQLException, ClienteException,
 			PatrimonioException {
-		if ( r == null )
+		if ( r == null ) {
 			throw new ReservaException( NULA );
-		else if ( r_new == null )
+		} else if ( r_new == null ) {
 			throw new ReservaException( NULA );
-
-		else if ( !this.reservainDB( r ) )
+		} else if ( !this.reservainDB( r ) ) {
 			throw new ReservaException( RESERVA_INEXISTENTE );
-		else if ( this.reservainDB( r_new ) )
+		} else if ( this.reservainDB( r_new ) ) {
 			throw new ReservaException( RESERVA_EXISTENTE );
-		else if ( !this.alunoinDB( r_new.getAluno() ) )
+		} else if ( !this.alunoinDB( r_new.getAluno() ) ) {
 			throw new ReservaException( ALUNO_INEXISTENTE );
-		else if ( !this.salainDB( r_new.getSala() ) )
+		} else if ( !this.salainDB( r_new.getSala() ) ) {
 			throw new ReservaException( SALA_INEXISTENTE );
-		else if ( !r.getData().equals( r_new.getData() )
+		} else if ( !r.getData().equals( r_new.getData() )
 				|| !r.getHora().equals( r_new.getHora() ) ) {
 			if ( this.alunoinReservaDB( r_new.getAluno(), r_new.getData(),
-					r_new.getHora() ) )
+					r_new.getHora() ) ) {
 				throw new ReservaException( ALUNO_INDISPONIVEL );
-			else if ( this.salainReservaProfessorDB( r_new.getSala(),
-					r_new.getData(), r_new.getHora() ) )
+			} else if ( this.salainReservaProfessorDB( r_new.getSala(),
+					r_new.getData(), r_new.getHora() ) ) {
 				throw new ReservaException( SALA_INDISPONIVEL );
+			}
 		}
 		if ( !this
 				.haCadeiras(
@@ -159,25 +164,29 @@ public class ResSalaAlunoDAO extends DAO {
 								+ ( Integer.parseInt( r_new
 										.getCadeiras_reservadas() ) - Integer
 										.parseInt(r.getCadeiras_reservadas() ) ),
-						r_new.getSala(), r_new.getData(), r_new.getHora() ) )
+						r_new.getSala(), r_new.getData(), r_new.getHora() ) ) {
 			throw new ReservaException( CADEIRAS_INDISPONIVEIS );
-		if ( this.dataPassou( r_new.getData() ) )
+		}
+		if ( this.dataPassou( r_new.getData() ) ) {
 			throw new ReservaException( DATA_JA_PASSOU );
-		if ( this.horaPassou( r_new.getHora() ) && this.dataIgual( r_new.getData() ) )
+		}
+		if ( this.horaPassou( r_new.getHora() ) && this.dataIgual( r_new.getData() ) ) {
 			throw new ReservaException( HORA_JA_PASSOU );
-		else
+		} else {
 			super.updateQuery( this.update( r, r_new ) );
+		}
 
 	}
 
 	public void excluir( ReservaSalaAluno r ) throws ReservaException,
 			SQLException {
-		if ( r == null )
+		if ( r == null ) {
 			throw new ReservaException( NULA );
-		else if ( !this.reservainDB( r ) )
+		} else if ( !this.reservainDB( r ) ) {
 			throw new ReservaException( RESERVA_INEXISTENTE );
-		else
+		} else {
 			super.executeQuery( this.delete_from( r ) );
+		}
 	}
 
 	public Vector<ReservaSalaAluno> buscarTodos() throws SQLException,
@@ -221,8 +230,9 @@ public class ResSalaAlunoDAO extends DAO {
 		while ( it.hasNext() ) {
 			ReservaSalaAluno r = it.next();
 			if ( r.getSala().equals( sala ) && r.getData().equals( data )
-					&& r.getHora().equals( hora ) )
+					&& r.getHora().equals( hora ) ) {
 				total -= Integer.parseInt( r.getCadeiras_reservadas() );
+			}
 		}
 		return total;
 	}
@@ -231,8 +241,9 @@ public class ResSalaAlunoDAO extends DAO {
 			String data, String hora ) throws SQLException, ClienteException,
 			PatrimonioException, ReservaException {
 		if ( this.cadeirasDisponiveis( sala, data, hora ) >= Integer
-				.parseInt( cadeiras_reservadas ) )
+				.parseInt( cadeiras_reservadas ) ) {
 			return true;
+		}
 		return false;
 	}
 
@@ -350,20 +361,22 @@ public class ResSalaAlunoDAO extends DAO {
 		int dif = agora[2].length() - data[2].length();
 		data[2] = agora[2].substring(0, dif) + data[2];
 
-		if ( Integer.parseInt( agora[2] ) > Integer.parseInt( data[2] ) )
+		if ( Integer.parseInt( agora[2] ) > Integer.parseInt( data[2] ) ) {
 			return true;
+		}
 
 		dif = agora[1].length() - data[1].length();
 		data[1] = agora[1].substring( 0, dif ) + data[1];
 
-		if ( Integer.parseInt( agora[1] ) > Integer.parseInt( data[1] ) )
+		if ( Integer.parseInt( agora[1] ) > Integer.parseInt( data[1] ) ) {
 			return true;
-		else if ( Integer.parseInt( agora[1] ) == Integer.parseInt( data[1] ) ) {
+		} else if ( Integer.parseInt( agora[1] ) == Integer.parseInt( data[1] ) ) {
 			dif = agora[0].length() - data[0].length();
 			data[0] = agora[0].substring(0, dif) + data[0];
 
-			if ( Integer.parseInt( agora[0] ) > Integer.parseInt( data[0] ) )
+			if ( Integer.parseInt( agora[0] ) > Integer.parseInt( data[0] ) ) {
 				return true;
+			}
 		}
 		return false;
 	}
@@ -374,27 +387,31 @@ public class ResSalaAlunoDAO extends DAO {
 		String data[] = d.split( "[./-]" );
 
 		if ( agora[0].equals( data[0] ) && agora[1].equals( data[1] )
-				&& agora[2].equals( data[2] ) )
+				&& agora[2].equals( data[2] ) ) {
 			return true;
+		}
 		return false;
 	}
 
 	private boolean horaPassou( String hora ) {
 		String agora = this.horaAtual();
-		if ( hora.length() == 4 )
+		if ( hora.length() == 4 ) {
 			hora = "0" + hora;
+		}
 		if ( Integer.parseInt( agora.substring( 0, 2 ) ) > Integer.parseInt( hora
-				.substring( 0, 2 ) ) )
+				.substring( 0, 2 ) ) ) {
 			return true;
-		else if ( Integer.parseInt( agora.substring( 0, 2 ) ) == Integer
+		} else if ( Integer.parseInt( agora.substring( 0, 2 ) ) == Integer
 				.parseInt( hora.substring( 0, 2 ) ) ) {
 			if ( Integer.parseInt( agora.substring( 3, 5 ) ) > Integer.parseInt(hora
-					.substring( 3, 5 ) ) )
+					.substring( 3, 5 ) ) ) {
 				return true;
-			else
+			} else {
 				return false;
-		} else
+			}
+		} else {
 			return false;
+		}
 	}
 
 	private String padronizarData( String data ) {
@@ -403,15 +420,16 @@ public class ResSalaAlunoDAO extends DAO {
 		String dataNoPadrao = "";
 
 		for ( int i = 0; i < 3; i++ ) {
-			if ( i == 0 )
+			if ( i == 0 ) {
 				dataNoPadrao += agora[i].substring( 0, agora[i].length()
 						- partes[i].length() )
 						+ partes[i];
-			else
+			} else {
 				dataNoPadrao += "/"
 						+ agora[i].substring( 0,
 								agora[i].length() - partes[i].length() )
 						+ partes[i];
+			}
 
 		}
 
@@ -419,8 +437,9 @@ public class ResSalaAlunoDAO extends DAO {
 	}
 
 	private String padronizarHora( String hora ) {
-		if ( hora.length() == 4 )
+		if ( hora.length() == 4 ) {
 			return "0" + hora;
+		}
 		return hora;
 	}
 
