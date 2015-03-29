@@ -23,6 +23,7 @@ public class CadastroProfessor extends CadastroCliente {
 
     }
 
+ // This method is the action to the cadastre button
     @Override public void cadastroAction() {
         try {
             if (cadastroBtn.getText().equals("Cadastrar")) {

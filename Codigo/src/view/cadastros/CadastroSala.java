@@ -21,7 +21,8 @@ public class CadastroSala extends CadastroPatrimonio {
         super(parent, modal);
         this.setName("CadastroSala");
     }
-
+    
+ // This method is the action to the cadastre button
     @Override protected void cadastroAction() {
         try {
             // JOptionPane.showMessageDialog(this, codigoTxtField.getText() +

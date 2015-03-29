@@ -18,8 +18,10 @@ public abstract class CadastroPatrimonio extends javax.swing.JDialog {
         initComponents();
     }
 
+    // Method signature
     protected abstract void cadastroAction();
 
+    // This method initializate the swing components
     public void initComponents() {
 
         codigoLbl = new javax.swing.JLabel();

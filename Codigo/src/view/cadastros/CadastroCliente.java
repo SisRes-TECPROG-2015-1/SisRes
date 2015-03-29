@@ -21,7 +21,8 @@ public abstract class CadastroCliente extends javax.swing.JDialog {// implements
         initComponents();
 
     }
-
+    
+    //Method signature
     public abstract void cadastroAction();
 
     /**
