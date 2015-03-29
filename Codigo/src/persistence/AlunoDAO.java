@@ -211,7 +211,7 @@ public class AlunoDAO {
 	private void updateQuery( String msg ) throws SQLException {
 		Connection con =  FactoryConnection.getInstance().getConnection();
 		PreparedStatement pst = con.prepareStatement( msg );
-		pst.executeUpdate();		
+		pst.executeUpdate();
 		pst.close();
 		con.close();
 	}
