@@ -22,22 +22,22 @@ public class AlunoDAO {
 		private AlunoDAO() {
 		}
 		public static AlunoDAO getInstance() {
-			if( instance == null )
+			if( instance == null ) {
 				instance = new AlunoDAO();
+			}
 			return instance;
 		}
 	//
 	
 		
 	public void incluir( Aluno aluno ) throws SQLException, ClienteException {
-		if( aluno == null )
+		if ( aluno == null ) {
 			throw new ClienteException(ALUNO_NULO);
-		else if( this.inDBCpf( aluno.getCpf() ) )
+		} else if ( this.inDBCpf( aluno.getCpf() ) ){
 			throw new ClienteException( CPF_JA_EXISTENTE );
-		else if(this.inDBMatricula( aluno.getMatricula() ) )
+		} else if ( this.inDBMatricula( aluno.getMatricula() ) ){
 				throw new ClienteException( MATRICULA_JA_EXISTENTE );
-		else if( !this.inDB( aluno ) )
-		{
+		} else if ( !this.inDB( aluno ) ) {
 			this.updateQuery( "INSERT INTO " +
 					"aluno ( nome, cpf, telefone, email, matricula ) VALUES (" +
 					"\"" + aluno.getNome() + "\", " +
@@ -46,30 +46,31 @@ public class AlunoDAO {
 					"\"" + aluno.getEmail() + "\", " +
 					"\"" + aluno.getMatricula() + "\"); "
 					);
-		}
-		else
+		} else {
 			throw new ClienteException( ALUNO_JA_EXISTENTE );
+		}
 	}
 
 	public void alterar( Aluno aluno_velho, Aluno aluno_novo ) throws SQLException, ClienteException {
-		if( aluno_velho == null )
+		if( aluno_velho == null ) {
 			throw new ClienteException( ALUNO_NULO );
-		if( aluno_novo == null )
+		}
+		if( aluno_novo == null ) {
 			throw new ClienteException( ALUNO_NULO );
+		}
 		
 		Connection con = FactoryConnection.getInstance().getConnection();
 		PreparedStatement pst;
 		
-		if( !this.inDB( aluno_velho ) )
+		if( !this.inDB( aluno_velho ) ) {
 			throw new ClienteException( ALUNO_NAO_EXISTENTE );
-		else if( this.inOtherDB( aluno_velho ) )
+		} else if ( this.inOtherDB( aluno_velho ) ) {
 			throw new ClienteException( ALUNO_EM_USO );
-		else if( !aluno_velho.getCpf().equals( aluno_novo.getCpf() ) && this.inDBCpf( aluno_novo.getCpf() ) )
+		} else if ( !aluno_velho.getCpf().equals( aluno_novo.getCpf() ) && this.inDBCpf( aluno_novo.getCpf() ) ){
 			throw new ClienteException( CPF_JA_EXISTENTE );
-		else if( !aluno_velho.getMatricula().equals( aluno_novo.getMatricula() ) && this.inDBMatricula( aluno_novo.getMatricula() ) )
+		} else if ( !aluno_velho.getMatricula().equals( aluno_novo.getMatricula() ) && this.inDBMatricula( aluno_novo.getMatricula() ) ) {
 				throw new ClienteException( MATRICULA_JA_EXISTENTE );
-		else if( !this.inDB( aluno_novo ) )
-		{
+		} else if( !this.inDB( aluno_novo ) ) {
 			String msg = "UPDATE aluno SET " +
 				"nome = \"" + aluno_novo.getNome() + "\", " +
 				"cpf = \"" + aluno_novo.getCpf() + "\", " +
@@ -86,20 +87,21 @@ public class AlunoDAO {
 			pst = con.prepareStatement( msg );
 			pst.executeUpdate();
 			con.commit();
-		}
-		else
+		} else {
 			throw new ClienteException( ALUNO_JA_EXISTENTE );
+		}
 
 		pst.close();
 		con.close();
 	}
 
 	public void excluir( Aluno aluno ) throws SQLException, ClienteException {
-		if( aluno == null )
+		if ( aluno == null ) {
 			throw new ClienteException( ALUNO_NULO );
-		else if( this.inOtherDB( aluno ) )
+		}
+		else if ( this.inOtherDB( aluno ) ) {
 			throw new ClienteException( ALUNO_EM_USO );
-		else if( this.inDB( aluno ) ){
+		} else if ( this.inDB( aluno ) ) {
 			this.updateQuery( "DELETE FROM aluno WHERE " +
 				"aluno.nome = \"" + aluno.getNome() + "\" and " +
 				"aluno.cpf = \"" + aluno.getCpf() + "\" and " +
@@ -107,9 +109,9 @@ public class AlunoDAO {
 				"aluno.email = \"" + aluno.getEmail() + "\" and " +
 				"aluno.matricula = \"" + aluno.getMatricula() + "\";"
 				);
-		}
-		else
+		} else {
 			throw new ClienteException( ALUNO_NAO_EXISTENTE );
+		}
 	}
 
 	
@@ -146,8 +148,9 @@ public class AlunoDAO {
 		PreparedStatement pst = con.prepareStatement(query);
 		ResultSet rs = pst.executeQuery();
 		
-		while( rs.next() )
+		while ( rs.next() ) {
 			vet.add( this.fetchAluno( rs ) );
+		}
 		
 		pst.close();
 		rs.close();
@@ -161,14 +164,12 @@ public class AlunoDAO {
 		PreparedStatement pst = con.prepareStatement( query );
 		ResultSet rs = pst.executeQuery();
 		
-		if( !rs.next() )
-		{
+		if( !rs.next() ) {
 			rs.close();
 			pst.close();
 			con.close();
 			return false;
-		}
-		else {
+		} else {
 			rs.close();
 			pst.close();
 			con.close();
