@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="Codigo/aceitacao"/>
+	<classpathentry kind="src" path="Codigo/src"/>
+	<classpathentry kind="src" path="Codigo/testes_unitarios"/>
+	<classpathentry kind="lib" path="Codigo/lib/fest-assert-1.2-sources.jar"/>
+	<classpathentry kind="lib" path="Codigo/lib/fest-assert-1.2.jar"/>
+	<classpathentry kind="lib" path="Codigo/lib/fest-reflect-1.2-sources.jar"/>
+	<classpathentry kind="lib" path="Codigo/lib/fest-reflect-1.2.jar"/>
+	<classpathentry kind="lib" path="Codigo/lib/fest-swing-1.2-sources.jar"/>
+	<classpathentry kind="lib" path="Codigo/lib/fest-swing-1.2.jar"/>
+	<classpathentry kind="lib" path="Codigo/lib/fest-swing-junit-1.2-sources.jar"/>
+	<classpathentry kind="lib" path="Codigo/lib/fest-swing-junit-1.2.jar"/>
+	<classpathentry kind="lib" path="Codigo/lib/fest-swing-junit-4.3.1-1.2-sources.jar"/>
+	<classpathentry kind="lib" path="Codigo/lib/fest-swing-junit-4.3.1-1.2.jar"/>
+	<classpathentry kind="lib" path="Codigo/lib/fest-swing-junit-4.5-1.2-sources.jar"/>
+	<classpathentry kind="lib" path="Codigo/lib/fest-swing-junit-4.5-1.2.jar"/>
+	<classpathentry kind="lib" path="Codigo/lib/fest-util-1.1.2-sources.jar"/>
+	<classpathentry kind="lib" path="Codigo/lib/fest-util-1.1.2.jar"/>
+	<classpathentry kind="lib" path="Codigo/lib/jcalendar-1.4.jar"/>
+	<classpathentry kind="lib" path="Codigo/lib/jcip-annotations-1.0-sources.jar"/>
+	<classpathentry kind="lib" path="Codigo/lib/jcip-annotations-1.0.jar"/>
+	<classpathentry kind="lib" path="Codigo/lib/jgoodies-common-1.2.0.jar"/>
+	<classpathentry kind="lib" path="Codigo/lib/mysql-connector-java-5.1.22-bin.jar"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>
