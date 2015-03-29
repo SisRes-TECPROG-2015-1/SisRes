@@ -1,2 +1,7 @@
 .DS_Store
+<<<<<<< HEAD
+=======
+.classpath
+.project
+>>>>>>> 5f81a2cc5c635f90fa6d5c56eb52db7e04a44977
 /bin/
