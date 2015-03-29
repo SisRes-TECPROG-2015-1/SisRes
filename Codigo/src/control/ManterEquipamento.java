@@ -17,7 +17,7 @@ public class ManterEquipamento {
 	}
 	
 	/**
-	 * Creates an instance of an equipment if it isn't allready instanciated.
+	 * Creates an instance of an equipment if it isn't already instantiated.
 	 * @return Equipamento - An equipment
 	 */
 	public static ManterEquipamento getInstance() {
@@ -39,7 +39,7 @@ public class ManterEquipamento {
 
 	
 	/**
-	 * Inserts a new equipment and its atributes
+	 * Inserts a new equipment and its attributes
 	 * @return Equipamento - An equipment
 	 */
 	public void inserir(String codigo, String descricao) throws PatrimonioException, SQLException {
@@ -50,7 +50,7 @@ public class ManterEquipamento {
 
 	
 	/**
-	 * Alterates an equipment's attributes
+	 * Changes an equipment's attributes
 	 * @return void
 	 */
 	public void alterar(String codigo, String descricao, Equipamento equipamento) throws PatrimonioException, SQLException {

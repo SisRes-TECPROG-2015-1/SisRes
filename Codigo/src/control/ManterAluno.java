@@ -19,26 +19,26 @@ public class ManterAluno {
 	
 		
 	/**
-	 * Creates an instance of a Studant if it isn't allready instanciated.
-	 * @return - Aluno - A Studant
+	 * Creates an instance of a student if it isn't already instantiated.
+	 * @return - Aluno - A student
 	 */
 	public static ManterAluno getInstance () {
 		if ( instance == null )
-		instance = new ManterAluno ();
+		instance = new ManterAluno();
 		return instance;
 	}
 	
 	/**
-	 * Searches for a Studant by its name
-	 * @return Aluno - A Studant
+	 * Searches for a student by its name
+	 * @return Aluno - A student
 	 */
 	public Vector <Aluno> buscarNome ( String valor ) throws SQLException, ClienteException {
 		return AlunoDAO.getInstance().buscarNome(valor);
 	}
 	
 	/**
-	 * Searches for a Studant by its CPF
-	 * @return Aluno - A Studant
+	 * Searches for a student by its CPF
+	 * @return Aluno - A student
 	 */
 	public Vector <Aluno> buscarCpf ( String valor ) throws SQLException, ClienteException {
 		return AlunoDAO.getInstance().buscarCpf(valor);
@@ -46,8 +46,8 @@ public class ManterAluno {
 	
 	
 	/**
-	 * Searches for a Studant by its enrollment
-	 * @return Aluno - A Studant
+	 * Searches for a student by its enrollment
+	 * @return Aluno - A student
 	 */
 	public Vector <Aluno> buscarMatricula ( String valor ) throws SQLException, ClienteException {
 		return AlunoDAO.getInstance().buscarMatricula(valor);
@@ -55,16 +55,16 @@ public class ManterAluno {
 	
 	
 	/**
-	 * Searches for a Studant by its e-mail
-	 * @return Aluno - A Studant
+	 * Searches for a student by its e-mail
+	 * @return Aluno - A student
 	 */
 	public Vector <Aluno> buscarEmail ( String valor ) throws SQLException, ClienteException {
 		return AlunoDAO.getInstance().buscarEmail(valor);
 	}
 	
 	/**
-	 * Searches for a Studant by its telphone number
-	 * @return Aluno - A Studant
+	 * Searches for a student by its telephone number
+	 * @return Aluno - A student
 	 */
 	public Vector <Aluno> buscarTelefone ( String valor ) throws SQLException, ClienteException {
 		return AlunoDAO.getInstance().buscarTelefone(valor);
@@ -72,8 +72,8 @@ public class ManterAluno {
 	
 	
 	/**
-	 * Captures all the Studants in database
-	 * @return Vector - Studants
+	 * Captures all the students in database
+	 * @return Vector - students
 	 */	
 	public Vector <Aluno> getAluno_vet() throws SQLException, ClienteException {
 		this.alunos_vet = AlunoDAO.getInstance().buscarTodos();
@@ -82,7 +82,7 @@ public class ManterAluno {
 	
 	
 	/**
-	 * Inserts a new Studant in the database and its atributes
+	 * Inserts a new student in the database and its attributes
 	 * @return void
 	 */
 	public void inserir ( String nome, String cpf, String matricula,
@@ -95,7 +95,7 @@ public class ManterAluno {
 
 	
 	/**
-	 * Alterates a Studant atributes like name, CPF, enrollment and others
+	 * Changes a student attributes like name, CPF, enrollment and others
 	 * @return void
 	 */
 	public void alterar ( String nome, String cpf, String matricula,
@@ -117,7 +117,7 @@ public class ManterAluno {
 	
 	
 	/**
-	 * Excludes a Studant from the database by its intance
+	 * Excludes a student from the database by its isntance
 	 * @return void
 	 */
 	public void excluir ( Aluno aluno ) throws SQLException, ClienteException {

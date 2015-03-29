@@ -8,14 +8,12 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Vector;
 
-import model.Aluno;
-
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
+import model.Aluno;
 import persistence.FactoryConnection;
-
 import control.ManterAluno;
 import exception.ClienteException;
 
