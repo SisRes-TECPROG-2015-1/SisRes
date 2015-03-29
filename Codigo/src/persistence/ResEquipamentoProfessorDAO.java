@@ -29,7 +29,7 @@ public class ResEquipamentoProfessorDAO extends DAO {
 	}
 
 	public static ResEquipamentoProfessorDAO getInstance() {
-		if (instance == null)
+		if ( instance == null )
 			instance = new ResEquipamentoProfessorDAO();
 		return instance;
 	}
@@ -37,7 +37,7 @@ public class ResEquipamentoProfessorDAO extends DAO {
 	//
 
 	// Querys de Reuso
-	private String select_id_professor(Professor p) {
+	private String select_id_professor( Professor p ) {
 		return "SELECT id_professor FROM professor WHERE "
 				+ "professor.nome = \"" + p.getNome() + "\" and "
 				+ "professor.cpf = \"" + p.getCpf() + "\" and "
@@ -46,203 +46,203 @@ public class ResEquipamentoProfessorDAO extends DAO {
 				+ "professor.matricula = \"" + p.getMatricula() + "\"";
 	}
 
-	private String select_id_equipamento(Equipamento equipamento) {
+	private String select_id_equipamento( Equipamento equipamento ) {
 		return "SELECT id_equipamento FROM equipamento WHERE "
 				+ "equipamento.codigo = \"" + equipamento.getCodigo()
 				+ "\" and " + "equipamento.descricao = \""
 				+ equipamento.getDescricao();
 	}
 
-	private String where_reserva_equipamento_professor(
-			ReservaEquipamentoProfessor r) {
+	private String where_reserva_equipamento_professor( 
+			ReservaEquipamentoProfessor r ) {
 		return " WHERE " + "id_professor = ( "
-				+ select_id_professor(r.getProfessor()) + " ) and "
+				+ select_id_professor( r.getProfessor() ) + " ) and "
 				+ "id_equipamento = ( "
-				+ select_id_equipamento(r.getEquipamento()) + " ) and "
+				+ select_id_equipamento( r.getEquipamento() ) + " ) and "
 				+ "hora = \"" + r.getHora() + "\" and " + "data = \""
 				+ r.getData();
 	}
 
-	private String values_reserva_equipamento_professor(
-			ReservaEquipamentoProfessor r) {
-		return "( " + select_id_professor(r.getProfessor()) + " ), " + "( "
-				+ select_id_equipamento(r.getEquipamento()) + " ), " + "\""
+	private String values_reserva_equipamento_professor( 
+			ReservaEquipamentoProfessor r ) {
+		return "( " + select_id_professor( r.getProfessor() ) + " ), " + "( "
+				+ select_id_equipamento( r.getEquipamento() ) + " ), " + "\""
 				+ r.getHora() + "\", " + "\"" + r.getData();
 	}
 
-	private String atributes_value_reserva_equipamento_professor(
-			ReservaEquipamentoProfessor r) {
-		return "id_professor = ( " + select_id_professor(r.getProfessor())
+	private String atributes_value_reserva_equipamento_professor( 
+			ReservaEquipamentoProfessor r ) {
+		return "id_professor = ( " + select_id_professor( r.getProfessor() )
 				+ " ), " + "id_equipamento = ( "
-				+ select_id_equipamento(r.getEquipamento()) + " ), "
+				+ select_id_equipamento( r.getEquipamento() ) + " ), "
 				+ "hora = \"" + r.getHora() + "\", " + "data = \""
 				+ r.getData();
 	}
 
-	private String insert_into(ReservaEquipamentoProfessor r) {
+	private String insert_into( ReservaEquipamentoProfessor r ) {
 		return "INSERT INTO "
 				+ "reserva_equipamento_professor (id_professor, id_equipamento, hora, data) "
-				+ "VALUES ( " + values_reserva_equipamento_professor(r) + " );";
+				+ "VALUES ( " + values_reserva_equipamento_professor( r ) + " );";
 	}
 
-	private String update(ReservaEquipamentoProfessor r,
-			ReservaEquipamentoProfessor r2) {
+	private String update( ReservaEquipamentoProfessor r,
+			ReservaEquipamentoProfessor r2 ) {
 		return "UPDATE reserva_equipamento_professor SET "
-				+ this.atributes_value_reserva_equipamento_professor(r2)
-				+ this.where_reserva_equipamento_professor(r) + " ;";
+				+ this.atributes_value_reserva_equipamento_professor( r2 )
+				+ this.where_reserva_equipamento_professor( r ) + " ;";
 	}
 
-	private String delete_from_professor(ReservaEquipamentoProfessor r) {
+	private String delete_from_professor( ReservaEquipamentoProfessor r ) {
 		return "DELETE FROM reserva_equipamento_professor "
-				+ this.where_reserva_equipamento_professor(r) + " ;";
+				+ this.where_reserva_equipamento_professor( r ) + " ;";
 	}
 
-	private String delete_from_aluno(ReservaEquipamentoProfessor r) {
+	private String delete_from_aluno( ReservaEquipamentoProfessor r ) {
 		return "DELETE FROM reserva_equipamento_aluno WHERE " + "hora = \""
 				+ r.getHora() + "\" and " + "data = \"" + r.getData() + " ;";
 	}
 
-	public void incluir(ReservaEquipamentoProfessor r) throws ReservaException,
+	public void incluir( ReservaEquipamentoProfessor r ) throws ReservaException,
 			SQLException {
-		if (r == null)
-			throw new ReservaException(NULA);
-		else if (!this.professorinDB(r.getProfessor()))
-			throw new ReservaException(PROFESSOR_INEXISTENTE);
-		else if (!this.equipamentoinDB(r.getEquipamento()))
-			throw new ReservaException(EQUIPAMENTO_INEXISTENTE);
-		else if (this.equipamentoinReservaDB(r.getEquipamento(), r.getData(),
-				r.getHora()))
-			throw new ReservaException(EQUIPAMENTO_INDISPONIVEL);
-		else if (this.professorinReservaDB(r.getProfessor(), r.getData(),
-				r.getHora()))
-			throw new ReservaException(RESERVA_EXISTENTE);
+		if ( r == null )
+			throw new ReservaException( NULA );
+		else if ( !this.professorinDB(r.getProfessor() ) )
+			throw new ReservaException( PROFESSOR_INEXISTENTE );
+		else if ( !this.equipamentoinDB( r.getEquipamento() ) )
+			throw new ReservaException( EQUIPAMENTO_INEXISTENTE );
+		else if ( this.equipamentoinReservaDB(r.getEquipamento(), r.getData(),
+				r.getHora() ) )
+			throw new ReservaException( EQUIPAMENTO_INDISPONIVEL );
+		else if ( this.professorinReservaDB( r.getProfessor(), r.getData(),
+				r.getHora() ) )
+			throw new ReservaException( RESERVA_EXISTENTE );
 		else {
-			super.executeQuery(this.delete_from_aluno(r));
-			super.executeQuery(this.insert_into(r));
+			super.executeQuery( this.delete_from_aluno( r ) );
+			super.executeQuery( this.insert_into( r ) );
 		}
 
 	}
 
-	public void alterar(ReservaEquipamentoProfessor r,
-			ReservaEquipamentoProfessor r_new) throws ReservaException,
+	public void alterar( ReservaEquipamentoProfessor r,
+			ReservaEquipamentoProfessor r_new ) throws ReservaException,
 			SQLException {
-		if (r == null)
-			throw new ReservaException(NULA);
-		else if (r_new == null)
-			throw new ReservaException(NULA);
+		if ( r == null )
+			throw new ReservaException( NULA );
+		else if ( r_new == null )
+			throw new ReservaException( NULA );
 
-		else if (!this.reservainDB(r))
-			throw new ReservaException(RESERVA_INEXISTENTE);
-		else if (this.reservainDB(r_new))
-			throw new ReservaException(RESERVA_EXISTENTE);
-		else if (!r.getData().equals(r_new.getData())
-				|| !r.getHora().equals(r_new.getHora())) {
-			if (this.professorinReservaDB(r_new.getProfessor(),
-					r_new.getData(), r_new.getHora()))
-				throw new ReservaException(RESERVA_EXISTENTE);// Perguntar pro
+		else if ( !this.reservainDB( r ) )
+			throw new ReservaException( RESERVA_INEXISTENTE );
+		else if ( this.reservainDB( r_new ) )
+			throw new ReservaException( RESERVA_EXISTENTE );
+		else if ( !r.getData().equals( r_new.getData() )
+				|| !r.getHora().equals( r_new.getHora() ) ) {
+			if ( this.professorinReservaDB( r_new.getProfessor(),
+					r_new.getData(), r_new.getHora() ) )
+				throw new ReservaException( RESERVA_EXISTENTE );// Perguntar pro
 																// Matheus
-			else if (this.equipamentoinReservaDB(r_new.getEquipamento(),
-					r_new.getData(), r_new.getHora()))
-				throw new ReservaException(EQUIPAMENTO_INDISPONIVEL);
-		} else if (!this.professorinDB(r_new.getProfessor()))
-			throw new ReservaException(PROFESSOR_INEXISTENTE);
-		else if (!this.equipamentoinDB(r_new.getEquipamento()))
-			throw new ReservaException(EQUIPAMENTO_INEXISTENTE);
+			else if ( this.equipamentoinReservaDB( r_new.getEquipamento(),
+					r_new.getData(), r_new.getHora() ) )
+				throw new ReservaException( EQUIPAMENTO_INDISPONIVEL );
+		} else if ( !this.professorinDB( r_new.getProfessor() ) )
+			throw new ReservaException( PROFESSOR_INEXISTENTE );
+		else if (!this.equipamentoinDB( r_new.getEquipamento() ) )
+			throw new ReservaException( EQUIPAMENTO_INEXISTENTE );
 		else
-			super.updateQuery(this.update(r, r_new));
+			super.updateQuery( this.update( r, r_new ) );
 	}
 
-	public void excluir(ReservaEquipamentoProfessor r) throws ReservaException,
+	public void excluir( ReservaEquipamentoProfessor r ) throws ReservaException,
 			SQLException {
-		if (r == null)
-			throw new ReservaException(NULA);
-		else if (!this.reservainDB(r))
-			throw new ReservaException(RESERVA_INEXISTENTE);
+		if ( r == null )
+			throw new ReservaException( NULA );
+		else if ( !this.reservainDB( r ) )
+			throw new ReservaException( RESERVA_INEXISTENTE );
 		else
-			super.executeQuery(this.delete_from_professor(r));
+			super.executeQuery( this.delete_from_professor( r ) );
 	}
 
-	@SuppressWarnings("unchecked")
+	@SuppressWarnings( "unchecked" )
 	public Vector<Object> buscarTodos() throws SQLException, ClienteException,
 			PatrimonioException, ReservaException {
 		return super
-				.buscar("SELECT * FROM reserva_sala_professor "
+				.buscar( "SELECT * FROM reserva_sala_professor "
 						+ "INNER JOIN sala ON sala.id_sala = reserva_sala_professor.id_sala "
-						+ "INNER JOIN professor ON professor.id_professor = reserva_sala_professor.id_professor;");
+						+ "INNER JOIN professor ON professor.id_professor = reserva_sala_professor.id_professor;" );
 	}
 
-	@SuppressWarnings("unchecked")
-	public Vector<ReservaEquipamentoProfessor> buscarPorMes(int mes)
+	@SuppressWarnings( "unchecked" )
+	public Vector<ReservaEquipamentoProfessor> buscarPorMes( int mes )
 			throws SQLException, ClienteException, PatrimonioException,
 			ReservaException {
 		Vector<ReservaEquipamentoProfessor> reservas_prof_mes = super
-				.buscar("SELECT * FROM reserva_equipamento_professor "
+				.buscar( "SELECT * FROM reserva_equipamento_professor "
 						+ "INNER JOIN equipamento ON equipamento.id_equipamento = reserva_equipamento_professor.id_equipamento "
 						+ "INNER JOIN professor ON professor.id_professor = reserva_equipamento_professor.id_professor;");
 		Iterator<ReservaEquipamentoProfessor> it = reservas_prof_mes.iterator();
-		while (it.hasNext()) {
+		while ( it.hasNext() ) {
 			ReservaEquipamentoProfessor obj = it.next();
-			if (Integer.parseInt(obj.getData().split("[./-]")[1]) != mes) {
-				reservas_prof_mes.remove(obj);
+			if ( Integer.parseInt( obj.getData().split( "[./-]" )[1] ) != mes ) {
+				reservas_prof_mes.remove( obj );
 			}
 		}
 		return reservas_prof_mes;
 	}
 
-	@SuppressWarnings("unchecked")
-	public Vector<ReservaEquipamentoProfessor> buscarPorHora(String hora)
+	@SuppressWarnings( "unchecked" )
+	public Vector<ReservaEquipamentoProfessor> buscarPorHora( String hora )
 			throws SQLException, ClienteException, PatrimonioException,
 			ReservaException {
 		String hora_a = "", hora_b = "";
-		if (hora.length() == 4)
+		if ( hora.length() == 4 )
 			hora_a = "0" + hora;
-		if (hora.charAt(0) == '0')
-			hora_b = hora.substring(1);
+		if ( hora.charAt( 0 ) == '0' )
+			hora_b = hora.substring( 1 );
 		return super
-				.buscar("SELECT * FROM reserva_equipamento_professor "
+				.buscar( "SELECT * FROM reserva_equipamento_professor "
 						+ "INNER JOIN equipamento ON equipamento.id_equipamento = reserva_equipamento_professor.id_equipamento "
 						+ "INNER JOIN professor ON professor.id_professor = reserva_equipamento_professor.id_professor "
 						+ " WHERE hora = \"" + hora + "\" or hora = \""
-						+ hora_a + "\" or hora = \"" + hora_b + "\";");
+						+ hora_a + "\" or hora = \"" + hora_b + "\";" );
 	}
 
 	@Override
-	protected Object fetch(ResultSet rs) throws SQLException, ClienteException,
+	protected Object fetch( ResultSet rs ) throws SQLException, ClienteException,
 			PatrimonioException, ReservaException {
-		Professor p = new Professor(rs.getString("nome"), rs.getString("cpf"),
-				rs.getString("matricula"), rs.getString("telefone"),
-				rs.getString("email"));
+		Professor p = new Professor( rs.getString( "nome" ), rs.getString( "cpf" ),
+				rs.getString( "matricula" ), rs.getString( "telefone" ),
+				rs.getString( "email" ) );
 
-		Equipamento s = new Equipamento(rs.getString("codigo"),
-				rs.getString("descricao"));
+		Equipamento s = new Equipamento( rs.getString( "codigo" ),
+				rs.getString( "descricao" ) );
 
-		ReservaEquipamentoProfessor r = new ReservaEquipamentoProfessor(
-				rs.getString("data"), rs.getString("hora"), s, p);
+		ReservaEquipamentoProfessor r = new ReservaEquipamentoProfessor( 
+				rs.getString( "data" ), rs.getString( "hora" ), s, p );
 
 		return r;
 	}
 
-	private boolean professorinDB(Professor professor) throws SQLException {
-		return super.inDBGeneric("SELECT * FROM professor WHERE "
+	private boolean professorinDB( Professor professor ) throws SQLException {
+		return super.inDBGeneric( "SELECT * FROM professor WHERE "
 				+ "professor.nome = \"" + professor.getNome() + "\" and "
 				+ "professor.cpf = \"" + professor.getCpf() + "\" and "
 				+ "professor.telefone = \"" + professor.getTelefone()
 				+ "\" and " + "professor.email = \"" + professor.getEmail()
 				+ "\" and " + "professor.matricula = \""
-				+ professor.getMatricula() + "\";");
+				+ professor.getMatricula() + "\";" );
 	}
 
-	private boolean equipamentoinDB(Equipamento equipamento)
+	private boolean equipamentoinDB( Equipamento equipamento )
 			throws SQLException {
-		return super.inDBGeneric("SELECT * FROM equipamento WHERE "
+		return super.inDBGeneric( "SELECT * FROM equipamento WHERE "
 				+ "equipamento.codigo = \"" + equipamento.getCodigo()
 				+ "\" and " + "equipamento.descricao = \""
-				+ equipamento.getDescricao() + "\" and " + ";");
+				+ equipamento.getDescricao() + "\" and " + ";" );
 	}
 
-	private boolean professorinReservaDB(Professor professor, String data,
-			String hora) throws SQLException {
-		return super.inDBGeneric("SELECT * FROM reserva_sala_professor WHERE "
+	private boolean professorinReservaDB( Professor professor, String data,
+			String hora ) throws SQLException {
+		return super.inDBGeneric( "SELECT * FROM reserva_sala_professor WHERE "
 				+ "data = \"" + data + "\" and " + "hora = \"" + hora
 				+ "\" and "
 				+ "id_professor = (SELECT id_professor FROM professor WHERE "
@@ -251,11 +251,11 @@ public class ResEquipamentoProfessorDAO extends DAO {
 				+ "professor.telefone = \"" + professor.getTelefone()
 				+ "\" and " + "professor.email = \"" + professor.getEmail()
 				+ "\" and " + "professor.matricula = \""
-				+ professor.getMatricula() + "\");");
+				+ professor.getMatricula() + "\");" );
 	}
 
-	private boolean equipamentoinReservaDB(Equipamento equipamento,
-			String data, String hora) throws SQLException {
+	private boolean equipamentoinReservaDB( Equipamento equipamento,
+			String data, String hora ) throws SQLException {
 		return super
 				.inDBGeneric("SELECT * FROM reserva_equipamento_professor WHERE "
 						+ "data = \""
@@ -272,10 +272,10 @@ public class ResEquipamentoProfessorDAO extends DAO {
 						+ equipamento.getDescricao() + "\" and " + ");");
 	}
 
-	private boolean reservainDB(ReservaEquipamentoProfessor r)
+	private boolean reservainDB( ReservaEquipamentoProfessor r )
 			throws SQLException {
 		return super
-				.inDBGeneric("SELECT * FROM reserva_equipamento_professor WHERE "
+				.inDBGeneric( "SELECT * FROM reserva_equipamento_professor WHERE "
 						+ "id_professor = (SELECT id_professor FROM professor WHERE "
 						+ "professor.nome = \""
 						+ r.getProfessor().getNome()
@@ -303,7 +303,7 @@ public class ResEquipamentoProfessorDAO extends DAO {
 						+ r.getHora()
 						+ "\" and "
 						+ "data = \""
-						+ r.getData() + ";");
+						+ r.getData() + ";" );
 	}
 
 }
