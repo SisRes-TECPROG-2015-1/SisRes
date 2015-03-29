@@ -53,14 +53,15 @@ public class Reserva {
 	 * @throws ReservaException
 	 */
 	public void setHora( String hora ) throws ReservaException {
-		if ( hora == null )
+		if ( hora == null ) { 
 			throw new ReservaException( HORA_NULA );
-
+		}
+		
 		hora = hora.trim();
-		if ( hora.equals( "" ) )
+		if ( hora.equals( "" ) ) { 
 			throw new ReservaException( HORA_BRANCA );
-		else if ( hora.matches( HORA_PATTERN ) ) {
-			if ( hora.length() == 4 ){
+		} else if ( hora.matches( HORA_PATTERN ) ) {
+			if ( hora.length() == 4 ) {
 				this.hora = "0" + hora;
 			} else {
 				this.hora = hora;

@@ -36,8 +36,9 @@ public class ReservaEquipamento extends Reserva {
 	 * @throws ReservaException
 	 */
 	public void setEquipamento( Equipamento equipamento ) throws ReservaException {
-		if ( equipamento == null )
+		if ( equipamento == null ) { 
 			throw new ReservaException( EQUIPAMENTO_NULO );
+		}
 		this.equipamento = equipamento;
 	}
 

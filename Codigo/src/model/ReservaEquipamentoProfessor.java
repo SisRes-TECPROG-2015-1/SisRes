@@ -38,8 +38,9 @@ public class ReservaEquipamentoProfessor extends ReservaEquipamento {
 	 * @throws ReservaException
 	 */
 	public void setProfessor( Professor professor ) throws ReservaException {
-		if ( professor == null )
+		if ( professor == null ) {
 			throw new ReservaException( PROFESSOR_NULO );
+		} 
 		this.professor = professor;
 	}
 
