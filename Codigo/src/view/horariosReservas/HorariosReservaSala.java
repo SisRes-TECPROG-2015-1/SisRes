@@ -43,6 +43,7 @@ public class HorariosReservaSala extends HorariosReservaPatrimonio {
         this.setName( "HorarioReservaSala" );
     }
 
+    // This method fills a vector with the data informated by the user
     protected Vector<String> fillDataVector( Object o, int index ) {
         Vector<String> nomesTabela = new Vector<String>();
         if ( o instanceof ReservaSalaAluno ) {
@@ -80,6 +81,7 @@ public class HorariosReservaSala extends HorariosReservaPatrimonio {
 
     }
 
+    // This method fill a table with the information of the room
     @Override protected DefaultTableModel fillTable( Patrimonio sala ) {
         this.sala = ( Sala ) sala;
         DefaultTableModel table = new DefaultTableModel();
@@ -135,6 +137,7 @@ public class HorariosReservaSala extends HorariosReservaPatrimonio {
 
     }
 
+    // This method is the action of the buttom to cancel the booking of the room
     @Override protected void cancelarReservaAction( int index ) {
         try {
             String tipoCliente = ( String ) this.reservasTable.getModel().getValueAt( index, 1 );
@@ -172,6 +175,7 @@ public class HorariosReservaSala extends HorariosReservaPatrimonio {
         }
     }
 
+    // This method is the action of the button to make the booking of the room
     @Override protected void reservarAction() {
         try {
             ReservaSalaView reserva = new FazerReservaSalaView(new JFrame(), true, sala, this.data);
@@ -187,6 +191,7 @@ public class HorariosReservaSala extends HorariosReservaPatrimonio {
         }
     }
 
+    // This method is the action of the button to modify the booking
     @Override protected void alterarAction( int index ) {
         try {
             String tipoCliente = ( String ) this.reservasTable.getModel().getValueAt( index, 1 );

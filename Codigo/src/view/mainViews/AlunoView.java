@@ -21,44 +21,44 @@ import exception.ClienteException;
  */
 public class AlunoView extends ClienteView {
 
-    public AlunoView(java.awt.Frame parent, boolean modal) {
-        super(parent, modal);
-        this.setName("AlunoView");
+    public AlunoView( java.awt.Frame parent, boolean modal ) {
+        super( parent, modal );
+        this.setName( "AlunoView" );
     }
 
-    //Metodo para obter o iterator
+    // This method obtains the iterator
     public Iterator getIterator() {
         try {
             return ManterAluno.getInstance().getAluno_vet().iterator();
 
-        } catch (ClienteException ex) {
+        } catch ( ClienteException ex ) {
             JOptionPane.showMessageDialog(this, ex.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE, null);
-        } catch (SQLException ex) {
+        } catch ( SQLException ex ) {
             JOptionPane.showMessageDialog(this, ex.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE, null);
         }
         return null;
     }
 
-    // Metodo que realiza o cadastro de um novo aluno na view
+    // This method is the action of the button that cadastres a new student to the room
     @Override public void cadastrarAction() {
 
-        CadastroCliente cadastrar = new CadastroAluno(new javax.swing.JFrame(), true);
-        cadastrar.setResizable(false);
-        cadastrar.setVisible(true);
-        tabelaCliente.setModel(fillTable());
+        CadastroCliente cadastrar = new CadastroAluno( new javax.swing.JFrame(), true );
+        cadastrar.setResizable( false );
+        cadastrar.setVisible( true );
+        tabelaCliente.setModel( fillTable() );
 
     }
 
-    // Metodo para alterar uma action na view
-    @Override public void alterarAction(int index) {
+    // This method is the action of the button to modify a client in the view
+    @Override public void alterarAction( int index ) {
 
-        AlterarAluno alterar = new AlterarAluno(new javax.swing.JFrame(), true, index);
-        alterar.setResizable(false);
-        alterar.setVisible(true);
-        this.tabelaCliente.setModel(fillTable());
+        AlterarAluno alterar = new AlterarAluno( new javax.swing.JFrame(), true, index );
+        alterar.setResizable( false );
+        alterar.setVisible( true );
+        this.tabelaCliente.setModel( fillTable() );
     }
 
-    // Metodo para excluir uma action na view
+    // This method is the action of the button to exclude a client in the view
     @Override public void excluirAction() {
         try {
             int index = this.tabelaCliente.getSelectedRow();

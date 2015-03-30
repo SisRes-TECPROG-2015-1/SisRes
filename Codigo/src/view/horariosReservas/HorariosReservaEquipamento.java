@@ -37,6 +37,7 @@ public class HorariosReservaEquipamento extends HorariosReservaPatrimonio {
         this.eq = eq;
     }
 
+    // This method fills a vector with the data informated by the user
     protected Vector<String> fillDataVector( Object o, int index ) {
         Vector<String> nomesTabela = new Vector<String>();
         if ( o instanceof ReservaEquipamentoProfessor ) {

@@ -44,6 +44,8 @@ public abstract class HorariosReservaPatrimonio extends javax.swing.JDialog {
     @SuppressWarnings( "unchecked" )// <editor-fold defaultstate="collapsed"
     // <editor-fold defaultstate="collapsed"
     // desc="Generated Code">//GEN-BEGIN:initComponents
+    
+    // This method initialize the components of view
     private void initComponents() {
 
         jPanel3 = new javax.swing.JPanel();
@@ -157,6 +159,7 @@ public abstract class HorariosReservaPatrimonio extends javax.swing.JDialog {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    // This method is the action to cancel a booking
     private void cancelarReservaButtonActionPerformed( java.awt.event.ActionEvent evt ) {// GEN-FIRST:event_cancelarReservaButtonActionPerformed
         int indexLinha;
         indexLinha = this.reservasTable.getSelectedRow();
@@ -168,11 +171,13 @@ public abstract class HorariosReservaPatrimonio extends javax.swing.JDialog {
         this.reservasTable.setModel( fillTable( this.p ) );
     }// GEN-LAST:event_cancelarReservaButtonActionPerformed
 
+    // This method is the action of the button to make a booking
     private void reservarButtonActionPerformed( java.awt.event.ActionEvent evt ) {// GEN-FIRST:event_reservarButtonActionPerformed
         reservarAction();
         this.reservasTable.setModel( fillTable( this.p ) );
     }// GEN-LAST:event_reservarButtonActionPerformed
 
+    // This method is the action of the button to modify a booking
     private void alterarButtonActionPerformed( java.awt.event.ActionEvent evt ) {// GEN-FIRST:event_alterarButtonActionPerformed
         int indexLinha;
         indexLinha = this.reservasTable.getSelectedRow();
