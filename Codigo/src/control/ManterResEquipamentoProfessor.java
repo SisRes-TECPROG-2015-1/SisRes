@@ -53,7 +53,7 @@ public class ManterResEquipamentoProfessor {
 
     
     /**
-     * Lists all the reserves.
+     * Lists all the equipment reserves for teachers.
      * @return Vector - Equipment
      */
     public Vector < Object > getResEquipamentoProfessor_vet() throws SQLException, ClienteException, PatrimonioException,

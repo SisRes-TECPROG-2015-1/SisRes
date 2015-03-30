@@ -23,7 +23,7 @@ public class ManterResSalaAluno {
 	
 	 /**
 	 * Creates an instance of a reserve if it isn't already instantiated.
-	 * @return - ManterResEquipamentoProfessor - Equipment reserve
+	 * @return - ManterResSalaProfessor - Equipment reserve to a student
 	 */
 	public static ManterResSalaAluno getInstance() {
 		if ( instance == null ) {
@@ -60,7 +60,7 @@ public class ManterResSalaAluno {
 		throws SQLException, ReservaException, ClienteException, PatrimonioException {
 
 		ReservaSalaAluno r = new ReservaSalaAluno( data, hora, sala, finalidade, cadeiras_reservadas, aluno );
-		ResSalaAlunoDAO.getInstance().incluir(  );
+		ResSalaAlunoDAO.getInstance().incluir(r);
 		this.rev_sala_aluno_vet.add(r);
 	}
 

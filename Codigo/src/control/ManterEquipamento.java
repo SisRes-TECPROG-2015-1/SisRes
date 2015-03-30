@@ -40,7 +40,6 @@ public class ManterEquipamento {
 	
 	/**
 	 * Inserts a new equipment and its attributes
-	 * @return Equipamento - An equipment
 	 */
 	public void inserir(String codigo, String descricao) throws PatrimonioException, SQLException {
 		Equipamento equipamento = new Equipamento(codigo, descricao);
@@ -51,7 +50,6 @@ public class ManterEquipamento {
 	
 	/**
 	 * Changes an equipment's attributes
-	 * @return void
 	 */
 	public void alterar(String codigo, String descricao, Equipamento equipamento) throws PatrimonioException, SQLException {
 		if (equipamento == null) {
