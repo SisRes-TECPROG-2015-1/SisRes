@@ -31,8 +31,7 @@ public class EquipamentoDAO {
         return instance;
     }
 
-    //
-
+    //Método para incluir equipamento
     public void incluir(Equipamento equipamento) throws SQLException, PatrimonioException {
         if ( equipamento == null ) {
             throw new PatrimonioException( EQUIPAMENTO_NULO );
@@ -44,7 +43,8 @@ public class EquipamentoDAO {
                     + "\"" + equipamento.getDescricao() + "\" );" );
         }
     }
-
+    
+    //Método para alterar equipamento
     public void alterar( Equipamento old_equipamento, Equipamento new_equipamento ) throws SQLException, PatrimonioException {
         if ( old_equipamento == null ) {
             throw new PatrimonioException( EQUIPAMENTO_NULO );
@@ -80,6 +80,7 @@ public class EquipamentoDAO {
         con.close();
     }
 
+    //Metodo para excluir equipamento
     public void excluir( Equipamento equipamento ) throws SQLException, PatrimonioException {
         if ( equipamento == null ) {
             throw new PatrimonioException( EQUIPAMENTO_NULO );
@@ -106,10 +107,9 @@ public class EquipamentoDAO {
         return this.buscar( "SELECT * FROM equipamento WHERE descricao = " + "\"" + valor + "\";" );
     }
 
-    /**
-     * Metodos Privados
-     * */
-
+    
+    //Metodos Privados
+    
     private Vector<Equipamento> buscar( String query ) throws SQLException, PatrimonioException {
         Vector<Equipamento> vet = new Vector<Equipamento>();
 
@@ -164,7 +164,8 @@ public class EquipamentoDAO {
     private Equipamento fetchEquipamento( ResultSet rs ) throws PatrimonioException, SQLException {
         return new Equipamento( rs.getString( "codigo" ), rs.getString( "descricao" ) );
     }
-
+    
+    //Metodo para atualizar a query no banco
     private void updateQuery( String msg ) throws SQLException {
         Connection con = FactoryConnection.getInstance().getConnection();
         PreparedStatement pst = con.prepareStatement( msg );
