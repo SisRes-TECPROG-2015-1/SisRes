@@ -44,7 +44,7 @@ public class ManterResSalaProfessor {
 		
 	 /**
      * Lists all the classroom reserves for teachers.
-     * @return Vector - Equipment
+     * @return Vector - Classroom reserves for teachers
      */
 	public Vector < ReservaSalaProfessor > getResProfessorSala_vet() throws SQLException, ClienteException, PatrimonioException, ReservaException {
 		this.rev_sala_professor_vet = ResSalaProfessorDAO.getInstance().buscarTodos();
@@ -80,7 +80,7 @@ public class ManterResSalaProfessor {
 	}
 
 	/**
-     * Excludes a reserve.
+     * Excludes a classroom reserve for a teacher.
      */
 	public void excluir( ReservaSalaProfessor reserva ) throws SQLException, ReservaException {
 		ResSalaProfessorDAO.getInstance().excluir( reserva );

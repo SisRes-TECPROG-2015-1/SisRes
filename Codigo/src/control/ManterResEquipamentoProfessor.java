@@ -23,7 +23,7 @@ public class ManterResEquipamentoProfessor {
 
     
     /**
-	 * Creates an instance of a reserve if it isn't already instantiated.
+	 * Creates an instance of an equipment reserve for a teacher if it isn't already instantiated.
 	 * @return - ManterResEquipamentoProfessor - Equipment reserve
 	 */
     public static ManterResEquipamentoProfessor getInstance() {
@@ -34,8 +34,8 @@ public class ManterResEquipamentoProfessor {
 
 
     /**
-     * Captures the teacher which had reserved a equipment in the hour searched.
-     * @return Vector - Teachers
+     * Captures the classroom reserves for teachers in the hour searched.
+     * @return Vector - Classroom reserves for teachers
      */
     public Vector < ReservaEquipamentoProfessor > getReservasHora( String hora ) throws SQLException, PatrimonioException,
             ClienteException, ReservaException {
@@ -43,8 +43,8 @@ public class ManterResEquipamentoProfessor {
     }
 
     /**
-     * Captures the teachers which had reserved a equipment in the month searched.
-     * @return Vector - Teachers
+     * Captures the classroom reserves for teachers which had reserved a equipment in the month searched.
+     * @return Vector - Classroom reserves for teachers
      */
     public Vector < ReservaEquipamentoProfessor > getReservasMes( int mes ) throws SQLException, PatrimonioException, ClienteException,
             ReservaException {
@@ -53,8 +53,8 @@ public class ManterResEquipamentoProfessor {
 
     
     /**
-     * Lists all the equipment reserves for teachers.
-     * @return Vector - Equipment
+     * Lists all the classroom reserves for teachers.
+     * @return Vector - Classroom reserves for teachers
      */
     public Vector < Object > getResEquipamentoProfessor_vet() throws SQLException, ClienteException, PatrimonioException,
             ReservaException {
@@ -74,7 +74,7 @@ public class ManterResEquipamentoProfessor {
 
     
     /**
-     * Changes the reserve to a new one.
+     * Changes the classroom reserve to a new one.
      */
     public void alterar( String finalidade, ReservaEquipamentoProfessor reserva ) throws SQLException, ReservaException {
 
@@ -86,7 +86,7 @@ public class ManterResEquipamentoProfessor {
 
     
     /**
-     * Excludes a reserve.
+     * Excludes a classroom reserve.
      */
     public void excluir( ReservaEquipamentoProfessor reserva ) throws SQLException, ReservaException {
         ResEquipamentoProfessorDAO.getInstance().excluir( reserva );
