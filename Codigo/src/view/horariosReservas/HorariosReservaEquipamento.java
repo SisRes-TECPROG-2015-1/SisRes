@@ -32,7 +32,7 @@ public class HorariosReservaEquipamento extends HorariosReservaPatrimonio {
     Equipamento eq;
     ManterResEquipamentoProfessor instance;
 
-    public HorariosReservaEquipamento java.awt.Frame parent, boolean modal, String data, Equipamento eq ) {
+    public HorariosReservaEquipamento (java.awt.Frame parent, boolean modal, String data, Equipamento eq ) {
         super( parent, modal, data, eq );
         this.eq = eq;
     }
