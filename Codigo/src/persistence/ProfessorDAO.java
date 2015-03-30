@@ -31,7 +31,8 @@ public class ProfessorDAO {
 	}
 
 	//
-
+	
+	//Metodo pra incluir professor
 	public void incluir( Professor prof ) throws SQLException, ClienteException {
 		if ( prof == null ) {
 			throw new ClienteException( PROFESSOR_NULO );
@@ -48,6 +49,7 @@ public class ProfessorDAO {
 				+ "\"); " );
 	}
 
+	//Metodo pra alterar professor
 	public void alterar( Professor prof_velho, Professor prof_novo )
 			throws SQLException, ClienteException {
 		if ( prof_velho == null ) {
@@ -98,6 +100,7 @@ public class ProfessorDAO {
 		con.close();
 	}
 
+	//Metodo pra excluir professor
 	public void excluir( Professor prof ) throws SQLException, ClienteException {
 		if ( prof == null ) {
 			throw new ClienteException(PROFESSOR_NULO);
@@ -152,9 +155,9 @@ public class ProfessorDAO {
 				+ valor + "\";" );
 	}
 
-	/**
-	 * Metodos Privados
-	 * */
+	
+	//Metodos Privados
+	 
 
 	private Vector<Professor> buscar( String query ) throws SQLException,
 			ClienteException {
@@ -235,6 +238,7 @@ public class ProfessorDAO {
 		return true;
 	}
 
+	//Metodo pra buscar professor
 	private Professor fetchProfessor( ResultSet rs ) throws ClienteException,
 			SQLException {
 		return new Professor( rs.getString( "nome" ), rs.getString( "cpf" ),
@@ -242,6 +246,7 @@ public class ProfessorDAO {
 				rs.getString( "email" ) );
 	}
 
+	//Metodo pra atualizar a query no banco
 	private void updateQuery( String msg ) throws SQLException {
 		Connection con = FactoryConnection.getInstance().getConnection();
 		PreparedStatement pst = con.prepareStatement( msg );
