@@ -33,7 +33,8 @@ public class SalaDAO {
 	}
 
 	//
-
+	
+	//Metodo para incluir sala
 	public void incluir( Sala sala ) throws SQLException, PatrimonioException {
 		if ( sala == null ) {
 			throw new PatrimonioException( SALA_NULA );
@@ -46,6 +47,7 @@ public class SalaDAO {
 				+ "\", " + sala.getCapacidade() + ");" );
 	}
 
+	//Metodo para alterar sala
 	public void alterar( Sala old_sala, Sala new_sala ) throws SQLException,
 			PatrimonioException {
 		if ( new_sala == null ) {
@@ -86,6 +88,7 @@ public class SalaDAO {
 		con.close();
 	}
 
+	//Metodo para excluir sala
 	public void excluir( Sala sala ) throws SQLException, PatrimonioException {
 		if ( sala == null ) {
 			throw new PatrimonioException( SALA_NULA );
@@ -123,10 +126,9 @@ public class SalaDAO {
 				+ ";" );
 	}
 
-	/**
-	 * Metodos Privados
-	 * */
-
+	
+	//Metodos Privados
+	
 	private Vector<Sala> buscar( String query ) throws SQLException,
 			PatrimonioException {
 		Vector<Sala> vet = new Vector<Sala>();
@@ -193,13 +195,15 @@ public class SalaDAO {
 
 		return true;
 	}
-
+	
+	//Metodo para buscar Sala
 	private Sala fetchSala( ResultSet rs ) throws PatrimonioException,
 			SQLException {
 		return new Sala( rs.getString( "codigo" ), rs.getString( "descricao" ),
 				rs.getString( "capacidade" ) );
 	}
-
+	
+	//Metodo para atualizar query no banco
 	private void updateQuery( String msg ) throws SQLException {
 		Connection con = FactoryConnection.getInstance().getConnection();
 		PreparedStatement pst = con.prepareStatement( msg );
