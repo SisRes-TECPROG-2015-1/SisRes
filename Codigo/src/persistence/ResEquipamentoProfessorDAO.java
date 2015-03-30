@@ -37,7 +37,7 @@ public class ResEquipamentoProfessorDAO extends DAO {
 
 	//
 
-	// Querys de Reuso
+	//Querys de reuso
 	private String select_id_professor( Professor p ) {
 		return "SELECT id_professor FROM professor WHERE "
 				+ "professor.nome = \"" + p.getNome() + "\" and "
@@ -103,6 +103,7 @@ public class ResEquipamentoProfessorDAO extends DAO {
 				+ r.getHora() + "\" and " + "data = \"" + r.getData() + " ;";
 	}
 
+	//Metodo para incluir reserva
 	public void incluir( ReservaEquipamentoProfessor r ) throws ReservaException,
 			SQLException {
 		if ( r == null ) {
@@ -125,6 +126,7 @@ public class ResEquipamentoProfessorDAO extends DAO {
 
 	}
 
+	//Metodo para altera reserva
 	public void alterar( ReservaEquipamentoProfessor r,
 			ReservaEquipamentoProfessor r_new ) throws ReservaException,
 			SQLException {
@@ -156,6 +158,7 @@ public class ResEquipamentoProfessorDAO extends DAO {
 		}
 	}
 
+	//Metodo para excluir reserva
 	public void excluir( ReservaEquipamentoProfessor r ) throws ReservaException,
 			SQLException {
 		if ( r == null ) {
