@@ -45,7 +45,7 @@ public class ResSalaAlunoDAO extends DAO {
 
 	//
 
-	// Querys de Reuso
+	//Querys de reuso
 	private String select_id_aluno( Aluno a ) {
 		return "SELECT id_aluno FROM aluno WHERE " + "aluno.nome = \""
 				+ a.getNome() + "\" and " + "aluno.cpf = \"" + a.getCpf()
@@ -102,6 +102,7 @@ public class ResSalaAlunoDAO extends DAO {
 				+ this.where_reserva_sala_aluno( r ) + " ;";
 	}
 
+	//Metodo para incluir reserva de sala para aluno
 	public void incluir( ReservaSalaAluno r ) throws ReservaException,
 			SQLException, ClienteException, PatrimonioException {
 		if ( r == null ) {
@@ -132,7 +133,8 @@ public class ResSalaAlunoDAO extends DAO {
 			super.executeQuery( this.insert_into( r ) );
 		}
 	}
-
+	
+	//Metodo para alterar reserva de sala para aluno
 	public void alterar( ReservaSalaAluno r, ReservaSalaAluno r_new )
 			throws ReservaException, SQLException, ClienteException,
 			PatrimonioException {
@@ -178,6 +180,7 @@ public class ResSalaAlunoDAO extends DAO {
 
 	}
 
+	//Metodo para excluir reserva de sala para aluno
 	public void excluir( ReservaSalaAluno r ) throws ReservaException,
 			SQLException {
 		if ( r == null ) {
@@ -237,6 +240,7 @@ public class ResSalaAlunoDAO extends DAO {
 		return total;
 	}
 
+	//Metodo para dizer se há cadeiras disponiveis
 	private boolean haCadeiras( String cadeiras_reservadas, Sala sala,
 			String data, String hora ) throws SQLException, ClienteException,
 			PatrimonioException, ReservaException {
