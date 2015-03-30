@@ -38,9 +38,8 @@ public abstract class DAO {
 		return vet;
 	}
 	
-	/**
-	 * Continua funcionando como antes, checa se o resgistro esta no banco.
-	 * */
+	
+	//Metodo privado para checar se o registro esta no banco.
 	protected boolean inDBGeneric( String query ) throws SQLException {
 		Connection con = FactoryConnection.getInstance().getConnection();
 		PreparedStatement pst = con.prepareStatement( query );
@@ -80,9 +79,8 @@ public abstract class DAO {
 		con.close();
 	}
 	
-	/**
-	 * Este metodo eh utilizado para Alterar alguma coisa no Banco
-	 * */
+	
+	 //Este metodo eh utilizado para Alterar alguma coisa no Banco
 	protected void updateQuery( String msg ) throws SQLException {
 		Connection con =  FactoryConnection.getInstance().getConnection();
 		con.setAutoCommit( false );
