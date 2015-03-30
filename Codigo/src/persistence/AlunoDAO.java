@@ -29,7 +29,7 @@ public class AlunoDAO {
 		}
 	//
 	
-		
+	//Metodo para incluir aluno	
 	public void incluir( Aluno aluno ) throws SQLException, ClienteException {
 		if ( aluno == null ) {
 			throw new ClienteException(ALUNO_NULO);
@@ -50,7 +50,8 @@ public class AlunoDAO {
 			throw new ClienteException( ALUNO_JA_EXISTENTE );
 		}
 	}
-
+	
+	//Metodo para alterar aluno
 	public void alterar( Aluno aluno_velho, Aluno aluno_novo ) throws SQLException, ClienteException {
 		if( aluno_velho == null ) {
 			throw new ClienteException( ALUNO_NULO );
@@ -94,7 +95,8 @@ public class AlunoDAO {
 		pst.close();
 		con.close();
 	}
-
+	
+	//Metodo para excluir aluno
 	public void excluir( Aluno aluno ) throws SQLException, ClienteException {
 		if ( aluno == null ) {
 			throw new ClienteException( ALUNO_NULO );
@@ -136,10 +138,8 @@ public class AlunoDAO {
 	}
 	
 	
-	/**
-	 * Metodos Privados
-	 * */
-	
+	//Metodos Privados
+	 
 	private Vector<Aluno> buscar( String query ) throws SQLException, ClienteException {
 		Vector<Aluno> vet = new Vector<Aluno>();
 		
@@ -176,6 +176,7 @@ public class AlunoDAO {
 			return true;
 		}
 	}
+	
 	private boolean inDB( Aluno aluno ) throws SQLException {
 		return this.inDBGeneric( "SELECT * FROM aluno WHERE " +
 				"aluno.nome = \"" + aluno.getNome() + "\" and " +
@@ -184,14 +185,17 @@ public class AlunoDAO {
 				"aluno.email = \"" + aluno.getEmail() + "\" and " +
 				"aluno.matricula = \"" + aluno.getMatricula() + "\";" );
 	}
+	
 	private boolean inDBCpf( String codigo ) throws SQLException {
 		return this.inDBGeneric( "SELECT * FROM aluno WHERE " +
 				"aluno.cpf = \"" + codigo + "\";" );
 	}
+	
 	private boolean inDBMatricula( String codigo ) throws SQLException {
 		return this.inDBGeneric( "SELECT * FROM aluno WHERE " +
 				"aluno.matricula = \"" + codigo + "\";" );
 	}
+	
 	private boolean inOtherDB( Aluno aluno ) throws SQLException, ClienteException {
 		return this.inDBGeneric(
 				"SELECT * FROM reserva_sala_aluno WHERE " +
@@ -203,12 +207,12 @@ public class AlunoDAO {
 				"aluno.matricula = \"" + aluno.getMatricula() + "\");" );
 	}
 	
-	
 	private Aluno fetchAluno( ResultSet rs ) throws ClienteException, SQLException {
 		return new Aluno( rs.getString( "nome" ), rs.getString( "cpf" ), rs.getString( "matricula" ),
 				rs.getString( "telefone" ), rs.getString( "email" ) );
 	}
 	
+	//Metodo para atualizar a query
 	private void updateQuery( String msg ) throws SQLException {
 		Connection con =  FactoryConnection.getInstance().getConnection();
 		PreparedStatement pst = con.prepareStatement( msg );
