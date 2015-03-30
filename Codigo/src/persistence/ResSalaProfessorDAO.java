@@ -39,7 +39,7 @@ public class ResSalaProfessorDAO extends DAO {
 		return instance;
 	}
 
-	// Querys de Reuso
+	//Querys de reuso
 	private String select_id_professor( Professor p ) {
 		return "SELECT id_professor FROM professor WHERE "
 				+ "professor.nome = \"" + p.getNome() + "\" and "
@@ -102,6 +102,7 @@ public class ResSalaProfessorDAO extends DAO {
 				+ this.where_reserva_sala_professor( r ) + " ;";
 	}
 
+	//Metodo para incluir reserva de sala para professor
 	public void incluir( ReservaSalaProfessor r ) throws ReservaException,
 			SQLException {
 		if ( r == null ) {
@@ -130,7 +131,8 @@ public class ResSalaProfessorDAO extends DAO {
 			super.executeQuery( this.insert_into( r ) );
 		}
 	}
-
+	
+	//Metodo para alterar reserva de sala para professor
 	public void alterar( ReservaSalaProfessor r, ReservaSalaProfessor r_new )
 			throws ReservaException, SQLException {
 		if ( r == null ) {
@@ -162,6 +164,7 @@ public class ResSalaProfessorDAO extends DAO {
 		}
 	}
 
+	//Metodo para excluir reserva de sala para professor
 	public void excluir( ReservaSalaProfessor r ) throws ReservaException,
 			SQLException {
 		if ( r == null ) {
