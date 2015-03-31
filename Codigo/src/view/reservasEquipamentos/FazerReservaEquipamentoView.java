@@ -30,6 +30,9 @@ public class FazerReservaEquipamentoView extends ReservaEquipamentoView {
         this.equipamentoTextArea.setText( e.toString() );
     }
 
+    /**
+     * This method books an equipment by a teacher
+     */
     @Override protected void reservarProfessor() {
         try {
 

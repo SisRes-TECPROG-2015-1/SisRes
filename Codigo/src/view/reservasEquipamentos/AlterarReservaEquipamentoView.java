@@ -43,6 +43,9 @@ public class AlterarReservaEquipamentoView extends ReservaEquipamentoView {
         resetComponents();
     }
 
+    /**
+     * This method changes an equipment booking by a teacher
+     */
     @Override protected void reservarProfessor() {
         try {
 

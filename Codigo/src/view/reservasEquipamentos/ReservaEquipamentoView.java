@@ -31,6 +31,9 @@ public abstract class ReservaEquipamentoView extends javax.swing.JDialog {
 
     abstract protected void reservarProfessor();
 
+    /**
+     * This method obtains the professor who books some equipment
+     */
     protected void getProfessor() {
         try {
             Vector<Professor> professor = ManterProfessor.getInstance().buscarCpf( this.cpfTextField.getText() );
@@ -57,6 +60,10 @@ public abstract class ReservaEquipamentoView extends javax.swing.JDialog {
      */
     @SuppressWarnings( "unchecked" )// <editor-fold defaultstate="collapsed"
                                   // desc="Generated Code">//GEN-BEGIN:initComponents
+    
+    /**
+     * This method initialize some view components
+     */
     private void initComponents() {
 
         alunoProfbuttonGroup = new javax.swing.ButtonGroup();
@@ -270,6 +277,10 @@ public abstract class ReservaEquipamentoView extends javax.swing.JDialog {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    /**
+     * This method is the action of the cpf textfield
+     * @param evt
+     */
     private void cpfTextFieldActionPerformed( java.awt.event.ActionEvent evt ) {// GEN-FIRST:event_cpfTextFieldActionPerformed
         String nome = this.cpfTextField.getText();
         if ( nome.isEmpty() ) {
@@ -279,6 +290,10 @@ public abstract class ReservaEquipamentoView extends javax.swing.JDialog {
         }
     }// GEN-LAST:event_cpfTextFieldActionPerformed
 
+    /**
+     * This method is the action of the booking button
+     * @param evt
+     */
     private void reservarButtonActionPerformed( java.awt.event.ActionEvent evt ) {// GEN-FIRST:event_reservarButtonActionPerformed
         reservarProfessor();
     }// GEN-LAST:event_reservarButtonActionPerformed
