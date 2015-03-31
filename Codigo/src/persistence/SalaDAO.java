@@ -25,6 +25,10 @@ public class SalaDAO {
 	private SalaDAO() {
 	}
 
+	/**
+     * Instantiates an SalaDAO if there is no instance of it.
+     * @return SalaDAO - Classroom 
+     */
 	public static SalaDAO getInstance() {
 		if ( instance == null ) {
 			instance = new SalaDAO();
@@ -32,7 +36,7 @@ public class SalaDAO {
 		return instance;
 	}
 
-	//
+	
 	
 	//Metodo para incluir sala
 	public void incluir( Sala sala ) throws SQLException, PatrimonioException {
@@ -104,22 +108,41 @@ public class SalaDAO {
 		}
 	}
 
+	
+	/**
+     * Captures all the classrooms
+     * @return Vector - All the classrooms
+     */
 	public Vector<Sala> buscarTodos() throws SQLException, PatrimonioException {
 		return this.buscar( "SELECT * FROM sala;" );
 	}
 
+	
+	/**
+     * Captures all the classrooms by its identification code
+     * @return Vector - Classrooms
+     */
 	public Vector<Sala> buscarPorCodigo( String valor ) throws SQLException,
 			PatrimonioException {
 		return this.buscar( "SELECT * FROM sala WHERE codigo = " + "\"" + valor
 				+ "\";" );
 	}
 
+	
+	/**
+     * Captures all the classrooms with the given description 
+     * @return Vector - Classrooms
+     */
 	public Vector<Sala> buscarPorDescricao( String valor ) throws SQLException,
 			PatrimonioException {
 		return this.buscar( "SELECT * FROM sala WHERE descricao = " + "\""
 				+ valor + "\";" );
 	}
 
+	/**
+     * Captures all the classroomns with the given capacity value 
+     * @return Vector - Classrooms
+     */
 	public Vector<Sala> buscarPorCapacidade( String valor ) throws SQLException,
 			PatrimonioException {
 		return this.buscar( "SELECT * FROM sala WHERE capacidade = " + valor
@@ -129,6 +152,10 @@ public class SalaDAO {
 	
 	//Metodos Privados
 	
+	/**
+     * Searches for classrooms by a given query
+     * @return Vector - Classrooms
+     */
 	private Vector<Sala> buscar( String query ) throws SQLException,
 			PatrimonioException {
 		Vector<Sala> vet = new Vector<Sala>();
@@ -148,6 +175,11 @@ public class SalaDAO {
 		return vet;
 	}
 
+	
+	/**
+     * Verifies if there is a query
+     * @return Boolean - Existence of a query
+     */
 	private boolean inDBGeneric( String query ) throws SQLException {
 		Connection con = FactoryConnection.getInstance().getConnection();
 		PreparedStatement pst = con.prepareStatement( query );
@@ -166,6 +198,10 @@ public class SalaDAO {
 		}
 	}
 
+	/**
+     * Verifies if the classroom exists in database
+     * @return Boolean - Existence of a classroom 
+     */
 	private boolean inDB( Sala sala ) throws SQLException {
 		return this.inDBGeneric( "SELECT * FROM sala WHERE "
 				+ "sala.codigo = \"" + sala.getCodigo() + "\" and "
@@ -173,11 +209,20 @@ public class SalaDAO {
 				+ "sala.capacidade = " + sala.getCapacidade() + ";" );
 	}
 
+	
+	/**
+     * Verifies if the code exists in database
+     * @return Boolean - Existence of a code
+     */
 	private boolean inDBCodigo( String codigo ) throws SQLException {
 		return this.inDBGeneric( "SELECT * FROM sala WHERE "
 				+ "sala.codigo = \"" + codigo + "\";" );
 	}
 
+	/**
+     * Verifies if the classroom exists in database
+     * @return Boolean - Existence of an classroom 
+     */
 	private boolean inOtherDB( Sala sala ) throws SQLException {
 		if ( this.inDBGeneric( "SELECT * FROM reserva_sala_professor WHERE "
 				+ "id_sala = ( SELECT id_sala FROM sala WHERE "
