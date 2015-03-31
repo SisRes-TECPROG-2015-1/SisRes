@@ -18,15 +18,23 @@ public class FactoryConnection {
 		private FactoryConnection() {
 			
 		}
+		
+		/**
+	     * Instantiates an object for future connection to the database if there is no instance of it.
+	     * @return FactoryConnection 
+	     */
 		public static FactoryConnection getInstance() {
-			if( instance == null ) {
+			if ( instance == null ) {
 				instance = new FactoryConnection();
 			}
 			return instance;
 		}
-	//
+	
 		
-		
+	/**
+	 * Opens the connection with the database.	
+	 * @return Connection - Connection with the database
+	 */
 	public Connection getConnection() throws SQLException {
 		Connection con = null;
 		con = DriverManager.getConnection( local, user, password );

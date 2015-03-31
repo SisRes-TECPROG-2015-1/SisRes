@@ -117,29 +117,60 @@ public class AlunoDAO {
 	}
 
 	
-	
+	/**
+     * Captures the students
+     * @return Vector - All the students
+     */
 	public Vector<Aluno> buscarTodos() throws SQLException, ClienteException {
 		return this.buscar( "SELECT * FROM aluno;" );
 	}
+	
+	/**
+     * Captures the students by their name.
+     * @return Vector - Students
+     */
 	public Vector<Aluno> buscarNome( String valor ) throws SQLException, ClienteException {
 		return this.buscar( "SELECT * FROM aluno WHERE nome = " + "\"" + valor + "\";" );
 	}
+	
+	/**
+     * Captures the students by their cpf.
+     * @return Vector - Students
+     */
 	public Vector<Aluno> buscarCpf( String valor ) throws SQLException, ClienteException {
 		return this.buscar( "SELECT * FROM aluno WHERE cpf = " + "\"" + valor + "\";" );
 	}
+	
+	/**
+     * Captures the students by their matricula
+     * @return Vector - Students
+     */
 	public Vector<Aluno> buscarMatricula( String valor ) throws SQLException, ClienteException {
 		return this.buscar( "SELECT * FROM aluno WHERE matricula = " + "\"" + valor + "\";" );
 	}
+	
+	/**
+     * Captures the students by their e-mail.
+     * @return Vector - Students
+     */
 	public Vector<Aluno> buscarEmail( String valor ) throws SQLException, ClienteException {
 		return this.buscar( "SELECT * FROM aluno WHERE email = " + "\"" + valor + "\";" );
 	}
+	
+	/**
+     * Captures the students by their telephone.
+     * @return Vector - Students
+     */
 	public Vector<Aluno> buscarTelefone( String valor ) throws SQLException, ClienteException {
 		return this.buscar( "SELECT * FROM aluno WHERE telefone = " + "\"" + valor + "\";" );
 	}
 	
 	
 	//Metodos Privados
-	 
+	/**
+     * Searches for a student by a given query
+     * @return Vector - Students
+     */
 	private Vector<Aluno> buscar( String query ) throws SQLException, ClienteException {
 		Vector<Aluno> vet = new Vector<Aluno>();
 		
@@ -158,7 +189,10 @@ public class AlunoDAO {
 		return vet;
 	}
 	
-	
+	/**
+     * Verifies if there is a query
+     * @return Boolean - Existence of a query
+     */
 	private boolean inDBGeneric( String query ) throws SQLException {
 		Connection con = FactoryConnection.getInstance().getConnection();
 		PreparedStatement pst = con.prepareStatement( query );
@@ -177,6 +211,10 @@ public class AlunoDAO {
 		}
 	}
 	
+	/**
+     * Verifies if the given student exists in database
+     * @return Boolean - Existence of a student 
+     */
 	private boolean inDB( Aluno aluno ) throws SQLException {
 		return this.inDBGeneric( "SELECT * FROM aluno WHERE " +
 				"aluno.nome = \"" + aluno.getNome() + "\" and " +
@@ -186,16 +224,29 @@ public class AlunoDAO {
 				"aluno.matricula = \"" + aluno.getMatricula() + "\";" );
 	}
 	
+	/**
+     * Verifies if the student exists in database by his cpf
+     * @return Boolean - Existence of a student 
+     */
 	private boolean inDBCpf( String codigo ) throws SQLException {
 		return this.inDBGeneric( "SELECT * FROM aluno WHERE " +
 				"aluno.cpf = \"" + codigo + "\";" );
 	}
 	
+	
+	/**
+     * Verifies if the student exists in database by his matricula
+     * @return Boolean - Existence of a student 
+     */
 	private boolean inDBMatricula( String codigo ) throws SQLException {
 		return this.inDBGeneric( "SELECT * FROM aluno WHERE " +
 				"aluno.matricula = \"" + codigo + "\";" );
 	}
 	
+	/**
+     * Verifies if the student exists in database
+     * @return Boolean - Existence of an student 
+     */
 	private boolean inOtherDB( Aluno aluno ) throws SQLException, ClienteException {
 		return this.inDBGeneric(
 				"SELECT * FROM reserva_sala_aluno WHERE " +
@@ -207,6 +258,10 @@ public class AlunoDAO {
 				"aluno.matricula = \"" + aluno.getMatricula() + "\");" );
 	}
 	
+	/**
+     * Captures the next student resulted of the query made before 
+     * @return Aluno - Student  
+     */
 	private Aluno fetchAluno( ResultSet rs ) throws ClienteException, SQLException {
 		return new Aluno( rs.getString( "nome" ), rs.getString( "cpf" ), rs.getString( "matricula" ),
 				rs.getString( "telefone" ), rs.getString( "email" ) );
