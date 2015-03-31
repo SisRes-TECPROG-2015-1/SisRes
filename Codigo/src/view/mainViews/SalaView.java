@@ -31,6 +31,9 @@ public class SalaView extends PatrimonioView {
         this.setName( "SalaView" );
     }
 
+    /**
+     * This method fills a vector with the information about room reservation
+     */
     protected Vector<String> fillDataVector( Sala sala ) {
 
         if ( sala == null ) {
@@ -47,6 +50,9 @@ public class SalaView extends PatrimonioView {
 
     }
 
+    /**
+     * This method fills a table with the rooms available
+     */
     @Override protected DefaultTableModel fillTable() {
         try {
             DefaultTableModel table = new DefaultTableModel();
@@ -72,6 +78,9 @@ public class SalaView extends PatrimonioView {
         return null;
     }
 
+    /**
+     * This method is the action of the cadastre button.
+     */
     @Override protected void cadastrarAction() {
         CadastroPatrimonio cadastro = new CadastroSala( new javax.swing.JFrame(), true );
         cadastro.setResizable( false );
@@ -79,6 +88,9 @@ public class SalaView extends PatrimonioView {
         this.tabelaPatrimonio.setModel( fillTable() );
     }
 
+    /**
+     * This method is the action of the modify button.
+     */
     @Override protected void alterarAction( int index ) {
 
         AlterarSala alteracao = new AlterarSala( new javax.swing.JFrame(), true, index );
@@ -86,7 +98,10 @@ public class SalaView extends PatrimonioView {
         alteracao.setVisible( true );
         this.tabelaPatrimonio.setModel( fillTable() );
     }
-
+    
+    /**
+     * This method is the action of the delete button.
+     */
     @Override protected void excluirAction( int index ) {
         try {
             int confirm = JOptionPane
@@ -107,6 +122,9 @@ public class SalaView extends PatrimonioView {
         }
     }
 
+    /**
+     * This method is the action of the visualize button.
+     */
     @Override protected void visualizarAction( int index ) {
         try {
             DiaReservaSala reserva = new DiaReservaSala( new javax.swing.JFrame(), true, index );

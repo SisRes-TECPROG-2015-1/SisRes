@@ -32,6 +32,9 @@ public abstract class PatrimonioView extends JDialog {
 
     protected abstract void excluirAction( int index );
 
+    /**
+     * This method initializate some view components
+     */
     private void initComponents() {
 
         panelBotoes = new javax.swing.JPanel();
@@ -202,6 +205,10 @@ public abstract class PatrimonioView extends JDialog {
         visualizarAction( index );
     }
 
+    /**
+     * This method is the action of the find textField
+     * @param evt
+     */
     protected void pesquisarTextFieldActionPerformed( java.awt.event.ActionEvent evt ) {// GEN-FIRST:event_pesquisarTextFieldActionPerformed
         String nome = this.pesquisarTextField.getText();
         if ( nome.isEmpty() ) {
@@ -211,11 +218,19 @@ public abstract class PatrimonioView extends JDialog {
         }
     }
 
+    /**
+     * This method is the action of the cadastre button
+     * @param evt
+     */
     private void cadastrarActionPerformed( java.awt.event.ActionEvent evt ) {// GEN-FIRST:event_cadastrarActionPerformed
 
         cadastrarAction();
     }
 
+    /**
+     * This method is the action of the modify button
+     * @param evt
+     */
     private void alterarActionPerformed( java.awt.event.ActionEvent evt ) {
         int index = this.tabelaPatrimonio.getSelectedRow();
         if ( index < 0 ) {
@@ -226,6 +241,10 @@ public abstract class PatrimonioView extends JDialog {
         alterarAction( index );
     }
 
+    /**
+     * This method is the action of the delete button
+     * @param evt
+     */
     private void excluirActionPerformed( java.awt.event.ActionEvent evt ) {// GEN-FIRST:event_excluirActionPerformed
 
         int index = this.tabelaPatrimonio.getSelectedRow();

@@ -57,6 +57,10 @@ public abstract class ClienteView extends javax.swing.JDialog {
 
     }
 
+    /**
+     * This method fills a table with the client information
+     * 
+     */
     protected DefaultTableModel fillTable() {
         DefaultTableModel table = new DefaultTableModel();
 
@@ -217,6 +221,10 @@ public abstract class ClienteView extends javax.swing.JDialog {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    /**
+     * This method is the action of the find textfield 
+     * @param evt
+     */
     private void pesquisarTextFieldActionPerformed( java.awt.event.ActionEvent evt ) {// GEN-FIRST:event_pesquisarTextFieldActionPerformed
         String nome = this.pesquisarTextField.getText();
         if ( nome.isEmpty() ) {
@@ -245,6 +253,10 @@ public abstract class ClienteView extends javax.swing.JDialog {
 
     }// GEN-LAST:event_alterarBtnActionPerformed
 
+    /**
+     * This method is the action of the delete button
+     * @param evt
+     */
     private void excluirBtnActionPerformed( java.awt.event.ActionEvent evt ) {// GEN-FIRST:event_excluirBtnActionPerformed
         excluirAction();
 

@@ -26,6 +26,9 @@ public class ProfessorView extends ClienteView {
         this.setName( "ProfessorView" );
     }
 
+    /**
+     * This method obtains an interator
+     */
     public Iterator getIterator() {
         try {
             return ManterProfessor.getInstance().getProfessores_vet().iterator();
@@ -38,6 +41,9 @@ public class ProfessorView extends ClienteView {
         return null;
     }
 
+    /**
+     * This method is the action of the cadastre button
+     */
     @Override public void cadastrarAction() {
 
         CadastroCliente cadastrar = new CadastroProfessor( new javax.swing.JFrame(), true );
@@ -47,6 +53,9 @@ public class ProfessorView extends ClienteView {
 
     }
 
+    /**
+     * This method is the action of the modify button
+     */
     @Override public void alterarAction( int index ) {
 
         AlterarProfessor alterar = new AlterarProfessor( new javax.swing.JFrame(), true, index );
@@ -55,6 +64,9 @@ public class ProfessorView extends ClienteView {
         this.tabelaCliente.setModel( fillTable() );
     }
 
+    /**
+     * This method is the action of the exclude button
+     */
     @Override public void excluirAction() {
         try {
             int index = this.tabelaCliente.getSelectedRow();

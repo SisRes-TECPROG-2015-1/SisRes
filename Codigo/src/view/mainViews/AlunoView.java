@@ -26,7 +26,9 @@ public class AlunoView extends ClienteView {
         this.setName( "AlunoView" );
     }
 
-    // This method obtains the iterator
+    /**
+     *  This method obtains the iterator 
+     */
     public Iterator getIterator() {
         try {
             return ManterAluno.getInstance().getAluno_vet().iterator();
@@ -39,7 +41,9 @@ public class AlunoView extends ClienteView {
         return null;
     }
 
-    // This method is the action of the button that cadastres a new student to the room
+    /**
+     *  This method is the action of the button that cadastres a new student to the room
+     */
     @Override public void cadastrarAction() {
 
         CadastroCliente cadastrar = new CadastroAluno( new javax.swing.JFrame(), true );
@@ -49,7 +53,9 @@ public class AlunoView extends ClienteView {
 
     }
 
-    // This method is the action of the button to modify a client in the view
+    /**
+     *  This method is the action of the button to modify a client in the view 
+    **/
     @Override public void alterarAction( int index ) {
 
         AlterarAluno alterar = new AlterarAluno( new javax.swing.JFrame(), true, index );
@@ -58,7 +64,9 @@ public class AlunoView extends ClienteView {
         this.tabelaCliente.setModel( fillTable() );
     }
 
-    // This method is the action of the button to exclude a client in the view
+    /**
+     *  This method is the action of the button to exclude a client in the view
+     */
     @Override public void excluirAction() {
         try {
             int index = this.tabelaCliente.getSelectedRow();
