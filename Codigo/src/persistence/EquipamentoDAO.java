@@ -24,6 +24,10 @@ public class EquipamentoDAO {
     private EquipamentoDAO() {
     }
 
+    /**
+     * Instantiates an EquipmentDAO if there is no instance of it.
+     * @return EquipamentoDAO - Equipment 
+     */
     public static EquipamentoDAO getInstance() {
         if ( instance == null ) {
             instance = new EquipamentoDAO();
@@ -32,7 +36,7 @@ public class EquipamentoDAO {
     }
 
     //Método para incluir equipamento
-    public void incluir(Equipamento equipamento) throws SQLException, PatrimonioException {
+    public void incluir( Equipamento equipamento ) throws SQLException, PatrimonioException {
         if ( equipamento == null ) {
             throw new PatrimonioException( EQUIPAMENTO_NULO );
         } else if ( this.inDBCodigo( equipamento.getCodigo() ) ) {
@@ -95,14 +99,26 @@ public class EquipamentoDAO {
         }
     }
 
+    /**
+     * Captures all the equipments
+     * @return Vector - All the equipments
+     */
     public Vector<Equipamento> buscarTodos() throws SQLException, PatrimonioException {
         return this.buscar( "SELECT * FROM equipamento;" );
     }
 
+    /**
+     * Captures all the equipments by its identification code
+     * @return Vector - Equipments
+     */
     public Vector<Equipamento> buscarPorCodigo( String valor ) throws SQLException, PatrimonioException {
         return this.buscar( "SELECT * FROM equipamento WHERE codigo = " + "\"" + valor + "\";" );
     }
 
+    /**
+     * Captures all the equipments with the given description 
+     * @return Vector - Equipments
+     */
     public Vector<Equipamento> buscarPorDescricao( String valor ) throws SQLException, PatrimonioException {
         return this.buscar( "SELECT * FROM equipamento WHERE descricao = " + "\"" + valor + "\";" );
     }
@@ -110,6 +126,11 @@ public class EquipamentoDAO {
     
     //Metodos Privados
     
+    
+    /**
+     * Searches for an equipment by a given query
+     * @return Vector - Equipments
+     */
     private Vector<Equipamento> buscar( String query ) throws SQLException, PatrimonioException {
         Vector<Equipamento> vet = new Vector<Equipamento>();
 
@@ -128,6 +149,11 @@ public class EquipamentoDAO {
         return vet;
     }
 
+    
+    /**
+     * Verifies if there is a query
+     * @return Boolean - Existence of a query
+     */
     private boolean inDBGeneric( String query ) throws SQLException {
         Connection con = FactoryConnection.getInstance().getConnection();
         PreparedStatement pst = con.prepareStatement(query);
@@ -146,21 +172,37 @@ public class EquipamentoDAO {
         }
     }
 
+    /**
+     * Verifies if the equipment exists in database
+     * @return Boolean - Existence of an equipment 
+     */
     private boolean inDB( Equipamento e ) throws SQLException, PatrimonioException {
         return this.inDBGeneric( "SELECT * FROM equipamento WHERE " + "equipamento.codigo = \"" + e.getCodigo() + "\" and "
                 + "equipamento.descricao = \"" + e.getDescricao() + "\";" );
     }
 
+    /**
+     * Verifies if the code exists in database
+     * @return Boolean - Existence of a code
+     */
     private boolean inDBCodigo( String codigo ) throws SQLException {
         return this.inDBGeneric( "SELECT * FROM equipamento WHERE " + "codigo = \"" + codigo + "\";" );
     }
 
+    /**
+     * Verifies if the equipment exists in database
+     * @return Boolean - Existence of an equipment 
+     */
     private boolean inOtherDB( Equipamento e ) throws SQLException {
         return this.inDBGeneric( "SELECT * FROM reserva_equipamento WHERE "
                 + "id_equipamento = (SELECT id_equipamento FROM equipamento WHERE " + "equipamento.codigo = \"" + e.getCodigo()
                 + "\" and " + "equipamento.descricao = \"" + e.getDescricao() + "\");" );
     }
 
+    /**
+     * Captures the next equipment resulted of the query made before 
+     * @return Equipamento -  Equipment
+     */
     private Equipamento fetchEquipamento( ResultSet rs ) throws PatrimonioException, SQLException {
         return new Equipamento( rs.getString( "codigo" ), rs.getString( "descricao" ) );
     }
