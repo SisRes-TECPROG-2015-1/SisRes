@@ -120,35 +120,60 @@ public class ProfessorDAO {
 		}
 	}
 
+	/**
+     * Captures the teachers
+     * @return Vector - All the teachers
+     */
 	public Vector<Professor> buscarTodos() throws SQLException,
 			ClienteException {
 		return this.buscar( "SELECT * FROM professor;" );
 	}
 
+	/**
+     * Captures the teachers by their name.
+     * @return Vector - Teachers
+     */
 	public Vector<Professor> buscarNome( String valor ) throws SQLException,
 			ClienteException {
 		return this.buscar( "SELECT * FROM professor WHERE nome = " + "\""
 				+ valor + "\";" );
 	}
 
+	
+	/**
+     * Captures the teachers by their cpf.
+     * @return Vector - Teachers
+     */
 	public Vector<Professor> buscarCpf( String valor ) throws SQLException,
 			ClienteException {
 		return this.buscar( "SELECT * FROM professor WHERE cpf = " + "\""
 				+ valor + "\";" );
 	}
 
+	/**
+     * Captures the teachers by their matricula
+     * @return Vector - Teachers
+     */	
 	public Vector<Professor> buscarMatricula( String valor ) throws SQLException,
 			ClienteException {
 		return this.buscar( "SELECT * FROM professor WHERE matricula = " + "\""
 				+ valor + "\";" );
 	}
 
+	/**
+     * Captures the teachers by their e-mail.
+     * @return Vector - Teachers
+     */
 	public Vector<Professor> buscarEmail( String valor ) throws SQLException,
 			ClienteException {
 		return this.buscar( "SELECT * FROM professor WHERE email = " + "\""
 				+ valor + "\";" );
 	}
 
+	/**
+     * Captures the teachers by their telephone.
+     * @return Vector - Teachers
+     */
 	public Vector<Professor> buscarTelefone( String valor ) throws SQLException,
 			ClienteException {
 		return this.buscar( "SELECT * FROM professor WHERE telefone = " + "\""
@@ -158,7 +183,10 @@ public class ProfessorDAO {
 	
 	//Metodos Privados
 	 
-
+	/**
+     * Searches for a teacher by a given query
+     * @return Vector - Teachers
+     */
 	private Vector<Professor> buscar( String query ) throws SQLException,
 			ClienteException {
 		Vector<Professor> vet = new Vector<Professor>();
@@ -178,6 +206,10 @@ public class ProfessorDAO {
 		return vet;
 	}
 
+	/**
+     * Verifies if there is a query
+     * @return Boolean - Existence of a query
+     */
 	private boolean inDBGeneric( String query ) throws SQLException {
 		Connection con = FactoryConnection.getInstance().getConnection();
 		PreparedStatement pst = con.prepareStatement( query );
@@ -195,7 +227,11 @@ public class ProfessorDAO {
 			return true;
 		}
 	}
-
+	
+	/**
+     * Verifies if the given teacher exists in database
+     * @return Boolean - Existence of a teacher 
+     */
 	private boolean inDB( Professor prof ) throws SQLException {
 		return this.inDBGeneric( "SELECT * FROM professor WHERE "
 				+ "professor.nome = \"" + prof.getNome() + "\" and "
@@ -205,16 +241,28 @@ public class ProfessorDAO {
 				+ "professor.matricula = \"" + prof.getMatricula() + "\";" );
 	}
 
+	/**
+     * Verifies if the teacher exists in database by his cpf
+     * @return Boolean - Existence of a teacher 
+     */
 	private boolean inDBCpf( String codigo ) throws SQLException {
 		return this.inDBGeneric( "SELECT * FROM professor WHERE " + "cpf = \""
 				+ codigo + "\";" );
 	}
 
+	/**
+     * Verifies if the teacher exists in database by his matricula
+     * @return Boolean - Existence of a teacher 
+     */
 	private boolean inDBMatricula( String codigo ) throws SQLException {
 		return this.inDBGeneric( "SELECT * FROM professor WHERE "
 				+ "matricula = \"" + codigo + "\";" );
 	}
 
+	/**
+     * Verifies if the teacher exists in database
+     * @return Boolean - Existence of an teacher 
+     */
 	private boolean inOtherDB( Professor prof ) throws SQLException {
 		if ( this.inDBGeneric( "SELECT * FROM reserva_sala_professor WHERE "
 				+ "id_professor = (SELECT id_professor FROM professor WHERE "
