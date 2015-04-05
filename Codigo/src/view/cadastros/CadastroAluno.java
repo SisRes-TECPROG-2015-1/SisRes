@@ -1,7 +1,8 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
+/**
+* Equipment and Rooms Reservation System
+* This file contains the view for the student registration
+*/
+
 package view.cadastros;
 
 import java.sql.SQLException;
@@ -22,7 +23,7 @@ public class CadastroAluno extends CadastroCliente {
         this.setName( "CadastroAluno" );
     }
 
-    // This method is the action to the cadastre button
+    // This method is the action to the registering button
     @Override public void cadastroAction() {
         try {
             if ( cadastroBtn.getText().equals( "Cadastrar" ) ) {

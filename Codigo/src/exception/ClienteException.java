@@ -1,3 +1,8 @@
+/**
+* Equipment and Rooms Reservation System
+* This file contains the exceptions related to the client.
+*/
+
 package exception;
 
 @SuppressWarnings("serial")

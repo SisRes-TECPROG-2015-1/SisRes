@@ -1,3 +1,8 @@
+/**
+* Equipment and Rooms Reservation System
+* This file contains the methods to maintain a room
+*/
+
 package control;
 
 import java.sql.SQLException;
