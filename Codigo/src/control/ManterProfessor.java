@@ -7,14 +7,23 @@ import persistence.ProfessorDAO;
 import exception.ClienteException;
 import model.Professor;
 
+/**
+ * Equipment and rooms reservation system
+ * ManterProfessor class with methods to accomplish CRUD teachers
+ */
 public class ManterProfessor {
 	
+	/**
+	 * Creating a vector of teachers
+	 */
 	private Vector < Professor > professores_vet = new Vector < Professor > ();
 	
-	//Singleton
+	//This attribute is an instance of a ManterProfessor type
 	private static ManterProfessor instance;
 	
-	
+	/**
+	 * Empty constructor
+	 */
 	private ManterProfessor() {
 	}
 	
@@ -31,6 +40,7 @@ public class ManterProfessor {
 	
 	/**
 	 * Searches for a teacher by its name
+	 * Parameter valor of type string used to bring information from ProfessorDao class
 	 * @return Professor - A teacher
 	 */
 	public Vector < Professor > buscarNome ( String valor ) throws SQLException, ClienteException {
@@ -86,6 +96,7 @@ public class ManterProfessor {
 	
 	/**
 	 * Inserts a new teacher in the database and its attributes
+	 * Parameters nome, cpf, matricula, telefone, email used to bring informations for insert a new teacher 
 	 * @return void
 	 */
 	public void inserir( String nome, String cpf, String matricula,
@@ -98,6 +109,7 @@ public class ManterProfessor {
 	
 	/**
 	 * Changes a teacher attributes like name, CPF, enrollment and others
+	 * Parameters nome, cpf, matricula, telefone, email used to bring informations from ProfessorDao for update an old teacher
 	 * @return void
 	 */
 	public void alterar( String nome, String cpf, String matricula,
