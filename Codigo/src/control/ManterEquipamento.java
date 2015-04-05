@@ -62,6 +62,7 @@ public class ManterEquipamento {
 	
 	/**
 	 * Changes an equipment's attributes
+	 * Parameters codigo and descricao of string type used to update information about the code and description from EquipamentoDao class
 	 */
 	public void alterar(String codigo, String descricao, Equipamento equipamento) throws PatrimonioException, SQLException {
 		if (equipamento == null) {
