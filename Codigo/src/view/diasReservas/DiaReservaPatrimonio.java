@@ -1,3 +1,8 @@
+/**
+* Equipment and Rooms Reservation System
+* This file contains the actions for showing the patrimony reserves for a given date.
+*/
+
 package view.diasReservas;
 
 /**

@@ -1,7 +1,9 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
+/**
+* Equipment and Rooms Reservation System
+* This file contains the actions for showing the room reserves for a given time.
+*/
+
+
 package view.horariosReservas;
 
 import java.sql.SQLException;

@@ -1,7 +1,9 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
+/**
+* Equipment and Rooms Reservation System
+* This file contains the actions for maintaining reservations.
+*/
+
+
 package view.horariosReservas;
 
 import javax.swing.JOptionPane;

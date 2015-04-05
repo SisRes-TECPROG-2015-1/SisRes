@@ -1,7 +1,8 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
+/**
+* Equipment and Rooms Reservation System
+* This file contains the action for the registration of a equipment reserve for a given date.
+*/
+
 package view.diasReservas;
 
 import java.awt.Frame;
