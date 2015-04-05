@@ -94,7 +94,6 @@ public class ManterAluno {
 	
 	/**
 	 * Inserts a new student in the database and its attributes
-	 * Parameters nome, cpf, matricula, telefone, email and aluno used to bring informations for create a student
 	 * @return void
 	 */
 	public void inserir ( String nome, String cpf, String matricula,
@@ -108,7 +107,7 @@ public class ManterAluno {
 	
 	/**
 	 * Changes a student attributes like name, CPF, enrollment and others
-	 * Parameters nome, cpf, matricula, telefone, email and aluno used to bring informations from AlunoDAOfor update an old student
+	 * Parameters nome, cpf, matricula, telefone, email and aluno used to bring informations for update an old student
 	 * @return void
 	 */
 	public void alterar ( String nome, String cpf, String matricula,
