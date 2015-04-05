@@ -7,13 +7,23 @@ import persistence.AlunoDAO;
 import exception.ClienteException;
 import model.Aluno;
 
+/**
+ * Equipment and rooms reservation system
+ * ManterAluno class with methods to accomplish CRUD students
+ */
 public class ManterAluno {
 	
+	/**
+	 * Creating a vector of students 
+	 */
 	private Vector <Aluno> alunos_vet = new Vector <Aluno> ();
 	
-	//Singlenton
+	//This attribute is an instance of a ManterAluno type
 	private static ManterAluno instance;
 	
+	/**
+	 * Empty constructor
+	 */
 	private ManterAluno () {
 	}
 	
@@ -30,9 +40,10 @@ public class ManterAluno {
 	
 	/**
 	 * Searches for a student by its name
+	 * Parameter valor of type string used to bring information from AlunoDao class
 	 * @return Aluno - A student
 	 */
-	public Vector <Aluno> buscarNome ( String valor ) throws SQLException, ClienteException {
+	public Vector <Aluno> buscarNome ( String valor ) throws SQLException, ClienteException { 
 		return AlunoDAO.getInstance().buscarNome(valor);
 	}
 	
@@ -96,6 +107,7 @@ public class ManterAluno {
 	
 	/**
 	 * Changes a student attributes like name, CPF, enrollment and others
+	 * Parameters nome, cpf, matricula, telefone, email and aluno used to bring informations for update an old student
 	 * @return void
 	 */
 	public void alterar ( String nome, String cpf, String matricula,
