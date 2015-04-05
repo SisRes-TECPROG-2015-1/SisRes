@@ -6,12 +6,23 @@ import persistence.EquipamentoDAO;
 import exception.PatrimonioException;
 import model.Equipamento;
 
+/**
+ * Equipment and rooms reservation system
+ * ManterEquipamento class with methods to accomplish CRUD equipments
+ */
 public class ManterEquipamento {
-
+	
+	/**
+	 * Creating a vector of equipments
+	 */
 	private Vector <Equipamento> Equipamento_vet = new Vector <Equipamento>();
 	
-	//Singleton
+	//This attribute is an instance of a ManterEquipamento type
 	private static ManterEquipamento instance;
+	
+	/**
+	 * Empty constructor
+	 */
 	private ManterEquipamento() {
 		
 	}
@@ -40,6 +51,7 @@ public class ManterEquipamento {
 	
 	/**
 	 * Inserts a new equipment and its attributes
+	 * Parameters codigo and descricao of string type used to get information about the code and description from EquipamentoDao class
 	 */
 	public void inserir(String codigo, String descricao) throws PatrimonioException, SQLException {
 		Equipamento equipamento = new Equipamento(codigo, descricao);
