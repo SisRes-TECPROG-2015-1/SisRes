@@ -9,29 +9,33 @@ import java.util.Vector;
 import model.Professor;
 import model.ReservaSalaProfessor;
 import model.Sala;
-
 import exception.ClienteException;
 import exception.PatrimonioException;
 import exception.ReservaException;
 
 public class ResSalaProfessorDAO extends DAO {
 
-	// Mensagens e Alertas
-	private final String NULA = "Termo nulo.";
-	private final String SALA_INDISPONIVEL = "A Sala esta reservada no mesmo dia e horario.";
-	private final String PROFESSOR_INEXISTENTE = "Professor inexistente.";
-	private final String SALA_INEXISTENTE = "Sala inexistente";
-	private final String RESERVA_INEXISTENTE = "Reserva inexistente";
-	private final String RESERVA_EXISTENTE = "A reserva ja existe.";
-	private final String DATA_JA_PASSOU = "A data escolhida ja passou.";
-	private final String HORA_JA_PASSOU = "A hora escolhida ja passou.";
+	private final String NULA = "Termo nulo."; // Attribute indicates a null term
+	private final String SALA_INDISPONIVEL = "A Sala esta reservada no mesmo dia e horario."; // Attribute indicates room is unavailable
+	private final String PROFESSOR_INEXISTENTE = "Professor inexistente."; // Attribute indicates teacher doesnt exist.
+	private final String SALA_INEXISTENTE = "Sala inexistente"; // Attribute indicates room doesnt exist.
+	private final String RESERVA_INEXISTENTE = "Reserva inexistente"; // Attribute indicates booking doesnt exists.
+	private final String RESERVA_EXISTENTE = "A reserva ja existe."; // Attribute indicates booking already exists.
+	private final String DATA_JA_PASSOU = "A data escolhida ja passou."; // Attribute that indicates the date choosen already passed
+	private final String HORA_JA_PASSOU = "A hora escolhida ja passou."; // Atribute that indicates the time choosen already passed
 
-	// Singleton
-	private static ResSalaProfessorDAO instance;
+	private static ResSalaProfessorDAO instance; // This attribute is an instance of ResSalaProfessorDAO
 
+	/**
+	 *  Empty Constructor
+	 */
 	private ResSalaProfessorDAO() {
 	}
 
+	/**
+	 * This method is the getter for the attribute instance
+	 * @return: a ResSalaProfessorDAO instance
+	 */
 	public static ResSalaProfessorDAO getInstance() {
 		if ( instance == null ) {
 			instance = new ResSalaProfessorDAO();
@@ -39,7 +43,11 @@ public class ResSalaProfessorDAO extends DAO {
 		return instance;
 	}
 
-	//Querys de reuso
+	/**
+	 * This method is a procedure to select a teacher by id 
+	 * @param p: indicates an object professor to be searched
+	 * @return: query to the search
+	 */
 	private String select_id_professor( Professor p ) {
 		return "SELECT id_professor FROM professor WHERE "
 				+ "professor.nome = \"" + p.getNome() + "\" and "
@@ -49,6 +57,11 @@ public class ResSalaProfessorDAO extends DAO {
 				+ "professor.matricula = \"" + p.getMatricula() + "\"";
 	}
 
+	/**
+	 * This method is a procedure to select a room by id
+	 * @param sala: indicates an object room to be searched
+	 * @return: query to the search
+	 */
 	private String select_id_sala( Sala sala ) {
 		return "SELECT id_sala FROM sala WHERE " + "sala.codigo = \""
 				+ sala.getCodigo() + "\" and " + "sala.descricao = \""
@@ -56,6 +69,12 @@ public class ResSalaProfessorDAO extends DAO {
 				+ sala.getCapacidade();
 	}
 
+	/**
+	 * This method is a query to select bookings from the table reserva_sala_professor
+	 * into the database
+	 * @param r: indicates a booking
+	 * @return: a query string
+	 */
 	private String where_reserva_sala_professor( ReservaSalaProfessor r ) {
 		return " WHERE " + "id_professor = ( "
 				+ select_id_professor( r.getProfessor() ) + " ) and "
@@ -65,6 +84,11 @@ public class ResSalaProfessorDAO extends DAO {
 				+ r.getData() + "\"";
 	}
 
+	/**
+	 * This method is query to pass values to the teacher_room_reservation
+	 * @param r: indicates a booking
+	 * @return: a query string 
+	 */
 	private String values_reserva_sala_professor( ReservaSalaProfessor r ) {
 		return "( " + select_id_professor( r.getProfessor() ) + " ), " + "( "
 				+ select_id_sala( r.getSala() ) + " ), " + "\""
@@ -72,6 +96,11 @@ public class ResSalaProfessorDAO extends DAO {
 				+ "\"" + r.getData() + "\"";
 	}
 
+	/**
+	 * 
+	 * @param r
+	 * @return
+	 */
 	private String atibutes_value_reserva_sala_professor( ReservaSalaProfessor r ) {
 		return "id_professor = ( " + select_id_professor( r.getProfessor() )
 				+ " ), " + "id_sala = ( " + select_id_sala( r.getSala() )
@@ -80,29 +109,54 @@ public class ResSalaProfessorDAO extends DAO {
 				+ r.getData() + "\"";
 	}
 
+	/**
+	 * This method is a procedure to insert into the table reserva_sala_professor
+	 * @param r: a ReservaSalaProfessor object
+	 * @return: query string
+	 */
 	private String insert_into( ReservaSalaProfessor r ) {
 		return "INSERT INTO "
 				+ "reserva_sala_professor (id_professor, id_sala, finalidade, hora, data) "
 				+ "VALUES ( " + values_reserva_sala_professor( r ) + " );";
 	}
 
+	/**
+	 * This method is a procedure to delete from the table reserva_sala_professor
+	 * @param r: a ReservaSalaProfessor object
+	 * @return a query string
+	 */
 	private String delete_from_professor( ReservaSalaProfessor r ) {
 		return "DELETE FROM reserva_sala_professor "
 				+ this.where_reserva_sala_professor( r ) + " ;";
 	}
 
+	/**
+	 * This method is a procedure to delete from the table reserva_sala_aluno
+	 * @param r: a ReservaSalaProfessor object
+	 * @return: a query 
+	 */
 	private String delete_from_aluno( ReservaSalaProfessor r ) {
 		return "DELETE FROM reserva_sala_aluno WHERE " + "hora = \""
 				+ r.getHora() + "\" and " + "data = \"" + r.getData() + "\" ;";
 	}
 
+	/**
+	 * This method is a procedure to update the table reserva_sala_professor
+	 * @param r: a ReservaSalaProfessor object
+	 * @return: a query 
+	 */
 	private String update( ReservaSalaProfessor r, ReservaSalaProfessor r2 ) {
 		return "UPDATE reserva_sala_professor SET "
 				+ this.atibutes_value_reserva_sala_professor( r2 )
 				+ this.where_reserva_sala_professor( r ) + " ;";
 	}
 
-	//Metodo para incluir reserva de sala para professor
+	/**
+	 * This method includes a new booking into the database
+	 * @param r
+	 * @throws ReservaException
+	 * @throws SQLException
+	 */
 	public void incluir( ReservaSalaProfessor r ) throws ReservaException,
 			SQLException {
 		if ( r == null ) {
@@ -132,7 +186,13 @@ public class ResSalaProfessorDAO extends DAO {
 		}
 	}
 	
-	//Metodo para alterar reserva de sala para professor
+	/**
+	 * This method modifies a booking into the database
+	 * @param r: booking to be modified
+	 * @param r_new: the new booking will be set.
+	 * @throws ReservaException
+	 * @throws SQLException
+	 */
 	public void alterar( ReservaSalaProfessor r, ReservaSalaProfessor r_new )
 			throws ReservaException, SQLException {
 		if ( r == null ) {
@@ -164,7 +224,12 @@ public class ResSalaProfessorDAO extends DAO {
 		}
 	}
 
-	//Metodo para excluir reserva de sala para professor
+	/**
+	 * This methods excludes a booking from the database
+	 * @param r: booking object
+	 * @throws ReservaException
+	 * @throws SQLException
+	 */
 	public void excluir( ReservaSalaProfessor r ) throws ReservaException,
 			SQLException {
 		if ( r == null ) {
@@ -176,6 +241,14 @@ public class ResSalaProfessorDAO extends DAO {
 		}
 	}
 
+	/**
+	 * This method searches a teachers reservation into the database
+	 * @return: arraylist with the bookings found
+	 * @throws SQLException
+	 * @throws ClienteException
+	 * @throws PatrimonioException
+	 * @throws ReservaException
+	 */
 	@SuppressWarnings( "unchecked" )
 	public Vector<ReservaSalaProfessor> buscarTodos() throws SQLException,
 			ClienteException, PatrimonioException, ReservaException {
@@ -185,6 +258,15 @@ public class ResSalaProfessorDAO extends DAO {
 						+ "INNER JOIN professor ON professor.id_professor = reserva_sala_professor.id_professor;" );
 	}
 
+	/**
+	 * This method searches a teacher booking by date
+	 * @param data: date
+	 * @return: arraylist with the bookings found
+	 * @throws SQLException
+	 * @throws ClienteException
+	 * @throws PatrimonioException
+	 * @throws ReservaException
+	 */
 	@SuppressWarnings( "unchecked" )
 	public Vector<ReservaSalaProfessor> buscarPorData( String data )
 			throws SQLException, ClienteException, PatrimonioException,
@@ -197,6 +279,10 @@ public class ResSalaProfessorDAO extends DAO {
 						+ "\";" );
 	}
 
+	/**
+	 * This method fetches a teacher into the database and inserts the information collected
+	 * into an object
+	 */
 	@Override
 	protected Object fetch( ResultSet rs ) throws SQLException, ClienteException,
 			PatrimonioException, ReservaException {
@@ -213,6 +299,12 @@ public class ResSalaProfessorDAO extends DAO {
 		return r;
 	}
 
+	/**
+	 * This method verifies the complete status of the tearcher search into the database
+	 * @param professor: teacher to be searched
+	 * @return: boolean status
+	 * @throws SQLException
+	 */
 	private boolean professorinDB( Professor professor ) throws SQLException {
 		return super.inDBGeneric( "SELECT * FROM professor WHERE "
 				+ "professor.nome = \"" + professor.getNome() + "\" and "
@@ -223,6 +315,12 @@ public class ResSalaProfessorDAO extends DAO {
 				+ professor.getMatricula() + "\";" );
 	}
 
+	/**
+	 * This method verifies the complete status of the room search into the database
+	 * @param sala
+	 * @return boolean status
+	 * @throws SQLException
+	 */
 	private boolean salainDB( Sala sala ) throws SQLException {
 		return super.inDBGeneric( "SELECT * FROM sala WHERE "
 				+ "sala.codigo = \"" + sala.getCodigo() + "\" and "
@@ -230,6 +328,14 @@ public class ResSalaProfessorDAO extends DAO {
 				+ "sala.capacidade = " + sala.getCapacidade() + ";" );
 	}
 
+	/**
+	 * This method verifies the complete status of the booking search into the database
+	 * @param sala: indicates a room for the booking
+	 * @param data: indicates a date for the booking
+	 * @param hora: indicates a time for the booking
+	 * @return: boolean with the status (exists or not)
+	 * @throws SQLException
+	 */
 	private boolean salainReservaDB( Sala sala, String data, String hora )
 			throws SQLException {
 		return super.inDBGeneric( "SELECT * FROM reserva_sala_professor WHERE "
@@ -240,6 +346,12 @@ public class ResSalaProfessorDAO extends DAO {
 				+ "sala.capacidade = " + sala.getCapacidade() + " );" );
 	}
 
+	/**
+	 * This method verifies the complete status of the teacher room booking search into the database
+	 * @param r: indicates a booking
+	 * @return boolean with the status (exists or not)
+	 * @throws SQLException
+	 */
 	private boolean reservainDB( ReservaSalaProfessor r ) throws SQLException {
 		return super.inDBGeneric( "SELECT * FROM reserva_sala_professor WHERE "
 				+ "id_professor = (SELECT id_professor FROM professor WHERE "
@@ -276,23 +388,43 @@ public class ResSalaProfessorDAO extends DAO {
 				+ "\" and " + "data = \"" + r.getData() + "\";" );
 	}
 
+	/**
+	 * This method verifies the complete status of the  search into the database
+	 * @param data
+	 * @param hora
+	 * @return
+	 * @throws SQLException
+	 */
 	private boolean alunoinReservaDB( String data, String hora )
 			throws SQLException {
 		return super.inDBGeneric( "SELECT * FROM reserva_sala_aluno WHERE "
 				+ "data = \"" + data + "\" and " + "hora = \"" + hora + "\";" );
 	}
 
+	/**
+	 * This method returns the actual date
+	 * @return a date
+	 */
 	private String dataAtual() {
 		Date date = new Date( System.currentTimeMillis() );
 		SimpleDateFormat formatador = new SimpleDateFormat( "dd/MM/yyyy" );
 		return formatador.format( date );
 	}
 
+	/**
+	 * This method returns the actual time
+	 * @return a time
+	 */
 	private String horaAtual() {
 		Date date = new Date( System.currentTimeMillis() );
 		return date.toString().substring( 11, 16 );
 	}
 
+	/**
+	 * This method indicates if the actual date already passed
+	 * @param d
+	 * @return
+	 */
 	private boolean dataPassou( String d ) {
 		String agora[] = this.dataAtual().split( "[./-]" );
 		String data[] = d.split( "[./-]" );
@@ -320,6 +452,11 @@ public class ResSalaProfessorDAO extends DAO {
 		return false;
 	}
 
+	/**
+	 * This method indicates if the informed dates are equal
+	 * @param d
+	 * @return
+	 */
 	public boolean dataIgual( String d ) {
 		d = this.padronizarData( d );
 		String agora[] = this.dataAtual().split( "[./-]" );
@@ -332,6 +469,11 @@ public class ResSalaProfessorDAO extends DAO {
 		return false;
 	}
 
+	/**
+	 * This method indicates if the time already passed
+	 * @param hora
+	 * @return
+	 */
 	private boolean horaPassou( String hora ) {
 		String agora = this.horaAtual();
 		if ( hora.length() == 4 ) {
@@ -353,6 +495,11 @@ public class ResSalaProfessorDAO extends DAO {
 		}
 	}
 
+	/**
+	 * This method puts the date into the pattern
+	 * @param data
+	 * @return
+	 */
 	private String padronizarData( String data ) {
 		String agora[] = dataAtual().split( "[./-]" );
 		String partes[] = data.split( "[./-]" );
