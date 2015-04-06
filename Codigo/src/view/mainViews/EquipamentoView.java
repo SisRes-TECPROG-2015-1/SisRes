@@ -1,3 +1,7 @@
+/**
+* Equipment and Rooms Reservation System
+* This file contains the actions for the equipments.
+*/
 package view.mainViews;
 
 import java.sql.SQLException;

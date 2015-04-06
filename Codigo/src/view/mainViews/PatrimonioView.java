@@ -1,7 +1,8 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
+/**
+* Equipment and Rooms Reservation System
+* This file contains the actions for the patrimony.
+*/
+
 package view.mainViews;
 
 import javax.swing.JDialog;
