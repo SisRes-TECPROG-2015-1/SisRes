@@ -2,6 +2,10 @@ package model;
 
 import exception.ClienteException;
 
+/**
+ * Equipment and rooms reservation system
+ * Aluno class extending Cliente class
+ */
 public class Aluno extends Cliente {
 	
 	/**
@@ -14,7 +18,7 @@ public class Aluno extends Cliente {
 	private final String MATRICULA_BRANCO = "Matricula em Branco.";
 	private final String MATRICULA_NULO = "Matricula esta Nula.";
 	
-	/**
+	/**	
 	 * Constructor of class Aluno
 	 * @param nome
 	 * @param cpf
