@@ -2,6 +2,10 @@ package model;
 
 import exception.PatrimonioException;
 
+/**
+ * Equipment and rooms reservation system
+ * Sala class extending Patrimonio class
+ */
 public class Sala extends Patrimonio {
 
 	private String capacidade;
