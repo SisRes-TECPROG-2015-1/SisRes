@@ -25,12 +25,21 @@ import exception.PatrimonioException;
  */
 public class SalaView extends PatrimonioView {
 
+	/**
+	 * This method opens a modal window 
+	 * @param parent
+	 * @param modal 
+	 */
     public SalaView( java.awt.Frame parent, boolean modal ) {
         super( parent, modal );
         pesquisarLbl.setText( "Digite a sala desejada: " );
         this.setName( "SalaView" );
     }
 
+    /**
+     * This method adds a 
+     * @param sala
+     */
     protected Vector<String> fillDataVector( Sala sala ) {
 
         if ( sala == null ) {
@@ -47,6 +56,9 @@ public class SalaView extends PatrimonioView {
 
     }
 
+    /**
+     * Table for the insertion of a classroom attributes
+     */
     @Override protected DefaultTableModel fillTable() {
         try {
             DefaultTableModel table = new DefaultTableModel();
@@ -72,6 +84,9 @@ public class SalaView extends PatrimonioView {
         return null;
     }
 
+    /**
+     * This method registers a classroom 
+     */
     @Override protected void cadastrarAction() {
         CadastroPatrimonio cadastro = new CadastroSala( new javax.swing.JFrame(), true );
         cadastro.setResizable( false );
@@ -79,6 +94,9 @@ public class SalaView extends PatrimonioView {
         this.tabelaPatrimonio.setModel( fillTable() );
     }
 
+    /**
+     * This method opens the frame for changing a classroom
+     */
     @Override protected void alterarAction( int index ) {
 
         AlterarSala alteracao = new AlterarSala( new javax.swing.JFrame(), true, index );
