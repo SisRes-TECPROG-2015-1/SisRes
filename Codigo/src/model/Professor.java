@@ -2,6 +2,10 @@ package model;
 
 import exception.ClienteException;
 
+/**
+ * Equipment and rooms reservation system
+ * Professor class extending Cliente class
+ */
 public class Professor extends Cliente {
 
 	/**
