@@ -13,8 +13,8 @@ import control.ManterSala;
 import exception.PatrimonioException;
 
 /**
- * 
- * @author Parley
+ * Equipment and Rooms Reservation System
+ * Class AlterarSala used to generate the frame of updating room data
  */
 public class AlterarSala extends CadastroPatrimonio {
 
