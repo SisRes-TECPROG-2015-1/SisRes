@@ -9,8 +9,8 @@ import control.ManterEquipamento;
 import exception.PatrimonioException;
 
 /**
- * 
- * @author Parley
+ * Equipment and Rooms Reservation System
+ * Class AlterarEquipamento used to generate the frame of updating equipment data
  */
 public class AlterarEquipamento extends CadastroPatrimonio {
 
