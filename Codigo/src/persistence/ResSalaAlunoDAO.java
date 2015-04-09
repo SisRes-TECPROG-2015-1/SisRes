@@ -15,6 +15,12 @@ import model.Aluno;
 import model.ReservaSalaAluno;
 import model.Sala;
 
+
+/**
+ * Equipment and Rooms Reservation System
+ * Class ResSalaProfessorDAO is the data access object to the database.
+ */
+
 @SuppressWarnings( "unchecked" )
 public class ResSalaAlunoDAO extends DAO {
 

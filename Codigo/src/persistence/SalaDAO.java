@@ -10,6 +10,11 @@ import java.util.Vector;
 
 import exception.PatrimonioException;
 
+/**
+ * Equipment and Rooms Reservation System
+ * Class SalaDAO is the data access object to the database.
+ */
+
 public class SalaDAO {
 
 

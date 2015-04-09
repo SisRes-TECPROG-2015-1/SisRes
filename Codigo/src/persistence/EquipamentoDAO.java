@@ -9,6 +9,11 @@ import java.util.Vector;
 import model.Equipamento;
 import exception.PatrimonioException;
 
+/**
+ * Equipment and Rooms Reservation System
+ * Class EquipamentoDAO is the data access object to the database.
+ */
+
 public class EquipamentoDAO {
 
     // Mensagens

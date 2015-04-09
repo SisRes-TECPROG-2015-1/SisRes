@@ -12,6 +12,10 @@ import exception.ClienteException;
 import exception.PatrimonioException;
 import exception.ReservaException;
 
+/**
+ * Equipment and Rooms Reservation System
+ * Class ResEquipamentoProfessorDAO is the data access object to the database.
+ */
 public class ResEquipamentoProfessorDAO extends DAO {
 
 	

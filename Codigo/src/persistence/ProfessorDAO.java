@@ -7,6 +7,11 @@ import java.util.Vector;
 
 import exception.ClienteException;
 
+/**
+ * Equipment and Rooms Reservation System
+ * Class ProfessorDAO is the data access object to the database.
+ */
+
 public class ProfessorDAO {
 
 	// Mensagens

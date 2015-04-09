@@ -13,6 +13,11 @@ import exception.ClienteException;
 import exception.PatrimonioException;
 import exception.ReservaException;
 
+/**
+ * Equipment and Rooms Reservation System
+ * Class ResSalaProfessorDAO is the data access object to the database.
+ */
+
 public class ResSalaProfessorDAO extends DAO {
 
 	private final String NULA = "Termo nulo."; // Attribute indicates a null term
