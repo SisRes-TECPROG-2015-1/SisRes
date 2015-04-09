@@ -19,8 +19,8 @@ import exception.PatrimonioException;
 import exception.ReservaException;
 
 /**
- * 
- * @author Parley
+ * Equipment and Rooms Reservation System
+ * Class FazerReservaSalaView used to generate the frame of student or teacher that will reserve some room
  */
 public class FazerReservaSalaView extends ReservaSalaView {
 
