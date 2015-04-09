@@ -13,8 +13,8 @@ import control.ManterAluno;
 import exception.ClienteException;
 
 /**
- * 
- * @author Parley
+ * Equipment and Rooms Reservation System
+ * Class AlterarAluno used to generate the frame of updating student data
  */
 public class AlterarAluno extends CadastroCliente {
 
