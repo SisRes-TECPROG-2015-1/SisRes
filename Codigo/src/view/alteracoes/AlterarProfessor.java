@@ -13,8 +13,8 @@ import control.ManterProfessor;
 import exception.ClienteException;
 
 /**
- * 
- * @author Parley
+ * Equipment and Rooms Reservation System
+ * Class AlterarProfessor used to generate the frame of updating teacher data
  */
 public class AlterarProfessor extends CadastroCliente {
 
