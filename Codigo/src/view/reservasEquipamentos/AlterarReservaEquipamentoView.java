@@ -16,8 +16,8 @@ import exception.PatrimonioException;
 import exception.ReservaException;
 
 /**
- * 
- * @author Parley
+ * Equipment and Rooms Reservation System
+ * Class AlterarReservaEquipamentoView used to generate the frame alter some reserve of an equipment
  */
 public class AlterarReservaEquipamentoView extends ReservaEquipamentoView {
 
