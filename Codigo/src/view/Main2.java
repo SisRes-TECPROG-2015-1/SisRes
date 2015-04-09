@@ -8,8 +8,8 @@ import view.mainViews.ProfessorView;
 import view.mainViews.SalaView;
 
 /**
- * 
- * @author Parley
+ * Equipment and Rooms Reservation System
+ * Class Main2 is the main class of the hole system
  */
 @SuppressWarnings("serial") public class Main2 extends javax.swing.JFrame {
 
