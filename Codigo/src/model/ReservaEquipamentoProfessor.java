@@ -2,9 +2,13 @@ package model;
 
 import exception.ReservaException;
 
+/**
+ * Equipment and rooms reservation system
+ * ReservaEquipamentoProfessor class extending ReservaEquipamento class
+ */
 public class ReservaEquipamentoProfessor extends ReservaEquipamento {
 
-	private Professor professor;
+	private Professor professor;//
 
 	// Message for exception
 	private final String PROFESSOR_NULO = "O professor esta nulo.";

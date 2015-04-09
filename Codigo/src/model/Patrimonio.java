@@ -2,6 +2,10 @@ package model;
 
 import exception.PatrimonioException;
 
+/**
+ * Equipment and rooms reservation system
+ * Patrimonio class defining the components of the system
+ */
 public class Patrimonio {
 
 	private String codigo;

@@ -2,6 +2,10 @@ package model;
 
 import exception.ReservaException;
 
+/**
+ * Equipment and rooms reservation system
+ * ReservaSala class extending Reserva class
+ */
 public class ReservaSala extends Reserva {
 
 	private Sala sala;

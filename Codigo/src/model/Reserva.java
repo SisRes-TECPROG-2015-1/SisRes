@@ -5,6 +5,10 @@ import java.util.Date;
 
 import exception.ReservaException;
 
+/**
+ * Equipment and rooms reservation system
+ * Reserva class for make a reserve
+ */
 public class Reserva {
 
 	private String hora;

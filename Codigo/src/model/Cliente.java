@@ -2,6 +2,10 @@ package model;
 
 import exception.ClienteException;
 
+/**
+ * Equipment and rooms reservation system
+ * Cliente class for the clients of the system
+ */
 public abstract class Cliente {
 
 	/**
