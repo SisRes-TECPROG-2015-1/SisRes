@@ -16,6 +16,10 @@ import exception.ClienteException;
 import exception.PatrimonioException;
 import exception.ReservaException;
 
+/**
+ * Equipment and Rooms Reservation System
+ * Class ReservaEquipamentoView used to generate the hole frame of make reserve operations to an equipment
+ */
 public abstract class ReservaEquipamentoView extends javax.swing.JDialog {
 
     protected ManterResEquipamentoProfessor instanceProf;
