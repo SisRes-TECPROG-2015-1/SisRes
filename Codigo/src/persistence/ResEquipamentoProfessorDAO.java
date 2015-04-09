@@ -14,20 +14,32 @@ import exception.ReservaException;
 
 public class ResEquipamentoProfessorDAO extends DAO {
 
-	// Mensagens e Alertas
-	private final String NULA = "Termo nulo.";
-	private final String EQUIPAMENTO_INDISPONIVEL = "O Equipamento esta reservada no mesmo dia e horario.";
-	private final String PROFESSOR_INEXISTENTE = "Professor inexistente.";
-	private final String EQUIPAMENTO_INEXISTENTE = "Equipamento inexistente";
-	private final String RESERVA_INEXISTENTE = "Reserva inexistente";
-	private final String RESERVA_EXISTENTE = "A reserva ja existe.";
+	
+	private final String NULA = "Termo nulo."; // Attribute indicates a null therm
+	private final String EQUIPAMENTO_INDISPONIVEL =
+	"O Equipamento esta reservada no mesmo dia e horario."; // Attributes indicates a unavailable equipment
+	private final String PROFESSOR_INEXISTENTE = 
+	"Professor inexistente."; // Attribute indicates an inexistent teacher
+	private final String EQUIPAMENTO_INEXISTENTE = 
+	"Equipamento inexistente"; // Attribute indicates an inexistent equipment
+	private final String RESERVA_INEXISTENTE =
+	"Reserva inexistente"; // Attribute indicates an inexistent booking
+	private final String RESERVA_EXISTENTE = 
+	"A reserva ja existe."; // Attribute indicates the booking already exists
 
-	// Singleton
-	private static ResEquipamentoProfessorDAO instance;
+	private static ResEquipamentoProfessorDAO instance; // Attribute represents an instance of ResEquipamentoProfessorDAO
 
+	
+	/**
+	 * Empty constructor
+	 */
 	private ResEquipamentoProfessorDAO() {
 	}
 
+	/**
+	 * This method is the getter of the ResEquipamentoProfessorDAO attribute of the class
+	 * @return
+	 */
 	public static ResEquipamentoProfessorDAO getInstance() {
 		if ( instance == null ) { 
 			instance = new ResEquipamentoProfessorDAO();
@@ -35,9 +47,11 @@ public class ResEquipamentoProfessorDAO extends DAO {
 		return instance;
 	}
 
-	//
-
-	//Querys de reuso
+	/**
+	 * This attribute is an procedure to select into the table 'professor'
+	 * @param p: indicates a teacher object
+	 * @return: a query string
+	 */
 	private String select_id_professor( Professor p ) {
 		return "SELECT id_professor FROM professor WHERE "
 				+ "professor.nome = \"" + p.getNome() + "\" and "
@@ -47,6 +61,11 @@ public class ResEquipamentoProfessorDAO extends DAO {
 				+ "professor.matricula = \"" + p.getMatricula() + "\"";
 	}
 
+	/**
+	 * This method is a procedure to select into the table 'equipamento'
+	 * @param equipamento: indicates the equipment object
+	 * @return: string with the query
+	 */
 	private String select_id_equipamento( Equipamento equipamento ) {
 		return "SELECT id_equipamento FROM equipamento WHERE "
 				+ "equipamento.codigo = \"" + equipamento.getCodigo()
@@ -54,6 +73,11 @@ public class ResEquipamentoProfessorDAO extends DAO {
 				+ equipamento.getDescricao();
 	}
 
+	/**
+	 * This method is a query statement informing equipment booking attributes
+	 * @param r: 
+ 	 * @return
+	 */
 	private String where_reserva_equipamento_professor( 
 			ReservaEquipamentoProfessor r ) {
 		return " WHERE " + "id_professor = ( "
