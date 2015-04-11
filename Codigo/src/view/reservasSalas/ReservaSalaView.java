@@ -17,7 +17,7 @@ import control.ManterProfessor;
 import control.ManterResSalaAluno;
 import control.ManterResSalaProfessor;
 import exception.ClienteException;
-import exception.PatrimonioException;
+import exception.PatrimonyException;
 import exception.ReservaException;
 
 /**
@@ -35,7 +35,7 @@ public abstract class ReservaSalaView extends javax.swing.JDialog {
     protected Aluno aluno;
     protected Professor prof;
 
-    public ReservaSalaView( java.awt.Frame parent, boolean modal ) throws SQLException, PatrimonioException, PatrimonioException,
+    public ReservaSalaView( java.awt.Frame parent, boolean modal ) throws SQLException, PatrimonyException, PatrimonyException,
             ClienteException, ReservaException {
         super( parent, modal );
         this.instanceProf = ManterResSalaProfessor.getInstance();

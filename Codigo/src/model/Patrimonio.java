@@ -1,6 +1,6 @@
 package model;
 
-import exception.PatrimonioException;
+import exception.PatrimonyException;
 
 public class Patrimonio {
 
@@ -23,10 +23,10 @@ public class Patrimonio {
 	 * Constructor method for class Patrimonio
 	 * @param codigo
 	 * @param descricao
-	 * @throws PatrimonioException
+	 * @throws PatrimonyException
 	 */
 	public Patrimonio( String codigo, String descricao )
-			throws PatrimonioException {
+			throws PatrimonyException {
 		this.setCodigo( codigo );
 		this.setDescricao( descricao );
 	}
@@ -50,13 +50,13 @@ public class Patrimonio {
 	/**
 	 * Setter method for attribute 'Codigo'
 	 * @param codigo
-	 * @throws PatrimonioException
+	 * @throws PatrimonyException
 	 */
-	public void setCodigo( String codigo ) throws PatrimonioException {
+	public void setCodigo( String codigo ) throws PatrimonyException {
 		if ( codigo == null ) {
-			throw new PatrimonioException( CODIGO_NULO );
+			throw new PatrimonyException( CODIGO_NULO );
 		} else if ( "".equals( codigo.trim() ) ) {
-			throw new PatrimonioException( CODIGO_BRANCO );
+			throw new PatrimonyException( CODIGO_BRANCO );
 		}
 		 /**
 		  * This block of code was already commented. It will stay like this
@@ -74,13 +74,13 @@ public class Patrimonio {
 	/**
 	 * Setter method for attribute 'Descricao'
 	 * @param descricao
-	 * @throws PatrimonioException
+	 * @throws PatrimonyException
 	 */
-	public void setDescricao( String descricao ) throws PatrimonioException {
+	public void setDescricao( String descricao ) throws PatrimonyException {
 		if ( descricao == null ) { 
-			throw new PatrimonioException( DESCRICAO_NULO );
+			throw new PatrimonyException( DESCRICAO_NULO );
 		} else if ( "".equals( descricao.trim() ) ) {
-			throw new PatrimonioException( DESCRICAO_BRANCO );
+			throw new PatrimonyException( DESCRICAO_BRANCO );
 		} else { 
 			// Nothing to do 
 		}

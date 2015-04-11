@@ -7,7 +7,7 @@ import java.sql.SQLException;
 import java.util.Vector;
 
 import model.Equipamento;
-import exception.PatrimonioException;
+import exception.PatrimonyException;
 
 public class EquipamentoDAO {
 
@@ -36,11 +36,11 @@ public class EquipamentoDAO {
     }
 
     //Método para incluir equipamento
-    public void incluir( Equipamento equipamento ) throws SQLException, PatrimonioException {
+    public void incluir( Equipamento equipamento ) throws SQLException, PatrimonyException {
         if ( equipamento == null ) {
-            throw new PatrimonioException( EQUIPAMENTO_NULO );
+            throw new PatrimonyException( EQUIPAMENTO_NULO );
         } else if ( this.inDBCodigo( equipamento.getCodigo() ) ) {
-            throw new PatrimonioException( CODIGO_JA_EXISTENTE );
+            throw new PatrimonyException( CODIGO_JA_EXISTENTE );
         }
         else if ( !this.inDB( equipamento ) ) {
             this.updateQuery( "INSERT INTO " + "equipamento ( codigo, descricao ) VALUES ( " + "\"" + equipamento.getCodigo() + "\", "
@@ -49,23 +49,23 @@ public class EquipamentoDAO {
     }
     
     //Método para alterar equipamento
-    public void alterar( Equipamento old_equipamento, Equipamento new_equipamento ) throws SQLException, PatrimonioException {
+    public void alterar( Equipamento old_equipamento, Equipamento new_equipamento ) throws SQLException, PatrimonyException {
         if ( old_equipamento == null ) {
-            throw new PatrimonioException( EQUIPAMENTO_NULO );
+            throw new PatrimonyException( EQUIPAMENTO_NULO );
         }
         if ( new_equipamento == null ) {
-            throw new PatrimonioException( EQUIPAMENTO_NULO );
+            throw new PatrimonyException( EQUIPAMENTO_NULO );
         }
 
         Connection con = FactoryConnection.getInstance().getConnection();
         PreparedStatement pst;
 
         if ( !this.inDB( old_equipamento ) ) {
-            throw new PatrimonioException( EQUIPAMENTO_NAO_EXISTENTE );
+            throw new PatrimonyException( EQUIPAMENTO_NAO_EXISTENTE );
         } else if ( this.inOtherDB( old_equipamento ) ) {
-            throw new PatrimonioException( EQUIPAMENTO_EM_USO );
+            throw new PatrimonyException( EQUIPAMENTO_EM_USO );
         } else if ( !new_equipamento.getCodigo().equals( old_equipamento.getCodigo() ) && this.inDBCodigo( new_equipamento.getCodigo() ) ) {
-            throw new PatrimonioException( CODIGO_JA_EXISTENTE );
+            throw new PatrimonyException( CODIGO_JA_EXISTENTE );
         } else if ( !this.inDB( new_equipamento ) ) {
             String msg = "UPDATE equipamento SET " + "codigo = \"" + new_equipamento.getCodigo() + "\", " + "descricao = \""
                     + new_equipamento.getDescricao() + "\"" + " WHERE " + "equipamento.codigo = \"" + old_equipamento.getCodigo()
@@ -79,23 +79,23 @@ public class EquipamentoDAO {
             pst.close();
 
         } else {
-            throw new PatrimonioException( EQUIPAMENTO_JA_EXISTENTE );
+            throw new PatrimonyException( EQUIPAMENTO_JA_EXISTENTE );
         }
         con.close();
     }
 
     //Metodo para excluir equipamento
-    public void excluir( Equipamento equipamento ) throws SQLException, PatrimonioException {
+    public void excluir( Equipamento equipamento ) throws SQLException, PatrimonyException {
         if ( equipamento == null ) {
-            throw new PatrimonioException( EQUIPAMENTO_NULO );
+            throw new PatrimonyException( EQUIPAMENTO_NULO );
         } else if ( this.inOtherDB( equipamento ) ) {
-            throw new PatrimonioException( EQUIPAMENTO_EM_USO );
+            throw new PatrimonyException( EQUIPAMENTO_EM_USO );
         }
         if ( this.inDB( equipamento ) ) {
             this.updateQuery( "DELETE FROM equipamento WHERE " + "equipamento.codigo = \"" + equipamento.getCodigo() + "\" and "
                     + "equipamento.descricao = \"" + equipamento.getDescricao() + "\";" );
         } else {
-            throw new PatrimonioException( EQUIPAMENTO_NAO_EXISTENTE );
+            throw new PatrimonyException( EQUIPAMENTO_NAO_EXISTENTE );
         }
     }
 
@@ -103,7 +103,7 @@ public class EquipamentoDAO {
      * Captures all the equipments
      * @return Vector - All the equipments
      */
-    public Vector<Equipamento> buscarTodos() throws SQLException, PatrimonioException {
+    public Vector<Equipamento> buscarTodos() throws SQLException, PatrimonyException {
         return this.buscar( "SELECT * FROM equipamento;" );
     }
 
@@ -111,7 +111,7 @@ public class EquipamentoDAO {
      * Captures all the equipments by its identification code
      * @return Vector - Equipments
      */
-    public Vector<Equipamento> buscarPorCodigo( String valor ) throws SQLException, PatrimonioException {
+    public Vector<Equipamento> buscarPorCodigo( String valor ) throws SQLException, PatrimonyException {
         return this.buscar( "SELECT * FROM equipamento WHERE codigo = " + "\"" + valor + "\";" );
     }
 
@@ -119,7 +119,7 @@ public class EquipamentoDAO {
      * Captures all the equipments with the given description 
      * @return Vector - Equipments
      */
-    public Vector<Equipamento> buscarPorDescricao( String valor ) throws SQLException, PatrimonioException {
+    public Vector<Equipamento> buscarPorDescricao( String valor ) throws SQLException, PatrimonyException {
         return this.buscar( "SELECT * FROM equipamento WHERE descricao = " + "\"" + valor + "\";" );
     }
 
@@ -131,7 +131,7 @@ public class EquipamentoDAO {
      * Searches for an equipment by a given query
      * @return Vector - Equipments
      */
-    private Vector<Equipamento> buscar( String query ) throws SQLException, PatrimonioException {
+    private Vector<Equipamento> buscar( String query ) throws SQLException, PatrimonyException {
         Vector<Equipamento> vet = new Vector<Equipamento>();
 
         Connection con = FactoryConnection.getInstance().getConnection();
@@ -176,7 +176,7 @@ public class EquipamentoDAO {
      * Verifies if the equipment exists in database
      * @return Boolean - Existence of an equipment 
      */
-    private boolean inDB( Equipamento e ) throws SQLException, PatrimonioException {
+    private boolean inDB( Equipamento e ) throws SQLException, PatrimonyException {
         return this.inDBGeneric( "SELECT * FROM equipamento WHERE " + "equipamento.codigo = \"" + e.getCodigo() + "\" and "
                 + "equipamento.descricao = \"" + e.getDescricao() + "\";" );
     }
@@ -203,7 +203,7 @@ public class EquipamentoDAO {
      * Captures the next equipment resulted of the query made before 
      * @return Equipamento -  Equipment
      */
-    private Equipamento fetchEquipamento( ResultSet rs ) throws PatrimonioException, SQLException {
+    private Equipamento fetchEquipamento( ResultSet rs ) throws PatrimonyException, SQLException {
         return new Equipamento( rs.getString( "codigo" ), rs.getString( "descricao" ) );
     }
     

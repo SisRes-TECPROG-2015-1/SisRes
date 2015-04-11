@@ -15,10 +15,10 @@ import org.junit.Before;
 import org.junit.Test;
 
 import persistence.AlunoDAO;
-import persistence.SalaDAO;
+import persistence.ClassRoom;
 import view.Main2;
 import exception.ClienteException;
-import exception.PatrimonioException;
+import exception.PatrimonyException;
 
 /**
  * US8 Título: Excluir sala. Como usuário Eu quero excluir uma sala Para que a
@@ -41,7 +41,7 @@ public class US08_ExcluirSala {
     private DialogFixture dialog;
     private int index;
 
-    @Before public void setUp() throws PatrimonioException, SQLException {
+    @Before public void setUp() throws PatrimonyException, SQLException {
         robot = BasicRobot.robotWithNewAwtHierarchy();
         robot.settings().delayBetweenEvents(5);
 
@@ -49,18 +49,18 @@ public class US08_ExcluirSala {
         window.show(new Dimension(900, 500)); // shows the frame to test
 
         sala = new Sala("code", "Sala para testes de aceitacao", "123");
-        SalaDAO.getInstance().incluir(sala);
+        ClassRoom.getInstance().includeARoom(sala);
 
-        index = SalaDAO.getInstance().buscarTodos().size() - 1;
+        index = ClassRoom.getInstance().searchAll().size() - 1;
 
         window.button("Sala").click();
         dialog = window.dialog("SalaView");
 
     }
 
-    @After public void tearDown() throws SQLException, PatrimonioException {
+    @After public void tearDown() throws SQLException, PatrimonyException {
         if (sala != null)
-            SalaDAO.getInstance().excluir(sala);
+            ClassRoom.getInstance().excluir(sala);
         window.cleanUp();
     }
 

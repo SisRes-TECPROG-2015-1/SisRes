@@ -18,7 +18,7 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 import persistence.EquipamentoDAO;
-import exception.PatrimonioException;
+import exception.PatrimonyException;
 
 
 public class EquipamentoDAOTest {
@@ -27,17 +27,17 @@ public class EquipamentoDAOTest {
 	Vector <Equipamento> todos;
 	
 	@BeforeClass
-	public static void setUpClass() throws PatrimonioException, SQLException {
+	public static void setUpClass() throws PatrimonyException, SQLException {
 		instance = EquipamentoDAO.getInstance();
 	}
 	
 	@AfterClass
-	public static void tearDownClass() throws SQLException, PatrimonioException {
+	public static void tearDownClass() throws SQLException, PatrimonyException {
 		instance = null;
 	}
 	
 	@Before
-	public void setUp() throws PatrimonioException, SQLException {
+	public void setUp() throws PatrimonyException, SQLException {
 		 antigo = new Equipamento("codigo", "descricao - antigo");
 		 novo = new Equipamento("codigo", "descricao - alterada");
 		 instance.incluir(antigo);
@@ -45,7 +45,7 @@ public class EquipamentoDAOTest {
 	}
 	
 	@After
-	public void tearDown() throws SQLException, PatrimonioException {
+	public void tearDown() throws SQLException, PatrimonyException {
 		todos = instance.buscarTodos();
 		Iterator<Equipamento> i = todos.iterator();
 		while(i.hasNext()){
@@ -69,102 +69,102 @@ public class EquipamentoDAOTest {
 	}
 	
 	@Test
-	public void testIncluir() throws PatrimonioException, SQLException {
+	public void testIncluir() throws PatrimonyException, SQLException {
 		assertNotNull("Equipamento nao foi incluido", procurarNoVetor(antigo));
 	}
 	@Test
-	public void testBuscarTodos() throws SQLException, PatrimonioException {
+	public void testBuscarTodos() throws SQLException, PatrimonyException {
 		assertNotNull("Testando a busca de elementos no BD.", todos);
 	}
 	
 	@Test
-	public void testBuscarPorCodigo() throws SQLException, PatrimonioException {
+	public void testBuscarPorCodigo() throws SQLException, PatrimonyException {
 		assertNotNull("Testando a busca por codigo de elementos no BD.", instance.buscarPorCodigo(antigo.getCodigo()));
 	}
 	
 	@Test
-	public void testBuscarPorDescricao() throws SQLException, PatrimonioException {
+	public void testBuscarPorDescricao() throws SQLException, PatrimonyException {
 		assertNotNull("Testando a busca por descricao de elementos no BD.", instance.buscarPorDescricao(antigo.getDescricao()));
 	}
 	
 	@Test
-	public void testBuscarPorCodigoNull() throws SQLException, PatrimonioException {
+	public void testBuscarPorCodigoNull() throws SQLException, PatrimonyException {
 		assertTrue("Testando a busca por codigo nulo de elementos no BD.", instance.buscarPorCodigo(null).isEmpty());
 	}
 	
 	@Test
-	public void testBuscarPorDescricaoNull() throws SQLException, PatrimonioException {
+	public void testBuscarPorDescricaoNull() throws SQLException, PatrimonyException {
 		assertTrue("Testando a busca por descricao nula de elementos no BD.", instance.buscarPorDescricao(null).isEmpty());
 	}
 	
 	@Test
-	public void testAlterar() throws PatrimonioException, SQLException {
+	public void testAlterar() throws PatrimonyException, SQLException {
 		instance.alterar(antigo, novo);
 		Equipamento e = procurarNoVetor(antigo);
 		assertNull("Equipamento nao foi alterado", e);
 		assertNotNull("Equipamento nao foi alterado", procurarNoVetor(novo));
 	}
 	
-	@Test (expected= PatrimonioException.class)
-	public void testIncluirComCodigoExistente() throws PatrimonioException, SQLException {
+	@Test (expected= PatrimonyException.class)
+	public void testIncluirComCodigoExistente() throws PatrimonyException, SQLException {
 		instance.incluir(antigo);
 	}
 	
-	@Test (expected= PatrimonioException.class)
-	public void testIncluirNulo() throws PatrimonioException, SQLException {
+	@Test (expected= PatrimonyException.class)
+	public void testIncluirNulo() throws PatrimonyException, SQLException {
 		instance.incluir(null);
 	}
 	
-	@Test (expected= PatrimonioException.class)
-	public void testAlterarNull() throws PatrimonioException, SQLException {
+	@Test (expected= PatrimonyException.class)
+	public void testAlterarNull() throws PatrimonyException, SQLException {
 		instance.alterar(null, null);
 	}
 	
-	@Test (expected= PatrimonioException.class)
-	public void testAlterarSegundoNull() throws PatrimonioException, SQLException {
+	@Test (expected= PatrimonyException.class)
+	public void testAlterarSegundoNull() throws PatrimonyException, SQLException {
 		instance.alterar(antigo, null);
 	}
 	
 	
-	@Test (expected= PatrimonioException.class)
-	public void testAlterarNaoExistente() throws PatrimonioException, SQLException {
+	@Test (expected= PatrimonyException.class)
+	public void testAlterarNaoExistente() throws PatrimonyException, SQLException {
 		Equipamento equip = new Equipamento("codigo", "eqpt nao existente");
 		Equipamento equipAlter = new Equipamento("codigo", "eqpt nao existente alteraddo");
 		instance.alterar(equip, equipAlter);
 	}
 	
-	@Test (expected= PatrimonioException.class)
-	public void testAlterarIgual() throws PatrimonioException, SQLException {
+	@Test (expected= PatrimonyException.class)
+	public void testAlterarIgual() throws PatrimonyException, SQLException {
 		instance.alterar(novo, novo);
 	}
 	
-	@Test (expected= PatrimonioException.class)
-	public void testAlterarParaOutroEquipamento() throws PatrimonioException, SQLException {
+	@Test (expected= PatrimonyException.class)
+	public void testAlterarParaOutroEquipamento() throws PatrimonyException, SQLException {
 		Equipamento e = new Equipamento("novo", "teste Alterar para outro");
 		instance.incluir(e);
 		instance.alterar(e, novo);
 	}
 	
-	@Test (expected= PatrimonioException.class)
-	public void testExcluirNull() throws PatrimonioException, SQLException {
+	@Test (expected= PatrimonyException.class)
+	public void testExcluirNull() throws PatrimonyException, SQLException {
 		instance.excluir(null);
 	}
 	
-	@Test (expected= PatrimonioException.class)
-	public void testExcluirNaoExistente() throws PatrimonioException, SQLException {
+	@Test (expected= PatrimonyException.class)
+	public void testExcluirNaoExistente() throws PatrimonyException, SQLException {
 		Equipamento eq = new Equipamento("codigo"," nao existe descricao");
 		instance.excluir(eq);
 	}
 	
 	@Test
-	public void testExcluirExistente() throws PatrimonioException, SQLException {
+	public void testExcluirExistente() throws PatrimonyException, SQLException {
 		Equipamento novoExclusao = new Equipamento("cdg", "teste exclusao");
 		instance.incluir(novoExclusao);
 		instance.excluir(novoExclusao);
 		assertNull("Equipamento nao foi alterado", procurarNoVetor(novoExclusao));
 	}
 	
-	public Equipamento procurarNoVetor(Equipamento teste) throws PatrimonioException, SQLException {
+	public Equipamento procurarNoVetor(Equipamento teste) throws PatrimonyException, SQLException {
 		todos = instance.buscarTodos();
 		Iterator<Equipamento> i = todos.iterator();
 		while(i.hasNext()){

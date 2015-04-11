@@ -20,7 +20,7 @@ import view.reservasEquipamentos.FazerReservaEquipamentoView;
 import view.reservasEquipamentos.ReservaEquipamentoView;
 import control.ManterResEquipamentoProfessor;
 import exception.ClienteException;
-import exception.PatrimonioException;
+import exception.PatrimonyException;
 import exception.ReservaException;
 
 /**
@@ -80,7 +80,7 @@ public class HorariosReservaEquipamento extends HorariosReservaPatrimonio {
 
         } catch ( SQLException ex ) {
             Logger.getLogger( HorariosReservaPatrimonio.class.getName()).log( Level.SEVERE, null, ex );
-        } catch ( PatrimonioException ex ) {
+        } catch ( PatrimonyException ex ) {
             Logger.getLogger( HorariosReservaPatrimonio.class.getName() ).log( Level.SEVERE, null, ex );
         } catch ( ClienteException ex ) {
             Logger.getLogger( HorariosReservaPatrimonio.class.getName() ).log( Level.SEVERE, null, ex );
@@ -105,7 +105,7 @@ public class HorariosReservaEquipamento extends HorariosReservaPatrimonio {
 
         } catch ( SQLException ex ) {
             JOptionPane.showMessageDialog( this, ex.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE, null );
-        } catch ( PatrimonioException ex ) {
+        } catch ( PatrimonyException ex ) {
             JOptionPane.showMessageDialog( this, ex.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE, null );
         } catch ( ClienteException ex ) {
             JOptionPane.showMessageDialog( this, ex.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE, null );
@@ -120,7 +120,7 @@ public class HorariosReservaEquipamento extends HorariosReservaPatrimonio {
             reserva.setVisible( true );
         } catch ( SQLException ex ) {
             JOptionPane.showMessageDialog( this, ex.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE, null );
-        } catch ( PatrimonioException ex ) {
+        } catch ( PatrimonyException ex ) {
             JOptionPane.showMessageDialog( this, ex.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE, null );
         } catch ( ClienteException ex ) {
             JOptionPane.showMessageDialog( this, ex.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE, null );

@@ -18,8 +18,8 @@ import org.junit.Ignore;
 import org.junit.Test;
 
 import persistence.FactoryConnection;
-import persistence.SalaDAO;
-import exception.PatrimonioException;
+import persistence.ClassRoom;
+import exception.PatrimonyException;
 
 
 public class SalaDAOTest {
@@ -36,22 +36,22 @@ public class SalaDAOTest {
 	
 	@Test
 	public void testInstance() {
-		assertTrue("Instanciando SalaDAO", SalaDAO.getInstance() instanceof SalaDAO);
+		assertTrue("Instanciando SalaDAO", ClassRoom.getInstance() instanceof ClassRoom);
 	}
 	@Test
 	public void testSingleton() {
-		SalaDAO inst1 = SalaDAO.getInstance();
-		SalaDAO inst2 = SalaDAO.getInstance();
+		ClassRoom inst1 = ClassRoom.getInstance();
+		ClassRoom inst2 = ClassRoom.getInstance();
 		assertSame("Testando o Padrao Singleton", inst2, inst1);
 	}
 	
 
 	@Test
-	public void testIncluir() throws PatrimonioException, SQLException {
+	public void testIncluir() throws PatrimonyException, SQLException {
 		Sala s = new Sala("CodigoInc", "Descricao Da Sala Inclusao", "123");
 		boolean rs = false;
 		
-		SalaDAO.getInstance().incluir(s);
+		ClassRoom.getInstance().includeARoom(s);
 		
 		rs = this.estaNoBanco("SELECT * FROM sala WHERE " +
 				"sala.codigo = \"" + s.getCodigo() + "\" and " +
@@ -67,19 +67,19 @@ public class SalaDAOTest {
 		
 		assertTrue("Testando Inclusao no Banco", rs);
 	}
-	@Test (expected= PatrimonioException.class)
-	public void testIncluirNulo() throws PatrimonioException, SQLException {
-		SalaDAO.getInstance().incluir(null);
+	@Test (expected= PatrimonyException.class)
+	public void testIncluirNulo() throws PatrimonyException, SQLException {
+		ClassRoom.getInstance().includeARoom(null);
 	}
-	@Test (expected= PatrimonioException.class)
-	public void testIncluirCodigoExistente() throws PatrimonioException, SQLException {
+	@Test (expected= PatrimonyException.class)
+	public void testIncluirCodigoExistente() throws PatrimonyException, SQLException {
 		Sala s = new Sala("CodigoInc", "Descricao Da Sala Inclusao", "123");
 		Sala s2 = new Sala("CodigoInc", "Descricao Dois", "200");
 		boolean rs = false;
 		
-		SalaDAO.getInstance().incluir(s2);
+		ClassRoom.getInstance().includeARoom(s2);
 		try{
-			SalaDAO.getInstance().incluir(s);
+			ClassRoom.getInstance().includeARoom(s);
 		} finally {
 			rs = this.estaNoBanco("SELECT * FROM sala WHERE " +
 					"sala.codigo = \"" + s.getCodigo() + "\" and " +
@@ -100,7 +100,7 @@ public class SalaDAOTest {
 	}
 	
 	@Test
-	public void testAlerar() throws PatrimonioException, SQLException {
+	public void testAlerar() throws PatrimonyException, SQLException {
 		Sala s = new Sala("CodigoInc", "Descricao Da Sala Inclusao", "123");
 		Sala s2 = new Sala("CodigoAlt", "Descricao Dois", "200");
 		boolean rs = true, rs2 = false;
@@ -111,7 +111,7 @@ public class SalaDAOTest {
 				"\"" + s.getDescricao() + "\", " +
 				s.getCapacidade() + ");");
 		
-		SalaDAO.getInstance().alterar(s, s2);
+		ClassRoom.getInstance().alterar(s, s2);
 		
 		rs = this.estaNoBanco("SELECT * FROM sala WHERE " +
 				"sala.codigo = \"" + s.getCodigo() + "\" and " +
@@ -139,24 +139,24 @@ public class SalaDAOTest {
 		
 		assertTrue("Testando Inclusao no Banco", rs2 && !rs);
 	}
-	@Test (expected= PatrimonioException.class)
-	public void testAletarPrimeiroNulo() throws PatrimonioException, SQLException {
+	@Test (expected= PatrimonyException.class)
+	public void testAletarPrimeiroNulo() throws PatrimonyException, SQLException {
 		Sala s = new Sala("CodigoInc", "Descricao Da Sala Inclusao", "123");
-		SalaDAO.getInstance().alterar(null, s);
+		ClassRoom.getInstance().alterar(null, s);
 	}
-	@Test (expected= PatrimonioException.class)
-	public void testAletarSegundoNulo() throws PatrimonioException, SQLException {
+	@Test (expected= PatrimonyException.class)
+	public void testAletarSegundoNulo() throws PatrimonyException, SQLException {
 		Sala s = new Sala("CodigoInc", "Descricao Da Sala Inclusao", "123");
-		SalaDAO.getInstance().alterar(s, null);
+		ClassRoom.getInstance().alterar(s, null);
 	}
-	@Test (expected= PatrimonioException.class)
-	public void testAletarNaoExistente() throws PatrimonioException, SQLException {
+	@Test (expected= PatrimonyException.class)
+	public void testAletarNaoExistente() throws PatrimonyException, SQLException {
 		Sala s = new Sala("CodigoInc", "Descricao Da Sala Inclusao", "123");
 		Sala s2 = new Sala("CodigoAlt", "Descricao Dois", "200");
 		boolean rs2 = true;
 		
 		try{
-			SalaDAO.getInstance().alterar(s, s2);
+			ClassRoom.getInstance().alterar(s, s2);
 		} finally {		
 		
 		rs2 = this.estaNoBanco("SELECT * FROM sala WHERE " +
@@ -173,10 +173,10 @@ public class SalaDAOTest {
 		assertTrue("Testando Inclusao no Banco", !rs2);
 	}
 	@Ignore // (expected= PatrimonioException.class)
-	public void testAletarEvolvidoEmReserva() throws PatrimonioException, SQLException {
+	public void testAletarEvolvidoEmReserva() throws PatrimonyException, SQLException {
 	}
-	@Test (expected= PatrimonioException.class)
-	public void testAletarComMesmoCodigo() throws PatrimonioException, SQLException {
+	@Test (expected= PatrimonyException.class)
+	public void testAletarComMesmoCodigo() throws PatrimonyException, SQLException {
 		Sala s = new Sala("CodigoInc", "Descricao Da Sala Inclusao", "123");
 		Sala s2 = new Sala("CodigoAlt", "Descricao Dois", "200");
 		Sala s3 = new Sala("CodigoInc", "Descricao Dois", "200");
@@ -195,7 +195,7 @@ public class SalaDAOTest {
 				s2.getCapacidade() + ");");
 		
 		try{
-			SalaDAO.getInstance().alterar(s, s2);
+			ClassRoom.getInstance().alterar(s, s2);
 		} finally {
 		
 		rs = this.estaNoBanco("SELECT * FROM sala WHERE " +
@@ -235,8 +235,8 @@ public class SalaDAOTest {
 		}
 		assertTrue("Testando Inclusao no Banco", rs && rs2 && !rs3);
 	}
-	@Test (expected= PatrimonioException.class)
-	public void testAletarParaExistente() throws PatrimonioException, SQLException {
+	@Test (expected= PatrimonyException.class)
+	public void testAletarParaExistente() throws PatrimonyException, SQLException {
 		Sala s = new Sala("CodigoAlt", "Descricao Dois", "200");
 		Sala s2 = new Sala("CodigoAlt", "Descricao Dois", "200");
 		boolean rs = false, rs2 = true;
@@ -248,7 +248,7 @@ public class SalaDAOTest {
 				s.getCapacidade() + ");");
 		
 		try{
-			SalaDAO.getInstance().alterar(s, s2);
+			ClassRoom.getInstance().alterar(s, s2);
 		} finally {
 		
 		rs = this.estaNoBanco("SELECT * FROM sala WHERE " +
@@ -279,7 +279,7 @@ public class SalaDAOTest {
 	
 	
 	@Test
-	public void testExcluir() throws PatrimonioException, SQLException {
+	public void testExcluir() throws PatrimonyException, SQLException {
 		Sala s = new Sala("CodigoInc", "Descricao Da Sala Inclusao", "123");
 		boolean rs = true;
 		
@@ -289,7 +289,7 @@ public class SalaDAOTest {
 				"\"" + s.getDescricao() + "\", " +
 				s.getCapacidade() + ");");
 		
-		SalaDAO.getInstance().excluir(s);
+		ClassRoom.getInstance().excluir(s);
 		
 		rs = this.estaNoBanco("SELECT * FROM sala WHERE " +
 				"sala.codigo = \"" + s.getCodigo() + "\" and " +
@@ -305,23 +305,23 @@ public class SalaDAOTest {
 		
 		assertTrue("Testando Inclusao no Banco", !rs);
 	}
-	@Test (expected= PatrimonioException.class)
-	public void testExcluirNulo() throws PatrimonioException, SQLException {
-		SalaDAO.getInstance().excluir(null);
+	@Test (expected= PatrimonyException.class)
+	public void testExcluirNulo() throws PatrimonyException, SQLException {
+		ClassRoom.getInstance().excluir(null);
 	}
 	@Ignore // (expected= PatrimonioException.class)
-	public void testExcluirEnvolvidoEmReserva() throws PatrimonioException, SQLException {
+	public void testExcluirEnvolvidoEmReserva() throws PatrimonyException, SQLException {
 		
 	}
-	@Test (expected= PatrimonioException.class)
-	public void testExcluirNaoExistente() throws PatrimonioException, SQLException {
+	@Test (expected= PatrimonyException.class)
+	public void testExcluirNaoExistente() throws PatrimonyException, SQLException {
 		Sala s = new Sala("CodigoInc", "Descricao Da Sala Inclusao", "123");
-		SalaDAO.getInstance().excluir(s);
+		ClassRoom.getInstance().excluir(s);
 	}
 	
 	
 	@Test
-	public void testBuscarCodigo() throws PatrimonioException, SQLException {
+	public void testBuscarCodigo() throws PatrimonyException, SQLException {
 		Sala s = new Sala("CodigoInc", "Descricao Da Sala Inclusao", "123");
 		
 		this.executaNoBanco("INSERT INTO " +
@@ -330,7 +330,7 @@ public class SalaDAOTest {
 				"\"" + s.getDescricao() + "\", " +
 				s.getCapacidade() + ");");
 		
-		Vector<Sala> vet = SalaDAO.getInstance().buscarPorCodigo("CodigoInc");
+		Vector<Sala> vet = ClassRoom.getInstance().searchByCode("CodigoInc");
 		
 		this.executaNoBanco("DELETE FROM sala WHERE " +
 				"sala.codigo = \"" + s.getCodigo() + "\" and " +
@@ -340,7 +340,7 @@ public class SalaDAOTest {
 		assertTrue("Testando Buscar o Vetor de ", vet.size() > 0);
 	}
 	@Test
-	public void testDescricao() throws PatrimonioException, SQLException {
+	public void testDescricao() throws PatrimonyException, SQLException {
 		Sala s = new Sala("CodigoInc", "Descricao Da Sala Inclusao", "123");
 		
 		this.executaNoBanco("INSERT INTO " +
@@ -349,7 +349,7 @@ public class SalaDAOTest {
 				"\"" + s.getDescricao() + "\", " +
 				s.getCapacidade() + ");");
 		
-		Vector<Sala> vet = SalaDAO.getInstance().buscarPorDescricao("Descricao Da Sala Inclusao");
+		Vector<Sala> vet = ClassRoom.getInstance().searchByDescription("Descricao Da Sala Inclusao");
 		
 		this.executaNoBanco("DELETE FROM sala WHERE " +
 				"sala.codigo = \"" + s.getCodigo() + "\" and " +
@@ -359,7 +359,7 @@ public class SalaDAOTest {
 		assertTrue("Testando Buscar o Vetor de ", vet.size() > 0);
 	}
 	@Test
-	public void testCapacidade() throws PatrimonioException, SQLException {
+	public void testCapacidade() throws PatrimonyException, SQLException {
 		Sala s = new Sala("CodigoInc", "Descricao Da Sala Inclusao", "123");
 		
 		this.executaNoBanco("INSERT INTO " +
@@ -368,7 +368,7 @@ public class SalaDAOTest {
 				"\"" + s.getDescricao() + "\", " +
 				s.getCapacidade() + ");");
 		
-		Vector<Sala> vet = SalaDAO.getInstance().buscarPorCapacidade("123");
+		Vector<Sala> vet = ClassRoom.getInstance().searchByCapacity("123");
 		
 		this.executaNoBanco("DELETE FROM sala WHERE " +
 				"sala.codigo = \"" + s.getCodigo() + "\" and " +

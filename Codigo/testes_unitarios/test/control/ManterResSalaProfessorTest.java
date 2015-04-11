@@ -1,6 +1,7 @@
 package test.control;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertSame;
+import static org.junit.Assert.assertTrue;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -16,14 +17,13 @@ import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import control.ManterResSalaProfessor;
-import exception.ClienteException;
-import exception.PatrimonioException;
-import exception.ReservaException;
-
 import persistence.FactoryConnection;
 import persistence.ProfessorDAO;
-import persistence.SalaDAO;
+import persistence.ClassRoom;
+import control.ManterResSalaProfessor;
+import exception.ClienteException;
+import exception.PatrimonyException;
+import exception.ReservaException;
 
 public class ManterResSalaProfessorTest {
 	private static Sala sala1;
@@ -37,13 +37,13 @@ public class ManterResSalaProfessorTest {
 		professor1 = new Professor("testInstance", "040.757.021-70", "0058801", "3333-3333", "nome@email");
 		
 		ProfessorDAO.getInstance().incluir(professor1);
-		SalaDAO.getInstance().incluir(sala1);
+		ClassRoom.getInstance().includeARoom(sala1);
 	}
 
 	@AfterClass
 	public static void tearDownAfterClass() throws Exception {
 		ProfessorDAO.getInstance().excluir(professor1);
-		SalaDAO.getInstance().excluir(sala1);
+		ClassRoom.getInstance().excluir(sala1);
 	}
 
 	@Test
@@ -57,7 +57,7 @@ public class ManterResSalaProfessorTest {
 	
 	
 	@Test
-	public void testInserir() throws SQLException, ReservaException, ClienteException, PatrimonioException {
+	public void testInserir() throws SQLException, ReservaException, ClienteException, PatrimonyException {
 		String finalidade = "Sala de Estudos";
 		String data = "20/12/33";
 		String hora = "9:11";
@@ -70,7 +70,7 @@ public class ManterResSalaProfessorTest {
 		assertTrue("Teste de Insercao.", resultado && resultado2);
 	}
 	@Test
-	public void testAlterar() throws ReservaException, SQLException, ClienteException, PatrimonioException {
+	public void testAlterar() throws ReservaException, SQLException, ClienteException, PatrimonyException {
 		
 		ReservaSalaProfessor reserva = new ReservaSalaProfessor("20/12/33", "9:11", sala1, "Pesquisa", professor1);
 		this.insert_into(reserva);

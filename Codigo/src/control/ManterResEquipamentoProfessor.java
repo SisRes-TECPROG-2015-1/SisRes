@@ -8,7 +8,7 @@ import model.Professor;
 import model.ReservaEquipamentoProfessor;
 import persistence.ResEquipamentoProfessorDAO;
 import exception.ClienteException;
-import exception.PatrimonioException;
+import exception.PatrimonyException;
 import exception.ReservaException;
 
 public class ManterResEquipamentoProfessor {
@@ -37,7 +37,7 @@ public class ManterResEquipamentoProfessor {
      * Captures the classroom reserves for teachers in the hour searched.
      * @return Vector - Classroom reserves for teachers
      */
-    public Vector < ReservaEquipamentoProfessor > getReservasHora( String hora ) throws SQLException, PatrimonioException,
+    public Vector < ReservaEquipamentoProfessor > getReservasHora( String hora ) throws SQLException, PatrimonyException,
             ClienteException, ReservaException {
         return ResEquipamentoProfessorDAO.getInstance().buscarPorHora( hora );
     }
@@ -46,7 +46,7 @@ public class ManterResEquipamentoProfessor {
      * Captures the classroom reserves for teachers which had reserved a equipment in the month searched.
      * @return Vector - Classroom reserves for teachers
      */
-    public Vector < ReservaEquipamentoProfessor > getReservasMes( int mes ) throws SQLException, PatrimonioException, ClienteException,
+    public Vector < ReservaEquipamentoProfessor > getReservasMes( int mes ) throws SQLException, PatrimonyException, ClienteException,
             ReservaException {
         return ResEquipamentoProfessorDAO.getInstance().buscarPorMes( mes );
     }
@@ -56,7 +56,7 @@ public class ManterResEquipamentoProfessor {
      * Lists all the classroom reserves for teachers.
      * @return Vector - Classroom reserves for teachers
      */
-    public Vector < Object > getResEquipamentoProfessor_vet() throws SQLException, ClienteException, PatrimonioException,
+    public Vector < Object > getResEquipamentoProfessor_vet() throws SQLException, ClienteException, PatrimonyException,
             ReservaException {
         this.rev_equipamento_professor_vet = ResEquipamentoProfessorDAO.getInstance().buscarTodos();
         return this.rev_equipamento_professor_vet;

@@ -15,7 +15,7 @@ import org.junit.Test;
 
 import persistence.EquipamentoDAO;
 import view.Main2;
-import exception.PatrimonioException;
+import exception.PatrimonyException;
 
 /**
  * US2 Titulo: Reservar equipamento. Como professor, Eu quero reservar um
@@ -46,7 +46,7 @@ public class US02_ReservarEquipamento {
     private DialogFixture dialog;
     private int index;
 
-    @Before public void setUp() throws PatrimonioException, SQLException {
+    @Before public void setUp() throws PatrimonyException, SQLException {
 
         robot = BasicRobot.robotWithNewAwtHierarchy();
         robot.settings().delayBetweenEvents(5);
@@ -64,7 +64,7 @@ public class US02_ReservarEquipamento {
 
     }
 
-    @After public void tearDown() throws SQLException, PatrimonioException {
+    @After public void tearDown() throws SQLException, PatrimonyException {
         if (equipamento != null)
             EquipamentoDAO.getInstance().excluir(equipamento);
         window.cleanUp();

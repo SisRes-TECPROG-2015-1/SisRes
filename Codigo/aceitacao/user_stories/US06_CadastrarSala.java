@@ -13,9 +13,9 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import persistence.SalaDAO;
+import persistence.ClassRoom;
 import view.Main2;
-import exception.PatrimonioException;
+import exception.PatrimonyException;
 
 /**
  * US6 Título: Cadastrar sala. Como usuário Eu quero cadastrar salas Para que
@@ -56,9 +56,9 @@ public class US06_CadastrarSala {
         dialog = window.dialog("SalaView");
     }
 
-    @After public void tearDown() throws SQLException, PatrimonioException {
+    @After public void tearDown() throws SQLException, PatrimonyException {
         if (sala != null)
-            SalaDAO.getInstance().excluir(sala);
+            ClassRoom.getInstance().excluir(sala);
         window.cleanUp();
     }
 
@@ -77,7 +77,7 @@ public class US06_CadastrarSala {
         cadastro.button("Cancelar").click();
     }
 
-    @Test public void testCenario1() throws SQLException, PatrimonioException {
+    @Test public void testCenario1() throws SQLException, PatrimonyException {
         dialog.button("Cadastrar").click();
         DialogFixture cadastro = dialog.dialog("CadastroSala");
 
@@ -90,14 +90,14 @@ public class US06_CadastrarSala {
         sleep();
         cadastro.optionPane().okButton().click();
 
-        index = SalaDAO.getInstance().buscarTodos().size() - 1;
-        sala = SalaDAO.getInstance().buscarTodos().get(index);
+        index = ClassRoom.getInstance().searchAll().size() - 1;
+        sala = ClassRoom.getInstance().searchAll().get(index);
     }
 
-    @Test public void testCenario2() throws SQLException, PatrimonioException {
+    @Test public void testCenario2() throws SQLException, PatrimonyException {
 
         sala = new Sala("code","Sala para testes de aceitacao","123");
-        SalaDAO.getInstance().incluir(sala);
+        ClassRoom.getInstance().includeARoom(sala);
 
         dialog.button("Cadastrar").click();
         DialogFixture cadastro = dialog.dialog("CadastroSala");
@@ -112,7 +112,7 @@ public class US06_CadastrarSala {
         cadastro.optionPane().okButton().click();
     }
 
-    @Test public void testCenario3CapacidadeInvalida() throws SQLException, PatrimonioException {
+    @Test public void testCenario3CapacidadeInvalida() throws SQLException, PatrimonyException {
 
         dialog.button("Cadastrar").click();
         DialogFixture cadastro = dialog.dialog("CadastroSala");
@@ -128,7 +128,7 @@ public class US06_CadastrarSala {
 
     }
     
-    @Test public void testCenario3CapacidadeBranco() throws SQLException, PatrimonioException {
+    @Test public void testCenario3CapacidadeBranco() throws SQLException, PatrimonyException {
 
         dialog.button("Cadastrar").click();
         DialogFixture cadastro = dialog.dialog("CadastroSala");
@@ -144,7 +144,7 @@ public class US06_CadastrarSala {
     }
 
 
-    @Test public void testCenario3CodigoBranco() throws SQLException, PatrimonioException {
+    @Test public void testCenario3CodigoBranco() throws SQLException, PatrimonyException {
 
         dialog.button("Cadastrar").click();
         DialogFixture cadastro = dialog.dialog("CadastroSala");
@@ -159,7 +159,7 @@ public class US06_CadastrarSala {
         cadastro.optionPane().okButton().click();
     }
 
-    @Test public void testCenario3DescricaoBranco() throws SQLException, PatrimonioException {
+    @Test public void testCenario3DescricaoBranco() throws SQLException, PatrimonyException {
 
         dialog.button("Cadastrar").click();
         DialogFixture cadastro = dialog.dialog("CadastroSala");

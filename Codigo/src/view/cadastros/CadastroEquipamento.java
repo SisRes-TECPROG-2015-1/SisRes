@@ -9,7 +9,7 @@ import java.sql.SQLException;
 import javax.swing.JOptionPane;
 
 import control.ManterEquipamento;
-import exception.PatrimonioException;
+import exception.PatrimonyException;
 
 /**
  * @author Parley
@@ -32,7 +32,7 @@ public class CadastroEquipamento extends CadastroPatrimonio {
                     null );
             this.setVisible( false );
 
-        } catch ( PatrimonioException ex ) {
+        } catch ( PatrimonyException ex ) {
             JOptionPane.showMessageDialog( this, ex.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE, null );
         } catch ( SQLException ex ) {
             JOptionPane.showMessageDialog( this, ex.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE, null );

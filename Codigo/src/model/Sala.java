@@ -1,6 +1,6 @@
 package model;
 
-import exception.PatrimonioException;
+import exception.PatrimonyException;
 
 public class Sala extends Patrimonio {
 
@@ -22,10 +22,10 @@ public class Sala extends Patrimonio {
 	 * @param codigo
 	 * @param descricao
 	 * @param capacidade
-	 * @throws PatrimonioException
+	 * @throws PatrimonyException
 	 */
 	public Sala( String codigo, String descricao, String capacidade )
-			throws PatrimonioException {
+			throws PatrimonyException {
 		super( codigo, descricao );
 		this.setCapacidade( capacidade );
 	}
@@ -42,15 +42,15 @@ public class Sala extends Patrimonio {
 	 * Setter method for attribute 'capacidade'
 	 * @return
 	 */
-	public void setCapacidade( String capacidade ) throws PatrimonioException {
+	public void setCapacidade( String capacidade ) throws PatrimonyException {
 		if ( capacidade == null ) { 
-			throw new PatrimonioException( CAPACIDADE_NULA );
+			throw new PatrimonyException( CAPACIDADE_NULA );
 		} else if ( "".equals( capacidade.trim() ) ) {
-			throw new PatrimonioException( CAPACIDADE_BRANCO );
+			throw new PatrimonyException( CAPACIDADE_BRANCO );
 		} else if ( capacidade.matches( "[\\d]+" ) ) {
 			this.capacidade = capacidade;
 		} else {
-			throw new PatrimonioException( CAPACIDADE_INVALIDO );
+			throw new PatrimonyException( CAPACIDADE_INVALIDO );
 		}
 	}
 

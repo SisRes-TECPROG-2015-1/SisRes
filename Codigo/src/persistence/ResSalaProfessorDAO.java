@@ -11,7 +11,7 @@ import model.ReservaSalaProfessor;
 import model.Sala;
 
 import exception.ClienteException;
-import exception.PatrimonioException;
+import exception.PatrimonyException;
 import exception.ReservaException;
 
 public class ResSalaProfessorDAO extends DAO {
@@ -178,7 +178,7 @@ public class ResSalaProfessorDAO extends DAO {
 
 	@SuppressWarnings( "unchecked" )
 	public Vector<ReservaSalaProfessor> buscarTodos() throws SQLException,
-			ClienteException, PatrimonioException, ReservaException {
+			ClienteException, PatrimonyException, ReservaException {
 		return super
 				.buscar( "SELECT * FROM reserva_sala_professor "
 						+ "INNER JOIN sala ON sala.id_sala = reserva_sala_professor.id_sala "
@@ -187,7 +187,7 @@ public class ResSalaProfessorDAO extends DAO {
 
 	@SuppressWarnings( "unchecked" )
 	public Vector<ReservaSalaProfessor> buscarPorData( String data )
-			throws SQLException, ClienteException, PatrimonioException,
+			throws SQLException, ClienteException, PatrimonyException,
 			ReservaException {
 		return super
 				.buscar( "SELECT * FROM reserva_sala_professor "
@@ -199,7 +199,7 @@ public class ResSalaProfessorDAO extends DAO {
 
 	@Override
 	protected Object fetch( ResultSet rs ) throws SQLException, ClienteException,
-			PatrimonioException, ReservaException {
+			PatrimonyException, ReservaException {
 		Professor p = new Professor( rs.getString( "nome" ), rs.getString( "cpf" ),
 				rs.getString( "matricula" ), rs.getString( "telefone" ),
 				rs.getString( "email" ) );

@@ -1,7 +1,7 @@
 package test.control;
 
 import control.ManterEquipamento;
-import exception.PatrimonioException;
+import exception.PatrimonyException;
 
 import java.sql.SQLException;
 import java.util.Iterator;
@@ -26,7 +26,7 @@ public class ManterEquipamentoTest {
 	}
 
 	@BeforeClass
-	public static void setUpClass() throws PatrimonioException {
+	public static void setUpClass() throws PatrimonyException {
 		instance = ManterEquipamento.getInstance();
 	}
 
@@ -43,7 +43,7 @@ public class ManterEquipamentoTest {
 	}
 
 	@After
-	public void tearDown() throws SQLException, PatrimonioException {
+	public void tearDown() throws SQLException, PatrimonyException {
 		todos = instance.getEquipamento_vet();
 		Iterator<Equipamento> i = todos.iterator();
 		while(i.hasNext()){
@@ -71,35 +71,35 @@ public class ManterEquipamentoTest {
 	}
 
 	@Test
-	public void testIncluirVet() throws SQLException, PatrimonioException {
+	public void testIncluirVet() throws SQLException, PatrimonyException {
 		assertNotNull("Teste de Inclusao no Equipamento Vet.", procurarNoVetor(e));
 	}
 	
 	@Test
-	public void testAlterarVet() throws SQLException, PatrimonioException {
+	public void testAlterarVet() throws SQLException, PatrimonyException {
 		instance.alterar("codigo alterado", "descricao alterarda", e);
 		Equipamento e2 = new Equipamento("codigo alterado", "descricao alterarda");
 		assertNotNull("Teste de Inclusao no Equipamento Vet.", procurarNoVetor(e2));
 	}
 	
-	@Test(expected = PatrimonioException.class)
-	public void testAlterarNaoExistente() throws SQLException, PatrimonioException {
+	@Test(expected = PatrimonyException.class)
+	public void testAlterarNaoExistente() throws SQLException, PatrimonyException {
 		Equipamento eq = new Equipamento("codigo", "nao existe");
 		instance.alterar("codigo alterado", "descricao alterarda", eq);
 	}
 	
-	@Test(expected = PatrimonioException.class)
-	public void testAlterarNull() throws SQLException, PatrimonioException {
+	@Test(expected = PatrimonyException.class)
+	public void testAlterarNull() throws SQLException, PatrimonyException {
 		instance.alterar("codigo alterado", "descricao alterarda", null);
 	}
 	
-	@Test (expected = PatrimonioException.class)
-	public void testExcluirNull() throws SQLException, PatrimonioException {
+	@Test (expected = PatrimonyException.class)
+	public void testExcluirNull() throws SQLException, PatrimonyException {
 		e = null;
 		instance.excluir(e);
 	}
 	
-	public Equipamento procurarNoVetor(Equipamento teste) throws PatrimonioException, SQLException {
+	public Equipamento procurarNoVetor(Equipamento teste) throws PatrimonyException, SQLException {
 		todos = instance.getEquipamento_vet();
 		Iterator<Equipamento> i = todos.iterator();
 		while(i.hasNext()){

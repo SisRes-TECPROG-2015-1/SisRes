@@ -15,7 +15,7 @@ import org.junit.Test;
 
 import persistence.EquipamentoDAO;
 import view.Main2;
-import exception.PatrimonioException;
+import exception.PatrimonyException;
 
 /**US9
 Título: Cadastrar equipamento.
@@ -62,7 +62,7 @@ public class US09_CadastrarEquipamento {
         dialog = window.dialog("EquipamentoView");
     }
 
-    @After public void tearDown() throws SQLException, PatrimonioException {
+    @After public void tearDown() throws SQLException, PatrimonyException {
         if (equipamento != null)
             EquipamentoDAO.getInstance().excluir(equipamento);
         window.cleanUp();
@@ -83,7 +83,7 @@ public class US09_CadastrarEquipamento {
         cadastro.button("Cancelar").click();
     }
 
-    @Test public void testCenario1() throws SQLException, PatrimonioException {
+    @Test public void testCenario1() throws SQLException, PatrimonyException {
         dialog.button("Cadastrar").click();
         DialogFixture cadastro = dialog.dialog("CadastroEquipamento");
 
@@ -99,7 +99,7 @@ public class US09_CadastrarEquipamento {
         equipamento = EquipamentoDAO.getInstance().buscarTodos().get(index);
     }
 
-    @Test public void testCenario2() throws SQLException, PatrimonioException {
+    @Test public void testCenario2() throws SQLException, PatrimonyException {
 
         equipamento = new Equipamento("code","Equipamento para testes de aceitacao");
         EquipamentoDAO.getInstance().incluir(equipamento);
@@ -117,7 +117,7 @@ public class US09_CadastrarEquipamento {
     }
 
     
-    @Test public void testCenario3CodigoBranco() throws SQLException, PatrimonioException {
+    @Test public void testCenario3CodigoBranco() throws SQLException, PatrimonyException {
 
         dialog.button("Cadastrar").click();
         DialogFixture cadastro = dialog.dialog("CadastroEquipamento");
@@ -131,7 +131,7 @@ public class US09_CadastrarEquipamento {
         cadastro.optionPane().okButton().click();
     }
 
-    @Test public void testCenario3DescricaoBranco() throws SQLException, PatrimonioException {
+    @Test public void testCenario3DescricaoBranco() throws SQLException, PatrimonyException {
 
         dialog.button("Cadastrar").click();
         DialogFixture cadastro = dialog.dialog("CadastroEquipamento");

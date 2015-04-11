@@ -8,7 +8,7 @@ import java.util.Iterator;
 import java.util.Vector;
 
 import exception.ClienteException;
-import exception.PatrimonioException;
+import exception.PatrimonyException;
 import exception.ReservaException;
 
 import model.Aluno;
@@ -104,7 +104,7 @@ public class ResSalaAlunoDAO extends DAO {
 
 	//Metodo para incluir reserva de sala para aluno
 	public void incluir( ReservaSalaAluno r ) throws ReservaException,
-			SQLException, ClienteException, PatrimonioException {
+			SQLException, ClienteException, PatrimonyException {
 		if ( r == null ) {
 			throw new ReservaException( NULA );
 		} else if ( !this.alunoinDB( r.getAluno() )  ) {
@@ -137,7 +137,7 @@ public class ResSalaAlunoDAO extends DAO {
 	//Metodo para alterar reserva de sala para aluno
 	public void alterar( ReservaSalaAluno r, ReservaSalaAluno r_new )
 			throws ReservaException, SQLException, ClienteException,
-			PatrimonioException {
+			PatrimonyException {
 		if ( r == null ) {
 			throw new ReservaException( NULA );
 		} else if ( r_new == null ) {
@@ -193,7 +193,7 @@ public class ResSalaAlunoDAO extends DAO {
 	}
 
 	public Vector<ReservaSalaAluno> buscarTodos() throws SQLException,
-			ClienteException, PatrimonioException, ReservaException {
+			ClienteException, PatrimonyException, ReservaException {
 		return super
 				.buscar( "SELECT * FROM reserva_sala_aluno "
 						+ "INNER JOIN sala ON sala.id_sala = reserva_sala_aluno.id_sala "
@@ -201,7 +201,7 @@ public class ResSalaAlunoDAO extends DAO {
 	}
 
 	public Vector<ReservaSalaAluno> buscarPorDia( String data )
-			throws SQLException, ClienteException, PatrimonioException,
+			throws SQLException, ClienteException, PatrimonyException,
 			ReservaException {
 		data = this.padronizarData( data );
 		return super
@@ -212,7 +212,7 @@ public class ResSalaAlunoDAO extends DAO {
 	}
 
 	public Vector<ReservaSalaAluno> buscarPorHora( String hora )
-			throws SQLException, ClienteException, PatrimonioException,
+			throws SQLException, ClienteException, PatrimonyException,
 			ReservaException {
 		hora = this.padronizarHora( hora );
 		return super
@@ -223,7 +223,7 @@ public class ResSalaAlunoDAO extends DAO {
 	}
 
 	public int cadeirasDisponiveis( Sala sala, String data, String hora )
-			throws SQLException, PatrimonioException, ClienteException,
+			throws SQLException, PatrimonyException, ClienteException,
 			ReservaException {
 		data = this.padronizarData( data );
 		hora = this.padronizarHora( hora );
@@ -243,7 +243,7 @@ public class ResSalaAlunoDAO extends DAO {
 	//Metodo para dizer se há cadeiras disponiveis
 	private boolean haCadeiras( String cadeiras_reservadas, Sala sala,
 			String data, String hora ) throws SQLException, ClienteException,
-			PatrimonioException, ReservaException {
+			PatrimonyException, ReservaException {
 		if ( this.cadeirasDisponiveis( sala, data, hora ) >= Integer
 				.parseInt( cadeiras_reservadas ) ) {
 			return true;
@@ -253,7 +253,7 @@ public class ResSalaAlunoDAO extends DAO {
 
 	@Override
 	protected Object fetch( ResultSet rs ) throws SQLException, ClienteException,
-			PatrimonioException, ReservaException {
+			PatrimonyException, ReservaException {
 		Aluno a = new Aluno( rs.getString( "nome" ), rs.getString( "cpf" ),
 				rs.getString( "matricula" ), rs.getString( "telefone" ),
 				rs.getString( "email" ) );

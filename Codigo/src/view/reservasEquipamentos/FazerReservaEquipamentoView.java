@@ -11,7 +11,7 @@ import javax.swing.JOptionPane;
 
 import model.Equipamento;
 import exception.ClienteException;
-import exception.PatrimonioException;
+import exception.PatrimonyException;
 import exception.ReservaException;
 
 /**
@@ -23,7 +23,7 @@ public class FazerReservaEquipamentoView extends ReservaEquipamentoView {
     Equipamento equipamento;
 
     public FazerReservaEquipamentoView( Frame parent, boolean modal, Equipamento e, String data ) throws SQLException,
-            PatrimonioException, PatrimonioException, ClienteException, ReservaException {
+            PatrimonyException, PatrimonyException, ClienteException, ReservaException {
         super( parent, modal );
         this.equipamento = e;
         this.dataTextField.setText( data );

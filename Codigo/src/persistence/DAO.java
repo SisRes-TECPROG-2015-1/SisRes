@@ -7,7 +7,7 @@ import java.sql.SQLException;
 import java.util.Vector;
 
 import exception.ClienteException;
-import exception.PatrimonioException;
+import exception.PatrimonyException;
 import exception.ReservaException;
 
 public abstract class DAO {
@@ -20,7 +20,7 @@ public abstract class DAO {
 
 	@SuppressWarnings( { "rawtypes", "unchecked" } )
 	protected Vector buscar(String query) throws SQLException, ClienteException, 
-													PatrimonioException, ReservaException {
+													PatrimonyException, ReservaException {
 		Vector vet = new Vector();
 		
 		Connection con =  FactoryConnection.getInstance().getConnection();
@@ -64,7 +64,7 @@ public abstract class DAO {
 	 * semelhante.
 	 * */
 	protected abstract Object fetch( ResultSet rs ) throws SQLException, ClienteException,
-														PatrimonioException, ReservaException;
+														PatrimonyException, ReservaException;
 	
 	
 	/**

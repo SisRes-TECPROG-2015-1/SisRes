@@ -15,7 +15,7 @@ import model.Sala;
 import control.ManterResSalaAluno;
 import control.ManterResSalaProfessor;
 import exception.ClienteException;
-import exception.PatrimonioException;
+import exception.PatrimonyException;
 import exception.ReservaException;
 
 /**
@@ -24,8 +24,8 @@ import exception.ReservaException;
  */
 public class FazerReservaSalaView extends ReservaSalaView {
 
-    public FazerReservaSalaView( Frame parent, boolean modal, Sala sala, String data ) throws SQLException, PatrimonioException,
-            PatrimonioException, ClienteException, ReservaException {
+    public FazerReservaSalaView( Frame parent, boolean modal, Sala sala, String data ) throws SQLException, PatrimonyException,
+            PatrimonyException, ClienteException, ReservaException {
         super( parent, modal );
         this.sala = sala;
         this.dataTextField.setText( data );
@@ -49,7 +49,7 @@ public class FazerReservaSalaView extends ReservaSalaView {
         } catch ( ReservaException ex ) {
             
             JOptionPane.showMessageDialog( this, ex.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE, null );
-        } catch ( PatrimonioException ex ) {
+        } catch ( PatrimonyException ex ) {
             JOptionPane.showMessageDialog( this, ex.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE, null );
         } catch ( ClienteException ex ) {
             
@@ -110,7 +110,7 @@ public class FazerReservaSalaView extends ReservaSalaView {
         } catch ( ReservaException ex ) {
             
             JOptionPane.showMessageDialog( this, ex.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE, null );
-        } catch ( PatrimonioException ex ) {
+        } catch ( PatrimonyException ex ) {
             JOptionPane.showMessageDialog( this, ex.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE, null );
         } catch ( ClienteException ex ) {
             

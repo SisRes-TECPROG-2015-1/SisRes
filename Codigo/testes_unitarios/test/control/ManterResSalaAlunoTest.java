@@ -1,6 +1,7 @@
 package test.control;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertSame;
+import static org.junit.Assert.assertTrue;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -17,15 +18,13 @@ import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import control.ManterResSalaAluno;
-
-import exception.ClienteException;
-import exception.PatrimonioException;
-import exception.ReservaException;
-
 import persistence.AlunoDAO;
 import persistence.FactoryConnection;
-import persistence.SalaDAO;
+import persistence.ClassRoom;
+import control.ManterResSalaAluno;
+import exception.ClienteException;
+import exception.PatrimonyException;
+import exception.ReservaException;
 
 public class ManterResSalaAlunoTest {
 	private static Sala sala1;
@@ -39,13 +38,13 @@ public class ManterResSalaAlunoTest {
 		aluno1 = new Aluno("testInstance", "501.341.852-69", "456678", "", "");
 		
 		AlunoDAO.getInstance().incluir(aluno1);
-		SalaDAO.getInstance().incluir(sala1);
+		ClassRoom.getInstance().includeARoom(sala1);
 	}
 
 	@AfterClass
 	public static void tearDownAfterClass() throws Exception {
 		AlunoDAO.getInstance().excluir(aluno1);
-		SalaDAO.getInstance().excluir(sala1);
+		ClassRoom.getInstance().excluir(sala1);
 	}
 
 	
@@ -61,7 +60,7 @@ public class ManterResSalaAlunoTest {
 	
 	
 	@Test
-	public void testInserir() throws SQLException, ReservaException, ClienteException, PatrimonioException {
+	public void testInserir() throws SQLException, ReservaException, ClienteException, PatrimonyException {
 		String cadeiras_reservadas = "120";
 		String finalidade = "Sala de Estudos";
 		String data = "20/12/33";
@@ -75,7 +74,7 @@ public class ManterResSalaAlunoTest {
 		assertTrue("Teste de Insercao.", resultado && resultado2);
 	}
 	@Test
-	public void testAlterar() throws ReservaException, SQLException, ClienteException, PatrimonioException {
+	public void testAlterar() throws ReservaException, SQLException, ClienteException, PatrimonyException {
 		String cadeiras_reservadas = "120";
 		String finalidade = "Sala de Estudos";
 		String data = "20/12/33";
@@ -113,7 +112,7 @@ public class ManterResSalaAlunoTest {
 	}
 	
 	@Test
-	public void testVetDia() throws SQLException, ReservaException, ClienteException, PatrimonioException {
+	public void testVetDia() throws SQLException, ReservaException, ClienteException, PatrimonyException {
 		Aluno aluno2 = new Aluno("testInswewee", "490.491.781-20", "4324678", "", "");
 		ReservaSalaAluno r = new ReservaSalaAluno("1/3/20", "9:11", sala1, "Sala de Estudos", "60", aluno1);
 		ReservaSalaAluno r2 = new ReservaSalaAluno("1/3/20", "9:11", sala1,"Sala de Estudos", "30", aluno2);
@@ -146,7 +145,7 @@ public class ManterResSalaAlunoTest {
 	}
 	
 	@Test
-	public void testVetDiaHoje() throws SQLException, ReservaException, ClienteException, PatrimonioException {
+	public void testVetDiaHoje() throws SQLException, ReservaException, ClienteException, PatrimonyException {
 		Aluno aluno2 = new Aluno("testInswewee", "490.491.781-20", "4324678", "", "");
 		ReservaSalaAluno r = new ReservaSalaAluno("26/02/2013", "20:00", sala1, "Sala de Estudos", "60", aluno1);
 		ReservaSalaAluno r2 = new ReservaSalaAluno("26/02/2013", "20:00", sala1,"Sala de Estudos", "30", aluno2);

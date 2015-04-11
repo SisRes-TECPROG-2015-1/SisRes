@@ -16,7 +16,7 @@ import org.junit.Test;
 
 import persistence.EquipamentoDAO;
 import view.Main2;
-import exception.PatrimonioException;
+import exception.PatrimonyException;
 
 /**US10
 Título: Alterar cadastro de equipamento
@@ -53,7 +53,7 @@ public class US10_AlterarEquipamento {
     private DialogFixture dialog;
     private int index;
 
-    @Before public void setUp() throws PatrimonioException, SQLException {
+    @Before public void setUp() throws PatrimonyException, SQLException {
         
     robot = BasicRobot.robotWithNewAwtHierarchy();
     robot.settings().delayBetweenEvents(5);
@@ -71,7 +71,7 @@ public class US10_AlterarEquipamento {
 
 }
 
-@After public void tearDown() throws SQLException, PatrimonioException {
+@After public void tearDown() throws SQLException, PatrimonyException {
     if (equipamento != null)
         EquipamentoDAO.getInstance().excluir(equipamento);
     window.cleanUp();
@@ -93,7 +93,7 @@ public void sleep() {
     cadastro.button("Cancelar").click();
 }
 
-@Test public void testCenario1() throws SQLException, PatrimonioException {
+@Test public void testCenario1() throws SQLException, PatrimonyException {
 
     dialog.table("tabelaPatrimonio").selectRows(index);
 
@@ -110,7 +110,7 @@ public void sleep() {
     equipamento = EquipamentoDAO.getInstance().buscarTodos().get(index);
 }
 
-@Test public void testCenario2() throws SQLException, PatrimonioException {
+@Test public void testCenario2() throws SQLException, PatrimonyException {
 
     if (equipamento != null)
         EquipamentoDAO.getInstance().excluir(equipamento);
@@ -121,7 +121,7 @@ public void sleep() {
 
 }
 
-@Test public void testCenario3CodigoBranco() throws SQLException, PatrimonioException {
+@Test public void testCenario3CodigoBranco() throws SQLException, PatrimonyException {
 
     dialog.table("tabelaPatrimonio").selectRows(index);
     dialog.button("Alterar").click();
@@ -138,7 +138,7 @@ public void sleep() {
     equipamento = EquipamentoDAO.getInstance().buscarTodos().get(index);
 }
 
-@Test public void testCenario3DescricaoBranco() throws SQLException, PatrimonioException {
+@Test public void testCenario3DescricaoBranco() throws SQLException, PatrimonyException {
 
     dialog.table("tabelaPatrimonio").selectRows(index);
     dialog.button("Alterar").click();

@@ -12,7 +12,7 @@ import view.alteracoes.AlterarEquipamento;
 import view.cadastros.CadastroEquipamento;
 import view.diasReservas.DiaReservaEquipamento;
 import control.ManterEquipamento;
-import exception.PatrimonioException;
+import exception.PatrimonyException;
 
 /**
  * 
@@ -57,7 +57,7 @@ public class EquipamentoView extends PatrimonioView {
             }
             return table;
 
-        } catch ( PatrimonioException ex ) {
+        } catch ( PatrimonyException ex ) {
             JOptionPane.showMessageDialog( this, ex.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE, null );
         } catch ( SQLException ex ) {
             JOptionPane.showMessageDialog( this, ex.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE, null );
@@ -97,7 +97,7 @@ public class EquipamentoView extends PatrimonioView {
             }
             this.tabelaPatrimonio.setModel( fillTable() );
 
-        } catch ( PatrimonioException ex ) {
+        } catch ( PatrimonyException ex ) {
             JOptionPane.showMessageDialog( this, ex.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE, null );
         } catch ( SQLException ex ) {
             JOptionPane.showMessageDialog( this, ex.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE, null );
@@ -112,7 +112,7 @@ public class EquipamentoView extends PatrimonioView {
             DiaReservaEquipamento reserva = new DiaReservaEquipamento( new javax.swing.JFrame(), true, index );
             reserva.setResizable( false );
             reserva.setVisible( true );
-        } catch ( PatrimonioException ex ) {
+        } catch ( PatrimonyException ex ) {
             JOptionPane.showMessageDialog( this, ex.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE, null );
         } catch ( SQLException ex ) {
             JOptionPane.showMessageDialog( this, ex.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE, null );

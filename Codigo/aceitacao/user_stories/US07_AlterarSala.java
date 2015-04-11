@@ -13,9 +13,9 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import persistence.SalaDAO;
+import persistence.ClassRoom;
 import view.Main2;
-import exception.PatrimonioException;
+import exception.PatrimonyException;
 
 /**
  * US7 Título: Alterar sala. Como usuário Eu quero alterar dados de salas Para
@@ -43,7 +43,7 @@ public class US07_AlterarSala {
     private DialogFixture dialog;
     private int index;
 
-    @Before public void setUp() throws PatrimonioException, SQLException {
+    @Before public void setUp() throws PatrimonyException, SQLException {
         robot = BasicRobot.robotWithNewAwtHierarchy();
         robot.settings().delayBetweenEvents(5);
 
@@ -51,18 +51,18 @@ public class US07_AlterarSala {
         window.show(new Dimension(900, 500)); // shows the frame to test
 
         sala = new Sala("code", "Sala para testes de aceitacao", "123");
-        SalaDAO.getInstance().incluir(sala);
+        ClassRoom.getInstance().includeARoom(sala);
 
-        index = SalaDAO.getInstance().buscarTodos().size() - 1;
+        index = ClassRoom.getInstance().searchAll().size() - 1;
 
         window.button("Sala").click();
         dialog = window.dialog("SalaView");
 
     }
 
-    @After public void tearDown() throws SQLException, PatrimonioException {
+    @After public void tearDown() throws SQLException, PatrimonyException {
         if (sala != null)
-            SalaDAO.getInstance().excluir(sala);
+            ClassRoom.getInstance().excluir(sala);
         window.cleanUp();
     }
 
@@ -82,7 +82,7 @@ public class US07_AlterarSala {
         cadastro.button("Cancelar").click();
     }
 
-    @Test public void testCenario1() throws SQLException, PatrimonioException {
+    @Test public void testCenario1() throws SQLException, PatrimonyException {
 
         dialog.table("tabelaPatrimonio").selectRows(index);
 
@@ -96,13 +96,13 @@ public class US07_AlterarSala {
         sleep();
         cadastro.optionPane().okButton().click();
 
-        sala = SalaDAO.getInstance().buscarTodos().get(index);
+        sala = ClassRoom.getInstance().searchAll().get(index);
     }
 
-    @Test public void testCenario2() throws SQLException, PatrimonioException {
+    @Test public void testCenario2() throws SQLException, PatrimonyException {
 
         if (sala != null)
-            SalaDAO.getInstance().excluir(sala);
+            ClassRoom.getInstance().excluir(sala);
         sala = null;
         dialog.button("Alterar").click();
         dialog.optionPane().requireMessage("Selecione uma linha!");
@@ -110,7 +110,7 @@ public class US07_AlterarSala {
 
     }
 
-    @Test public void testCenario3CapacidadeInvalida() throws SQLException, PatrimonioException {
+    @Test public void testCenario3CapacidadeInvalida() throws SQLException, PatrimonyException {
 
         dialog.table("tabelaPatrimonio").selectRows(index);
         dialog.button("Alterar").click();
@@ -124,11 +124,11 @@ public class US07_AlterarSala {
         cadastro.optionPane().requireMessage("Capacidade Invalida.");
         sleep();
         cadastro.optionPane().okButton().click();
-        sala = SalaDAO.getInstance().buscarTodos().get(index);
+        sala = ClassRoom.getInstance().searchAll().get(index);
 
     }
 
-    @Test public void testCenario3CapacidadeBranco() throws SQLException, PatrimonioException {
+    @Test public void testCenario3CapacidadeBranco() throws SQLException, PatrimonyException {
 
         dialog.table("tabelaPatrimonio").selectRows(index);
         dialog.button("Alterar").click();
@@ -142,10 +142,10 @@ public class US07_AlterarSala {
         cadastro.optionPane().requireMessage("Capacidade em Branco.");
         sleep();
         cadastro.optionPane().okButton().click();
-        sala = SalaDAO.getInstance().buscarTodos().get(index);
+        sala = ClassRoom.getInstance().searchAll().get(index);
     }
 
-    @Test public void testCenario3CodigoBranco() throws SQLException, PatrimonioException {
+    @Test public void testCenario3CodigoBranco() throws SQLException, PatrimonyException {
 
         dialog.table("tabelaPatrimonio").selectRows(index);
         dialog.button("Alterar").click();
@@ -159,10 +159,10 @@ public class US07_AlterarSala {
         cadastro.optionPane().requireMessage("Codigo em Branco.");
         sleep();
         cadastro.optionPane().okButton().click();
-        sala = SalaDAO.getInstance().buscarTodos().get(index);
+        sala = ClassRoom.getInstance().searchAll().get(index);
     }
 
-    @Test public void testCenario3DescricaoBranco() throws SQLException, PatrimonioException {
+    @Test public void testCenario3DescricaoBranco() throws SQLException, PatrimonyException {
 
         dialog.table("tabelaPatrimonio").selectRows(index);
         dialog.button("Alterar").click();
@@ -176,7 +176,7 @@ public class US07_AlterarSala {
         cadastro.optionPane().requireMessage("Descricao em Branco.");
         sleep();
         cadastro.optionPane().okButton().click();
-        sala = SalaDAO.getInstance().buscarTodos().get(index);
+        sala = ClassRoom.getInstance().searchAll().get(index);
     }
 
 }

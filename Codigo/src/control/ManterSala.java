@@ -3,8 +3,8 @@ package control;
 import java.sql.SQLException;
 import java.util.Vector;
 
-import persistence.SalaDAO;
-import exception.PatrimonioException;
+import persistence.ClassRoom;
+import exception.PatrimonyException;
 import model.Sala;
 
 public class ManterSala {
@@ -33,8 +33,8 @@ public class ManterSala {
 	 * Captures all the classrooms in the database.
 	 * @return Vector - All classrooms
 	 */	
-	public Vector < Sala > getSalas_vet() throws SQLException, PatrimonioException {
-		this.salas_vet = SalaDAO.getInstance().buscarTodos();
+	public Vector < Sala > getSalas_vet() throws SQLException, PatrimonyException {
+		this.salas_vet = ClassRoom.getInstance().searchAll();
 		return this.salas_vet;
 	}
 
@@ -42,9 +42,9 @@ public class ManterSala {
 	/**
 	 * Inserts a new classroom and its attributes.
 	 */
-	public void inserir( String codigo, String descricao, String capacidade ) throws PatrimonioException, SQLException {
+	public void inserir( String codigo, String descricao, String capacidade ) throws PatrimonyException, SQLException {
 		Sala sala = new Sala( codigo, descricao, capacidade );
-		SalaDAO.getInstance().incluir( sala );
+		ClassRoom.getInstance().includeARoom( sala );
 		this.salas_vet.add( sala );
 	}
 
@@ -52,21 +52,21 @@ public class ManterSala {
 	/**
 	 * Changes a classroom attributes.
 	 */
-	public void alterar( String codigo, String descricao, String capacidade, Sala sala) throws PatrimonioException, SQLException {
+	public void alterar( String codigo, String descricao, String capacidade, Sala sala) throws PatrimonyException, SQLException {
 		Sala old_sala = new Sala( sala.getCodigo(), sala.getDescricao(),
 								sala.getCapacidade());
 		sala.setCodigo( codigo );
 		sala.setDescricao( descricao );
 		sala.setCapacidade( capacidade );
-		SalaDAO.getInstance().alterar( old_sala, sala );
+		ClassRoom.getInstance().alterar( old_sala, sala );
 	}
 
 	
 	/**
 	 * Excludes a classroom from the database.
 	 */
-	public void excluir( Sala sala ) throws SQLException, PatrimonioException {
-		SalaDAO.getInstance().excluir( sala );
+	public void excluir( Sala sala ) throws SQLException, PatrimonyException {
+		ClassRoom.getInstance().excluir( sala );
 		this.salas_vet.remove( sala );
 	}
 

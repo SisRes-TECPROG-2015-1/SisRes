@@ -1,6 +1,6 @@
 package model;
 
-import exception.PatrimonioException;
+import exception.PatrimonyException;
 
 public class Equipamento extends Patrimonio {
 
@@ -8,10 +8,10 @@ public class Equipamento extends Patrimonio {
 	 * Constructor method for class Equipamento
 	 * @param codigo
 	 * @param descricao
-	 * @throws PatrimonioException
+	 * @throws PatrimonyException
 	 */
 	public Equipamento( String codigo, String descricao )
-			throws PatrimonioException {
+			throws PatrimonyException {
 		super( codigo, descricao );
 	}
 

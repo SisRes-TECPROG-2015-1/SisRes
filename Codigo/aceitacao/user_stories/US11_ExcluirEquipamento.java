@@ -16,7 +16,7 @@ import org.junit.Test;
 import persistence.EquipamentoDAO;
 import view.Main2;
 import exception.ClienteException;
-import exception.PatrimonioException;
+import exception.PatrimonyException;
 
 /**
  * US11
@@ -46,7 +46,7 @@ public class US11_ExcluirEquipamento {
     private DialogFixture dialog;
     private int index;
 
-    @Before public void setUp() throws PatrimonioException, SQLException {
+    @Before public void setUp() throws PatrimonyException, SQLException {
         robot = BasicRobot.robotWithNewAwtHierarchy();
         robot.settings().delayBetweenEvents(5);
 
@@ -63,7 +63,7 @@ public class US11_ExcluirEquipamento {
 
     }
 
-    @After public void tearDown() throws SQLException, PatrimonioException {
+    @After public void tearDown() throws SQLException, PatrimonyException {
         if (equipamento != null)
             EquipamentoDAO.getInstance().excluir(equipamento);
         window.cleanUp();

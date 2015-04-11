@@ -13,7 +13,7 @@ import model.Equipamento;
 import view.horariosReservas.HorariosReservaEquipamento;
 import view.horariosReservas.HorariosReservaPatrimonio;
 import control.ManterEquipamento;
-import exception.PatrimonioException;
+import exception.PatrimonyException;
 
 /**
  * 
@@ -23,7 +23,7 @@ public class DiaReservaEquipamento extends DiaReservaPatrimonio {
 
     Equipamento eq;
 
-    public DiaReservaEquipamento( Frame parent, boolean modal, int indexEquipamento ) throws SQLException, PatrimonioException {
+    public DiaReservaEquipamento( Frame parent, boolean modal, int indexEquipamento ) throws SQLException, PatrimonyException {
         super( parent, modal );
         eq = ManterEquipamento.getInstance().getEquipamento_vet().get( indexEquipamento );
     }
