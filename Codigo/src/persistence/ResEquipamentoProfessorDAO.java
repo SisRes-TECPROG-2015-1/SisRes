@@ -7,7 +7,7 @@ import java.util.Vector;
 
 import model.Equipamento;
 import model.Professor;
-import model.ReservaEquipamentoProfessor;
+import model.TeacherEquipmentReserve;
 import exception.ClienteException;
 import exception.PatrimonyException;
 import exception.ReserveException;
@@ -55,7 +55,7 @@ public class ResEquipamentoProfessorDAO extends DAO {
 	}
 
 	private String where_reserva_equipamento_professor( 
-			ReservaEquipamentoProfessor r ) {
+			TeacherEquipmentReserve r ) {
 		return " WHERE " + "id_professor = ( "
 				+ select_id_professor( r.getProfessor() ) + " ) and "
 				+ "id_equipamento = ( "
@@ -65,14 +65,14 @@ public class ResEquipamentoProfessorDAO extends DAO {
 	}
 
 	private String values_reserva_equipamento_professor( 
-			ReservaEquipamentoProfessor r ) {
+			TeacherEquipmentReserve r ) {
 		return "( " + select_id_professor( r.getProfessor() ) + " ), " + "( "
 				+ select_id_equipamento( r.getEquipamento() ) + " ), " + "\""
 				+ r.getHora() + "\", " + "\"" + r.getData();
 	}
 
 	private String atributes_value_reserva_equipamento_professor( 
-			ReservaEquipamentoProfessor r ) {
+			TeacherEquipmentReserve r ) {
 		return "id_professor = ( " + select_id_professor( r.getProfessor() )
 				+ " ), " + "id_equipamento = ( "
 				+ select_id_equipamento( r.getEquipamento() ) + " ), "
@@ -80,31 +80,31 @@ public class ResEquipamentoProfessorDAO extends DAO {
 				+ r.getData();
 	}
 
-	private String insert_into( ReservaEquipamentoProfessor r ) {
+	private String insert_into( TeacherEquipmentReserve r ) {
 		return "INSERT INTO "
 				+ "reserva_equipamento_professor (id_professor, id_equipamento, hora, data) "
 				+ "VALUES ( " + values_reserva_equipamento_professor( r ) + " );";
 	}
 
-	private String update( ReservaEquipamentoProfessor r,
-			ReservaEquipamentoProfessor r2 ) {
+	private String update( TeacherEquipmentReserve r,
+			TeacherEquipmentReserve r2 ) {
 		return "UPDATE reserva_equipamento_professor SET "
 				+ this.atributes_value_reserva_equipamento_professor( r2 )
 				+ this.where_reserva_equipamento_professor( r ) + " ;";
 	}
 
-	private String delete_from_professor( ReservaEquipamentoProfessor r ) {
+	private String delete_from_professor( TeacherEquipmentReserve r ) {
 		return "DELETE FROM reserva_equipamento_professor "
 				+ this.where_reserva_equipamento_professor( r ) + " ;";
 	}
 
-	private String delete_from_aluno( ReservaEquipamentoProfessor r ) {
+	private String delete_from_aluno( TeacherEquipmentReserve r ) {
 		return "DELETE FROM reserva_equipamento_aluno WHERE " + "hora = \""
 				+ r.getHora() + "\" and " + "data = \"" + r.getData() + " ;";
 	}
 
 	//Metodo para incluir reserva
-	public void incluir( ReservaEquipamentoProfessor r ) throws ReserveException,
+	public void incluir( TeacherEquipmentReserve r ) throws ReserveException,
 			SQLException {
 		if ( r == null ) {
 			throw new ReserveException( NULA );
@@ -127,8 +127,8 @@ public class ResEquipamentoProfessorDAO extends DAO {
 	}
 
 	//Metodo para altera reserva
-	public void alterar( ReservaEquipamentoProfessor r,
-			ReservaEquipamentoProfessor r_new ) throws ReserveException,
+	public void alterar( TeacherEquipmentReserve r,
+			TeacherEquipmentReserve r_new ) throws ReserveException,
 			SQLException {
 		if ( r == null ) {
 			throw new ReserveException( NULA );
@@ -159,7 +159,7 @@ public class ResEquipamentoProfessorDAO extends DAO {
 	}
 
 	//Metodo para excluir reserva
-	public void excluir( ReservaEquipamentoProfessor r ) throws ReserveException,
+	public void excluir( TeacherEquipmentReserve r ) throws ReserveException,
 			SQLException {
 		if ( r == null ) {
 			throw new ReserveException( NULA );
@@ -182,16 +182,16 @@ public class ResEquipamentoProfessorDAO extends DAO {
 	}
 
 	@SuppressWarnings( "unchecked" )
-	public Vector<ReservaEquipamentoProfessor> buscarPorMes( int mes )
+	public Vector<TeacherEquipmentReserve> buscarPorMes( int mes )
 			throws SQLException, ClienteException, PatrimonyException,
 			ReserveException {
-		Vector<ReservaEquipamentoProfessor> reservas_prof_mes = super
+		Vector<TeacherEquipmentReserve> reservas_prof_mes = super
 				.buscar( "SELECT * FROM reserva_equipamento_professor "
 						+ "INNER JOIN equipamento ON equipamento.id_equipamento = reserva_equipamento_professor.id_equipamento "
 						+ "INNER JOIN professor ON professor.id_professor = reserva_equipamento_professor.id_professor;");
-		Iterator<ReservaEquipamentoProfessor> it = reservas_prof_mes.iterator();
+		Iterator<TeacherEquipmentReserve> it = reservas_prof_mes.iterator();
 		while ( it.hasNext() ) {
-			ReservaEquipamentoProfessor obj = it.next();
+			TeacherEquipmentReserve obj = it.next();
 			if ( Integer.parseInt( obj.getData().split( "[./-]" )[1] ) != mes ) {
 				reservas_prof_mes.remove( obj );
 			}
@@ -200,7 +200,7 @@ public class ResEquipamentoProfessorDAO extends DAO {
 	}
 
 	@SuppressWarnings( "unchecked" )
-	public Vector<ReservaEquipamentoProfessor> buscarPorHora( String hora )
+	public Vector<TeacherEquipmentReserve> buscarPorHora( String hora )
 			throws SQLException, ClienteException, PatrimonyException,
 			ReserveException {
 		String hora_a = "", hora_b = "";
@@ -228,7 +228,7 @@ public class ResEquipamentoProfessorDAO extends DAO {
 		Equipamento s = new Equipamento( rs.getString( "codigo" ),
 				rs.getString( "descricao" ) );
 
-		ReservaEquipamentoProfessor r = new ReservaEquipamentoProfessor( 
+		TeacherEquipmentReserve r = new TeacherEquipmentReserve( 
 				rs.getString( "data" ), rs.getString( "hora" ), s, p );
 
 		return r;
@@ -284,7 +284,7 @@ public class ResEquipamentoProfessorDAO extends DAO {
 						+ equipamento.getDescricao() + "\" and " + ");");
 	}
 
-	private boolean reservainDB( ReservaEquipamentoProfessor r )
+	private boolean reservainDB( TeacherEquipmentReserve r )
 			throws SQLException {
 		return super
 				.inDBGeneric( "SELECT * FROM reserva_equipamento_professor WHERE "

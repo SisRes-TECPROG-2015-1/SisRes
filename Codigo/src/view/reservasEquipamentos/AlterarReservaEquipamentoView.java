@@ -10,7 +10,7 @@ import java.sql.SQLException;
 
 import javax.swing.JOptionPane;
 
-import model.ReservaEquipamentoProfessor;
+import model.TeacherEquipmentReserve;
 import exception.ClienteException;
 import exception.PatrimonyException;
 import exception.ReserveException;
@@ -22,7 +22,7 @@ import exception.ReserveException;
 public class AlterarReservaEquipamentoView extends ReservaEquipamentoView {
 
     int index;
-    ReservaEquipamentoProfessor reserva;
+    TeacherEquipmentReserve reserva;
 
     private void resetComponents() {
         this.reservarButton.setText( "Alterar" );

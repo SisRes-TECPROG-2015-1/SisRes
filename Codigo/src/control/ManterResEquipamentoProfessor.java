@@ -5,7 +5,7 @@ import java.util.Vector;
 
 import model.Equipamento;
 import model.Professor;
-import model.ReservaEquipamentoProfessor;
+import model.TeacherEquipmentReserve;
 import persistence.ResEquipamentoProfessorDAO;
 import exception.ClienteException;
 import exception.PatrimonyException;
@@ -37,7 +37,7 @@ public class ManterResEquipamentoProfessor {
      * Captures the classroom reserves for teachers in the hour searched.
      * @return Vector - Classroom reserves for teachers
      */
-    public Vector < ReservaEquipamentoProfessor > getReservasHora( String hora ) throws SQLException, PatrimonyException,
+    public Vector < TeacherEquipmentReserve > getReservasHora( String hora ) throws SQLException, PatrimonyException,
             ClienteException, ReserveException {
         return ResEquipamentoProfessorDAO.getInstance().buscarPorHora( hora );
     }
@@ -46,7 +46,7 @@ public class ManterResEquipamentoProfessor {
      * Captures the classroom reserves for teachers which had reserved a equipment in the month searched.
      * @return Vector - Classroom reserves for teachers
      */
-    public Vector < ReservaEquipamentoProfessor > getReservasMes( int mes ) throws SQLException, PatrimonyException, ClienteException,
+    public Vector < TeacherEquipmentReserve > getReservasMes( int mes ) throws SQLException, PatrimonyException, ClienteException,
             ReserveException {
         return ResEquipamentoProfessorDAO.getInstance().buscarPorMes( mes );
     }
@@ -67,7 +67,7 @@ public class ManterResEquipamentoProfessor {
      * Reserves an equipment to a teacher to a date and hour.
      */
     public void inserir( Equipamento equipamento, Professor prof, String data, String hora ) throws SQLException, ReserveException {
-        ReservaEquipamentoProfessor reserva = new ReservaEquipamentoProfessor( data, hora, equipamento, prof );
+        TeacherEquipmentReserve reserva = new TeacherEquipmentReserve( data, hora, equipamento, prof );
         ResEquipamentoProfessorDAO.getInstance().incluir( reserva );
         this.rev_equipamento_professor_vet.add( reserva );
     }
@@ -76,9 +76,9 @@ public class ManterResEquipamentoProfessor {
     /**
      * Changes the classroom reserve to a new one.
      */
-    public void alterar( String finalidade, ReservaEquipamentoProfessor reserva ) throws SQLException, ReserveException {
+    public void alterar( String finalidade, TeacherEquipmentReserve reserva ) throws SQLException, ReserveException {
 
-        ReservaEquipamentoProfessor reserva_old = new ReservaEquipamentoProfessor( reserva.getData(), reserva.getHora(),
+        TeacherEquipmentReserve reserva_old = new TeacherEquipmentReserve( reserva.getData(), reserva.getHora(),
                 reserva.getEquipamento(), reserva.getProfessor());
         ResEquipamentoProfessorDAO.getInstance().alterar( reserva_old, reserva );
 
@@ -88,7 +88,7 @@ public class ManterResEquipamentoProfessor {
     /**
      * Excludes a classroom reserve.
      */
-    public void excluir( ReservaEquipamentoProfessor reserva ) throws SQLException, ReserveException {
+    public void excluir( TeacherEquipmentReserve reserva ) throws SQLException, ReserveException {
         ResEquipamentoProfessorDAO.getInstance().excluir( reserva );
         this.rev_equipamento_professor_vet.remove( reserva );
     }

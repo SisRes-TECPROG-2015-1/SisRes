@@ -15,7 +15,7 @@ import javax.swing.table.DefaultTableModel;
 
 import model.Equipamento;
 import model.Patrimonio;
-import model.ReservaEquipamentoProfessor;
+import model.TeacherEquipmentReserve;
 import view.reservasEquipamentos.FazerReservaEquipamentoView;
 import view.reservasEquipamentos.ReservaEquipamentoView;
 import control.ManterResEquipamentoProfessor;
@@ -40,8 +40,8 @@ public class HorariosReservaEquipamento extends HorariosReservaPatrimonio {
     // This method fills a vector with the data informated by the user
     protected Vector<String> fillDataVector( Object o, int index ) {
         Vector<String> nomesTabela = new Vector<String>();
-        if ( o instanceof ReservaEquipamentoProfessor ) {
-            ReservaEquipamentoProfessor r = ( ReservaEquipamentoProfessor ) o;
+        if ( o instanceof TeacherEquipmentReserve ) {
+            TeacherEquipmentReserve r = ( TeacherEquipmentReserve ) o;
             if ( this.eq != null && ( r.getEquipamento().equals( this.eq ) ) ) {
 
                 nomesTabela.add( String.valueOf( index ) );
@@ -71,7 +71,7 @@ public class HorariosReservaEquipamento extends HorariosReservaPatrimonio {
 
             this.mes = Integer.parseInt( this.data.substring( 3, 5 ) );
 
-            Vector<ReservaEquipamentoProfessor> v = instance.getReservasMes( mes );
+            Vector<TeacherEquipmentReserve> v = instance.getReservasMes( mes );
             if ( v != null )
                 for ( int i = 0; i < v.size(); i++ ) {
                     table.addRow( fillDataVector( v.get( i ), i ) );
