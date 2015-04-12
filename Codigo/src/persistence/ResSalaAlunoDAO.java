@@ -64,7 +64,7 @@ public class ResSalaAlunoDAO extends DAO {
 	private String where_reserva_sala_aluno( ReservaSalaAluno r ) {
 		return " WHERE " + "id_aluno = ( " + select_id_aluno( r.getAluno() )
 				+ " ) and " + "id_sala = ( " + select_id_sala( r.getSala() )
-				+ " ) and " + "finalidade = \"" + r.getFinalidade() + "\" and "
+				+ " ) and " + "finalidade = \"" + r.getFinality() + "\" and "
 				+ "hora = \"" + r.getHora() + "\" and " + "data = \""
 				+ r.getData() + "\" and " + "cadeiras_reservadas = "
 				+ r.getCadeiras_reservadas();
@@ -73,14 +73,14 @@ public class ResSalaAlunoDAO extends DAO {
 	private String values_reserva_sala_aluno( ReservaSalaAluno r ) {
 		return "( " + select_id_aluno( r.getAluno() ) + " ), " + "( "
 				+ select_id_sala( r.getSala() ) + " ), " + "\""
-				+ r.getFinalidade() + "\", " + "\"" + r.getHora() + "\", "
+				+ r.getFinality() + "\", " + "\"" + r.getHora() + "\", "
 				+ "\"" + r.getData() + "\", " + r.getCadeiras_reservadas();
 	}
 
 	private String atibutes_value_reserva_sala_aluno( ReservaSalaAluno r ) {
 		return "id_aluno = ( " + select_id_aluno( r.getAluno() ) + " ), "
 				+ "id_sala = ( " + select_id_sala( r.getSala() ) + " ), "
-				+ "finalidade = \"" + r.getFinalidade() + "\", " + "hora = \""
+				+ "finalidade = \"" + r.getFinality() + "\", " + "hora = \""
 				+ r.getHora() + "\", " + "data = \"" + r.getData() + "\", "
 				+ "cadeiras_reservadas = " + r.getCadeiras_reservadas();
 	}
@@ -336,7 +336,7 @@ public class ResSalaAlunoDAO extends DAO {
 				+ r.getSala().getCapacidade()
 				+ " ) and "
 				+ "finalidade = \""
-				+ r.getFinalidade()
+				+ r.getFinality()
 				+ "\" and "
 				+ "hora = \""
 				+ r.getHora()

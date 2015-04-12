@@ -196,7 +196,7 @@ public class ManterResSalaAlunoTest {
 		return " WHERE " +
 		"id_aluno = ( " + select_id_aluno(r.getAluno()) + " ) and " +
 		"id_sala = ( " + select_id_sala(r.getSala()) + " ) and " +
-		"finalidade = \"" + r.getFinalidade() + "\" and " +
+		"finalidade = \"" + r.getFinality() + "\" and " +
 		"hora = \"" + r.getHora() + "\" and " +
 		"data = \"" + r.getData() + "\" and " +
 		"cadeiras_reservadas = " + r.getCadeiras_reservadas();
@@ -204,7 +204,7 @@ public class ManterResSalaAlunoTest {
 	private String values_reserva_sala_aluno(ReservaSalaAluno r){
 		return "( " + select_id_aluno(r.getAluno()) + " ), " +
 		"( " + select_id_sala(r.getSala()) + " ), " +
-		"\"" + r.getFinalidade() + "\", " +
+		"\"" + r.getFinality() + "\", " +
 		"\"" + r.getHora() + "\", " +
 		"\"" + r.getData() + "\", " +
 		r.getCadeiras_reservadas();

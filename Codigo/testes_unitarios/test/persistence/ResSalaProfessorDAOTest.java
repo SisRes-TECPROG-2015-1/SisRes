@@ -504,13 +504,13 @@ public class ResSalaProfessorDAOTest {
 		this.executeQuery("INSERT INTO reserva_sala_professor (id_professor,id_sala,finalidade,hora,data) "+
 				"VALUES ((SELECT id_professor FROM professor WHERE cpf = \"" + reserva.getProfessor().getCpf() + "\")," + 
 						"(SELECT id_sala FROM sala WHERE codigo = \"" + sala_a.getCodigo() + "\")," +
-						"\"" + reserva.getFinalidade() + "\", \"" +
+						"\"" + reserva.getFinality() + "\", \"" +
 						reserva.getHora() + "\", \"" + reserva.getData() +"\");");
 		
 		this.executeQuery("INSERT INTO reserva_sala_professor (id_professor,id_sala,finalidade,hora,data) "+
 				"VALUES ((SELECT id_professor FROM professor WHERE cpf = \"" + reserva2.getProfessor().getCpf() + "\")," + 
 						"(SELECT id_sala FROM sala WHERE codigo = \"" + sala_a.getCodigo() + "\")," +
-						"\"" + reserva2.getFinalidade() + "\", \"" +
+						"\"" + reserva2.getFinality() + "\", \"" +
 						reserva2.getHora() + "\", \"" + reserva2.getData() +"\");");
 		
 		Vector<ReservaSalaProfessor> vet = ResSalaProfessorDAO.getInstance().buscarPorData("20/12/2034");
@@ -551,14 +551,14 @@ public class ResSalaProfessorDAOTest {
 		return " WHERE " +
 		"id_professor = ( " + select_id_professor(r.getProfessor()) + " ) and " +
 		"id_sala = ( " + select_id_sala(r.getSala()) + " ) and " +
-		"finalidade = \"" + r.getFinalidade() + "\" and " +
+		"finalidade = \"" + r.getFinality() + "\" and " +
 		"hora = \"" + r.getHora() + "\" and " +
 		"data = \"" + r.getData() + "\"";
 	}
 	private String values_reserva_sala_professor(ReservaSalaProfessor r){
 		return "( " + select_id_professor(r.getProfessor()) + " ), " +
 		"( " + select_id_sala(r.getSala()) + " ), " +
-		"\"" + r.getFinalidade() + "\", " +
+		"\"" + r.getFinality() + "\", " +
 		"\"" + r.getHora() + "\", " +
 		"\"" + r.getData() + "\"";
 	}

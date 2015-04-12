@@ -75,7 +75,7 @@ public class AlterarReservaProfSalaView extends ReservaSalaView {
         this.qntCadeirasReservadasTextField.setText( reservaProfessor.getSala().getCapacidade() );
         this.qntCadeirasReservadasTextField.setBackground( blue );
         this.qntCadeirasReservadasTextField.setEditable( false );
-        this.finalidadeTextField.setText( reservaProfessor.getFinalidade() );
+        this.finalidadeTextField.setText( reservaProfessor.getFinality() );
         this.verificarCadeiraButton.setEnabled( false );
     }
 

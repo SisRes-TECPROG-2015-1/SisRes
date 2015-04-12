@@ -54,7 +54,7 @@ public class HorariosReservaSala extends HorariosReservaPatrimonio {
                 nomesTabela.add( r.getHora() );
                 nomesTabela.add( r.getAluno().getNome() );
                 nomesTabela.add( r.getAluno().getMatricula() );
-                nomesTabela.add( r.getFinalidade() );
+                nomesTabela.add( r.getFinality() );
                 nomesTabela.add( r.getSala().getCodigo() );
                 nomesTabela.add( r.getSala().getDescricao() );
                 nomesTabela.add( r.getCadeiras_reservadas() );
@@ -69,7 +69,7 @@ public class HorariosReservaSala extends HorariosReservaPatrimonio {
                 nomesTabela.add( r.getHora() );
                 nomesTabela.add( r.getProfessor().getNome() );
                 nomesTabela.add( r.getProfessor().getMatricula() );
-                nomesTabela.add( r.getFinalidade() );
+                nomesTabela.add( r.getFinality() );
                 nomesTabela.add( r.getSala().getCodigo() );
                 nomesTabela.add( r.getSala().getDescricao() );
                 nomesTabela.add( r.getSala().getCapacidade() );

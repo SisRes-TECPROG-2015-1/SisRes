@@ -2,7 +2,7 @@ package model;
 
 import exception.ReserveException;
 
-public class ReservaSalaAluno extends ReservaSala {
+public class ReservaSalaAluno extends RoomReserve {
 
 	private Aluno aluno;
 	private String cadeiras_reservadas;

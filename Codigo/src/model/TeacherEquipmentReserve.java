@@ -7,7 +7,7 @@ public class TeacherEquipmentReserve extends EquipmentReserve {
 	private Professor teacher;
 
 	// Message for exception
-	private final String PROFESSOR_NULO = "O professor esta nulo.";
+	private final String NULL_TEACHER = "O professor esta nulo.";
 
 	/**
 	 * Constructor method for model TeacherEquipmentReserve
@@ -39,19 +39,19 @@ public class TeacherEquipmentReserve extends EquipmentReserve {
 	 */
 	public void setProfessor( Professor teacher ) throws ReserveException {
 		if ( teacher == null ) {
-			throw new ReserveException( PROFESSOR_NULO );
+			throw new ReserveException( NULL_TEACHER );
 		} 
 		this.teacher = teacher;
 	}
 
 	/**
-	 * Function to validate if an object passed is equal to an instancied object
-	 * @param obj
+	 * Function to validate if an TeacherEquipmentReserveObjectect passed is equal to an instancied TeacherEquipmentReserveObjectect
+	 * @param TeacherEquipmentReserveObject
 	 * @return
 	 */
-	public boolean equals( TeacherEquipmentReserve obj ) {
-		return ( super.equals( obj ) && this.getEquipment().equals(
-				obj.getEquipment() ) );
+	public boolean equals( TeacherEquipmentReserve TeacherEquipmentReserveObject ) {
+		return ( super.equals( TeacherEquipmentReserveObject ) && this.getEquipment().equals(
+				TeacherEquipmentReserveObject.getEquipment() ) );
 	}
 
 	@Override

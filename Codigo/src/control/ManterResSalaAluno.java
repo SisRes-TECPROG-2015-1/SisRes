@@ -89,8 +89,8 @@ public class ManterResSalaAluno {
 		throws SQLException, ReserveException, ClienteException, PatrimonyException {
 
 		ReservaSalaAluno res_old = new ReservaSalaAluno( r.getData(), r.getHora(), r.getSala(),
-			r.getFinalidade(), r.getCadeiras_reservadas(), r.getAluno());
-		r.setFinalidade( finalidade );
+			r.getFinality(), r.getCadeiras_reservadas(), r.getAluno());
+		r.setFinality( finalidade );
 		r.setCadeiras_reservadas( cadeiras_reservadas );
 		ResSalaAlunoDAO.getInstance().alterar( res_old, r );
 	}

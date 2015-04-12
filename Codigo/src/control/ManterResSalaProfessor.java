@@ -72,9 +72,9 @@ public class ManterResSalaProfessor {
 				throws SQLException, ReserveException {
 		
 		ReservaSalaProfessor reserva_old = new ReservaSalaProfessor( reserva.getData(), reserva.getHora(), reserva.getSala() , 
-				reserva.getFinalidade(), reserva.getProfessor() );
+				reserva.getFinality(), reserva.getProfessor() );
 		
-		reserva.setFinalidade( finalidade );
+		reserva.setFinality( finalidade );
 		ResSalaProfessorDAO.getInstance().alterar( reserva_old, reserva );
 		
 	}

@@ -85,7 +85,7 @@ public class AlterarReservaAlunoSalaView extends ReservaSalaView {
         this.dataTextField.setText( reservaAluno.getData() );
         this.qntCadeirasTxtField.setText( reservaAluno.getSala().getCapacidade() );
         this.qntCadeirasReservadasTextField.setText( reservaAluno.getCadeiras_reservadas() );
-        this.finalidadeTextField.setText( reservaAluno.getFinalidade() );
+        this.finalidadeTextField.setText( reservaAluno.getFinality() );
     }
 
     @Override protected void verificarAction() {

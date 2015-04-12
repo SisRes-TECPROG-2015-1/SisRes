@@ -60,7 +60,7 @@ public class ResSalaProfessorDAO extends DAO {
 		return " WHERE " + "id_professor = ( "
 				+ select_id_professor( r.getProfessor() ) + " ) and "
 				+ "id_sala = ( " + select_id_sala( r.getSala() ) + " ) and "
-				+ "finalidade = \"" + r.getFinalidade() + "\" and "
+				+ "finalidade = \"" + r.getFinality() + "\" and "
 				+ "hora = \"" + r.getHora() + "\" and " + "data = \""
 				+ r.getData() + "\"";
 	}
@@ -68,14 +68,14 @@ public class ResSalaProfessorDAO extends DAO {
 	private String values_reserva_sala_professor( ReservaSalaProfessor r ) {
 		return "( " + select_id_professor( r.getProfessor() ) + " ), " + "( "
 				+ select_id_sala( r.getSala() ) + " ), " + "\""
-				+ r.getFinalidade() + "\", " + "\"" + r.getHora() + "\", "
+				+ r.getFinality() + "\", " + "\"" + r.getHora() + "\", "
 				+ "\"" + r.getData() + "\"";
 	}
 
 	private String atibutes_value_reserva_sala_professor( ReservaSalaProfessor r ) {
 		return "id_professor = ( " + select_id_professor( r.getProfessor() )
 				+ " ), " + "id_sala = ( " + select_id_sala( r.getSala() )
-				+ " ), " + "finalidade = \"" + r.getFinalidade() + "\", "
+				+ " ), " + "finalidade = \"" + r.getFinality() + "\", "
 				+ "hora = \"" + r.getHora() + "\", " + "data = \""
 				+ r.getData() + "\"";
 	}
@@ -269,7 +269,7 @@ public class ResSalaProfessorDAO extends DAO {
 				+ r.getSala().getCapacidade()
 				+ " ) and "
 				+ "finalidade = \""
-				+ r.getFinalidade()
+				+ r.getFinality()
 				+ "\" and "
 				+ "hora = \""
 				+ r.getHora()
