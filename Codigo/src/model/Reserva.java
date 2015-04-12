@@ -3,7 +3,7 @@ package model;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-import exception.ReservaException;
+import exception.ReserveException;
 
 public class Reserva {
 
@@ -24,9 +24,9 @@ public class Reserva {
 	 * Constructor for class Reserva
 	 * @param data
 	 * @param hora
-	 * @throws ReservaException
+	 * @throws ReserveException
 	 */
-	public Reserva( String data, String hora ) throws ReservaException {
+	public Reserva( String data, String hora ) throws ReserveException {
 		this.setData( data );
 		this.setHora( hora );
 	}
@@ -50,16 +50,16 @@ public class Reserva {
 	/**
 	 * Setter function for 'hora' attribute
 	 * @param hora
-	 * @throws ReservaException
+	 * @throws ReserveException
 	 */
-	public void setHora( String hora ) throws ReservaException {
+	public void setHora( String hora ) throws ReserveException {
 		if ( hora == null ) { 
-			throw new ReservaException( HORA_NULA );
+			throw new ReserveException( HORA_NULA );
 		}
 		
 		hora = hora.trim();
 		if ( hora.equals( "" ) ) { 
-			throw new ReservaException( HORA_BRANCA );
+			throw new ReserveException( HORA_BRANCA );
 		} else if ( hora.matches( HORA_PATTERN ) ) {
 			if ( hora.length() == 4 ) {
 				this.hora = "0" + hora;
@@ -67,29 +67,29 @@ public class Reserva {
 				this.hora = hora;
 			}
 		} else { 
-			throw new ReservaException( HORA_INVALIDA );
+			throw new ReserveException( HORA_INVALIDA );
 		}
 	}
 
 	/**
 	 * Setter function for 'data'attribute
 	 * @param data
-	 * @throws ReservaException
+	 * @throws ReserveException
 	 */
-	public void setData( String data ) throws ReservaException {
+	public void setData( String data ) throws ReserveException {
 		if ( data == null ) {
-			throw new ReservaException(DATA_NULA);
+			throw new ReserveException(DATA_NULA);
 		}else{
 			// Nothing to do
 		}
 
 		data = data.trim();
 		if ( data.equals( "" ) ) { 
-			throw new ReservaException( DATA_BRANCA );
+			throw new ReserveException( DATA_BRANCA );
 		} else if ( data.matches( DATA_PATTERN ) ) {
 			this.data = padronizarData( data );
 		} else { 
-			throw new ReservaException( DATA_INVALIDA );
+			throw new ReserveException( DATA_INVALIDA );
 		}
 	}
 

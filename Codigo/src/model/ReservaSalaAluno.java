@@ -1,6 +1,6 @@
 package model;
 
-import exception.ReservaException;
+import exception.ReserveException;
 
 public class ReservaSalaAluno extends ReservaSala {
 
@@ -23,11 +23,11 @@ public class ReservaSalaAluno extends ReservaSala {
 	 * @param finalidade
 	 * @param cadeiras_reservadas
 	 * @param aluno
-	 * @throws ReservaException
+	 * @throws ReserveException
 	 */
 	public ReservaSalaAluno( String data, String hora, Sala sala,
 			String finalidade, String cadeiras_reservadas, Aluno aluno )
-			throws ReservaException {
+			throws ReserveException {
 		super( data, hora, sala, finalidade );
 		this.setAluno( aluno );
 		this.setCadeiras_reservadas( cadeiras_reservadas );
@@ -53,9 +53,9 @@ public class ReservaSalaAluno extends ReservaSala {
 	 * Setter method for attribute 'aluno'
 	 * @return
 	 */
-	public void setAluno( Aluno aluno ) throws ReservaException {
+	public void setAluno( Aluno aluno ) throws ReserveException {
 		if ( aluno == null ) { 
-			throw new ReservaException( ALUNO_NULO );
+			throw new ReserveException( ALUNO_NULO );
 		} else {
 			// Nothing to do
 		}
@@ -67,25 +67,25 @@ public class ReservaSalaAluno extends ReservaSala {
 	 * @return
 	 */
 	public void setCadeiras_reservadas( String cadeiras_reservadas )
-			throws ReservaException {
+			throws ReserveException {
 		String c = cadeiras_reservadas;
 		if ( c == null ) { 
-			throw new ReservaException( CADEIRAS_NULA );
+			throw new ReserveException( CADEIRAS_NULA );
 		} else { 
 			// Nothing to do
 		}
 		c = c.trim();
 		if ( c.equals( "" ) ) { 
-			throw new ReservaException( CADEIRAS_BRANCO );
+			throw new ReserveException( CADEIRAS_BRANCO );
 		} else if ( c.matches( CADEIRAS_PATTERN ) ) {
 			if ( Integer.parseInt( super.getSala().getCapacidade() ) < Integer
 					.parseInt( cadeiras_reservadas ) ) { 
-				throw new ReservaException( CADEIRAS_ACIMA_DO_LIMITE );
+				throw new ReserveException( CADEIRAS_ACIMA_DO_LIMITE );
 			} else {
 				this.cadeiras_reservadas = cadeiras_reservadas;
 			}
 		} else {
-			throw new ReservaException( CADEIRAS_INVALIDA );
+			throw new ReserveException( CADEIRAS_INVALIDA );
 		}
 	}
 

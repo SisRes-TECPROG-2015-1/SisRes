@@ -24,7 +24,7 @@ import persistence.ClassRoom;
 import control.ManterResSalaAluno;
 import exception.ClienteException;
 import exception.PatrimonyException;
-import exception.ReservaException;
+import exception.ReserveException;
 
 public class ManterResSalaAlunoTest {
 	private static Sala sala1;
@@ -60,7 +60,7 @@ public class ManterResSalaAlunoTest {
 	
 	
 	@Test
-	public void testInserir() throws SQLException, ReservaException, ClienteException, PatrimonyException {
+	public void testInserir() throws SQLException, ReserveException, ClienteException, PatrimonyException {
 		String cadeiras_reservadas = "120";
 		String finalidade = "Sala de Estudos";
 		String data = "20/12/33";
@@ -74,7 +74,7 @@ public class ManterResSalaAlunoTest {
 		assertTrue("Teste de Insercao.", resultado && resultado2);
 	}
 	@Test
-	public void testAlterar() throws ReservaException, SQLException, ClienteException, PatrimonyException {
+	public void testAlterar() throws ReserveException, SQLException, ClienteException, PatrimonyException {
 		String cadeiras_reservadas = "120";
 		String finalidade = "Sala de Estudos";
 		String data = "20/12/33";
@@ -93,7 +93,7 @@ public class ManterResSalaAlunoTest {
 		assertTrue("Teste de Alteracao.", resultado && resultado2);
 	}
 	@Test
-	public void testExcluir() throws ReservaException, SQLException {
+	public void testExcluir() throws ReserveException, SQLException {
 		String cadeiras_reservadas = "120";
 		String finalidade = "Sala de Estudos";
 		String data = "20/12/33";
@@ -112,7 +112,7 @@ public class ManterResSalaAlunoTest {
 	}
 	
 	@Test
-	public void testVetDia() throws SQLException, ReservaException, ClienteException, PatrimonyException {
+	public void testVetDia() throws SQLException, ReserveException, ClienteException, PatrimonyException {
 		Aluno aluno2 = new Aluno("testInswewee", "490.491.781-20", "4324678", "", "");
 		ReservaSalaAluno r = new ReservaSalaAluno("1/3/20", "9:11", sala1, "Sala de Estudos", "60", aluno1);
 		ReservaSalaAluno r2 = new ReservaSalaAluno("1/3/20", "9:11", sala1,"Sala de Estudos", "30", aluno2);
@@ -145,7 +145,7 @@ public class ManterResSalaAlunoTest {
 	}
 	
 	@Test
-	public void testVetDiaHoje() throws SQLException, ReservaException, ClienteException, PatrimonyException {
+	public void testVetDiaHoje() throws SQLException, ReserveException, ClienteException, PatrimonyException {
 		Aluno aluno2 = new Aluno("testInswewee", "490.491.781-20", "4324678", "", "");
 		ReservaSalaAluno r = new ReservaSalaAluno("26/02/2013", "20:00", sala1, "Sala de Estudos", "60", aluno1);
 		ReservaSalaAluno r2 = new ReservaSalaAluno("26/02/2013", "20:00", sala1,"Sala de Estudos", "30", aluno2);

@@ -21,7 +21,7 @@ import view.reservasEquipamentos.ReservaEquipamentoView;
 import control.ManterResEquipamentoProfessor;
 import exception.ClienteException;
 import exception.PatrimonyException;
-import exception.ReservaException;
+import exception.ReserveException;
 
 /**
  * 
@@ -84,7 +84,7 @@ public class HorariosReservaEquipamento extends HorariosReservaPatrimonio {
             Logger.getLogger( HorariosReservaPatrimonio.class.getName() ).log( Level.SEVERE, null, ex );
         } catch ( ClienteException ex ) {
             Logger.getLogger( HorariosReservaPatrimonio.class.getName() ).log( Level.SEVERE, null, ex );
-        } catch ( ReservaException ex ) {
+        } catch ( ReserveException ex ) {
             Logger.getLogger( HorariosReservaPatrimonio.class.getName() ).log( Level.SEVERE, null, ex );
         }
         return table;
@@ -109,7 +109,7 @@ public class HorariosReservaEquipamento extends HorariosReservaPatrimonio {
             JOptionPane.showMessageDialog( this, ex.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE, null );
         } catch ( ClienteException ex ) {
             JOptionPane.showMessageDialog( this, ex.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE, null );
-        } catch ( ReservaException ex ) {
+        } catch ( ReserveException ex ) {
             JOptionPane.showMessageDialog( this, ex.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE, null );
         }
     }
@@ -124,7 +124,7 @@ public class HorariosReservaEquipamento extends HorariosReservaPatrimonio {
             JOptionPane.showMessageDialog( this, ex.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE, null );
         } catch ( ClienteException ex ) {
             JOptionPane.showMessageDialog( this, ex.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE, null );
-        } catch ( ReservaException ex ) {
+        } catch ( ReserveException ex ) {
             JOptionPane.showMessageDialog( this, ex.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE, null );
         }
     }

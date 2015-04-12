@@ -10,7 +10,7 @@ import model.Professor;
 import model.ReservaEquipamentoProfessor;
 import exception.ClienteException;
 import exception.PatrimonyException;
-import exception.ReservaException;
+import exception.ReserveException;
 
 public class ResEquipamentoProfessorDAO extends DAO {
 
@@ -104,21 +104,21 @@ public class ResEquipamentoProfessorDAO extends DAO {
 	}
 
 	//Metodo para incluir reserva
-	public void incluir( ReservaEquipamentoProfessor r ) throws ReservaException,
+	public void incluir( ReservaEquipamentoProfessor r ) throws ReserveException,
 			SQLException {
 		if ( r == null ) {
-			throw new ReservaException( NULA );
+			throw new ReserveException( NULA );
 		} else if ( !this.professorinDB(r.getProfessor() ) ) {
-			throw new ReservaException( PROFESSOR_INEXISTENTE );
+			throw new ReserveException( PROFESSOR_INEXISTENTE );
 		} else if ( !this.equipamentoinDB( r.getEquipamento() ) ) {
-			throw new ReservaException( EQUIPAMENTO_INEXISTENTE );
+			throw new ReserveException( EQUIPAMENTO_INEXISTENTE );
 		} else if ( this.equipamentoinReservaDB(r.getEquipamento(), r.getData(),
 				r.getHora() ) ) {
-			throw new ReservaException( EQUIPAMENTO_INDISPONIVEL );
+			throw new ReserveException( EQUIPAMENTO_INDISPONIVEL );
 		}
 		else if ( this.professorinReservaDB( r.getProfessor(), r.getData(),
 				r.getHora() ) ) {
-			throw new ReservaException( RESERVA_EXISTENTE );
+			throw new ReserveException( RESERVA_EXISTENTE );
 		} else {
 			super.executeQuery( this.delete_from_aluno( r ) );
 			super.executeQuery( this.insert_into( r ) );
@@ -128,30 +128,30 @@ public class ResEquipamentoProfessorDAO extends DAO {
 
 	//Metodo para altera reserva
 	public void alterar( ReservaEquipamentoProfessor r,
-			ReservaEquipamentoProfessor r_new ) throws ReservaException,
+			ReservaEquipamentoProfessor r_new ) throws ReserveException,
 			SQLException {
 		if ( r == null ) {
-			throw new ReservaException( NULA );
+			throw new ReserveException( NULA );
 		} else if ( r_new == null ) {
-			throw new ReservaException( NULA );
+			throw new ReserveException( NULA );
 		} else if ( !this.reservainDB( r ) ) {
-			throw new ReservaException( RESERVA_INEXISTENTE );
+			throw new ReserveException( RESERVA_INEXISTENTE );
 		} else if ( this.reservainDB( r_new ) ) {
-			throw new ReservaException( RESERVA_EXISTENTE );
+			throw new ReserveException( RESERVA_EXISTENTE );
 		} else if ( !r.getData().equals( r_new.getData() )
 				|| !r.getHora().equals( r_new.getHora() ) ) {
 			if ( this.professorinReservaDB( r_new.getProfessor(),
 					r_new.getData(), r_new.getHora() ) ) {
-				throw new ReservaException( RESERVA_EXISTENTE );// Perguntar pro
+				throw new ReserveException( RESERVA_EXISTENTE );// Perguntar pro
 																// Matheus
 			} else if ( this.equipamentoinReservaDB( r_new.getEquipamento(),
 					r_new.getData(), r_new.getHora() ) ) {
-				throw new ReservaException( EQUIPAMENTO_INDISPONIVEL );
+				throw new ReserveException( EQUIPAMENTO_INDISPONIVEL );
 			
 			} else if ( !this.professorinDB( r_new.getProfessor() ) ) {
-				throw new ReservaException( PROFESSOR_INEXISTENTE );
+				throw new ReserveException( PROFESSOR_INEXISTENTE );
 			} else if (!this.equipamentoinDB( r_new.getEquipamento() ) ) {
-				throw new ReservaException( EQUIPAMENTO_INEXISTENTE );
+				throw new ReserveException( EQUIPAMENTO_INEXISTENTE );
 			} else {
 				super.updateQuery( this.update( r, r_new ) );
 			}
@@ -159,13 +159,13 @@ public class ResEquipamentoProfessorDAO extends DAO {
 	}
 
 	//Metodo para excluir reserva
-	public void excluir( ReservaEquipamentoProfessor r ) throws ReservaException,
+	public void excluir( ReservaEquipamentoProfessor r ) throws ReserveException,
 			SQLException {
 		if ( r == null ) {
-			throw new ReservaException( NULA );
+			throw new ReserveException( NULA );
 		}
 		else if ( !this.reservainDB( r ) ) {
-			throw new ReservaException( RESERVA_INEXISTENTE );
+			throw new ReserveException( RESERVA_INEXISTENTE );
 		}
 		else {
 			super.executeQuery( this.delete_from_professor( r ) );
@@ -174,7 +174,7 @@ public class ResEquipamentoProfessorDAO extends DAO {
 
 	@SuppressWarnings( "unchecked" )
 	public Vector<Object> buscarTodos() throws SQLException, ClienteException,
-			PatrimonyException, ReservaException {
+			PatrimonyException, ReserveException {
 		return super
 				.buscar( "SELECT * FROM reserva_sala_professor "
 						+ "INNER JOIN sala ON sala.id_sala = reserva_sala_professor.id_sala "
@@ -184,7 +184,7 @@ public class ResEquipamentoProfessorDAO extends DAO {
 	@SuppressWarnings( "unchecked" )
 	public Vector<ReservaEquipamentoProfessor> buscarPorMes( int mes )
 			throws SQLException, ClienteException, PatrimonyException,
-			ReservaException {
+			ReserveException {
 		Vector<ReservaEquipamentoProfessor> reservas_prof_mes = super
 				.buscar( "SELECT * FROM reserva_equipamento_professor "
 						+ "INNER JOIN equipamento ON equipamento.id_equipamento = reserva_equipamento_professor.id_equipamento "
@@ -202,7 +202,7 @@ public class ResEquipamentoProfessorDAO extends DAO {
 	@SuppressWarnings( "unchecked" )
 	public Vector<ReservaEquipamentoProfessor> buscarPorHora( String hora )
 			throws SQLException, ClienteException, PatrimonyException,
-			ReservaException {
+			ReserveException {
 		String hora_a = "", hora_b = "";
 		if ( hora.length() == 4 ) {
 			hora_a = "0" + hora;
@@ -220,7 +220,7 @@ public class ResEquipamentoProfessorDAO extends DAO {
 
 	@Override
 	protected Object fetch( ResultSet rs ) throws SQLException, ClienteException,
-			PatrimonyException, ReservaException {
+			PatrimonyException, ReserveException {
 		Professor p = new Professor( rs.getString( "nome" ), rs.getString( "cpf" ),
 				rs.getString( "matricula" ), rs.getString( "telefone" ),
 				rs.getString( "email" ) );

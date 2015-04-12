@@ -9,7 +9,7 @@ import model.Sala;
 import persistence.ResSalaAlunoDAO;
 import exception.ClienteException;
 import exception.PatrimonyException;
-import exception.ReservaException;
+import exception.ReserveException;
 
 public class ManterResSalaAluno {
 
@@ -37,7 +37,7 @@ public class ManterResSalaAluno {
      * Captures the classroom reserves for students in the date searched.
      * @return Vector - Classroom reserves
      */	
-	public Vector < ReservaSalaAluno > getReservasHora( String hora ) throws SQLException, PatrimonyException, ClienteException, ReservaException {
+	public Vector < ReservaSalaAluno > getReservasHora( String hora ) throws SQLException, PatrimonyException, ClienteException, ReserveException {
 		return ResSalaAlunoDAO.getInstance().buscarPorHora(hora);
 	}
 	
@@ -46,7 +46,7 @@ public class ManterResSalaAluno {
      * Captures the classroom reserves for teachers in the date searched.
      * @return Vector - Classroom reserves
      */	
-	public Vector < ReservaSalaAluno > getReservasMes( String data ) throws SQLException, PatrimonyException, ClienteException, ReservaException {
+	public Vector < ReservaSalaAluno > getReservasMes( String data ) throws SQLException, PatrimonyException, ClienteException, ReserveException {
 		return ResSalaAlunoDAO.getInstance().buscarPorDia( data );
 	}
 	
@@ -55,7 +55,7 @@ public class ManterResSalaAluno {
      * Lists all the classroom reserves for student.
      * @return Vector - Classroom reserves for student
      */
-	public Vector < ReservaSalaAluno > getResAlunoSala_vet() throws SQLException, PatrimonyException, ClienteException, ReservaException {
+	public Vector < ReservaSalaAluno > getResAlunoSala_vet() throws SQLException, PatrimonyException, ClienteException, ReserveException {
 		this.rev_sala_aluno_vet = ResSalaAlunoDAO.getInstance().buscarTodos();
 		return this.rev_sala_aluno_vet;
 	}
@@ -64,7 +64,7 @@ public class ManterResSalaAluno {
 	 * Captures the number of chairs available in a reserved classroom in a given date and hour
 	 * @return int - Available chairs in the classroom reserved 
 	 */
-	public int cadeirasDisponveis( Sala sala, String data, String hora ) throws SQLException, PatrimonyException, ClienteException, ReservaException {
+	public int cadeirasDisponveis( Sala sala, String data, String hora ) throws SQLException, PatrimonyException, ClienteException, ReserveException {
 		return ResSalaAlunoDAO.getInstance().cadeirasDisponiveis( sala, data, hora );
 	}
 
@@ -74,7 +74,7 @@ public class ManterResSalaAluno {
      */
 	public void inserir( Sala sala, Aluno aluno,
 		String data, String hora, String finalidade, String cadeiras_reservadas )
-		throws SQLException, ReservaException, ClienteException, PatrimonyException {
+		throws SQLException, ReserveException, ClienteException, PatrimonyException {
 
 		ReservaSalaAluno r = new ReservaSalaAluno( data, hora, sala, finalidade, cadeiras_reservadas, aluno );
 		ResSalaAlunoDAO.getInstance().incluir(r);
@@ -86,7 +86,7 @@ public class ManterResSalaAluno {
      * Changes the classroom reserve to a new one.
      */
 	public void alterar( String finalidade, String cadeiras_reservadas, ReservaSalaAluno r )
-		throws SQLException, ReservaException, ClienteException, PatrimonyException {
+		throws SQLException, ReserveException, ClienteException, PatrimonyException {
 
 		ReservaSalaAluno res_old = new ReservaSalaAluno( r.getData(), r.getHora(), r.getSala(),
 			r.getFinalidade(), r.getCadeiras_reservadas(), r.getAluno());
@@ -99,7 +99,7 @@ public class ManterResSalaAluno {
 	/**
      * Excludes a classroom reserve for a student.
      */
-	public void excluir( ReservaSalaAluno r ) throws SQLException, ReservaException {
+	public void excluir( ReservaSalaAluno r ) throws SQLException, ReserveException {
 		ResSalaAlunoDAO.getInstance().excluir( r );
 		this.rev_sala_aluno_vet.remove( r );
 	}

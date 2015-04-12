@@ -1,6 +1,6 @@
 package model;
 
-import exception.ReservaException;
+import exception.ReserveException;
 
 public class ReservaEquipamento extends Reserva {
 
@@ -14,10 +14,10 @@ public class ReservaEquipamento extends Reserva {
 	 * @param data
 	 * @param hora
 	 * @param equipamento
-	 * @throws ReservaException
+	 * @throws ReserveException
 	 */
 	public ReservaEquipamento( String data, String hora, Equipamento equipamento )
-			throws ReservaException {
+			throws ReserveException {
 		super( data, hora );
 		this.setEquipamento( equipamento );
 	}
@@ -33,11 +33,11 @@ public class ReservaEquipamento extends Reserva {
 	/**
 	 * Setter method for attribute 'equipamento'
 	 * @param equipamento
-	 * @throws ReservaException
+	 * @throws ReserveException
 	 */
-	public void setEquipamento( Equipamento equipamento ) throws ReservaException {
+	public void setEquipamento( Equipamento equipamento ) throws ReserveException {
 		if ( equipamento == null ) { 
-			throw new ReservaException( EQUIPAMENTO_NULO );
+			throw new ReserveException( EQUIPAMENTO_NULO );
 		}
 		this.equipamento = equipamento;
 	}

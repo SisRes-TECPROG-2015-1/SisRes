@@ -13,7 +13,7 @@ import javax.swing.JOptionPane;
 import model.ReservaSalaProfessor;
 import exception.ClienteException;
 import exception.PatrimonyException;
-import exception.ReservaException;
+import exception.ReserveException;
 
 /**
  * 
@@ -33,7 +33,7 @@ public class AlterarReservaProfSalaView extends ReservaSalaView {
     }
 
     public AlterarReservaProfSalaView( Frame parent, boolean modal, int index, String data ) throws SQLException,
-            PatrimonyException, PatrimonyException, ClienteException, ReservaException {
+            PatrimonyException, PatrimonyException, ClienteException, ReserveException {
         super(parent, modal );
         this.setName( "AlterarReservaSalaView" );
         this.reservaProfessor = instanceProf.buscarPorData( data ).get( index );
@@ -48,7 +48,7 @@ public class AlterarReservaProfSalaView extends ReservaSalaView {
             JOptionPane.showMessageDialog( this, "Reserva alterada com sucesso", "Sucesso", JOptionPane.INFORMATION_MESSAGE, null );
 
             this.setVisible( false );
-        } catch ( ReservaException ex ) {
+        } catch ( ReserveException ex ) {
             JOptionPane.showMessageDialog( this, ex.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE, null );
         } catch ( SQLException ex ) {
             JOptionPane.showMessageDialog( this, ex.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE, null );

@@ -14,7 +14,7 @@ import model.ReservaSalaAluno;
 import model.ReservaSalaProfessor;
 import exception.ClienteException;
 import exception.PatrimonyException;
-import exception.ReservaException;
+import exception.ReserveException;
 
 /**
  * 
@@ -35,7 +35,7 @@ public class AlterarReservaAlunoSalaView extends ReservaSalaView {
     }
 
     public AlterarReservaAlunoSalaView( Frame parent, boolean modal, int index, String data ) throws SQLException,
-            PatrimonyException, PatrimonyException, ClienteException, ReservaException {
+            PatrimonyException, PatrimonyException, ClienteException, ReserveException {
         super( parent, modal );
         this.setName( "AlterarReservaSalaView" );
         this.reservaAluno = instanceAluno.getReservasMes( data ).get( index );
@@ -50,7 +50,7 @@ public class AlterarReservaAlunoSalaView extends ReservaSalaView {
             JOptionPane.showMessageDialog( this, "Reserva alterada com sucesso", "Sucesso", JOptionPane.INFORMATION_MESSAGE, null );
 
             this.setVisible( false );
-        } catch ( ReservaException ex ) {
+        } catch ( ReserveException ex ) {
             JOptionPane.showMessageDialog( this, ex.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE, null);
         } catch ( PatrimonyException ex ) {
             JOptionPane.showMessageDialog( this, ex.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE, null);
@@ -92,7 +92,7 @@ public class AlterarReservaAlunoSalaView extends ReservaSalaView {
         try {
             this.qntCadeirasTxtField.setText( String.valueOf( instanceAluno.cadeirasDisponveis( sala, this.dataTextField.getText(),
                     this.horaTextField.getText() ) ) );
-        } catch ( ReservaException ex ) {
+        } catch ( ReserveException ex ) {
             
             JOptionPane.showMessageDialog( this, ex.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE, null );
         } catch ( PatrimonyException ex ) {

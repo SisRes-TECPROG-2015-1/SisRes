@@ -23,7 +23,7 @@ import persistence.ClassRoom;
 import control.ManterResSalaProfessor;
 import exception.ClienteException;
 import exception.PatrimonyException;
-import exception.ReservaException;
+import exception.ReserveException;
 
 public class ManterResSalaProfessorTest {
 	private static Sala sala1;
@@ -57,7 +57,7 @@ public class ManterResSalaProfessorTest {
 	
 	
 	@Test
-	public void testInserir() throws SQLException, ReservaException, ClienteException, PatrimonyException {
+	public void testInserir() throws SQLException, ReserveException, ClienteException, PatrimonyException {
 		String finalidade = "Sala de Estudos";
 		String data = "20/12/33";
 		String hora = "9:11";
@@ -70,7 +70,7 @@ public class ManterResSalaProfessorTest {
 		assertTrue("Teste de Insercao.", resultado && resultado2);
 	}
 	@Test
-	public void testAlterar() throws ReservaException, SQLException, ClienteException, PatrimonyException {
+	public void testAlterar() throws ReserveException, SQLException, ClienteException, PatrimonyException {
 		
 		ReservaSalaProfessor reserva = new ReservaSalaProfessor("20/12/33", "9:11", sala1, "Pesquisa", professor1);
 		this.insert_into(reserva);
@@ -86,7 +86,7 @@ public class ManterResSalaProfessorTest {
 		assertTrue("Teste de Alteracao.", resultado && resultado2);
 	}
 	@Test
-	public void testExcluir() throws ReservaException, SQLException {
+	public void testExcluir() throws ReserveException, SQLException {
 		String finalidade = "Pesquisa";
 		String data = "20/12/33";
 		String hora = "9:11";

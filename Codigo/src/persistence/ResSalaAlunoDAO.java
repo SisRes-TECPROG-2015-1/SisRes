@@ -9,7 +9,7 @@ import java.util.Vector;
 
 import exception.ClienteException;
 import exception.PatrimonyException;
-import exception.ReservaException;
+import exception.ReserveException;
 
 import model.Aluno;
 import model.ReservaSalaAluno;
@@ -103,29 +103,29 @@ public class ResSalaAlunoDAO extends DAO {
 	}
 
 	//Metodo para incluir reserva de sala para aluno
-	public void incluir( ReservaSalaAluno r ) throws ReservaException,
+	public void incluir( ReservaSalaAluno r ) throws ReserveException,
 			SQLException, ClienteException, PatrimonyException {
 		if ( r == null ) {
-			throw new ReservaException( NULA );
+			throw new ReserveException( NULA );
 		} else if ( !this.alunoinDB( r.getAluno() )  ) {
-			throw new ReservaException( ALUNO_INEXISTENTE );
+			throw new ReserveException( ALUNO_INEXISTENTE );
 		} else if ( !this.salainDB( r.getSala() ) ) {
-			throw new ReservaException(SALA_INEXISTENTE);
+			throw new ReserveException(SALA_INEXISTENTE);
 		} else if ( this.salainReservaProfessorDB( r.getSala(), r.getData(),
 				r.getHora() ) ) {
-			throw new ReservaException( SALA_INDISPONIVEL );
+			throw new ReserveException( SALA_INDISPONIVEL );
 		} else if (this.alunoinReservaDB( r.getAluno(), r.getData(), r.getHora() ) ) {
-			throw new ReservaException( ALUNO_INDISPONIVEL );
+			throw new ReserveException( ALUNO_INDISPONIVEL );
 		} else if ( !this.haCadeiras( r.getCadeiras_reservadas(), r.getSala(),
 				r.getData(), r.getHora() ) ) {
-			throw new ReservaException( CADEIRAS_INDISPONIVEIS );
+			throw new ReserveException( CADEIRAS_INDISPONIVEIS );
 		}
 		if ( this.dataPassou( r.getData() ) ) {
-			throw new ReservaException( DATA_JA_PASSOU );
+			throw new ReserveException( DATA_JA_PASSOU );
 		}
 		if ( this.dataIgual( r.getData() ) ) {
 			if ( this.horaPassou( r.getHora() ) ) {
-				throw new ReservaException( HORA_JA_PASSOU );
+				throw new ReserveException( HORA_JA_PASSOU );
 			} else {
 				super.executeQuery( this.insert_into( r ) );
 			}
@@ -136,28 +136,28 @@ public class ResSalaAlunoDAO extends DAO {
 	
 	//Metodo para alterar reserva de sala para aluno
 	public void alterar( ReservaSalaAluno r, ReservaSalaAluno r_new )
-			throws ReservaException, SQLException, ClienteException,
+			throws ReserveException, SQLException, ClienteException,
 			PatrimonyException {
 		if ( r == null ) {
-			throw new ReservaException( NULA );
+			throw new ReserveException( NULA );
 		} else if ( r_new == null ) {
-			throw new ReservaException( NULA );
+			throw new ReserveException( NULA );
 		} else if ( !this.reservainDB( r ) ) {
-			throw new ReservaException( RESERVA_INEXISTENTE );
+			throw new ReserveException( RESERVA_INEXISTENTE );
 		} else if ( this.reservainDB( r_new ) ) {
-			throw new ReservaException( RESERVA_EXISTENTE );
+			throw new ReserveException( RESERVA_EXISTENTE );
 		} else if ( !this.alunoinDB( r_new.getAluno() ) ) {
-			throw new ReservaException( ALUNO_INEXISTENTE );
+			throw new ReserveException( ALUNO_INEXISTENTE );
 		} else if ( !this.salainDB( r_new.getSala() ) ) {
-			throw new ReservaException( SALA_INEXISTENTE );
+			throw new ReserveException( SALA_INEXISTENTE );
 		} else if ( !r.getData().equals( r_new.getData() )
 				|| !r.getHora().equals( r_new.getHora() ) ) {
 			if ( this.alunoinReservaDB( r_new.getAluno(), r_new.getData(),
 					r_new.getHora() ) ) {
-				throw new ReservaException( ALUNO_INDISPONIVEL );
+				throw new ReserveException( ALUNO_INDISPONIVEL );
 			} else if ( this.salainReservaProfessorDB( r_new.getSala(),
 					r_new.getData(), r_new.getHora() ) ) {
-				throw new ReservaException( SALA_INDISPONIVEL );
+				throw new ReserveException( SALA_INDISPONIVEL );
 			}
 		}
 		if ( !this
@@ -167,13 +167,13 @@ public class ResSalaAlunoDAO extends DAO {
 										.getCadeiras_reservadas() ) - Integer
 										.parseInt(r.getCadeiras_reservadas() ) ),
 						r_new.getSala(), r_new.getData(), r_new.getHora() ) ) {
-			throw new ReservaException( CADEIRAS_INDISPONIVEIS );
+			throw new ReserveException( CADEIRAS_INDISPONIVEIS );
 		}
 		if ( this.dataPassou( r_new.getData() ) ) {
-			throw new ReservaException( DATA_JA_PASSOU );
+			throw new ReserveException( DATA_JA_PASSOU );
 		}
 		if ( this.horaPassou( r_new.getHora() ) && this.dataIgual( r_new.getData() ) ) {
-			throw new ReservaException( HORA_JA_PASSOU );
+			throw new ReserveException( HORA_JA_PASSOU );
 		} else {
 			super.updateQuery( this.update( r, r_new ) );
 		}
@@ -181,19 +181,19 @@ public class ResSalaAlunoDAO extends DAO {
 	}
 
 	//Metodo para excluir reserva de sala para aluno
-	public void excluir( ReservaSalaAluno r ) throws ReservaException,
+	public void excluir( ReservaSalaAluno r ) throws ReserveException,
 			SQLException {
 		if ( r == null ) {
-			throw new ReservaException( NULA );
+			throw new ReserveException( NULA );
 		} else if ( !this.reservainDB( r ) ) {
-			throw new ReservaException( RESERVA_INEXISTENTE );
+			throw new ReserveException( RESERVA_INEXISTENTE );
 		} else {
 			super.executeQuery( this.delete_from( r ) );
 		}
 	}
 
 	public Vector<ReservaSalaAluno> buscarTodos() throws SQLException,
-			ClienteException, PatrimonyException, ReservaException {
+			ClienteException, PatrimonyException, ReserveException {
 		return super
 				.buscar( "SELECT * FROM reserva_sala_aluno "
 						+ "INNER JOIN sala ON sala.id_sala = reserva_sala_aluno.id_sala "
@@ -202,7 +202,7 @@ public class ResSalaAlunoDAO extends DAO {
 
 	public Vector<ReservaSalaAluno> buscarPorDia( String data )
 			throws SQLException, ClienteException, PatrimonyException,
-			ReservaException {
+			ReserveException {
 		data = this.padronizarData( data );
 		return super
 				.buscar( "SELECT * FROM reserva_sala_aluno "
@@ -213,7 +213,7 @@ public class ResSalaAlunoDAO extends DAO {
 
 	public Vector<ReservaSalaAluno> buscarPorHora( String hora )
 			throws SQLException, ClienteException, PatrimonyException,
-			ReservaException {
+			ReserveException {
 		hora = this.padronizarHora( hora );
 		return super
 				.buscar( "SELECT * FROM reserva_sala_aluno "
@@ -224,7 +224,7 @@ public class ResSalaAlunoDAO extends DAO {
 
 	public int cadeirasDisponiveis( Sala sala, String data, String hora )
 			throws SQLException, PatrimonyException, ClienteException,
-			ReservaException {
+			ReserveException {
 		data = this.padronizarData( data );
 		hora = this.padronizarHora( hora );
 		Vector<ReservaSalaAluno> vet = this.buscarTodos();
@@ -240,10 +240,10 @@ public class ResSalaAlunoDAO extends DAO {
 		return total;
 	}
 
-	//Metodo para dizer se há cadeiras disponiveis
+	//Metodo para dizer se hï¿½ cadeiras disponiveis
 	private boolean haCadeiras( String cadeiras_reservadas, Sala sala,
 			String data, String hora ) throws SQLException, ClienteException,
-			PatrimonyException, ReservaException {
+			PatrimonyException, ReserveException {
 		if ( this.cadeirasDisponiveis( sala, data, hora ) >= Integer
 				.parseInt( cadeiras_reservadas ) ) {
 			return true;
@@ -253,7 +253,7 @@ public class ResSalaAlunoDAO extends DAO {
 
 	@Override
 	protected Object fetch( ResultSet rs ) throws SQLException, ClienteException,
-			PatrimonyException, ReservaException {
+			PatrimonyException, ReserveException {
 		Aluno a = new Aluno( rs.getString( "nome" ), rs.getString( "cpf" ),
 				rs.getString( "matricula" ), rs.getString( "telefone" ),
 				rs.getString( "email" ) );

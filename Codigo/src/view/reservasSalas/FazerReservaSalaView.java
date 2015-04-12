@@ -16,7 +16,7 @@ import control.ManterResSalaAluno;
 import control.ManterResSalaProfessor;
 import exception.ClienteException;
 import exception.PatrimonyException;
-import exception.ReservaException;
+import exception.ReserveException;
 
 /**
  * 
@@ -25,7 +25,7 @@ import exception.ReservaException;
 public class FazerReservaSalaView extends ReservaSalaView {
 
     public FazerReservaSalaView( Frame parent, boolean modal, Sala sala, String data ) throws SQLException, PatrimonyException,
-            PatrimonyException, ClienteException, ReservaException {
+            PatrimonyException, ClienteException, ReserveException {
         super( parent, modal );
         this.sala = sala;
         this.dataTextField.setText( data );
@@ -46,7 +46,7 @@ public class FazerReservaSalaView extends ReservaSalaView {
             JOptionPane.showMessageDialog( this, "Reserva feita com sucesso", "Sucesso", JOptionPane.INFORMATION_MESSAGE, null );
 
             this.setVisible( false );
-        } catch ( ReservaException ex ) {
+        } catch ( ReserveException ex ) {
             
             JOptionPane.showMessageDialog( this, ex.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE, null );
         } catch ( PatrimonyException ex ) {
@@ -71,7 +71,7 @@ public class FazerReservaSalaView extends ReservaSalaView {
             JOptionPane.showMessageDialog( this, "Reserva feita com sucesso", "Sucesso", JOptionPane.INFORMATION_MESSAGE, null );
 
             this.setVisible( false );
-        } catch ( ReservaException ex ) {
+        } catch ( ReserveException ex ) {
             JOptionPane.showMessageDialog( this, ex.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE, null );
         } catch ( SQLException ex ) {
             JOptionPane.showMessageDialog( this, ex.getLocalizedMessage(), "Erro", JOptionPane.ERROR_MESSAGE, null );
@@ -107,7 +107,7 @@ public class FazerReservaSalaView extends ReservaSalaView {
         try {
             this.qntCadeirasTxtField.setText( String.valueOf( instanceAluno.cadeirasDisponveis( sala, this.dataTextField.getText(),
                     this.horaTextField.getText() ) ) );
-        } catch ( ReservaException ex ) {
+        } catch ( ReserveException ex ) {
             
             JOptionPane.showMessageDialog( this, ex.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE, null );
         } catch ( PatrimonyException ex ) {

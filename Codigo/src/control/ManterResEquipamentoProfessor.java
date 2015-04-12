@@ -9,7 +9,7 @@ import model.ReservaEquipamentoProfessor;
 import persistence.ResEquipamentoProfessorDAO;
 import exception.ClienteException;
 import exception.PatrimonyException;
-import exception.ReservaException;
+import exception.ReserveException;
 
 public class ManterResEquipamentoProfessor {
 	
@@ -38,7 +38,7 @@ public class ManterResEquipamentoProfessor {
      * @return Vector - Classroom reserves for teachers
      */
     public Vector < ReservaEquipamentoProfessor > getReservasHora( String hora ) throws SQLException, PatrimonyException,
-            ClienteException, ReservaException {
+            ClienteException, ReserveException {
         return ResEquipamentoProfessorDAO.getInstance().buscarPorHora( hora );
     }
 
@@ -47,7 +47,7 @@ public class ManterResEquipamentoProfessor {
      * @return Vector - Classroom reserves for teachers
      */
     public Vector < ReservaEquipamentoProfessor > getReservasMes( int mes ) throws SQLException, PatrimonyException, ClienteException,
-            ReservaException {
+            ReserveException {
         return ResEquipamentoProfessorDAO.getInstance().buscarPorMes( mes );
     }
 
@@ -57,7 +57,7 @@ public class ManterResEquipamentoProfessor {
      * @return Vector - Classroom reserves for teachers
      */
     public Vector < Object > getResEquipamentoProfessor_vet() throws SQLException, ClienteException, PatrimonyException,
-            ReservaException {
+            ReserveException {
         this.rev_equipamento_professor_vet = ResEquipamentoProfessorDAO.getInstance().buscarTodos();
         return this.rev_equipamento_professor_vet;
     }
@@ -66,7 +66,7 @@ public class ManterResEquipamentoProfessor {
     /**
      * Reserves an equipment to a teacher to a date and hour.
      */
-    public void inserir( Equipamento equipamento, Professor prof, String data, String hora ) throws SQLException, ReservaException {
+    public void inserir( Equipamento equipamento, Professor prof, String data, String hora ) throws SQLException, ReserveException {
         ReservaEquipamentoProfessor reserva = new ReservaEquipamentoProfessor( data, hora, equipamento, prof );
         ResEquipamentoProfessorDAO.getInstance().incluir( reserva );
         this.rev_equipamento_professor_vet.add( reserva );
@@ -76,7 +76,7 @@ public class ManterResEquipamentoProfessor {
     /**
      * Changes the classroom reserve to a new one.
      */
-    public void alterar( String finalidade, ReservaEquipamentoProfessor reserva ) throws SQLException, ReservaException {
+    public void alterar( String finalidade, ReservaEquipamentoProfessor reserva ) throws SQLException, ReserveException {
 
         ReservaEquipamentoProfessor reserva_old = new ReservaEquipamentoProfessor( reserva.getData(), reserva.getHora(),
                 reserva.getEquipamento(), reserva.getProfessor());
@@ -88,7 +88,7 @@ public class ManterResEquipamentoProfessor {
     /**
      * Excludes a classroom reserve.
      */
-    public void excluir( ReservaEquipamentoProfessor reserva ) throws SQLException, ReservaException {
+    public void excluir( ReservaEquipamentoProfessor reserva ) throws SQLException, ReserveException {
         ResEquipamentoProfessorDAO.getInstance().excluir( reserva );
         this.rev_equipamento_professor_vet.remove( reserva );
     }
