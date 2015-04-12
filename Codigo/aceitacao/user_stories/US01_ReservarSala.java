@@ -8,7 +8,7 @@ import java.util.Date;
 import model.Aluno;
 import model.Professor;
 import model.StudentRoomReserve;
-import model.ReservaSalaProfessor;
+import model.TeacherRoomReserve;
 import model.Sala;
 
 import org.fest.swing.core.BasicRobot;
@@ -64,7 +64,7 @@ public class US01_ReservarSala {
     private FrameFixture window;
     private Robot robot;
     private Sala sala;
-    private ReservaSalaProfessor reservaProf;
+    private TeacherRoomReserve reservaProf;
     private StudentRoomReserve reservaAluno;
     private Aluno aluno;
     private Professor prof;
@@ -371,7 +371,7 @@ public class US01_ReservarSala {
     
     @Test public void testCenario4() throws SQLException, ClienteException, ReserveException, PatrimonyException {
 
-        reservaProf = new ReservaSalaProfessor(data, "23:59", sala, "abc", prof);
+        reservaProf = new TeacherRoomReserve(data, "23:59", sala, "abc", prof);
         ResSalaProfessorDAO.getInstance().incluir(reservaProf);
 
         dialog.table("tabelaPatrimonio").selectRows(index);

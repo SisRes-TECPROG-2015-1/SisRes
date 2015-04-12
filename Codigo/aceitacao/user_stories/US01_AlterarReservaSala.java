@@ -8,7 +8,7 @@ import java.util.Date;
 import model.Aluno;
 import model.Professor;
 import model.StudentRoomReserve;
-import model.ReservaSalaProfessor;
+import model.TeacherRoomReserve;
 import model.Sala;
 
 import org.fest.swing.core.BasicRobot;
@@ -33,7 +33,7 @@ public class US01_AlterarReservaSala {
     private FrameFixture window;
     private Robot robot;
     private Sala sala;
-    private ReservaSalaProfessor reservaProf;
+    private TeacherRoomReserve reservaProf;
     private StudentRoomReserve reservaAluno;
     private Aluno aluno;
     private Professor prof;

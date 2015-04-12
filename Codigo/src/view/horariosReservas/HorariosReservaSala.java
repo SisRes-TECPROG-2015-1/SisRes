@@ -15,7 +15,7 @@ import javax.swing.table.DefaultTableModel;
 
 import model.Patrimonio;
 import model.StudentRoomReserve;
-import model.ReservaSalaProfessor;
+import model.TeacherRoomReserve;
 import model.Sala;
 import view.reservasSalas.AlterarReservaAlunoSalaView;
 import view.reservasSalas.AlterarReservaProfSalaView;
@@ -60,8 +60,8 @@ public class HorariosReservaSala extends HorariosReservaPatrimonio {
                 nomesTabela.add( r.getReservedChairs() );
                 nomesTabela.add( r.getSala().getCapacidade() );
             }
-        } else if ( o instanceof ReservaSalaProfessor ) {
-            ReservaSalaProfessor r = ( ReservaSalaProfessor ) o;
+        } else if ( o instanceof TeacherRoomReserve ) {
+            TeacherRoomReserve r = ( TeacherRoomReserve ) o;
             if (this.sala != null && ( r.getSala().equals( this.sala ) ) ) {
 
                 nomesTabela.add( String.valueOf( index ) );

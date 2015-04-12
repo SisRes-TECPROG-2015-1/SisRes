@@ -11,7 +11,7 @@ import java.sql.SQLException;
 import javax.swing.JOptionPane;
 
 import model.StudentRoomReserve;
-import model.ReservaSalaProfessor;
+import model.TeacherRoomReserve;
 import exception.ClienteException;
 import exception.PatrimonyException;
 import exception.ReserveException;
@@ -24,7 +24,7 @@ public class AlterarReservaAlunoSalaView extends ReservaSalaView {
 
     int index;
     StudentRoomReserve reservaAluno;
-    ReservaSalaProfessor reservaProfessor;
+    TeacherRoomReserve reservaProfessor;
 
     private void resetComponents() {
         this.reservarButton.setText( "Alterar" );
