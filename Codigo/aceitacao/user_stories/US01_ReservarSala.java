@@ -7,7 +7,7 @@ import java.util.Date;
 
 import model.Aluno;
 import model.Professor;
-import model.ReservaSalaAluno;
+import model.StudentRoomReserve;
 import model.ReservaSalaProfessor;
 import model.Sala;
 
@@ -65,7 +65,7 @@ public class US01_ReservarSala {
     private Robot robot;
     private Sala sala;
     private ReservaSalaProfessor reservaProf;
-    private ReservaSalaAluno reservaAluno;
+    private StudentRoomReserve reservaAluno;
     private Aluno aluno;
     private Professor prof;
     private DialogFixture dialog;
@@ -303,7 +303,7 @@ public class US01_ReservarSala {
     
     @Test public void testCenario3() throws SQLException, ClienteException, PatrimonyException, ReserveException {
 
-        reservaAluno = new ReservaSalaAluno(data, "23:59", sala, "abc", sala.getCapacidade(), aluno);
+        reservaAluno = new StudentRoomReserve(data, "23:59", sala, "abc", sala.getCapacidade(), aluno);
         ResSalaAlunoDAO.getInstance().incluir(reservaAluno);
 
         dialog.table("tabelaPatrimonio").selectRows(index);
@@ -336,7 +336,7 @@ public class US01_ReservarSala {
         Aluno aluno2 = new Aluno("Aluno Teste", "382.808.446-00", "110", "", "abc");
         AlunoDAO.getInstance().incluir(aluno2);
 
-        ReservaSalaAluno reservaAluno2 = new ReservaSalaAluno(data, "23:59", sala, "abc", "100", aluno2);
+        StudentRoomReserve reservaAluno2 = new StudentRoomReserve(data, "23:59", sala, "abc", "100", aluno2);
         ResSalaAlunoDAO.getInstance().incluir(reservaAluno2);
 
         dialog.table("tabelaPatrimonio").selectRows(index);

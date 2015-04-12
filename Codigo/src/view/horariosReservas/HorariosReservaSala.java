@@ -14,7 +14,7 @@ import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 import model.Patrimonio;
-import model.ReservaSalaAluno;
+import model.StudentRoomReserve;
 import model.ReservaSalaProfessor;
 import model.Sala;
 import view.reservasSalas.AlterarReservaAlunoSalaView;
@@ -46,8 +46,8 @@ public class HorariosReservaSala extends HorariosReservaPatrimonio {
     // This method fills a vector with the data informated by the user
     protected Vector<String> fillDataVector( Object o, int index ) {
         Vector<String> nomesTabela = new Vector<String>();
-        if ( o instanceof ReservaSalaAluno ) {
-            ReservaSalaAluno r = ( ReservaSalaAluno ) o;
+        if ( o instanceof StudentRoomReserve ) {
+            StudentRoomReserve r = ( StudentRoomReserve ) o;
             if ( this.sala != null && ( r.getSala().equals( this.sala ) ) ) {
                 nomesTabela.add( String.valueOf( index ) );
                 nomesTabela.add( "Aluno" );
@@ -57,7 +57,7 @@ public class HorariosReservaSala extends HorariosReservaPatrimonio {
                 nomesTabela.add( r.getFinality() );
                 nomesTabela.add( r.getSala().getCodigo() );
                 nomesTabela.add( r.getSala().getDescricao() );
-                nomesTabela.add( r.getCadeiras_reservadas() );
+                nomesTabela.add( r.getReservedChairs() );
                 nomesTabela.add( r.getSala().getCapacidade() );
             }
         } else if ( o instanceof ReservaSalaProfessor ) {

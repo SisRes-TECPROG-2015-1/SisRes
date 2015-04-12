@@ -7,7 +7,7 @@ import java.util.Date;
 
 import model.Aluno;
 import model.Professor;
-import model.ReservaSalaAluno;
+import model.StudentRoomReserve;
 import model.ReservaSalaProfessor;
 import model.Sala;
 
@@ -34,7 +34,7 @@ public class US01_AlterarReservaSala {
     private Robot robot;
     private Sala sala;
     private ReservaSalaProfessor reservaProf;
-    private ReservaSalaAluno reservaAluno;
+    private StudentRoomReserve reservaAluno;
     private Aluno aluno;
     private Professor prof;
     private DialogFixture dialog;
@@ -72,7 +72,7 @@ public class US01_AlterarReservaSala {
 
         AlunoDAO.getInstance().incluir(aluno);
 
-        reservaAluno = new ReservaSalaAluno(data, "23:59", sala, "abc", "100", aluno);
+        reservaAluno = new StudentRoomReserve(data, "23:59", sala, "abc", "100", aluno);
         ResSalaAlunoDAO.getInstance().incluir(reservaAluno);
 
         window.button("Sala").click();

@@ -11,7 +11,7 @@ import java.util.Iterator;
 import java.util.Vector;
 
 import model.Aluno;
-import model.ReservaSalaAluno;
+import model.StudentRoomReserve;
 import model.Sala;
 
 import org.junit.AfterClass;
@@ -29,7 +29,7 @@ import exception.ReserveException;
 public class ManterResSalaAlunoTest {
 	private static Sala sala1;
 	private static Aluno aluno1;
-	private static Vector<ReservaSalaAluno> vet;
+	private static Vector<StudentRoomReserve> vet;
 	
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {
@@ -65,7 +65,7 @@ public class ManterResSalaAlunoTest {
 		String finalidade = "Sala de Estudos";
 		String data = "20/12/33";
 		String hora = "9:11";
-		ReservaSalaAluno r = new ReservaSalaAluno(data, hora, sala1, finalidade, cadeiras_reservadas, aluno1);
+		StudentRoomReserve r = new StudentRoomReserve(data, hora, sala1, finalidade, cadeiras_reservadas, aluno1);
 		ManterResSalaAluno.getInstance().inserir(sala1, aluno1, data, hora, finalidade, cadeiras_reservadas);
 		boolean resultado = this.inDB(r);
 		boolean resultado2 = r.equals(vet.lastElement());
@@ -79,10 +79,10 @@ public class ManterResSalaAlunoTest {
 		String finalidade = "Sala de Estudos";
 		String data = "20/12/33";
 		String hora = "9:11";
-		ReservaSalaAluno r = new ReservaSalaAluno(data, hora, sala1, finalidade, cadeiras_reservadas, aluno1);
+		StudentRoomReserve r = new StudentRoomReserve(data, hora, sala1, finalidade, cadeiras_reservadas, aluno1);
 		this.insert_into(r);
 		vet.add(r);
-		ReservaSalaAluno r2 = new ReservaSalaAluno(data, hora, sala1, finalidade, "100", aluno1);
+		StudentRoomReserve r2 = new StudentRoomReserve(data, hora, sala1, finalidade, "100", aluno1);
 		ManterResSalaAluno.getInstance().alterar(finalidade, "100", vet.lastElement());
 		boolean resultado = this.inDB(r2);
 		boolean resultado2 = r2.equals(vet.lastElement());
@@ -98,7 +98,7 @@ public class ManterResSalaAlunoTest {
 		String finalidade = "Sala de Estudos";
 		String data = "20/12/33";
 		String hora = "9:11";
-		ReservaSalaAluno r = new ReservaSalaAluno(data, hora, sala1, finalidade, cadeiras_reservadas, aluno1);
+		StudentRoomReserve r = new StudentRoomReserve(data, hora, sala1, finalidade, cadeiras_reservadas, aluno1);
 		this.insert_into(r);
 		vet.add(r);
 		ManterResSalaAluno.getInstance().excluir(r);
@@ -114,14 +114,14 @@ public class ManterResSalaAlunoTest {
 	@Test
 	public void testVetDia() throws SQLException, ReserveException, ClienteException, PatrimonyException {
 		Aluno aluno2 = new Aluno("testInswewee", "490.491.781-20", "4324678", "", "");
-		ReservaSalaAluno r = new ReservaSalaAluno("1/3/20", "9:11", sala1, "Sala de Estudos", "60", aluno1);
-		ReservaSalaAluno r2 = new ReservaSalaAluno("1/3/20", "9:11", sala1,"Sala de Estudos", "30", aluno2);
-		ReservaSalaAluno r3 = new ReservaSalaAluno("1/3/20", "10:00", sala1,"Sala de Estudos", "120", aluno1);
+		StudentRoomReserve r = new StudentRoomReserve("1/3/20", "9:11", sala1, "Sala de Estudos", "60", aluno1);
+		StudentRoomReserve r2 = new StudentRoomReserve("1/3/20", "9:11", sala1,"Sala de Estudos", "30", aluno2);
+		StudentRoomReserve r3 = new StudentRoomReserve("1/3/20", "10:00", sala1,"Sala de Estudos", "120", aluno1);
 		AlunoDAO.getInstance().incluir(aluno2);
 		this.insert_into(r);
 		this.insert_into(r2);
 		this.insert_into(r3);
-		Vector<ReservaSalaAluno> vet2 = ManterResSalaAluno.getInstance().getReservasMes("1/3/20");
+		Vector<StudentRoomReserve> vet2 = ManterResSalaAluno.getInstance().getReservasMes("1/3/20");
 		this.delete_from(r);
 		this.delete_from(r2);
 		this.delete_from(r3);
@@ -130,9 +130,9 @@ public class ManterResSalaAlunoTest {
 		boolean resultado2 = false;
 		boolean resultado3 = false;
 		
-		Iterator<ReservaSalaAluno> it = vet2.iterator();
+		Iterator<StudentRoomReserve> it = vet2.iterator();
 		while(it.hasNext()){
-			ReservaSalaAluno obj = it.next();
+			StudentRoomReserve obj = it.next();
 			if(obj.equals(r))
 				resultado = true;
 			else if(obj.equals(r2))
@@ -147,14 +147,14 @@ public class ManterResSalaAlunoTest {
 	@Test
 	public void testVetDiaHoje() throws SQLException, ReserveException, ClienteException, PatrimonyException {
 		Aluno aluno2 = new Aluno("testInswewee", "490.491.781-20", "4324678", "", "");
-		ReservaSalaAluno r = new ReservaSalaAluno("26/02/2013", "20:00", sala1, "Sala de Estudos", "60", aluno1);
-		ReservaSalaAluno r2 = new ReservaSalaAluno("26/02/2013", "20:00", sala1,"Sala de Estudos", "30", aluno2);
-		ReservaSalaAluno r3 = new ReservaSalaAluno("26/02/2013", "21:00", sala1,"Sala de Estudos", "120", aluno1);
+		StudentRoomReserve r = new StudentRoomReserve("26/02/2013", "20:00", sala1, "Sala de Estudos", "60", aluno1);
+		StudentRoomReserve r2 = new StudentRoomReserve("26/02/2013", "20:00", sala1,"Sala de Estudos", "30", aluno2);
+		StudentRoomReserve r3 = new StudentRoomReserve("26/02/2013", "21:00", sala1,"Sala de Estudos", "120", aluno1);
 		AlunoDAO.getInstance().incluir(aluno2);
 		this.insert_into(r);
 		this.insert_into(r2);
 		this.insert_into(r3);
-		Vector<ReservaSalaAluno> vet2 = ManterResSalaAluno.getInstance().getReservasMes("26/02/2013");
+		Vector<StudentRoomReserve> vet2 = ManterResSalaAluno.getInstance().getReservasMes("26/02/2013");
 		this.delete_from(r);
 		this.delete_from(r2);
 		this.delete_from(r3);
@@ -163,9 +163,9 @@ public class ManterResSalaAlunoTest {
 		boolean resultado2 = false;
 		boolean resultado3 = false;
 		
-		Iterator<ReservaSalaAluno> it = vet2.iterator();
+		Iterator<StudentRoomReserve> it = vet2.iterator();
 		while(it.hasNext()){
-			ReservaSalaAluno obj = it.next();
+			StudentRoomReserve obj = it.next();
 			if(obj.equals(r))
 				resultado = true;
 			else if(obj.equals(r2))
@@ -192,24 +192,24 @@ public class ManterResSalaAlunoTest {
 				"sala.descricao = \"" + sala.getDescricao() +  "\" and " +
 				"sala.capacidade = " + sala.getCapacidade();
 	}
-	private String where_reserva_sala_aluno(ReservaSalaAluno r){
+	private String where_reserva_sala_aluno(StudentRoomReserve r){
 		return " WHERE " +
 		"id_aluno = ( " + select_id_aluno(r.getAluno()) + " ) and " +
 		"id_sala = ( " + select_id_sala(r.getSala()) + " ) and " +
 		"finalidade = \"" + r.getFinality() + "\" and " +
 		"hora = \"" + r.getHora() + "\" and " +
 		"data = \"" + r.getData() + "\" and " +
-		"cadeiras_reservadas = " + r.getCadeiras_reservadas();
+		"cadeiras_reservadas = " + r.getReservedChairs();
 	}
-	private String values_reserva_sala_aluno(ReservaSalaAluno r){
+	private String values_reserva_sala_aluno(StudentRoomReserve r){
 		return "( " + select_id_aluno(r.getAluno()) + " ), " +
 		"( " + select_id_sala(r.getSala()) + " ), " +
 		"\"" + r.getFinality() + "\", " +
 		"\"" + r.getHora() + "\", " +
 		"\"" + r.getData() + "\", " +
-		r.getCadeiras_reservadas();
+		r.getReservedChairs();
 	}
-	private void insert_into(ReservaSalaAluno r){
+	private void insert_into(StudentRoomReserve r){
 		try {
 			this.executeQuery("INSERT INTO " +
 					"reserva_sala_aluno (id_aluno, id_sala, finalidade, hora, data, cadeiras_reservadas) " +
@@ -218,7 +218,7 @@ public class ManterResSalaAlunoTest {
 			e.printStackTrace();
 		}
 	}
-	private void delete_from(ReservaSalaAluno r){
+	private void delete_from(StudentRoomReserve r){
 		try {
 			this.executeQuery("DELETE FROM reserva_sala_aluno " + 
 								this.where_reserva_sala_aluno(r) + " ;");
@@ -226,7 +226,7 @@ public class ManterResSalaAlunoTest {
 			e.printStackTrace();
 		}
 	}
-	private boolean inDB(ReservaSalaAluno r) throws SQLException{
+	private boolean inDB(StudentRoomReserve r) throws SQLException{
 		return this.inDBGeneric("SELECT * FROM reserva_sala_aluno " + 
 								this.where_reserva_sala_aluno(r) + " ;");
 	}

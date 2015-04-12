@@ -42,14 +42,14 @@ public class HorariosReservaEquipamento extends HorariosReservaPatrimonio {
         Vector<String> nomesTabela = new Vector<String>();
         if ( o instanceof TeacherEquipmentReserve ) {
             TeacherEquipmentReserve r = ( TeacherEquipmentReserve ) o;
-            if ( this.eq != null && ( r.getEquipamento().equals( this.eq ) ) ) {
+            if ( this.eq != null && ( r.getEquipment().equals( this.eq ) ) ) {
 
                 nomesTabela.add( String.valueOf( index ) );
                 nomesTabela.add( r.getHora() );
                 nomesTabela.add( r.getProfessor().getNome() );
                 nomesTabela.add( r.getProfessor().getMatricula() );
-                nomesTabela.add( r.getEquipamento().getCodigo() );
-                nomesTabela.add( r.getEquipamento().getDescricao() );
+                nomesTabela.add( r.getEquipment().getCodigo() );
+                nomesTabela.add( r.getEquipment().getDescricao() );
             }
         }
 

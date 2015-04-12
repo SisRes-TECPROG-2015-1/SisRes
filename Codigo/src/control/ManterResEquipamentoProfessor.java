@@ -79,7 +79,7 @@ public class ManterResEquipamentoProfessor {
     public void alterar( String finalidade, TeacherEquipmentReserve reserva ) throws SQLException, ReserveException {
 
         TeacherEquipmentReserve reserva_old = new TeacherEquipmentReserve( reserva.getData(), reserva.getHora(),
-                reserva.getEquipamento(), reserva.getProfessor());
+                reserva.getEquipment(), reserva.getProfessor());
         ResEquipamentoProfessorDAO.getInstance().alterar( reserva_old, reserva );
 
     }

@@ -10,7 +10,7 @@ import java.sql.SQLException;
 
 import javax.swing.JOptionPane;
 
-import model.ReservaSalaAluno;
+import model.StudentRoomReserve;
 import model.ReservaSalaProfessor;
 import exception.ClienteException;
 import exception.PatrimonyException;
@@ -23,7 +23,7 @@ import exception.ReserveException;
 public class AlterarReservaAlunoSalaView extends ReservaSalaView {
 
     int index;
-    ReservaSalaAluno reservaAluno;
+    StudentRoomReserve reservaAluno;
     ReservaSalaProfessor reservaProfessor;
 
     private void resetComponents() {
@@ -84,7 +84,7 @@ public class AlterarReservaAlunoSalaView extends ReservaSalaView {
         this.salaTextArea.setText( reservaAluno.getSala().toString() );
         this.dataTextField.setText( reservaAluno.getData() );
         this.qntCadeirasTxtField.setText( reservaAluno.getSala().getCapacidade() );
-        this.qntCadeirasReservadasTextField.setText( reservaAluno.getCadeiras_reservadas() );
+        this.qntCadeirasReservadasTextField.setText( reservaAluno.getReservedChairs() );
         this.finalidadeTextField.setText( reservaAluno.getFinality() );
     }
 

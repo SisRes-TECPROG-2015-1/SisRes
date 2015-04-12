@@ -59,7 +59,7 @@ public class ResEquipamentoProfessorDAO extends DAO {
 		return " WHERE " + "id_professor = ( "
 				+ select_id_professor( r.getProfessor() ) + " ) and "
 				+ "id_equipamento = ( "
-				+ select_id_equipamento( r.getEquipamento() ) + " ) and "
+				+ select_id_equipamento( r.getEquipment() ) + " ) and "
 				+ "hora = \"" + r.getHora() + "\" and " + "data = \""
 				+ r.getData();
 	}
@@ -67,7 +67,7 @@ public class ResEquipamentoProfessorDAO extends DAO {
 	private String values_reserva_equipamento_professor( 
 			TeacherEquipmentReserve r ) {
 		return "( " + select_id_professor( r.getProfessor() ) + " ), " + "( "
-				+ select_id_equipamento( r.getEquipamento() ) + " ), " + "\""
+				+ select_id_equipamento( r.getEquipment() ) + " ), " + "\""
 				+ r.getHora() + "\", " + "\"" + r.getData();
 	}
 
@@ -75,7 +75,7 @@ public class ResEquipamentoProfessorDAO extends DAO {
 			TeacherEquipmentReserve r ) {
 		return "id_professor = ( " + select_id_professor( r.getProfessor() )
 				+ " ), " + "id_equipamento = ( "
-				+ select_id_equipamento( r.getEquipamento() ) + " ), "
+				+ select_id_equipamento( r.getEquipment() ) + " ), "
 				+ "hora = \"" + r.getHora() + "\", " + "data = \""
 				+ r.getData();
 	}
@@ -110,9 +110,9 @@ public class ResEquipamentoProfessorDAO extends DAO {
 			throw new ReserveException( NULA );
 		} else if ( !this.professorinDB(r.getProfessor() ) ) {
 			throw new ReserveException( PROFESSOR_INEXISTENTE );
-		} else if ( !this.equipamentoinDB( r.getEquipamento() ) ) {
+		} else if ( !this.equipamentoinDB( r.getEquipment() ) ) {
 			throw new ReserveException( EQUIPAMENTO_INEXISTENTE );
-		} else if ( this.equipamentoinReservaDB(r.getEquipamento(), r.getData(),
+		} else if ( this.equipamentoinReservaDB(r.getEquipment(), r.getData(),
 				r.getHora() ) ) {
 			throw new ReserveException( EQUIPAMENTO_INDISPONIVEL );
 		}
@@ -144,13 +144,13 @@ public class ResEquipamentoProfessorDAO extends DAO {
 					r_new.getData(), r_new.getHora() ) ) {
 				throw new ReserveException( RESERVA_EXISTENTE );// Perguntar pro
 																// Matheus
-			} else if ( this.equipamentoinReservaDB( r_new.getEquipamento(),
+			} else if ( this.equipamentoinReservaDB( r_new.getEquipment(),
 					r_new.getData(), r_new.getHora() ) ) {
 				throw new ReserveException( EQUIPAMENTO_INDISPONIVEL );
 			
 			} else if ( !this.professorinDB( r_new.getProfessor() ) ) {
 				throw new ReserveException( PROFESSOR_INEXISTENTE );
-			} else if (!this.equipamentoinDB( r_new.getEquipamento() ) ) {
+			} else if (!this.equipamentoinDB( r_new.getEquipment() ) ) {
 				throw new ReserveException( EQUIPAMENTO_INEXISTENTE );
 			} else {
 				super.updateQuery( this.update( r, r_new ) );
@@ -306,10 +306,10 @@ public class ResEquipamentoProfessorDAO extends DAO {
 						+ "\") and "
 						+ "id_equipamento = (SELECT id_equipamento FROM equipamento WHERE "
 						+ "equipamento.codigo = \""
-						+ r.getEquipamento().getCodigo()
+						+ r.getEquipment().getCodigo()
 						+ "\" and "
 						+ "equipamento.descricao = \""
-						+ r.getEquipamento().getDescricao()
+						+ r.getEquipment().getDescricao()
 						+ "\" and "
 						+ "hora = \""
 						+ r.getHora()
