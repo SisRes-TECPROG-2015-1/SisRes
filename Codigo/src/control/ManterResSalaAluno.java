@@ -6,7 +6,7 @@ import java.util.Vector;
 import model.Aluno;
 import model.StudentRoomReserve;
 import model.Sala;
-import persistence.ResSalaAlunoDAO;
+import persistence.StudentRoomReserveDAO;
 import exception.ClienteException;
 import exception.PatrimonyException;
 import exception.ReserveException;
@@ -38,7 +38,7 @@ public class ManterResSalaAluno {
      * @return Vector - Classroom reserves
      */	
 	public Vector < StudentRoomReserve > getReservasHora( String hora ) throws SQLException, PatrimonyException, ClienteException, ReserveException {
-		return ResSalaAlunoDAO.getInstance().buscarPorHora(hora);
+		return StudentRoomReserveDAO.getInstance().getStudentReservedRoomsByHour(hora);
 	}
 	
 	
@@ -47,7 +47,7 @@ public class ManterResSalaAluno {
      * @return Vector - Classroom reserves
      */	
 	public Vector < StudentRoomReserve > getReservasMes( String data ) throws SQLException, PatrimonyException, ClienteException, ReserveException {
-		return ResSalaAlunoDAO.getInstance().buscarPorDia( data );
+		return StudentRoomReserveDAO.getInstance().getStudentReservedRoomsByDay( data );
 	}
 	
 	
@@ -56,7 +56,7 @@ public class ManterResSalaAluno {
      * @return Vector - Classroom reserves for student
      */
 	public Vector < StudentRoomReserve > getResAlunoSala_vet() throws SQLException, PatrimonyException, ClienteException, ReserveException {
-		this.rev_sala_aluno_vet = ResSalaAlunoDAO.getInstance().buscarTodos();
+		this.rev_sala_aluno_vet = StudentRoomReserveDAO.getInstance().getAllStudentReservedRooms();
 		return this.rev_sala_aluno_vet;
 	}
 
@@ -65,7 +65,7 @@ public class ManterResSalaAluno {
 	 * @return int - Available chairs in the classroom reserved 
 	 */
 	public int cadeirasDisponveis( Sala sala, String data, String hora ) throws SQLException, PatrimonyException, ClienteException, ReserveException {
-		return ResSalaAlunoDAO.getInstance().cadeirasDisponiveis( sala, data, hora );
+		return StudentRoomReserveDAO.getInstance().getAvailableChairs( sala, data, hora );
 	}
 
 	
@@ -77,7 +77,7 @@ public class ManterResSalaAluno {
 		throws SQLException, ReserveException, ClienteException, PatrimonyException {
 
 		StudentRoomReserve r = new StudentRoomReserve( data, hora, sala, finalidade, cadeiras_reservadas, aluno );
-		ResSalaAlunoDAO.getInstance().incluir(r);
+		StudentRoomReserveDAO.getInstance().saveNewStudentRoomReserve(r);
 		this.rev_sala_aluno_vet.add(r);
 	}
 
@@ -92,7 +92,7 @@ public class ManterResSalaAluno {
 			r.getFinality(), r.getReservedChairs(), r.getAluno());
 		r.setFinality( finalidade );
 		r.setReservedChairs( cadeiras_reservadas );
-		ResSalaAlunoDAO.getInstance().alterar( res_old, r );
+		StudentRoomReserveDAO.getInstance().updateStudentRoomReserve( res_old, r );
 	}
 
 	
@@ -100,7 +100,7 @@ public class ManterResSalaAluno {
      * Excludes a classroom reserve for a student.
      */
 	public void excluir( StudentRoomReserve r ) throws SQLException, ReserveException {
-		ResSalaAlunoDAO.getInstance().excluir( r );
+		StudentRoomReserveDAO.getInstance().deleteStudentReservedRoom( r );
 		this.rev_sala_aluno_vet.remove( r );
 	}
 }

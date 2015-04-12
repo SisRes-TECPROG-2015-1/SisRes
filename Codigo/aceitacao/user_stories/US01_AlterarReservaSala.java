@@ -21,7 +21,7 @@ import org.junit.Test;
 
 import persistence.AlunoDAO;
 import persistence.ProfessorDAO;
-import persistence.ResSalaAlunoDAO;
+import persistence.StudentRoomReserveDAO;
 import persistence.ResSalaProfessorDAO;
 import persistence.ClassRoom;
 import view.Main2;
@@ -73,7 +73,7 @@ public class US01_AlterarReservaSala {
         AlunoDAO.getInstance().incluir(aluno);
 
         reservaAluno = new StudentRoomReserve(data, "23:59", sala, "abc", "100", aluno);
-        ResSalaAlunoDAO.getInstance().incluir(reservaAluno);
+        StudentRoomReserveDAO.getInstance().saveNewStudentRoomReserve(reservaAluno);
 
         window.button("Sala").click();
         dialog = window.dialog("SalaView");
@@ -83,7 +83,7 @@ public class US01_AlterarReservaSala {
         if (reservaProf != null)
             ResSalaProfessorDAO.getInstance().excluir(reservaProf);
         if (reservaAluno != null)
-            ResSalaAlunoDAO.getInstance().excluir(reservaAluno);
+            StudentRoomReserveDAO.getInstance().deleteStudentReservedRoom(reservaAluno);
         if (sala != null)
             ClassRoom.getInstance().excluir(sala);
         if (aluno != null)

@@ -21,7 +21,7 @@ import org.junit.Test;
 
 import persistence.AlunoDAO;
 import persistence.ProfessorDAO;
-import persistence.ResSalaAlunoDAO;
+import persistence.StudentRoomReserveDAO;
 import persistence.ResSalaProfessorDAO;
 import persistence.ClassRoom;
 import view.Main2;
@@ -110,7 +110,7 @@ public class US01_ReservarSala {
         if (reservaProf != null)
             ResSalaProfessorDAO.getInstance().excluir(reservaProf);
         if (reservaAluno != null)
-            ResSalaAlunoDAO.getInstance().excluir(reservaAluno);
+            StudentRoomReserveDAO.getInstance().deleteStudentReservedRoom(reservaAluno);
         if (sala != null)
             ClassRoom.getInstance().excluir(sala);
         if (aluno != null)
@@ -224,8 +224,8 @@ public class US01_ReservarSala {
         fazerReservaSalaView.optionPane().requireMessage("Reserva feita com sucesso");
         fazerReservaSalaView.optionPane().okButton().click();
 
-        indexReserva = ResSalaAlunoDAO.getInstance().buscarPorDia(data).size() - 1;
-        reservaAluno = ResSalaAlunoDAO.getInstance().buscarTodos().lastElement();
+        indexReserva = StudentRoomReserveDAO.getInstance().getStudentReservedRoomsByDay(data).size() - 1;
+        reservaAluno = StudentRoomReserveDAO.getInstance().getAllStudentReservedRooms().lastElement();
     }
 
     @Test public void testCenario2AlunoCpfInvalido() throws SQLException, ClienteException, PatrimonyException, ReserveException {
@@ -304,7 +304,7 @@ public class US01_ReservarSala {
     @Test public void testCenario3() throws SQLException, ClienteException, PatrimonyException, ReserveException {
 
         reservaAluno = new StudentRoomReserve(data, "23:59", sala, "abc", sala.getCapacidade(), aluno);
-        ResSalaAlunoDAO.getInstance().incluir(reservaAluno);
+        StudentRoomReserveDAO.getInstance().saveNewStudentRoomReserve(reservaAluno);
 
         dialog.table("tabelaPatrimonio").selectRows(index);
         dialog.button("Visualizar Horarios").click();
@@ -337,7 +337,7 @@ public class US01_ReservarSala {
         AlunoDAO.getInstance().incluir(aluno2);
 
         StudentRoomReserve reservaAluno2 = new StudentRoomReserve(data, "23:59", sala, "abc", "100", aluno2);
-        ResSalaAlunoDAO.getInstance().incluir(reservaAluno2);
+        StudentRoomReserveDAO.getInstance().saveNewStudentRoomReserve(reservaAluno2);
 
         dialog.table("tabelaPatrimonio").selectRows(index);
         dialog.button("Visualizar Horarios").click();
@@ -361,10 +361,10 @@ public class US01_ReservarSala {
         fazerReservaSalaView.optionPane().requireMessage("Reserva feita com sucesso");
         fazerReservaSalaView.optionPane().okButton().click();
 
-        indexReserva = ResSalaAlunoDAO.getInstance().buscarPorDia(data).size() - 1;
-        reservaAluno = ResSalaAlunoDAO.getInstance().buscarPorDia(data).get(indexReserva);
+        indexReserva = StudentRoomReserveDAO.getInstance().getStudentReservedRoomsByDay(data).size() - 1;
+        reservaAluno = StudentRoomReserveDAO.getInstance().getStudentReservedRoomsByDay(data).get(indexReserva);
         
-        ResSalaAlunoDAO.getInstance().excluir(reservaAluno2);
+        StudentRoomReserveDAO.getInstance().deleteStudentReservedRoom(reservaAluno2);
         AlunoDAO.getInstance().excluir(aluno2);        
     }
 
