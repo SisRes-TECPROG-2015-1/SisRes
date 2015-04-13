@@ -18,7 +18,7 @@ import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import persistence.AlunoDAO;
+import persistence.StudentDAO;
 import persistence.FactoryConnection;
 import persistence.ClassRoom;
 import control.ManterResSalaAluno;
@@ -37,13 +37,13 @@ public class ManterResSalaAlunoTest {
 		sala1 = new Sala("123", "Sala de Aula", "120");
 		aluno1 = new Aluno("testInstance", "501.341.852-69", "456678", "", "");
 		
-		AlunoDAO.getInstance().incluir(aluno1);
+		StudentDAO.getInstance().includeNewStudent(aluno1);
 		ClassRoom.getInstance().includeARoom(sala1);
 	}
 
 	@AfterClass
 	public static void tearDownAfterClass() throws Exception {
-		AlunoDAO.getInstance().excluir(aluno1);
+		StudentDAO.getInstance().deleteStudent(aluno1);
 		ClassRoom.getInstance().excluir(sala1);
 	}
 
@@ -117,7 +117,7 @@ public class ManterResSalaAlunoTest {
 		StudentRoomReserve r = new StudentRoomReserve("1/3/20", "9:11", sala1, "Sala de Estudos", "60", aluno1);
 		StudentRoomReserve r2 = new StudentRoomReserve("1/3/20", "9:11", sala1,"Sala de Estudos", "30", aluno2);
 		StudentRoomReserve r3 = new StudentRoomReserve("1/3/20", "10:00", sala1,"Sala de Estudos", "120", aluno1);
-		AlunoDAO.getInstance().incluir(aluno2);
+		StudentDAO.getInstance().includeNewStudent(aluno2);
 		this.insert_into(r);
 		this.insert_into(r2);
 		this.insert_into(r3);
@@ -125,7 +125,7 @@ public class ManterResSalaAlunoTest {
 		this.delete_from(r);
 		this.delete_from(r2);
 		this.delete_from(r3);
-		AlunoDAO.getInstance().excluir(aluno2);
+		StudentDAO.getInstance().deleteStudent(aluno2);
 		boolean resultado = false;
 		boolean resultado2 = false;
 		boolean resultado3 = false;
@@ -150,7 +150,7 @@ public class ManterResSalaAlunoTest {
 		StudentRoomReserve r = new StudentRoomReserve("26/02/2013", "20:00", sala1, "Sala de Estudos", "60", aluno1);
 		StudentRoomReserve r2 = new StudentRoomReserve("26/02/2013", "20:00", sala1,"Sala de Estudos", "30", aluno2);
 		StudentRoomReserve r3 = new StudentRoomReserve("26/02/2013", "21:00", sala1,"Sala de Estudos", "120", aluno1);
-		AlunoDAO.getInstance().incluir(aluno2);
+		StudentDAO.getInstance().includeNewStudent(aluno2);
 		this.insert_into(r);
 		this.insert_into(r2);
 		this.insert_into(r3);
@@ -158,7 +158,7 @@ public class ManterResSalaAlunoTest {
 		this.delete_from(r);
 		this.delete_from(r2);
 		this.delete_from(r3);
-		AlunoDAO.getInstance().excluir(aluno2);
+		StudentDAO.getInstance().deleteStudent(aluno2);
 		boolean resultado = false;
 		boolean resultado2 = false;
 		boolean resultado3 = false;

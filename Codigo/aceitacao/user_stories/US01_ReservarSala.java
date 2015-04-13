@@ -19,7 +19,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import persistence.AlunoDAO;
+import persistence.StudentDAO;
 import persistence.ProfessorDAO;
 import persistence.StudentRoomReserveDAO;
 import persistence.ResSalaProfessorDAO;
@@ -95,7 +95,7 @@ public class US01_ReservarSala {
         ProfessorDAO.getInstance().incluir(prof);
 
         aluno = new Aluno("Aluno Teste", "658.535.144-40", "110038096", "9211-2144", "teste incluir repetido");
-        AlunoDAO.getInstance().incluir(aluno);
+        StudentDAO.getInstance().includeNewStudent(aluno);
 
         dataAtual();
 
@@ -114,7 +114,7 @@ public class US01_ReservarSala {
         if (sala != null)
             ClassRoom.getInstance().excluir(sala);
         if (aluno != null)
-            AlunoDAO.getInstance().excluir(aluno);
+            StudentDAO.getInstance().deleteStudent(aluno);
         if (prof != null)
             ProfessorDAO.getInstance().excluir(prof);
         window.cleanUp();
@@ -334,7 +334,7 @@ public class US01_ReservarSala {
     
     @Test public void testCenario3AlunoReserva() throws SQLException, ClienteException, PatrimonyException, ReserveException {
         Aluno aluno2 = new Aluno("Aluno Teste", "382.808.446-00", "110", "", "abc");
-        AlunoDAO.getInstance().incluir(aluno2);
+        StudentDAO.getInstance().includeNewStudent(aluno2);
 
         StudentRoomReserve reservaAluno2 = new StudentRoomReserve(data, "23:59", sala, "abc", "100", aluno2);
         StudentRoomReserveDAO.getInstance().saveNewStudentRoomReserve(reservaAluno2);
@@ -365,7 +365,7 @@ public class US01_ReservarSala {
         reservaAluno = StudentRoomReserveDAO.getInstance().getStudentReservedRoomsByDay(data).get(indexReserva);
         
         StudentRoomReserveDAO.getInstance().deleteStudentReservedRoom(reservaAluno2);
-        AlunoDAO.getInstance().excluir(aluno2);        
+        StudentDAO.getInstance().deleteStudent(aluno2);        
     }
 
     

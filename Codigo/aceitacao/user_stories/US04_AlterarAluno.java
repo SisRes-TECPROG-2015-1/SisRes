@@ -13,7 +13,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import persistence.AlunoDAO;
+import persistence.StudentDAO;
 import view.Main2;
 import exception.ClienteException;
 
@@ -53,9 +53,9 @@ public class US04_AlterarAluno {
 		window.show(new Dimension(900, 500)); // shows the frame to test
 		
 		aluno = new Aluno("Teste", "658.535.144-40", "110038096","9211-2144", "teste incluir repetido");
-		AlunoDAO.getInstance().incluir(aluno);
+		StudentDAO.getInstance().includeNewStudent(aluno);
 		
-		index = AlunoDAO.getInstance().buscarTodos().size() - 1;
+		index = StudentDAO.getInstance().captureStudents().size() - 1;
 		
 		window.button("Aluno").click();
 		dialog = window.dialog("AlunoView");
@@ -64,7 +64,7 @@ public class US04_AlterarAluno {
 	@After
 	public void tearDown() throws SQLException, ClienteException {
 		if(aluno != null)
-			AlunoDAO.getInstance().excluir(aluno);
+			StudentDAO.getInstance().deleteStudent(aluno);
 		window.cleanUp();
 	}
 
@@ -88,7 +88,7 @@ public class US04_AlterarAluno {
 	@Test
 	public void testCenario1() throws SQLException, ClienteException{
 		if(aluno != null)
-			AlunoDAO.getInstance().excluir(aluno);
+			StudentDAO.getInstance().deleteStudent(aluno);
 		dialog.button("Alterar").click();
 		dialog.optionPane().requireMessage("Selecione uma linha!");
 		aluno = null;
@@ -109,7 +109,7 @@ public class US04_AlterarAluno {
 		sleep();
 		cadastro.optionPane().okButton().click();
 
-		aluno = AlunoDAO.getInstance().buscarTodos().get(index);
+		aluno = StudentDAO.getInstance().captureStudents().get(index);
 		sleep();
 	}
 	
@@ -128,7 +128,7 @@ public class US04_AlterarAluno {
 		sleep();
 		cadastro.optionPane().okButton().click();
 
-		aluno = AlunoDAO.getInstance().buscarTodos().get(index);
+		aluno = StudentDAO.getInstance().captureStudents().get(index);
 		sleep();
 	}
 	
@@ -147,7 +147,7 @@ public class US04_AlterarAluno {
 		sleep();
 		cadastro.optionPane().okButton().click();
 
-		aluno = AlunoDAO.getInstance().buscarTodos().get(index);
+		aluno = StudentDAO.getInstance().captureStudents().get(index);
 		sleep();
 	}
 	
@@ -166,7 +166,7 @@ public class US04_AlterarAluno {
 		sleep();
 		cadastro.optionPane().okButton().click();
 
-		aluno = AlunoDAO.getInstance().buscarTodos().get(index);
+		aluno = StudentDAO.getInstance().captureStudents().get(index);
 		sleep();
 	}
 	
@@ -185,7 +185,7 @@ public class US04_AlterarAluno {
 		sleep();
 		cadastro.optionPane().okButton().click();
 
-		aluno = AlunoDAO.getInstance().buscarTodos().get(index);
+		aluno = StudentDAO.getInstance().captureStudents().get(index);
 		sleep();
 	}
 	
@@ -204,7 +204,7 @@ public class US04_AlterarAluno {
 		sleep();
 		cadastro.optionPane().okButton().click();
 
-		aluno = AlunoDAO.getInstance().buscarTodos().get(index);
+		aluno = StudentDAO.getInstance().captureStudents().get(index);
 		sleep();
 	}
 }

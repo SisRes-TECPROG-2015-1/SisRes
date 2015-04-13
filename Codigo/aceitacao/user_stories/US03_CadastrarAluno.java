@@ -13,7 +13,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import persistence.AlunoDAO;
+import persistence.StudentDAO;
 import view.Main2;
 import exception.ClienteException;
 
@@ -61,7 +61,7 @@ public class US03_CadastrarAluno {
 	@After
 	public void tearDown() throws SQLException, ClienteException {
 		if(aluno != null)
-			AlunoDAO.getInstance().excluir(aluno);
+			StudentDAO.getInstance().deleteStudent(aluno);
 		window.cleanUp();
 	}
 
@@ -97,15 +97,15 @@ public class US03_CadastrarAluno {
 		sleep();
 		cadastro.optionPane().okButton().click();
 
-		index = AlunoDAO.getInstance().buscarTodos().size() - 1;
-		aluno = AlunoDAO.getInstance().buscarTodos().get(index);
+		index = StudentDAO.getInstance().captureStudents().size() - 1;
+		aluno = StudentDAO.getInstance().captureStudents().get(index);
 	}
 	
 	@Test
 	public void testCenario2() throws SQLException, ClienteException {
 
 		aluno = new Aluno("Teste", "658.535.144-40", "110038096","9211-2144", "teste incluir repetido");
-		AlunoDAO.getInstance().incluir(aluno);
+		StudentDAO.getInstance().includeNewStudent(aluno);
 		
 		dialog.button("Cadastrar").click();
 		DialogFixture cadastro = dialog.dialog("CadastroAluno");

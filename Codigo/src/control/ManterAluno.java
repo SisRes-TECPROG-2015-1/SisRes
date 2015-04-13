@@ -3,7 +3,7 @@ package control;
 import java.sql.SQLException;
 import java.util.Vector;
 
-import persistence.AlunoDAO;
+import persistence.StudentDAO;
 import exception.ClienteException;
 import model.Aluno;
 
@@ -33,7 +33,7 @@ public class ManterAluno {
 	 * @return Aluno - A student
 	 */
 	public Vector <Aluno> buscarNome ( String valor ) throws SQLException, ClienteException {
-		return AlunoDAO.getInstance().buscarNome(valor);
+		return StudentDAO.getInstance().searchByName(valor);
 	}
 	
 	/**
@@ -41,7 +41,7 @@ public class ManterAluno {
 	 * @return Aluno - A student
 	 */
 	public Vector <Aluno> buscarCpf ( String valor ) throws SQLException, ClienteException {
-		return AlunoDAO.getInstance().buscarCpf(valor);
+		return StudentDAO.getInstance().searchByCpf(valor);
 	}
 	
 	
@@ -50,7 +50,7 @@ public class ManterAluno {
 	 * @return Aluno - A student
 	 */
 	public Vector <Aluno> buscarMatricula ( String valor ) throws SQLException, ClienteException {
-		return AlunoDAO.getInstance().buscarMatricula(valor);
+		return StudentDAO.getInstance().searchByRegistration(valor);
 	}
 	
 	
@@ -59,7 +59,7 @@ public class ManterAluno {
 	 * @return Aluno - A student
 	 */
 	public Vector <Aluno> buscarEmail ( String valor ) throws SQLException, ClienteException {
-		return AlunoDAO.getInstance().buscarEmail(valor);
+		return StudentDAO.getInstance().searchByEmail(valor);
 	}
 	
 	/**
@@ -67,7 +67,7 @@ public class ManterAluno {
 	 * @return Aluno - A student
 	 */
 	public Vector <Aluno> buscarTelefone ( String valor ) throws SQLException, ClienteException {
-		return AlunoDAO.getInstance().buscarTelefone(valor);
+		return StudentDAO.getInstance().searchByPhoneNumber(valor);
 	}
 	
 	
@@ -76,7 +76,7 @@ public class ManterAluno {
 	 * @return Vector - students
 	 */	
 	public Vector <Aluno> getAluno_vet() throws SQLException, ClienteException {
-		this.alunos_vet = AlunoDAO.getInstance().buscarTodos();
+		this.alunos_vet = StudentDAO.getInstance().captureStudents();
 		return this.alunos_vet;
 	}
 	
@@ -89,7 +89,7 @@ public class ManterAluno {
 						String telefone, String email ) 
 						throws ClienteException, SQLException {
 		Aluno aluno = new Aluno ( nome, cpf, matricula, telefone, email );
-		AlunoDAO.getInstance().incluir(aluno);
+		StudentDAO.getInstance().includeNewStudent(aluno);
 		this.alunos_vet.add(aluno);
 	}
 
@@ -112,7 +112,7 @@ public class ManterAluno {
 						aluno.setMatricula(matricula);
 						aluno.setTelefone(telefone);
 						aluno.setEmail(email);
-						AlunoDAO.getInstance().alterar(aluno_velho, aluno);
+						StudentDAO.getInstance().modifyStudent(aluno_velho, aluno);
 	}
 	
 	
@@ -121,7 +121,7 @@ public class ManterAluno {
 	 * @return void
 	 */
 	public void excluir ( Aluno aluno ) throws SQLException, ClienteException {
-		AlunoDAO.getInstance().excluir(aluno);
+		StudentDAO.getInstance().deleteStudent(aluno);
 		this.alunos_vet.remove(aluno);
 	}
 

@@ -19,7 +19,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import persistence.AlunoDAO;
+import persistence.StudentDAO;
 import persistence.ProfessorDAO;
 import persistence.StudentRoomReserveDAO;
 import persistence.ResSalaProfessorDAO;
@@ -63,14 +63,14 @@ public class US01_AlterarReservaSala {
         ProfessorDAO.getInstance().incluir(prof);
 
         aluno = new Aluno("Aluno Teste", "658.535.144-40", "110038096", "9211-2144", "teste incluir repetido");
-        AlunoDAO.getInstance().incluir(aluno);
+        StudentDAO.getInstance().includeNewStudent(aluno);
 
         dataAtual();
                 
         index = ClassRoom.getInstance().searchAll().size() - 1;
         indexReserva = ResSalaProfessorDAO.getInstance().buscarPorData(data).size() - 1;
 
-        AlunoDAO.getInstance().incluir(aluno);
+        StudentDAO.getInstance().includeNewStudent(aluno);
 
         reservaAluno = new StudentRoomReserve(data, "23:59", sala, "abc", "100", aluno);
         StudentRoomReserveDAO.getInstance().saveNewStudentRoomReserve(reservaAluno);
@@ -87,7 +87,7 @@ public class US01_AlterarReservaSala {
         if (sala != null)
             ClassRoom.getInstance().excluir(sala);
         if (aluno != null)
-            AlunoDAO.getInstance().excluir(aluno);
+            StudentDAO.getInstance().deleteStudent(aluno);
         if (prof != null)
             ProfessorDAO.getInstance().excluir(prof);
         window.cleanUp();

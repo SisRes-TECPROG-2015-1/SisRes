@@ -22,7 +22,7 @@ import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import persistence.AlunoDAO;
+import persistence.StudentDAO;
 import persistence.FactoryConnection;
 import persistence.StudentRoomReserveDAO;
 import persistence.ClassRoom;
@@ -44,16 +44,16 @@ public class ResSalaAlunoDAOTest {
 		aluno1 = new Aluno("testInstance", "501.341.852-69", "456678", "", "");
 		aluno2 = new Aluno("Incluindo Matricula Igual", "490.491.781-20", "345543", "2222-2222", "aluno2@email");
 		
-		AlunoDAO.getInstance().incluir(aluno1);
-		AlunoDAO.getInstance().incluir(aluno2);
+		StudentDAO.getInstance().includeNewStudent(aluno1);
+		StudentDAO.getInstance().includeNewStudent(aluno2);
 		ClassRoom.getInstance().includeARoom(sala1);
 		ClassRoom.getInstance().includeARoom(sala2);
 	}
 
 	@AfterClass
 	public static void tearDownAfterClass() throws Exception {
-		AlunoDAO.getInstance().excluir(aluno1);
-		AlunoDAO.getInstance().excluir(aluno2);
+		StudentDAO.getInstance().deleteStudent(aluno1);
+		StudentDAO.getInstance().deleteStudent(aluno2);
 		ClassRoom.getInstance().excluir(sala1);
 		ClassRoom.getInstance().excluir(sala2);
 	}
