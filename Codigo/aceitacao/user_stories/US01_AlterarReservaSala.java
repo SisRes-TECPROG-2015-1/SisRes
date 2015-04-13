@@ -22,7 +22,7 @@ import org.junit.Test;
 import persistence.StudentDAO;
 import persistence.ProfessorDAO;
 import persistence.StudentRoomReserveDAO;
-import persistence.ResSalaProfessorDAO;
+import persistence.TeacherRoomReserveDAO;
 import persistence.ClassRoom;
 import view.Main2;
 import exception.ClienteException;
@@ -68,7 +68,7 @@ public class US01_AlterarReservaSala {
         dataAtual();
                 
         index = ClassRoom.getInstance().searchAll().size() - 1;
-        indexReserva = ResSalaProfessorDAO.getInstance().buscarPorData(data).size() - 1;
+        indexReserva = TeacherRoomReserveDAO.getInstance().buscagetTeacherReservedRoomsByDayrPorData(data).size() - 1;
 
         StudentDAO.getInstance().includeNewStudent(aluno);
 
@@ -81,7 +81,7 @@ public class US01_AlterarReservaSala {
 
     @After public void tearDown() throws SQLException, PatrimonyException, ClienteException, ReserveException {
         if (reservaProf != null)
-            ResSalaProfessorDAO.getInstance().excluir(reservaProf);
+            TeacherRoomReserveDAO.getInstance().deleteTeacherReservedRoom(reservaProf);
         if (reservaAluno != null)
             StudentRoomReserveDAO.getInstance().deleteStudentReservedRoom(reservaAluno);
         if (sala != null)

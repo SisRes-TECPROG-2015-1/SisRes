@@ -189,14 +189,14 @@ public class StudentRoomReserveDAO extends DAO {
 			PatrimonyException {
 		if ( roomToReserve == null ) {
 			throw new ReserveException( NULL_TERM );
-		} else if ( !this.getStudentData( roomToReserve.getAluno() ) ) {
+		} else if ( !this.checkExistingStudent( roomToReserve.getAluno() ) ) {
 			throw new ReserveException( ABSENT_STUDENT );
-		} else if ( !this.getRoomData( roomToReserve.getSala() ) ) {
+		} else if ( !this.checkExistingRoom( roomToReserve.getSala() ) ) {
 			throw new ReserveException( ABSENT_ROOM );
-		} else if ( this.getTeacherRoomReserve( roomToReserve.getSala(),
+		} else if ( this.checkExistingTeacherRoomReserve( roomToReserve.getSala(),
 				roomToReserve.getData(), roomToReserve.getHora() ) ) {
 			throw new ReserveException( UNAVAILABLE_ROOM );
-		} else if ( this.getStudentRoomReserve( roomToReserve.getAluno(),
+		} else if ( this.checkExistingStudentRoomReserve( roomToReserve.getAluno(),
 				roomToReserve.getData(), roomToReserve.getHora() ) ) {
 			throw new ReserveException( UNAVAILABLE_STUDENT );
 		} else if ( !this.checkIfExistsAvailableChairs(
@@ -240,18 +240,18 @@ public class StudentRoomReserveDAO extends DAO {
 			throw new ReserveException( ABSENT_RESERV );
 		} else if ( this.checkIfaStudentRoomReserveExists( newReserveRoomData ) ) {
 			throw new ReserveException( EXISTING_RESERV );
-		} else if ( !this.getStudentData( newReserveRoomData.getAluno() ) ) {
+		} else if ( !this.checkExistingStudent( newReserveRoomData.getAluno() ) ) {
 			throw new ReserveException( ABSENT_STUDENT );
-		} else if ( !this.getRoomData( newReserveRoomData.getSala() ) ) {
+		} else if ( !this.checkExistingRoom( newReserveRoomData.getSala() ) ) {
 			throw new ReserveException( ABSENT_ROOM );
 		} else if ( !alreadyReservedRoom.getData().equals(
 				newReserveRoomData.getData() )
 				|| !alreadyReservedRoom.getHora().equals(
 						newReserveRoomData.getHora() ) ) {
-			if ( this.getStudentRoomReserve( newReserveRoomData.getAluno(),
+			if ( this.checkExistingStudentRoomReserve( newReserveRoomData.getAluno(),
 					newReserveRoomData.getData(), newReserveRoomData.getHora() ) ) {
 				throw new ReserveException( UNAVAILABLE_STUDENT );
-			} else if ( this.getTeacherRoomReserve(
+			} else if ( this.checkExistingTeacherRoomReserve(
 					newReserveRoomData.getSala(), newReserveRoomData.getData(),
 					newReserveRoomData.getHora() ) ) {
 				throw new ReserveException( UNAVAILABLE_ROOM );
@@ -331,7 +331,7 @@ public class StudentRoomReserveDAO extends DAO {
 	public Vector<StudentRoomReserve> getStudentReservedRoomsByDay( String date )
 			throws SQLException, ClienteException, PatrimonyException,
 			ReserveException {
-		date = this.padronizarData( date );
+		date = this.standardizeDate( date );
 		return super
 				.buscar( "SELECT * FROM reserva_sala_aluno "
 						+ "INNER JOIN sala ON sala.id_sala = reserva_sala_aluno.id_sala "
@@ -353,7 +353,7 @@ public class StudentRoomReserveDAO extends DAO {
 	public Vector<StudentRoomReserve> getStudentReservedRoomsByHour( String hour )
 			throws SQLException, ClienteException, PatrimonyException,
 			ReserveException {
-		hour = this.padronizarHora( hour );
+		hour = this.standardizeHour( hour );
 		return super
 				.buscar( "SELECT * FROM reserva_sala_aluno "
 						+ "INNER JOIN sala ON sala.id_sala = reserva_sala_aluno.id_sala "
@@ -376,8 +376,8 @@ public class StudentRoomReserveDAO extends DAO {
 	public int getAvailableChairs( Sala room, String date, String hour )
 			throws SQLException, PatrimonyException, ClienteException,
 			ReserveException {
-		date = this.padronizarData( date );
-		hour = this.padronizarHora( hour );
+		date = this.standardizeDate( date );
+		hour = this.standardizeHour( hour );
 		Vector<StudentRoomReserve> vet = this.getAllStudentReservedRooms();
 		Iterator<StudentRoomReserve> it = vet.iterator();
 		int total = Integer.parseInt( room.getCapacidade() );
@@ -434,13 +434,13 @@ public class StudentRoomReserveDAO extends DAO {
 	}
 
 	/**
-	 * Function to get all data from a student in database
+	 * Function to check if a student exists in database
 	 * 
 	 * @param student
 	 * @return
 	 * @throws SQLException
 	 */
-	private boolean getStudentData( Aluno student ) throws SQLException {
+	private boolean checkExistingStudent( Aluno student ) throws SQLException {
 		return super.inDBGeneric( "SELECT * FROM aluno WHERE "
 				+ "aluno.nome = \"" + student.getNome() + "\" and "
 				+ "aluno.cpf = \"" + student.getCpf() + "\" and "
@@ -450,13 +450,13 @@ public class StudentRoomReserveDAO extends DAO {
 	}
 
 	/**
-	 * Function to get all data from a room in database
+	 * Function to check if a room exists in database
 	 * 
 	 * @param room
 	 * @return
 	 * @throws SQLException
 	 */
-	private boolean getRoomData( Sala room ) throws SQLException {
+	private boolean checkExistingRoom( Sala room ) throws SQLException {
 		return super.inDBGeneric( "SELECT * FROM sala WHERE "
 				+ "sala.codigo = \"" + room.getCodigo() + "\" and "
 				+ "sala.descricao = \"" + room.getDescricao() + "\" and "
@@ -464,7 +464,7 @@ public class StudentRoomReserveDAO extends DAO {
 	}
 
 	/**
-	 * Function to get all data from a student room reserve in database
+	 * Function to check if a student room reserve exists in database
 	 * 
 	 * @param student
 	 * @param date
@@ -472,7 +472,7 @@ public class StudentRoomReserveDAO extends DAO {
 	 * @return
 	 * @throws SQLException
 	 */
-	private boolean getStudentRoomReserve( Aluno student, String date,
+	private boolean checkExistingStudentRoomReserve( Aluno student, String date,
 			String hour ) throws SQLException {
 		return super.inDBGeneric( "SELECT * FROM reserva_sala_aluno WHERE "
 				+ "data = \"" + date + "\" and " + "hora = \"" + hour
@@ -485,7 +485,7 @@ public class StudentRoomReserveDAO extends DAO {
 	}
 
 	/**
-	 * Function to get all data from a teacher room reserve in database
+	 * Function to if a teacher room reserve exists in database
 	 * 
 	 * @param room
 	 * @param date
@@ -493,11 +493,11 @@ public class StudentRoomReserveDAO extends DAO {
 	 * @return
 	 * @throws SQLException
 	 */
-	private boolean getTeacherRoomReserve( Sala room, String date,
+	private boolean checkExistingTeacherRoomReserve( Sala room, String date,
 			String hour ) throws SQLException {
 		return super.inDBGeneric( "SELECT * FROM reserva_sala_professor WHERE "
-				+ "data = \"" + this.padronizarData( date ) + "\" and "
-				+ "hora = \"" + this.padronizarHora( hour ) + "\" and "
+				+ "data = \"" + this.standardizeDate( date ) + "\" and "
+				+ "hora = \"" + this.standardizeHour( hour ) + "\" and "
 				+ "id_sala = (SELECT id_sala FROM sala WHERE "
 				+ "sala.codigo = \"" + room.getCodigo() + "\" and "
 				+ "sala.descricao = \"" + room.getDescricao() + "\" and "
@@ -608,7 +608,7 @@ public class StudentRoomReserveDAO extends DAO {
 	 * @return
 	 */
 	public boolean checkDateWithCurrent( String givenDate ) {
-		givenDate = this.padronizarData( givenDate );
+		givenDate = this.standardizeDate( givenDate );
 		String currentDate[] = this.getCurrentDate().split( "[./-]" );
 		String dateToCheck[] = givenDate.split( "[./-]" );
 
@@ -650,7 +650,7 @@ public class StudentRoomReserveDAO extends DAO {
 	 * @param givenDate
 	 * @return
 	 */
-	private String padronizarData( String givenDate ) {
+	private String standardizeDate( String givenDate ) {
 		String currentDate[] = getCurrentDate().split( "[./-]" );
 		String dateSplits[] = givenDate.split( "[./-]" );
 		String standardDatePattern = "";
@@ -676,7 +676,7 @@ public class StudentRoomReserveDAO extends DAO {
 	 * @param givenHour
 	 * @return
 	 */
-	private String padronizarHora( String givenHour ) {
+	private String standardizeHour( String givenHour ) {
 		if ( givenHour.length() == 4 ) {
 			return "0" + givenHour;
 		}
