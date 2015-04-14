@@ -22,7 +22,7 @@ import org.junit.Test;
 import persistence.StudentDAO;
 import persistence.TeacherDAO;
 import persistence.StudentRoomReserveDAO;
-import persistence.ResSalaProfessorDAO;
+import persistence.TeacherRoomReserveDAO;
 import persistence.ClassRoom;
 import view.Main2;
 import exception.ClienteException;
@@ -100,7 +100,7 @@ public class US01_ReservarSala {
         dataAtual();
 
         index = ClassRoom.getInstance().searchAll().size() - 1;
-        indexReserva = ResSalaProfessorDAO.getInstance().buscarPorData(data).size() - 1;
+        indexReserva = TeacherRoomReserveDAO.getInstance().buscagetTeacherReservedRoomsByDayrPorData(data).size() - 1;
 
         window.button("Sala").click();
         dialog = window.dialog("SalaView");
@@ -108,7 +108,7 @@ public class US01_ReservarSala {
 
     @After public void tearDown() throws SQLException, PatrimonyException, ClienteException, ReserveException {
         if (reservaProf != null)
-            ResSalaProfessorDAO.getInstance().excluir(reservaProf);
+            TeacherRoomReserveDAO.getInstance().deleteTeacherReservedRoom(reservaProf);
         if (reservaAluno != null)
             StudentRoomReserveDAO.getInstance().deleteStudentReservedRoom(reservaAluno);
         if (sala != null)
@@ -151,8 +151,8 @@ public class US01_ReservarSala {
         fazerReservaSalaView.optionPane().requireMessage("Reserva feita com sucesso");
         fazerReservaSalaView.optionPane().okButton().click();
 
-        indexReserva = ResSalaProfessorDAO.getInstance().buscarPorData(data).size() - 1;
-        reservaProf = ResSalaProfessorDAO.getInstance().buscarPorData(data).get(indexReserva);
+        indexReserva = TeacherRoomReserveDAO.getInstance().buscagetTeacherReservedRoomsByDayrPorData(data).size() - 1;
+        reservaProf = TeacherRoomReserveDAO.getInstance().buscagetTeacherReservedRoomsByDayrPorData(data).get(indexReserva);
     }
 
     @Test public void testCenario1ProfessorCpfInvalido() throws SQLException, ClienteException, PatrimonyException, ReserveException {
@@ -326,8 +326,8 @@ public class US01_ReservarSala {
         fazerReservaSalaView.optionPane().requireMessage("Reserva feita com sucesso");
         fazerReservaSalaView.optionPane().okButton().click();
 
-        indexReserva = ResSalaProfessorDAO.getInstance().buscarPorData(data).size() - 1;
-        reservaProf = ResSalaProfessorDAO.getInstance().buscarPorData(data).get(indexReserva);
+        indexReserva = TeacherRoomReserveDAO.getInstance().buscagetTeacherReservedRoomsByDayrPorData(data).size() - 1;
+        reservaProf = TeacherRoomReserveDAO.getInstance().buscagetTeacherReservedRoomsByDayrPorData(data).get(indexReserva);
         reservaAluno = null;
     }
 
@@ -372,7 +372,7 @@ public class US01_ReservarSala {
     @Test public void testCenario4() throws SQLException, ClienteException, ReserveException, PatrimonyException {
 
         reservaProf = new TeacherRoomReserve(data, "23:59", sala, "abc", prof);
-        ResSalaProfessorDAO.getInstance().incluir(reservaProf);
+        TeacherRoomReserveDAO.getInstance().saveNewTeacherRoomReserve(reservaProf);
 
         dialog.table("tabelaPatrimonio").selectRows(index);
         dialog.button("Visualizar Horarios").click();
@@ -391,8 +391,8 @@ public class US01_ReservarSala {
         fazerReservaSalaView.textBox("Hora").enterText("23:59");
         fazerReservaSalaView.button("Reservar").click();
 
-        indexReserva = ResSalaProfessorDAO.getInstance().buscarPorData(data).size() - 1;
-        reservaProf = ResSalaProfessorDAO.getInstance().buscarPorData(data).get(indexReserva);
+        indexReserva = TeacherRoomReserveDAO.getInstance().buscagetTeacherReservedRoomsByDayrPorData(data).size() - 1;
+        reservaProf = TeacherRoomReserveDAO.getInstance().buscagetTeacherReservedRoomsByDayrPorData(data).get(indexReserva);
         reservaAluno = null;
 
         fazerReservaSalaView.optionPane().requireMessage("A Sala esta reservada no mesmo dia e horario.");

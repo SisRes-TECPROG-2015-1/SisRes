@@ -1,8 +1,8 @@
 package model;
 
-import exception.ClienteException;
+import exception.ClientException;
 
-public class Professor extends Cliente {
+public class Professor extends Client {
 
 	/**
 	 * Defining constants for error messages and alerts. Constant
@@ -10,32 +10,32 @@ public class Professor extends Cliente {
 	 * that for future analyse.
 	 */
 	// private final String MATRICULA_INVALIDO = "Matricula Invalida.";
-	private final String MATRICULA_BRANCO = "Matricula em Branco.";
-	private final String MATRICULA_NULO = "Matricula esta Nula.";
+	private final String REGISTRATION_WHITE = "Matricula em Branco.";
+	private final String REGISTRATION_NULL = "Matricula esta Nula.";
 
 	/**
 	 * Constructor method for class Professor
 	 * @param nome
 	 * @param cpf
 	 * @param matricula
-	 * @param telefone
+	 * @param fone
 	 * @param email
-	 * @throws ClienteException
+	 * @throws ClientException
 	 */
 	public Professor( String nome, String cpf, String matricula,
-			String telefone, String email ) throws ClienteException {
-		super( nome, cpf, matricula, telefone, email );
+			String fone, String email ) throws ClientException {
+		super( nome, cpf, matricula, fone, email );
 	}
 
 	/**
 	 * Setter method for attribute 'Matricula'
-	 * @throws ClienteException
+	 * @throws ClientException
 	 */
-	public void setMatricula( String matricula ) throws ClienteException {
-		if ( matricula == null ) {
-			throw new ClienteException( MATRICULA_NULO );
-		} else if ( "".equals( matricula.trim() ) ) {
-			throw new ClienteException( MATRICULA_BRANCO );
+	public void setRegistration( String registration ) throws ClientException {
+		if ( registration == null ) {
+			throw new ClientException( REGISTRATION_NULL );
+		} else if ( "".equals( registration.trim() ) ) {
+			throw new ClientException( REGISTRATION_WHITE );
 		} else { 
 			// Nothing to do 
 		}
@@ -49,7 +49,7 @@ public class Professor extends Cliente {
 		 * else
 		 * throw new ClienteException(MATRICULA_INVALIDO);
 		 */
-		super.matricula = matricula;//
+		super.registration = registration;//
 	}
 
 }
