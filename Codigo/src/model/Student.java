@@ -15,21 +15,21 @@ public class Student extends Client {
 	private final String REGISTRATION_NULL = "Matricula esta Nula.";
 	
 	/**
-	 * Constructor of class Aluno
+	 * Constructor of class Student
 	 * @param name
 	 * @param cpf
 	 * @param registration
-	 * @param fone
+	 * @param telephone
 	 * @param email
 	 * @throws ClientException
 	 */
-	public Student( String name, String cpf, String registration, String telefone,
+	public Student( String name, String cpf, String registration, String telephone,
 			String email ) throws ClientException {
-		super(name, cpf, registration, telefone, email);
+		super(name, cpf, registration, telephone, email);
 	}
 	
 	/**
-	 * Setter method for 'matricula'
+	 * Setter method for registration
 	 * @throws ClientException
 	 */
 	public void setRegistration( String registration ) throws ClientException {
@@ -42,7 +42,7 @@ public class Student extends Client {
 		}
 		/**
 		 * This block of code was already commented. It will stay like this
-		 * for future analyse. 
+		 * for future analyze. 
 		 * 
 		 * else if(matricula.matches("^[\\d]{2,2}/[\\d]{5,7}$"))
 		 * super.matricula = matricula;

@@ -12,7 +12,7 @@ import javax.swing.JOptionPane;
 import model.Aluno;
 import model.Professor;
 import model.Sala;
-import control.ManterAluno;
+import control.MaintainStudent;
 import control.ManterProfessor;
 import control.ManterResSalaAluno;
 import control.ManterResSalaProfessor;
@@ -58,7 +58,7 @@ public abstract class ReservaSalaView extends javax.swing.JDialog {
     protected void getAluno() {
         try {
 
-            Vector<Aluno> alunos = ManterAluno.getInstance().buscarCpf( this.cpfTextField.getText() );
+            Vector<Aluno> alunos = MaintainStudent.getInstance().searchByCpf( this.cpfTextField.getText() );
             if ( alunos.isEmpty() ) {
                 JOptionPane.showMessageDialog( this, "Aluno nao Cadastrado." + " Digite o CPF correto ou cadastre o aluno desejado",
                         "Erro", JOptionPane.ERROR_MESSAGE, null );
