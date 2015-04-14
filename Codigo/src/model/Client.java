@@ -1,63 +1,63 @@
 package model;
 
-import exception.ClienteException;
+import exception.ClientException;
 
-public abstract class Cliente {
+public abstract class Client {
 
 	/**
 	 * All the attributes are setted by String type because it will be simpler
 	 * to validade and catch the system data
 	 */
-	private String nome;
+	private String name;
 	private String cpf;
-	private String telefone;
+	private String fone;
 	private String email;
-	protected String matricula;
+	protected String registration;
 
 	/**
 	 * Defining constants for error messages and alerts. Constants
 	 * 'TELEFONE_BRANCO', 'EMAIL_INVALIDO', 'EMAIL_BRANCO' were already marked as
 	 * comment. It will stay like that for future analyse
 	 */
-	private final String NOME_INVALIDO = "Nome Invalido.";
-	private final String NOME_BRANCO = "Nome em Branco.";
-	private final String NOME_NULO = "Nome esta Nulo.";
-	private final String CPF_INVALIDO = "CPF Invalido.";
-	private final String CPF_BRANCO = "CPF em Branco.";
-	private final String CPF_NULO = "CPF esta Nulo.";
-	private final String TELEFONE_INVALIDO = "Telefone Invalido.";
+	private final String NAME_INVALID = "Nome Invalido.";
+	private final String NAME_WHITE = "Nome em Branco.";
+	private final String NAME_NULL = "Nome esta Nulo.";
+	private final String CPF_INVALID = "CPF Invalido.";
+	private final String CPF_WHITE = "CPF em Branco.";
+	private final String CPF_NULL = "CPF esta Nulo.";
+	private final String FONE_INVALID = "Telefone Invalido.";
 	// private final String TELEFONE_BRANCO = "Telefone em Branco.";
-	private final String TELEFONE_NULO = "Telefone esta Nulo.";
+	private final String FONE_NULL = "Telefone esta Nulo.";
 	// private final String EMAIL_INVALIDO = "E-mail Invalido.";
 	// private final String EMAIL_BRANCO = "E-mail em Branco.";
-	private final String EMAIL_NULO = "E-mail esta Nulo.";
+	private final String EMAIL_NULL = "E-mail esta Nulo.";
 
 	/**
 	 * Constructor methd for class Cliente
 	 * 
-	 * @param nome
+	 * @param name
 	 * @param cpf
-	 * @param matricula
-	 * @param telefone
+	 * @param registration
+	 * @param fone
 	 * @param email
-	 * @throws ClienteException
+	 * @throws ClientException
 	 */
-	public Cliente( String nome, String cpf, String matricula, String telefone,
-			String email ) throws ClienteException {
-		this.setNome( nome );
+	public Client( String name, String cpf, String registration, String fone,
+			String email ) throws ClientException {
+		this.setNome( name );
 		this.setCpf( cpf );
-		this.setMatricula( matricula );
-		this.setTelefone( telefone );
+		this.setRegistration( registration );
+		this.setTelefone( fone );
 		this.setEmail( email );
 	}
 
 	/**
-	 * Getter function for 'Nome' attribute
+	 * Getter function for 'Name' attribute
 	 * 
-	 * @return String nome
+	 * @return String name
 	 */
-	public String getNome() {
-		return nome;
+	public String getName() {
+		return name;
 	}
 
 	/**
@@ -74,8 +74,8 @@ public abstract class Cliente {
 	 * 
 	 * @return String telefone
 	 */
-	public String getTelefone() {
-		return telefone;
+	public String getFone() {
+		return fone;
 	}
 
 	/**
@@ -88,29 +88,29 @@ public abstract class Cliente {
 	}
 
 	/**
-	 * Getter function for 'Matricula' attribute
+	 * Getter function for 'Registration' attribute
 	 * 
-	 * @return String matricula
+	 * @return String registration
 	 */
-	public String getMatricula() {
-		return matricula;
+	public String getRegistration() {
+		return registration;
 	}
 
 	/**
-	 * Setter method for 'Nome' attribute
+	 * Setter method for 'Name' attribute
 	 * 
-	 * @param nome
-	 * @throws ClienteException
+	 * @param name
+	 * @throws ClientException
 	 */
-	public void setNome( String nome ) throws ClienteException {
-		if ( nome == null ) {
-			throw new ClienteException( NOME_NULO );
-		} else if ( "".equals( nome.trim() ) ) {
-			throw new ClienteException( NOME_BRANCO );
-		} else if ( nome.trim().matches( "[a-zA-Z][a-zA-Z\\s]+" ) ) {
-			this.nome = nome.trim();
+	public void setNome( String name ) throws ClientException {
+		if ( name == null ) {
+			throw new ClientException( NAME_NULL );
+		} else if ( "".equals( name.trim() ) ) {
+			throw new ClientException( NAME_WHITE );
+		} else if ( name.trim().matches( "[a-zA-Z][a-zA-Z\\s]+" ) ) {
+			this.name = name.trim();
 		} else {
-			throw new ClienteException( NOME_INVALIDO );
+			throw new ClientException( NAME_INVALID );
 		}
 	}
 
@@ -118,43 +118,43 @@ public abstract class Cliente {
 	 * Setter method for 'CPF' attribute
 	 * 
 	 * @param cpf
-	 * @throws ClienteException
+	 * @throws ClientException
 	 */
-	public void setCpf( String cpf ) throws ClienteException {
+	public void setCpf( String cpf ) throws ClientException {
 		if ( cpf == null ) {
-			throw new ClienteException( CPF_NULO );
+			throw new ClientException( CPF_NULL );
 		} else if ( "".equals(cpf) ) {
-			throw new ClienteException( CPF_BRANCO );
+			throw new ClientException( CPF_WHITE );
 		} else if ( cpf.matches( "[\\d]{3,3}.[\\d]{3,3}.[\\d]{3,3}-[\\d]{2,2}$" ) ) {
-			if ( this.validarCpf( cpf.split( "[\\. | -]" )[0]
+			if ( this.validateCpf( cpf.split( "[\\. | -]" )[0]
 					+ cpf.split( "[\\. | -]" )[1] + cpf.split( "[\\. | -]" )[2]
 					+ cpf.split( "[\\. | -]" )[3] ) ) {
 				this.cpf = cpf;
 			} else {
-				throw new ClienteException(CPF_INVALIDO);
+				throw new ClientException(CPF_INVALID);
 			}
 		} else {
-			throw new ClienteException(CPF_INVALIDO);
+			throw new ClientException(CPF_INVALID);
 		}
 	}
 
 	/**
-	 * Setter method for 'Telefone' attribute
+	 * Setter method for 'Fone' attribute
 	 * 
-	 * @param telefone
-	 * @throws ClienteException
+	 * @param fone
+	 * @throws ClientException
 	 */
-	public void setTelefone( String telefone ) throws ClienteException {
-		if ( telefone == null ) {
-			throw new ClienteException( TELEFONE_NULO );
-		} else if ( "".equals( telefone ) ) {
-			this.telefone = telefone;
-		} else if ( telefone
+	public void setTelefone( String fone ) throws ClientException {
+		if ( fone == null ) {
+			throw new ClientException( FONE_NULL );
+		} else if ( "".equals( fone ) ) {
+			this.fone = fone;
+		} else if ( fone
 				.matches( "(\\([ ]*[\\d]{2,3}[ ]*\\))?[ ]*[\\d]{4,4}[ ]*-?[ ]*[\\d]{4,4}[ ]*$" ) ) {
 			// The phone number will be saved without blank spaces
-			this.telefone = telefone.replaceAll( " ", "" );
+			this.fone = fone.replaceAll( " ", "" );
 		} else {
-			throw new ClienteException( TELEFONE_INVALIDO );
+			throw new ClientException( FONE_INVALID );
 		}
 	}
 
@@ -162,47 +162,47 @@ public abstract class Cliente {
 	 * Setter method for 'Email' attribute
 	 * 
 	 * @param email
-	 * @throws ClienteException
+	 * @throws ClientException
 	 */
-	public void setEmail( String email ) throws ClienteException {
+	public void setEmail( String email ) throws ClientException {
 		if ( email == null ) { 
-			throw new ClienteException( EMAIL_NULO );
+			throw new ClientException( EMAIL_NULL );
 		} else {
 			this.email = email;
 		}
 	}
 
 	/**
-	 * Setter method for 'Matricula' attribute
+	 * Setter method for 'Registration' attribute
 	 * 
-	 * @param matricula
-	 * @throws ClienteException
+	 * @param registration
+	 * @throws ClientException
 	 */
-	public abstract void setMatricula( String matricula ) throws ClienteException;
+	public abstract void setRegistration( String registration ) throws ClientException;
 
 	@Override
 	/**
-	 * To String method of class Cliente
+	 * To String method of class Client
 	 * 
 	 * @return String 
 	 */
 	public String toString() {
-		return "Nome: " + nome + "\nCpf: " + cpf + "\nTelefone: " + telefone
-				+ "\nEmail: " + email + "\nMatricula: " + matricula;
+		return "Nome: " + name + "\nCpf: " + cpf + "\nTelefone: " + fone
+				+ "\nEmail: " + email + "\nMatricula: " + registration;
 	}
 
 	/**
-	 * Function to validade if a passed client object is equals to 
+	 * Function to validate if a passed client object is equals to 
 	 * the new instanciated client object
 	 *  
-	 * @param Cliente b
+	 * @param Client b
 	 * @return boolean
 	 */
-	public boolean equals( Cliente b ) {
-		if ( this.getNome().equals( b.getNome() )
+	public boolean equals( Client b ) {
+		if ( this.getName().equals( b.getName() )
 				&& this.getCpf().equals( b.getCpf() )
-				&& this.getMatricula().equals( b.getMatricula() )
-				&& this.getTelefone().equals( b.getTelefone() )
+				&& this.getRegistration().equals( b.getRegistration() )
+				&& this.getFone().equals( b.getFone() )
 				&& this.getEmail().equals( b.getEmail() ) ) {
 
 			return true;
@@ -216,15 +216,15 @@ public abstract class Cliente {
 	 * @param cpf
 	 * @return boolean
 	 */
-	private boolean validarCpf( String cpf ) {
+	private boolean validateCpf( String cpf ) {
 
 		int d1, d2;
-		int digito1, digito2, resto;
+		int digit1, digit2, resto;
 		int digitoCPF;
 		String nDigResult;
 
 		d1 = d2 = 0;
-		digito1 = digito2 = resto = 0;
+		digit1 = digit2 = resto = 0;
 
 		for ( int nCount = 1; nCount < cpf.length() - 1; nCount++ ) {
 			digitoCPF = Integer.valueOf( cpf.substring( nCount - 1, nCount ) )
@@ -254,12 +254,12 @@ public abstract class Cliente {
 		 * else the first verification digit is 11 least the rest of the division
 		 */
 		if ( resto < 2 ){
-			digito1 = 0;
+			digit1 = 0;
 		} else {
-			digito1 = 11 - resto;
+			digit1 = 11 - resto;
 		}
 		
-		d2 += 2 * digito1;
+		d2 += 2 * digit1;
 
 		//Calculating the second rest of division per 11.
 		resto = ( d2 % 11 );
@@ -269,16 +269,16 @@ public abstract class Cliente {
 		 * else the second verification digit is 11 least the rest of the division
 		 */
 		if ( resto < 2 ) {
-			digito2 = 0;
+			digit2 = 0;
 		} else {
-			digito2 = 11 - resto;
+			digit2 = 11 - resto;
 		}
 		
 		// Generating the validation digit for the analysed cpf
 		String nDigVerific = cpf.substring( cpf.length() - 2, cpf.length() );
 
 		// Concatenating the firs and the second verification digit to make the validation digit
-		nDigResult = String.valueOf( digito1 ) + String.valueOf( digito2 );
+		nDigResult = String.valueOf( digit1 ) + String.valueOf( digit2 );
 
 		// Comparing the two validation digits to know if the cpf is valid
 		return nDigVerific.equals( nDigResult );
