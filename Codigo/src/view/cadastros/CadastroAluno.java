@@ -8,7 +8,7 @@ import java.sql.SQLException;
 
 import javax.swing.JOptionPane;
 
-import control.ManterAluno;
+import control.MaintainStudent;
 import exception.ClienteException;
 
 /**
@@ -26,7 +26,7 @@ public class CadastroAluno extends CadastroCliente {
     @Override public void cadastroAction() {
         try {
             if ( cadastroBtn.getText().equals( "Cadastrar" ) ) {
-                ManterAluno.getInstance().inserir( nomeTxtField.getText(), cpfTxtField.getText(), matriculaTxtField.getText(),
+                MaintainStudent.getInstance().inserir( nomeTxtField.getText(), cpfTxtField.getText(), matriculaTxtField.getText(),
                         telefoneTxtField.getText(), emailTxtField.getText() );
 
                 JOptionPane.showMessageDialog( this, "Aluno Cadastrado com sucesso", "Sucesso", JOptionPane.INFORMATION_MESSAGE,
