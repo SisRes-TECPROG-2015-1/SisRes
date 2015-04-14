@@ -20,7 +20,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import persistence.StudentDAO;
-import persistence.ProfessorDAO;
+import persistence.TeacherDAO;
 import persistence.StudentRoomReserveDAO;
 import persistence.ResSalaProfessorDAO;
 import persistence.ClassRoom;
@@ -60,7 +60,7 @@ public class US01_AlterarReservaSala {
         ClassRoom.getInstance().includeARoom(sala);
 
         prof = new Professor("Professor Teste", "658.535.144-40", "110038096", "9211-2144", "teste incluir repetido");
-        ProfessorDAO.getInstance().incluir(prof);
+        TeacherDAO.getInstance().includeNewTeacher(prof);
 
         aluno = new Aluno("Aluno Teste", "658.535.144-40", "110038096", "9211-2144", "teste incluir repetido");
         StudentDAO.getInstance().includeNewStudent(aluno);
@@ -89,7 +89,7 @@ public class US01_AlterarReservaSala {
         if (aluno != null)
             StudentDAO.getInstance().deleteStudent(aluno);
         if (prof != null)
-            ProfessorDAO.getInstance().excluir(prof);
+            TeacherDAO.getInstance().excludeATeacher(prof);
         window.cleanUp();
     }
 

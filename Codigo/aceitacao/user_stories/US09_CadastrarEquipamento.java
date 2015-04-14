@@ -13,7 +13,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import persistence.EquipamentoDAO;
+import persistence.EquipamentDAO;
 import view.Main2;
 import exception.PatrimonyException;
 
@@ -64,7 +64,7 @@ public class US09_CadastrarEquipamento {
 
     @After public void tearDown() throws SQLException, PatrimonyException {
         if (equipamento != null)
-            EquipamentoDAO.getInstance().excluir(equipamento);
+            EquipamentDAO.getInstance().excluir(equipamento);
         window.cleanUp();
     }
 
@@ -95,14 +95,14 @@ public class US09_CadastrarEquipamento {
         sleep();
         cadastro.optionPane().okButton().click();
 
-        index = EquipamentoDAO.getInstance().buscarTodos().size() - 1;
-        equipamento = EquipamentoDAO.getInstance().buscarTodos().get(index);
+        index = EquipamentDAO.getInstance().buscarTodos().size() - 1;
+        equipamento = EquipamentDAO.getInstance().buscarTodos().get(index);
     }
 
     @Test public void testCenario2() throws SQLException, PatrimonyException {
 
         equipamento = new Equipamento("code","Equipamento para testes de aceitacao");
-        EquipamentoDAO.getInstance().incluir(equipamento);
+        EquipamentDAO.getInstance().incluir(equipamento);
 
         dialog.button("Cadastrar").click();
         DialogFixture cadastro = dialog.dialog("CadastroEquipamento");

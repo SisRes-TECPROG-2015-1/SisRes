@@ -13,7 +13,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import persistence.ProfessorDAO;
+import persistence.TeacherDAO;
 import view.Main2;
 import exception.ClienteException;
 
@@ -46,9 +46,9 @@ public class US05_ExcluirProfessor {
 		window.show(new Dimension(900, 500)); // shows the frame to test
 
 		professor = new Professor("Teste", "658.535.144-40", "110038096","9211-2144", "teste incluir repetido");
-		ProfessorDAO.getInstance().incluir(professor);
+		TeacherDAO.getInstance().includeNewTeacher(professor);
 
-		index = ProfessorDAO.getInstance().buscarTodos().size() - 1;
+		index = TeacherDAO.getInstance().searchForAllTeachers().size() - 1;
 		
 		window.button("Professor").click();
 		dialog = window.dialog("ProfessorView");
@@ -58,7 +58,7 @@ public class US05_ExcluirProfessor {
 	@After
 	public void tearDown() throws SQLException, ClienteException {
 		if(professor != null)
-			ProfessorDAO.getInstance().excluir(professor);
+			TeacherDAO.getInstance().excludeATeacher(professor);
 		window.cleanUp();
 	}
 

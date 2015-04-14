@@ -18,7 +18,7 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 import persistence.FactoryConnection;
-import persistence.ProfessorDAO;
+import persistence.TeacherDAO;
 import persistence.ClassRoom;
 import control.ManterResSalaProfessor;
 import exception.ClienteException;
@@ -36,13 +36,13 @@ public class ManterResSalaProfessorTest {
 		sala1 = new Sala("123", "Sala de Aula", "120");
 		professor1 = new Professor("testInstance", "040.757.021-70", "0058801", "3333-3333", "nome@email");
 		
-		ProfessorDAO.getInstance().incluir(professor1);
+		TeacherDAO.getInstance().includeNewTeacher(professor1);
 		ClassRoom.getInstance().includeARoom(sala1);
 	}
 
 	@AfterClass
 	public static void tearDownAfterClass() throws Exception {
-		ProfessorDAO.getInstance().excluir(professor1);
+		TeacherDAO.getInstance().excludeATeacher(professor1);
 		ClassRoom.getInstance().excluir(sala1);
 	}
 

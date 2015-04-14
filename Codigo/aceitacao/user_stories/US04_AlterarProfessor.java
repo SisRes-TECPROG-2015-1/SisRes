@@ -13,7 +13,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import persistence.ProfessorDAO;
+import persistence.TeacherDAO;
 import view.Main2;
 import exception.ClienteException;
 
@@ -53,9 +53,9 @@ public class US04_AlterarProfessor {
 		window.show(new Dimension(900, 500)); // shows the frame to test
 		
 		professor = new Professor("Teste", "658.535.144-40", "110038096","9211-2144", "teste incluir repetido");
-		ProfessorDAO.getInstance().incluir(professor);
+		TeacherDAO.getInstance().includeNewTeacher(professor);
 		
-		index = ProfessorDAO.getInstance().buscarTodos().size() - 1;
+		index = TeacherDAO.getInstance().searchForAllTeachers().size() - 1;
 		
 		window.button("Professor").click();
 		dialog = window.dialog("ProfessorView");
@@ -64,7 +64,7 @@ public class US04_AlterarProfessor {
 	@After
 	public void tearDown() throws SQLException, ClienteException {
 		if(professor != null)
-			ProfessorDAO.getInstance().excluir(professor);
+			TeacherDAO.getInstance().excludeATeacher(professor);
 		window.cleanUp();
 	}
 
@@ -88,7 +88,7 @@ public class US04_AlterarProfessor {
 	@Test
 	public void testCenario1() throws SQLException, ClienteException{
 		if(professor != null)
-			ProfessorDAO.getInstance().excluir(professor);
+			TeacherDAO.getInstance().excludeATeacher(professor);
 		dialog.button("Alterar").click();
 		dialog.optionPane().requireMessage("Selecione uma linha!");
 		professor = null;
@@ -109,7 +109,7 @@ public class US04_AlterarProfessor {
 		sleep();
 		cadastro.optionPane().okButton().click();
 
-		professor = ProfessorDAO.getInstance().buscarTodos().get(index);
+		professor = TeacherDAO.getInstance().searchForAllTeachers().get(index);
 		sleep();
 	}
 	
@@ -128,7 +128,7 @@ public class US04_AlterarProfessor {
 		sleep();
 		cadastro.optionPane().okButton().click();
 
-		professor = ProfessorDAO.getInstance().buscarTodos().get(index);
+		professor = TeacherDAO.getInstance().searchForAllTeachers().get(index);
 		sleep();
 	}
 	
@@ -147,7 +147,7 @@ public class US04_AlterarProfessor {
 		sleep();
 		cadastro.optionPane().okButton().click();
 
-		professor = ProfessorDAO.getInstance().buscarTodos().get(index);
+		professor = TeacherDAO.getInstance().searchForAllTeachers().get(index);
 		sleep();
 	}
 	
@@ -166,7 +166,7 @@ public class US04_AlterarProfessor {
 		sleep();
 		cadastro.optionPane().okButton().click();
 
-		professor = ProfessorDAO.getInstance().buscarTodos().get(index);
+		professor = TeacherDAO.getInstance().searchForAllTeachers().get(index);
 		sleep();
 	}
 	
@@ -185,7 +185,7 @@ public class US04_AlterarProfessor {
 		sleep();
 		cadastro.optionPane().okButton().click();
 
-		professor = ProfessorDAO.getInstance().buscarTodos().get(index);
+		professor = TeacherDAO.getInstance().searchForAllTeachers().get(index);
 		sleep();
 	}
 	
@@ -204,7 +204,7 @@ public class US04_AlterarProfessor {
 		sleep();
 		cadastro.optionPane().okButton().click();
 
-		professor = ProfessorDAO.getInstance().buscarTodos().get(index);
+		professor = TeacherDAO.getInstance().searchForAllTeachers().get(index);
 		sleep();
 	}
 }

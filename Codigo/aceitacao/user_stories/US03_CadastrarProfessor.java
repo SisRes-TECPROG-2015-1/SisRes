@@ -13,7 +13,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import persistence.ProfessorDAO;
+import persistence.TeacherDAO;
 import view.Main2;
 import exception.ClienteException;
 
@@ -61,7 +61,7 @@ public class US03_CadastrarProfessor {
 	@After
 	public void tearDown() throws SQLException, ClienteException {
 		if(professor != null)
-			ProfessorDAO.getInstance().excluir(professor);
+			TeacherDAO.getInstance().excludeATeacher(professor);
 		window.cleanUp();
 	}
 
@@ -97,15 +97,15 @@ public class US03_CadastrarProfessor {
 		sleep();
 		cadastro.optionPane().okButton().click();
 
-		index = ProfessorDAO.getInstance().buscarTodos().size() - 1;
-		professor = ProfessorDAO.getInstance().buscarTodos().get(index);
+		index = TeacherDAO.getInstance().searchForAllTeachers().size() - 1;
+		professor = TeacherDAO.getInstance().searchForAllTeachers().get(index);
 	}
 	
 	@Test
 	public void testCenario2() throws SQLException, ClienteException {
 
 		professor = new Professor("Teste", "658.535.144-40", "110038096","9211-2144", "teste incluir repetido");
-		ProfessorDAO.getInstance().incluir(professor);
+		TeacherDAO.getInstance().includeNewTeacher(professor);
 		
 		dialog.button("Cadastrar").click();
 		DialogFixture cadastro = dialog.dialog("CadastroProfessor");

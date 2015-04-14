@@ -2,7 +2,7 @@ package control;
 
 import java.sql.SQLException;
 import java.util.Vector;
-import persistence.EquipamentoDAO;
+import persistence.EquipamentDAO;
 import exception.PatrimonyException;
 import model.Equipamento;
 
@@ -33,7 +33,7 @@ public class ManterEquipamento {
 	 * @return Vector - All equipments
 	 */	
 	public Vector<Equipamento> getEquipamento_vet() throws SQLException, PatrimonyException {
-		this.Equipamento_vet = EquipamentoDAO.getInstance().buscarTodos();
+		this.Equipamento_vet = EquipamentDAO.getInstance().buscarTodos();
 		return this.Equipamento_vet;
 	}
 
@@ -43,7 +43,7 @@ public class ManterEquipamento {
 	 */
 	public void inserir(String codigo, String descricao) throws PatrimonyException, SQLException {
 		Equipamento equipamento = new Equipamento(codigo, descricao);
-		EquipamentoDAO.getInstance().incluir(equipamento);
+		EquipamentDAO.getInstance().incluir(equipamento);
 		getEquipamento_vet();
 	}
 
@@ -58,7 +58,7 @@ public class ManterEquipamento {
 		Equipamento old_equipamento = new Equipamento(equipamento.getCodigo(), equipamento.getDescricao());
 		equipamento.setCodigo(codigo);
 		equipamento.setDescricao(descricao);
-		EquipamentoDAO.getInstance().alterar(old_equipamento, equipamento);
+		EquipamentDAO.getInstance().alterar(old_equipamento, equipamento);
 		getEquipamento_vet();
 	}
 
@@ -71,7 +71,7 @@ public class ManterEquipamento {
 		if (equipamento == null) {
 			throw new PatrimonyException("Equipamento em branco");
 		}
-		EquipamentoDAO.getInstance().excluir(equipamento);
+		EquipamentDAO.getInstance().excluir(equipamento);
 		getEquipamento_vet();
 	}
 }

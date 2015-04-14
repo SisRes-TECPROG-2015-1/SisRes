@@ -3,7 +3,7 @@ package control;
 import java.sql.SQLException;
 import java.util.Vector;
 
-import persistence.ProfessorDAO;
+import persistence.TeacherDAO;
 import exception.ClienteException;
 import model.Professor;
 
@@ -34,7 +34,7 @@ public class ManterProfessor {
 	 * @return Professor - A teacher
 	 */
 	public Vector < Professor > buscarNome ( String valor ) throws SQLException, ClienteException {
-		return ProfessorDAO.getInstance().buscarNome( valor );
+		return TeacherDAO.getInstance().searchByName( valor );
 	}
 	
 	
@@ -43,7 +43,7 @@ public class ManterProfessor {
 	 * @return Professor - A teacher
 	 */
 	public Vector < Professor > buscarCpf( String valor ) throws SQLException, ClienteException {
-		return ProfessorDAO.getInstance().buscarCpf( valor );
+		return TeacherDAO.getInstance().searchByCpf( valor );
 	}
 	
 	
@@ -52,7 +52,7 @@ public class ManterProfessor {
 	 * @return Professor - A teacher
 	 */
 	public Vector < Professor > buscarMatricula( String valor ) throws SQLException, ClienteException {
-		return ProfessorDAO.getInstance().buscarMatricula( valor );
+		return TeacherDAO.getInstance().searchByRegistration( valor );
 	}
 	
 	
@@ -61,7 +61,7 @@ public class ManterProfessor {
 	 * @return Professor - A teacher
 	 */
 	public Vector < Professor > buscarEmail( String valor ) throws SQLException, ClienteException {
-		return ProfessorDAO.getInstance().buscarEmail( valor );
+		return TeacherDAO.getInstance().searchByEmail( valor );
 	}
 	
 	
@@ -70,7 +70,7 @@ public class ManterProfessor {
 	 * @return Professor - A teacher
 	 */
 	public Vector < Professor > buscarTelefone( String valor) throws SQLException, ClienteException {
-		return ProfessorDAO.getInstance().buscarTelefone( valor );
+		return TeacherDAO.getInstance().searchByPhoneNumber( valor );
 	}	
 	
 	
@@ -79,7 +79,7 @@ public class ManterProfessor {
 	 * @return Vector - Teachers
 	 */		
 	public Vector < Professor > getProfessores_vet() throws SQLException, ClienteException{
-		this.professores_vet = ProfessorDAO.getInstance().buscarTodos();
+		this.professores_vet = TeacherDAO.getInstance().searchForAllTeachers();
 		return this.professores_vet;
 	}
 	
@@ -91,7 +91,7 @@ public class ManterProfessor {
 	public void inserir( String nome, String cpf, String matricula,
 			String telefone, String email) throws ClienteException, SQLException {
 		Professor prof = new Professor(nome, cpf, matricula, telefone, email );
-		ProfessorDAO.getInstance().incluir( prof );
+		TeacherDAO.getInstance().includeNewTeacher( prof );
 		this.professores_vet.add( prof );
 	}
 
@@ -113,7 +113,7 @@ public class ManterProfessor {
 		prof.setMatricula( matricula );
 		prof.setTelefone( telefone );
 		prof.setEmail( email );
-		ProfessorDAO.getInstance().alterar( prof_velho, prof );
+		TeacherDAO.getInstance().modifyATeacher( prof_velho, prof );
 	}
 
 	
@@ -122,7 +122,7 @@ public class ManterProfessor {
 	 * @return void
 	 */
 	public void excluir( Professor professor ) throws SQLException, ClienteException {
-		ProfessorDAO.getInstance().excluir( professor );
+		TeacherDAO.getInstance().excludeATeacher( professor );
 		this.professores_vet.remove( professor );
 	}
 
