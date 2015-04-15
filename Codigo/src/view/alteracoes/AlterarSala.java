@@ -49,7 +49,7 @@ public class AlterarSala extends CadastroPatrimonio {
     @Override protected void cadastroAction() {
         try {
 
-            MaintainRoom.getInstance().alterar( codigoTxtField.getText(), descricaoTextArea.getText(), capacidadeTxtField.getText(),
+            MaintainRoom.getInstance().changeRoom( codigoTxtField.getText(), descricaoTextArea.getText(), capacidadeTxtField.getText(),
                     MaintainRoom.getInstance().getRooms().get( index2 ) );
 
             JOptionPane.showMessageDialog( this, "Sala Alterada com sucesso", "Sucesso", JOptionPane.INFORMATION_MESSAGE, null );

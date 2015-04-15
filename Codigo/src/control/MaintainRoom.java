@@ -52,22 +52,22 @@ public class MaintainRoom {
 	/**
 	 * Changes a classroom attributes.
 	 */
-	public void alterar( String codigo, String descricao, String capacidade, Sala sala) throws PatrimonyException, SQLException {
-		Sala old_sala = new Sala( sala.getCodigo(), sala.getDescricao(),
-								sala.getCapacidade());
-		sala.setCodigo( codigo );
-		sala.setDescricao( descricao );
-		sala.setCapacidade( capacidade );
-		ClassRoom.getInstance().changeRoomReserve( old_sala, sala );
+	public void changeRoom( String code, String description, String capacity, Room room) throws PatrimonyException, SQLException {
+		Room old_room = new Room( room.getCode(), room.getDescription(),
+								room.getCapacity());
+		room.setCode( code );
+		room.setDescription( description );
+		room.setCapacity( capacity );
+		ClassRoom.getInstance().alterar( old_room, room );
 	}
 
 	
 	/**
 	 * Excludes a classroom from the database.
 	 */
-	public void excluir( Sala sala ) throws SQLException, PatrimonyException {
-		ClassRoom.getInstance().excludeRoom( sala );
-		this.room.remove( sala );
+	public void excludeRoom( Room room ) throws SQLException, PatrimonyException {
+		ClassRoom.getInstance().excluir( room );
+		this.room.remove( room );
 	}
 
 }

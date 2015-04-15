@@ -65,7 +65,7 @@ public class ManterSalaTest {
 				"\"" + sala.getDescricao() + "\", " +
 				"" + sala.getCapacidade() + "); "
 				);
-		MaintainRoom.getInstance().alterar("codigo", "descricao", "2", sala);
+		MaintainRoom.getInstance().changeRoom("codigo", "descricao", "2", sala);
 		
 		assertNotNull("Falha ao alterar", this.procurarNoVetor(sala_new));
 		
