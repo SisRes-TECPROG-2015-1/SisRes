@@ -5,11 +5,11 @@ import java.util.Vector;
 
 import persistence.ClassRoom;
 import exception.PatrimonyException;
-import model.Sala;
+import model.Room;
 
 public class MaintainRoom {
 
-	private Vector < Sala > salas_vet = new Vector < Sala >();
+	private Vector < Room > room = new Vector < Room >();
 	
 	//Singleton
 	private static MaintainRoom instance;
@@ -33,19 +33,19 @@ public class MaintainRoom {
 	 * Captures all the classrooms in the database.
 	 * @return Vector - All classrooms
 	 */	
-	public Vector < Sala > getSalas_vet() throws SQLException, PatrimonyException {
-		this.salas_vet = ClassRoom.getInstance().searchAll();
-		return this.salas_vet;
+	public Vector < Room > getRooms() throws SQLException, PatrimonyException {
+		this.room = ClassRoom.getInstance().searchAll();
+		return this.room;
 	}
 
 	
 	/**
 	 * Inserts a new classroom and its attributes.
 	 */
-	public void inserir( String codigo, String descricao, String capacidade ) throws PatrimonyException, SQLException {
-		Sala sala = new Sala( codigo, descricao, capacidade );
-		ClassRoom.getInstance().includeARoom( sala );
-		this.salas_vet.add( sala );
+	public void insertRooms( String code, String description, String capacity ) throws PatrimonyException, SQLException {
+		Room room = new Room( code, description, capacity );
+		ClassRoom.getInstance().includeARoom( room );
+		this.room.add( room );
 	}
 
 
@@ -67,7 +67,7 @@ public class MaintainRoom {
 	 */
 	public void excluir( Sala sala ) throws SQLException, PatrimonyException {
 		ClassRoom.getInstance().excludeRoom( sala );
-		this.salas_vet.remove( sala );
+		this.room.remove( sala );
 	}
 
 }

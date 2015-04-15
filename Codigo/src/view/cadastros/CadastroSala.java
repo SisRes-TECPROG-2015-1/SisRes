@@ -28,7 +28,7 @@ public class CadastroSala extends CadastroPatrimonio {
             // JOptionPane.showMessageDialog(this, codigoTxtField.getText() +
             // descricaoTextArea.getText() + capacidadeTxtField.getText(),
             // "teste", JOptionPane.INFORMATION_MESSAGE, null);
-            MaintainRoom.getInstance().inserir(codigoTxtField.getText(), descricaoTextArea.getText(), capacidadeTxtField.getText());
+            MaintainRoom.getInstance().insertRooms(codigoTxtField.getText(), descricaoTextArea.getText(), capacidadeTxtField.getText());
 
             JOptionPane.showMessageDialog(this, "Sala Cadastrada com sucesso", "Sucesso", JOptionPane.INFORMATION_MESSAGE, null);
             this.setVisible(false);
