@@ -87,7 +87,7 @@ public class ManterSalaTest {
 				"" + sala.getCapacidade() + "); "
 				);
 		
-		MaintainRoom.getInstance().excluir(sala);
+		MaintainRoom.getInstance().excludeRoom(sala);
 		
 		assertNull("Falha ao excluir", this.procurarNoVetor(sala));
 	}

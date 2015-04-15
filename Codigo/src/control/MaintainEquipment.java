@@ -71,7 +71,7 @@ public class MaintainEquipment {
 		if (equipamento == null) {
 			throw new PatrimonyException("Equipamento em branco");
 		}
-		EquipamentDAO.getInstance().excluir(equipamento);
+		EquipamentDAO.getInstance().excludeRoom(equipamento);
 		getEquipamento_vet();
 	}
 }

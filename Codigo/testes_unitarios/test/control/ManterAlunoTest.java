@@ -119,7 +119,7 @@ public class ManterAlunoTest {
 				"\"" + aluno.getEmail() + "\", " +
 				"\"" + aluno.getMatricula() + "\");");
 		
-		MaintainStudent.getInstance().excluir(aluno);
+		MaintainStudent.getInstance().excludeRoom(aluno);
 		
 		boolean resultado =  this.estaNoBanco("SELECT * FROM aluno WHERE " +
 				"aluno.nome = \"" + aluno.getNome() + "\" and " +

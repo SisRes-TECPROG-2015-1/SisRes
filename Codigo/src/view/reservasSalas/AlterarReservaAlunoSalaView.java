@@ -38,14 +38,14 @@ public class AlterarReservaAlunoSalaView extends ReservaSalaView {
             PatrimonyException, PatrimonyException, ClienteException, ReserveException {
         super( parent, modal );
         this.setName( "AlterarReservaSalaView" );
-        this.reservaAluno = instanceAluno.getReservasMes( data ).get( index );
+        this.reservaAluno = instanceAluno.getRoomReservesByDate( data ).get( index );
         resetComponents();
 
     }
 
     @Override protected void reservarAluno() {
         try {
-            instanceAluno.alterar( this.finalidadeTextField.getText(), this.qntCadeirasReservadasTextField.getText(), reservaAluno );
+            instanceAluno.changeReserve( this.finalidadeTextField.getText(), this.qntCadeirasReservadasTextField.getText(), reservaAluno );
 
             JOptionPane.showMessageDialog( this, "Reserva alterada com sucesso", "Sucesso", JOptionPane.INFORMATION_MESSAGE, null );
 
@@ -90,7 +90,7 @@ public class AlterarReservaAlunoSalaView extends ReservaSalaView {
 
     @Override protected void verificarAction() {
         try {
-            this.qntCadeirasTxtField.setText( String.valueOf( instanceAluno.cadeirasDisponveis( sala, this.dataTextField.getText(),
+            this.qntCadeirasTxtField.setText( String.valueOf( instanceAluno.captureAvailableChairs( sala, this.dataTextField.getText(),
                     this.horaTextField.getText() ) ) );
         } catch ( ReserveException ex ) {
             

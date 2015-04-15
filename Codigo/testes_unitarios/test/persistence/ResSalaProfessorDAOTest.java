@@ -50,8 +50,8 @@ public class ResSalaProfessorDAOTest {
 
 	@AfterClass
 	public static void tearDownAfterClass() throws Exception {
-		ClassRoom.getInstance().excluir(sala_a);
-		ClassRoom.getInstance().excluir(sala_b);
+		ClassRoom.getInstance().excludeRoom(sala_a);
+		ClassRoom.getInstance().excludeRoom(sala_b);
 		TeacherDAO.getInstance().excludeATeacher(professor1);
 		TeacherDAO.getInstance().excludeATeacher(professor2);	
 	}
@@ -470,7 +470,7 @@ public class ResSalaProfessorDAOTest {
 						"(SELECT id_sala FROM sala WHERE codigo = \"" + sala_a.getCodigo() + "\")," +
 						"\"Grupo de Pesquisa\", \"08:00\", \"20/12/2034\");");
 		
-		ResSalaProfessorDAO.getInstance().excluir(reserva);
+		ResSalaProfessorDAO.getInstance().excludeRoom(reserva);
 		
 		boolean resultado = this.inDB(reserva);
 		
@@ -480,14 +480,14 @@ public class ResSalaProfessorDAOTest {
 	}
 	@Test (expected= ReserveException.class)
 	public void testExcluirNulo() throws ReserveException, ClienteException, PatrimonyException, SQLException {
-		ResSalaProfessorDAO.getInstance().excluir(null);
+		ResSalaProfessorDAO.getInstance().excludeRoom(null);
 	}
 	@Test (expected= ReserveException.class)
 	public void testExcluirInexistente() throws ReserveException, ClienteException, PatrimonyException, SQLException {
 		TeacherRoomReserve reserva = new TeacherRoomReserve("20/12/34", "8:00", sala_a,
 				"Reuniao", professor1);
 
-		ResSalaProfessorDAO.getInstance().excluir(reserva);
+		ResSalaProfessorDAO.getInstance().excludeRoom(reserva);
 		
 		this.executeQuery("DELETE FROM reserva_sala_professor;");
 	}

@@ -85,7 +85,7 @@ public class US01_AlterarReservaSala {
         if (reservaAluno != null)
             StudentRoomReserveDAO.getInstance().deleteStudentReservedRoom(reservaAluno);
         if (sala != null)
-            ClassRoom.getInstance().excluir(sala);
+            ClassRoom.getInstance().excludeRoom(sala);
         if (aluno != null)
             StudentDAO.getInstance().deleteStudent(aluno);
         if (prof != null)

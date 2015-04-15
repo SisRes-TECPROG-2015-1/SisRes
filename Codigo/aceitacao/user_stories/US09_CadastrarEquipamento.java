@@ -64,7 +64,7 @@ public class US09_CadastrarEquipamento {
 
     @After public void tearDown() throws SQLException, PatrimonyException {
         if (equipamento != null)
-            EquipamentDAO.getInstance().excluir(equipamento);
+            EquipamentDAO.getInstance().excludeRoom(equipamento);
         window.cleanUp();
     }
 

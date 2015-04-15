@@ -46,7 +46,7 @@ public class AlterarEquipamento extends CadastroPatrimonio {
     @Override protected void cadastroAction() {
         try {
 
-            MaintainEquipment.getInstance().alterar( codigoTxtField.getText(), descricaoTextArea.getText(),
+            MaintainEquipment.getInstance().changeReserve( codigoTxtField.getText(), descricaoTextArea.getText(),
                     MaintainEquipment.getInstance().getEquipamento_vet().get( index2 ) );
 
             JOptionPane.showMessageDialog( this, "Equipamento alterado com sucesso", "Sucesso", JOptionPane.INFORMATION_MESSAGE,

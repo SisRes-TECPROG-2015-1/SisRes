@@ -50,7 +50,7 @@ public class EquipamentoDAOTest {
 		Iterator<Equipamento> i = todos.iterator();
 		while(i.hasNext()){
 			Equipamento e = i.next();
-			instance.excluir(e);
+			instance.excludeRoom(e);
 		}
 		antigo = null;
 		novo = null;
@@ -153,14 +153,14 @@ public class EquipamentoDAOTest {
 	@Test (expected= PatrimonyException.class)
 	public void testExcluirNaoExistente() throws PatrimonyException, SQLException {
 		Equipamento eq = new Equipamento("codigo"," nao existe descricao");
-		instance.excluir(eq);
+		instance.excludeRoom(eq);
 	}
 	
 	@Test
 	public void testExcluirExistente() throws PatrimonyException, SQLException {
 		Equipamento novoExclusao = new Equipamento("cdg", "teste exclusao");
 		instance.incluir(novoExclusao);
-		instance.excluir(novoExclusao);
+		instance.excludeRoom(novoExclusao);
 		assertNull("Equipamento nao foi alterado", procurarNoVetor(novoExclusao));
 	}
 	

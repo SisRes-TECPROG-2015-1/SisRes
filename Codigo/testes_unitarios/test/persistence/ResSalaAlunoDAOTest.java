@@ -54,8 +54,8 @@ public class ResSalaAlunoDAOTest {
 	public static void tearDownAfterClass() throws Exception {
 		StudentDAO.getInstance().deleteStudent(aluno1);
 		StudentDAO.getInstance().deleteStudent(aluno2);
-		ClassRoom.getInstance().excluir(sala1);
-		ClassRoom.getInstance().excluir(sala2);
+		ClassRoom.getInstance().excludeRoom(sala1);
+		ClassRoom.getInstance().excludeRoom(sala2);
 	}
 
 	@Test

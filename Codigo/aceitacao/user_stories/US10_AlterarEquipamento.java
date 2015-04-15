@@ -73,7 +73,7 @@ public class US10_AlterarEquipamento {
 
 @After public void tearDown() throws SQLException, PatrimonyException {
     if (equipamento != null)
-        EquipamentDAO.getInstance().excluir(equipamento);
+        EquipamentDAO.getInstance().excludeRoom(equipamento);
     window.cleanUp();
 }
 
@@ -113,7 +113,7 @@ public void sleep() {
 @Test public void testCenario2() throws SQLException, PatrimonyException {
 
     if (equipamento != null)
-        EquipamentDAO.getInstance().excluir(equipamento);
+        EquipamentDAO.getInstance().excludeRoom(equipamento);
     equipamento = null;
     dialog.button("Alterar").click();
     dialog.optionPane().requireMessage("Selecione uma linha!");

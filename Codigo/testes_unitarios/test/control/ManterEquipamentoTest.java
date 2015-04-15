@@ -48,7 +48,7 @@ public class ManterEquipamentoTest {
 		Iterator<Equipamento> i = todos.iterator();
 		while(i.hasNext()){
 			e = i.next();
-			instance.excluir(e);
+			instance.excludeRoom(e);
 		}
 		e = null;
 	}
@@ -77,7 +77,7 @@ public class ManterEquipamentoTest {
 	
 	@Test
 	public void testAlterarVet() throws SQLException, PatrimonyException {
-		instance.alterar("codigo alterado", "descricao alterarda", e);
+		instance.changeReserve("codigo alterado", "descricao alterarda", e);
 		Equipamento e2 = new Equipamento("codigo alterado", "descricao alterarda");
 		assertNotNull("Teste de Inclusao no Equipamento Vet.", procurarNoVetor(e2));
 	}
@@ -85,7 +85,7 @@ public class ManterEquipamentoTest {
 	@Test(expected = PatrimonyException.class)
 	public void testAlterarNaoExistente() throws SQLException, PatrimonyException {
 		Equipamento eq = new Equipamento("codigo", "nao existe");
-		instance.alterar("codigo alterado", "descricao alterarda", eq);
+		instance.changeReserve("codigo alterado", "descricao alterarda", eq);
 	}
 	
 	@Test(expected = PatrimonyException.class)
@@ -96,7 +96,7 @@ public class ManterEquipamentoTest {
 	@Test (expected = PatrimonyException.class)
 	public void testExcluirNull() throws SQLException, PatrimonyException {
 		e = null;
-		instance.excluir(e);
+		instance.excludeRoom(e);
 	}
 	
 	public Equipamento procurarNoVetor(Equipamento teste) throws PatrimonyException, SQLException {

@@ -289,7 +289,7 @@ public class SalaDAOTest {
 				"\"" + s.getDescricao() + "\", " +
 				s.getCapacidade() + ");");
 		
-		ClassRoom.getInstance().excluir(s);
+		ClassRoom.getInstance().excludeRoom(s);
 		
 		rs = this.estaNoBanco("SELECT * FROM sala WHERE " +
 				"sala.codigo = \"" + s.getCodigo() + "\" and " +
@@ -316,7 +316,7 @@ public class SalaDAOTest {
 	@Test (expected= PatrimonyException.class)
 	public void testExcluirNaoExistente() throws PatrimonyException, SQLException {
 		Sala s = new Sala("CodigoInc", "Descricao Da Sala Inclusao", "123");
-		ClassRoom.getInstance().excluir(s);
+		ClassRoom.getInstance().excludeRoom(s);
 	}
 	
 	

@@ -60,7 +60,7 @@ public class US08_ExcluirSala {
 
     @After public void tearDown() throws SQLException, PatrimonyException {
         if (sala != null)
-            ClassRoom.getInstance().excluir(sala);
+            ClassRoom.getInstance().excludeRoom(sala);
         window.cleanUp();
     }
 

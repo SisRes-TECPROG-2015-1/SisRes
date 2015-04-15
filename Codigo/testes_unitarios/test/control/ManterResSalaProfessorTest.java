@@ -43,7 +43,7 @@ public class ManterResSalaProfessorTest {
 	@AfterClass
 	public static void tearDownAfterClass() throws Exception {
 		TeacherDAO.getInstance().excludeATeacher(professor1);
-		ClassRoom.getInstance().excluir(sala1);
+		ClassRoom.getInstance().excludeRoom(sala1);
 	}
 
 	@Test

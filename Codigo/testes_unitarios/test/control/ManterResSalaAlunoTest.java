@@ -33,7 +33,7 @@ public class ManterResSalaAlunoTest {
 	
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {
-		vet = MaintainClassroomReservationByStudent.getInstance().getResAlunoSala_vet();
+		vet = MaintainClassroomReservationByStudent.getInstance().getRoomReserves();
 		sala1 = new Sala("123", "Sala de Aula", "120");
 		aluno1 = new Aluno("testInstance", "501.341.852-69", "456678", "", "");
 		
@@ -44,7 +44,7 @@ public class ManterResSalaAlunoTest {
 	@AfterClass
 	public static void tearDownAfterClass() throws Exception {
 		StudentDAO.getInstance().deleteStudent(aluno1);
-		ClassRoom.getInstance().excluir(sala1);
+		ClassRoom.getInstance().excludeRoom(sala1);
 	}
 
 	
@@ -66,7 +66,7 @@ public class ManterResSalaAlunoTest {
 		String data = "20/12/33";
 		String hora = "9:11";
 		StudentRoomReserve r = new StudentRoomReserve(data, hora, sala1, finalidade, cadeiras_reservadas, aluno1);
-		MaintainClassroomReservationByStudent.getInstance().inserir(sala1, aluno1, data, hora, finalidade, cadeiras_reservadas);
+		MaintainClassroomReservationByStudent.getInstance().insertReserve(sala1, aluno1, data, hora, finalidade, cadeiras_reservadas);
 		boolean resultado = this.inDB(r);
 		boolean resultado2 = r.equals(vet.lastElement());
 		if(resultado)
@@ -83,7 +83,7 @@ public class ManterResSalaAlunoTest {
 		this.insert_into(r);
 		vet.add(r);
 		StudentRoomReserve r2 = new StudentRoomReserve(data, hora, sala1, finalidade, "100", aluno1);
-		MaintainClassroomReservationByStudent.getInstance().alterar(finalidade, "100", vet.lastElement());
+		MaintainClassroomReservationByStudent.getInstance().changeReserve(finalidade, "100", vet.lastElement());
 		boolean resultado = this.inDB(r2);
 		boolean resultado2 = r2.equals(vet.lastElement());
 		if(resultado)
@@ -101,7 +101,7 @@ public class ManterResSalaAlunoTest {
 		StudentRoomReserve r = new StudentRoomReserve(data, hora, sala1, finalidade, cadeiras_reservadas, aluno1);
 		this.insert_into(r);
 		vet.add(r);
-		MaintainClassroomReservationByStudent.getInstance().excluir(r);
+		MaintainClassroomReservationByStudent.getInstance().excludeRoom(r);
 		boolean resultado = this.inDB(r);
 		boolean resultado2 = true;
 		if(vet.size() > 0)
@@ -121,7 +121,7 @@ public class ManterResSalaAlunoTest {
 		this.insert_into(r);
 		this.insert_into(r2);
 		this.insert_into(r3);
-		Vector<StudentRoomReserve> vet2 = MaintainClassroomReservationByStudent.getInstance().getReservasMes("1/3/20");
+		Vector<StudentRoomReserve> vet2 = MaintainClassroomReservationByStudent.getInstance().getRoomReservesByDate("1/3/20");
 		this.delete_from(r);
 		this.delete_from(r2);
 		this.delete_from(r3);
@@ -154,7 +154,7 @@ public class ManterResSalaAlunoTest {
 		this.insert_into(r);
 		this.insert_into(r2);
 		this.insert_into(r3);
-		Vector<StudentRoomReserve> vet2 = MaintainClassroomReservationByStudent.getInstance().getReservasMes("26/02/2013");
+		Vector<StudentRoomReserve> vet2 = MaintainClassroomReservationByStudent.getInstance().getRoomReservesByDate("26/02/2013");
 		this.delete_from(r);
 		this.delete_from(r2);
 		this.delete_from(r3);

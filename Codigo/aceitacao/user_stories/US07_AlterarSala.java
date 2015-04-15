@@ -62,7 +62,7 @@ public class US07_AlterarSala {
 
     @After public void tearDown() throws SQLException, PatrimonyException {
         if (sala != null)
-            ClassRoom.getInstance().excluir(sala);
+            ClassRoom.getInstance().excludeRoom(sala);
         window.cleanUp();
     }
 
@@ -102,7 +102,7 @@ public class US07_AlterarSala {
     @Test public void testCenario2() throws SQLException, PatrimonyException {
 
         if (sala != null)
-            ClassRoom.getInstance().excluir(sala);
+            ClassRoom.getInstance().excludeRoom(sala);
         sala = null;
         dialog.button("Alterar").click();
         dialog.optionPane().requireMessage("Selecione uma linha!");

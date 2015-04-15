@@ -91,7 +91,7 @@ public class EquipamentoView extends PatrimonioView {
                     JOptionPane.YES_NO_OPTION );
 
             if ( confirm == JOptionPane.YES_OPTION ) {
-                MaintainEquipment.getInstance().excluir( MaintainEquipment.getInstance().getEquipamento_vet().get(index) );
+                MaintainEquipment.getInstance().excludeRoom( MaintainEquipment.getInstance().getEquipamento_vet().get(index) );
                 JOptionPane.showMessageDialog( this, "Equipamento excluido com sucesso", "Sucesso", JOptionPane.INFORMATION_MESSAGE,
                         null );
             }
