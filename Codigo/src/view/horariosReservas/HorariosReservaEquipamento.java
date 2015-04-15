@@ -71,7 +71,7 @@ public class HorariosReservaEquipamento extends HorariosReservaPatrimonio {
 
             this.mes = Integer.parseInt( this.data.substring( 3, 5 ) );
 
-            Vector<TeacherEquipmentReserve> v = instance.getReservasMes( mes );
+            Vector<TeacherEquipmentReserve> v = instance.getClassroomReservesByMonth( mes );
             if ( v != null )
                 for ( int i = 0; i < v.size(); i++ ) {
                     table.addRow( fillDataVector( v.get( i ), i ) );
@@ -94,11 +94,11 @@ public class HorariosReservaEquipamento extends HorariosReservaPatrimonio {
     @Override protected void cancelarReservaAction( int index ) {
         try {
             int confirm = JOptionPane.showConfirmDialog( this,
-                    "Deseja mesmo excluir Reserva?\n" + instance.getReservasMes( mes ).get( index ).toString(), "Excluir",
+                    "Deseja mesmo excluir Reserva?\n" + instance.getClassroomReservesByMonth( mes ).get( index ).toString(), "Excluir",
                     JOptionPane.YES_NO_OPTION );
 
             if ( confirm == JOptionPane.YES_OPTION ) {
-                this.instance.excluir( instance.getReservasMes( mes ).get( index ) );
+                this.instance.excludeClassroomReserve( instance.getClassroomReservesByMonth( mes ).get( index ) );
                 JOptionPane.showMessageDialog( this, "Reserva excluida com sucesso", "Sucesso", JOptionPane.INFORMATION_MESSAGE,
                         null );
             }

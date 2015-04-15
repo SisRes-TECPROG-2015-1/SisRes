@@ -36,7 +36,7 @@ public class FazerReservaEquipamentoView extends ReservaEquipamentoView {
     @Override protected void reservarProfessor() {
         try {
 
-            instanceProf.inserir( equipamento, prof, this.dataTextField.getText(), this.horaTextField.getText() );
+            instanceProf.insertNewEquipment( equipamento, prof, this.dataTextField.getText(), this.horaTextField.getText() );
 
             JOptionPane.showMessageDialog( this, "Reserva feita com sucesso", "Sucesso", JOptionPane.INFORMATION_MESSAGE, null );
 

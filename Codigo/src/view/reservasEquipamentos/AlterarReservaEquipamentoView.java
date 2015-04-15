@@ -39,7 +39,7 @@ public class AlterarReservaEquipamentoView extends ReservaEquipamentoView {
             PatrimonyException, ClienteException, ReserveException {
         super( parent, modal );
         this.index = index;
-        reserva = this.instanceProf.getReservasMes( mes ).get( index );
+        reserva = this.instanceProf.getClassroomReservesByMonth( mes ).get( index );
         resetComponents();
     }
 
@@ -49,7 +49,7 @@ public class AlterarReservaEquipamentoView extends ReservaEquipamentoView {
     @Override protected void reservarProfessor() {
         try {
 
-            instanceProf.alterar( null, reserva );
+            instanceProf.changeClassroomReserve( null, reserva );
             JOptionPane.showMessageDialog( this, "Reserva alterada com sucesso", "Sucesso", JOptionPane.INFORMATION_MESSAGE, null );
             this.setVisible( false );
         } catch ( ReserveException ex ) {
