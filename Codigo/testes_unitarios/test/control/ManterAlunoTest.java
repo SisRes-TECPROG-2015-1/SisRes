@@ -23,7 +23,7 @@ public class ManterAlunoTest {
 	
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {
-		alunos = MaintainStudent.getInstance().getAluno_vet();
+		alunos = MaintainStudent.getInstance().getStudents();
 	}
 
 	@AfterClass
@@ -49,7 +49,7 @@ public class ManterAlunoTest {
 	@Test
 	public void testInserir() throws ClienteException, SQLException {
 		Aluno aluno = new Aluno("Incluindo", "040.757.021-70", "123456", "9999-9999", "aluno@email");
-		MaintainStudent.getInstance().inserir("Incluindo", "040.757.021-70", "123456", "9999-9999", "aluno@email");
+		MaintainStudent.getInstance().insertStudents("Incluindo", "040.757.021-70", "123456", "9999-9999", "aluno@email");
 		
 		boolean resultado = this.estaNoBanco("SELECT * FROM aluno WHERE " +
 				"aluno.nome = \"" + aluno.getNome() + "\" and " +

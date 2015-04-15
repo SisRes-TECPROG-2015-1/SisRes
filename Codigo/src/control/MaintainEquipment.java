@@ -2,13 +2,13 @@ package control;
 
 import java.sql.SQLException;
 import java.util.Vector;
-import persistence.EquipamentDAO;
+import persistence.EquipamentoDAO;
 import exception.PatrimonyException;
-import model.Equipamento;
+import model.Equipment;
 
 public class MaintainEquipment {
 
-	private Vector <Equipamento> Equipamento_vet = new Vector <Equipamento>();
+	private Vector <Equipment> Equipment_vet = new Vector <Equipment>();
 	
 	//Singleton
 	private static MaintainEquipment instance;
@@ -18,7 +18,7 @@ public class MaintainEquipment {
 	
 	/**
 	 * Creates an instance of an equipment if it isn't already instantiated.
-	 * @return Equipamento - An equipment
+	 * @return Equipment - An equipment
 	 */
 	public static MaintainEquipment getInstance() {
 		if ( instance == null ) {
@@ -27,39 +27,38 @@ public class MaintainEquipment {
 		return instance;
 	}
 
-	
+
 	/**
 	 * Captures all the equipments in the database
 	 * @return Vector - All equipments
 	 */	
-	public Vector<Equipamento> getEquipments() throws SQLException, PatrimonyException {
-		this.Equipamento_vet = EquipamentDAO.getInstance().buscarTodos();
-		return this.Equipamento_vet;
+	public Vector <Equipment> getEquipments() throws SQLException, PatrimonyException {
+		this.Equipment_vet = EquipamentoDAO.getInstance().buscarTodos();
+		return this.Equipment_vet;
 	}
-
 	
 	/**
 	 * Inserts a new equipment and its attributes
 	 */
-	public void insertEquipment(String codigo, String descricao) throws PatrimonyException, SQLException {
-		Equipamento equipamento = new Equipamento(codigo, descricao);
-		EquipamentDAO.getInstance().incluir(equipamento);
-		getEquipments();
+	public void insertNewEquipment (String code, String description) throws PatrimonyException, SQLException {
+		Equipment equipment = new Equipment ( code, description );
+		EquipamentoDAO.getInstance().incluir( equipment );
+		getEquipamento_vet();
 	}
 
 	
 	/**
 	 * Changes an equipment's attributes
 	 */
-	public void changeEquipment(String codigo, String descricao, Equipamento equipamento) throws PatrimonyException, SQLException {
-		if (equipamento == null) {
+	public void changeEquipmentsAttributes(String code, String description, Equipment equipment) throws PatrimonyException, SQLException {
+		if (equipment == null) {
 			throw new PatrimonyException("Equipamento em branco");
 		}
-		Equipamento old_equipamento = new Equipamento(equipamento.getCodigo(), equipamento.getDescricao());
-		equipamento.setCodigo(codigo);
-		equipamento.setDescricao(descricao);
-		EquipamentDAO.getInstance().changeRoomReserve(old_equipamento, equipamento);
-		getEquipments();
+		Equipment old_equipment = new Equipment (equipment.getCode(), equipment.getDescription());
+		equipment.setCode(code);
+		equipment.setDescription(description);
+		EquipamentoDAO.getInstance().changeClassroomReserve(old_equipment, equipment);
+		getEquipamento_vet();
 	}
 
 	
@@ -67,11 +66,11 @@ public class MaintainEquipment {
 	 * Excludes an equipment from the database
 	 * @return void
 	 */
-	public void excludeEquipment(Equipamento equipamento) throws SQLException, PatrimonyException {
-		if (equipamento == null) {
+	public void excludeEquipment(Equipment equipment) throws SQLException, PatrimonyException {
+		if (equipment == null) {
 			throw new PatrimonyException("Equipamento em branco");
 		}
-		EquipamentDAO.getInstance().excludeRoom(equipamento);
-		getEquipments();
+		EquipamentoDAO.getInstance().excludeEquipment(equipment);
+		getEquipamento_vet();
 	}
 }

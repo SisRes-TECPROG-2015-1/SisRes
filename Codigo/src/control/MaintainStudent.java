@@ -75,7 +75,7 @@ public class MaintainStudent {
 	 * Captures all the students in database
 	 * @return Vector - students
 	 */	
-	public Vector <Student> getAluno_vet() throws SQLException, ClientException {
+	public Vector <Student> getStudents() throws SQLException, ClientException {
 		this.student_vet = StudentDAO.getInstance().captureStudents();
 		return this.student_vet;
 	}
@@ -85,12 +85,12 @@ public class MaintainStudent {
 	 * Inserts a new student in the database and its attributes
 	 * @return void
 	 */
-	public void inserir ( String nome, String cpf, String matricula,
-						String telefone, String email ) 
+	public void insertStudents ( String name, String cpf, String registration,
+						String telephone, String email ) 
 						throws ClientException, SQLException {
-		Student aluno = new Student ( nome, cpf, matricula, telefone, email );
-		StudentDAO.getInstance().includeNewStudent(aluno);
-		this.student_vet.add(aluno);
+		Student student = new Student ( name, cpf, registration, telephone, email );
+		StudentDAO.getInstance().includeNewStudent(student);
+		this.student_vet.add(student);
 	}
 
 	
@@ -98,7 +98,7 @@ public class MaintainStudent {
 	 * Changes a student attributes like name, CPF, enrollment and others
 	 * @return void
 	 */
-	public void alterar ( String nome, String cpf, String registration,
+	public void alterar ( String name, String cpf, String registration,
 						String fone, String email, Student student ) 
 						throws ClientException, SQLException {
 		Student old_student = new Student (
@@ -107,7 +107,7 @@ public class MaintainStudent {
 						student.getRegistration(),
 						student.getFone(),
 						student.getEmail());
-						student.setNome(nome);
+						student.setNome(name);
 						student.setCpf(cpf);
 						student.setRegistration(registration);
 						student.setTelefone(fone);
@@ -120,7 +120,7 @@ public class MaintainStudent {
 	 * Excludes a student from the database by its instance
 	 * @return void
 	 */
-	public void excluir ( Student student ) throws SQLException, ClientException {
+	public void excludeStudent ( Student student ) throws SQLException, ClientException {
 		StudentDAO.getInstance().deleteStudent(student);
 		this.student_vet.remove(student);
 	}
