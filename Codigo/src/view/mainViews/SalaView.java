@@ -16,7 +16,7 @@ import view.alteracoes.AlterarSala;
 import view.cadastros.CadastroPatrimonio;
 import view.cadastros.CadastroSala;
 import view.diasReservas.DiaReservaSala;
-import control.ManterSala;
+import control.MaintainRoom;
 import exception.PatrimonyException;
 
 /**
@@ -57,7 +57,7 @@ public class SalaView extends PatrimonioView {
         try {
             DefaultTableModel table = new DefaultTableModel();
 
-            Iterator<Sala> i = ManterSala.getInstance().getSalas_vet().iterator();
+            Iterator<Sala> i = MaintainRoom.getInstance().getSalas_vet().iterator();
 
             table.addColumn( "Codigo" );
             table.addColumn( "Nome" );
@@ -106,11 +106,11 @@ public class SalaView extends PatrimonioView {
         try {
             int confirm = JOptionPane
                     .showConfirmDialog( this, "Deseja mesmo excluir Sala: "
-                            + ManterSala.getInstance().getSalas_vet().get(index).getDescricao() + "?", "Excluir",
+                            + MaintainRoom.getInstance().getSalas_vet().get(index).getDescricao() + "?", "Excluir",
                             JOptionPane.YES_NO_OPTION );
 
             if ( confirm == JOptionPane.YES_OPTION ) {
-                ManterSala.getInstance().excluir( ManterSala.getInstance().getSalas_vet().get( index) );
+                MaintainRoom.getInstance().excluir( MaintainRoom.getInstance().getSalas_vet().get( index) );
                 JOptionPane.showMessageDialog(this, "Sala excluida com sucesso", "Sucesso", JOptionPane.INFORMATION_MESSAGE, null );
             }
             this.tabelaPatrimonio.setModel( fillTable() );

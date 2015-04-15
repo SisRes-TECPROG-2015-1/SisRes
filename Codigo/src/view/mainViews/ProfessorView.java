@@ -12,7 +12,7 @@ import javax.swing.JOptionPane;
 import view.alteracoes.AlterarProfessor;
 import view.cadastros.CadastroCliente;
 import view.cadastros.CadastroProfessor;
-import control.ManterProfessor;
+import control.MaintainTeacher;
 import exception.ClienteException;
 
 /**
@@ -31,7 +31,7 @@ public class ProfessorView extends ClienteView {
      */
     public Iterator getIterator() {
         try {
-            return ManterProfessor.getInstance().getProfessores_vet().iterator();
+            return MaintainTeacher.getInstance().getProfessores_vet().iterator();
 
         } catch ( ClienteException ex ) {
             JOptionPane.showMessageDialog( this, ex.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE, null );
@@ -76,10 +76,10 @@ public class ProfessorView extends ClienteView {
             }
 
             int confirm = JOptionPane.showConfirmDialog( this, "Deseja mesmo excluir Professor: "
-                    + ManterProfessor.getInstance().getProfessores_vet().get(index).getNome() + "?", "Excluir",
+                    + MaintainTeacher.getInstance().getProfessores_vet().get(index).getNome() + "?", "Excluir",
                     JOptionPane.YES_NO_OPTION );
             if ( confirm == JOptionPane.YES_OPTION ) {
-                ManterProfessor.getInstance().excluir( ManterProfessor.getInstance().getProfessores_vet().get(index) );
+                MaintainTeacher.getInstance().excluir( MaintainTeacher.getInstance().getProfessores_vet().get(index) );
                 JOptionPane.showMessageDialog( this, "Professor excluido com sucesso", "Sucesso", JOptionPane.INFORMATION_MESSAGE,
                         null );
             }

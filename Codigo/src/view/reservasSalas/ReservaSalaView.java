@@ -13,9 +13,9 @@ import model.Aluno;
 import model.Professor;
 import model.Sala;
 import control.MaintainStudent;
-import control.ManterProfessor;
-import control.ManterResSalaAluno;
-import control.ManterResSalaProfessor;
+import control.MaintainTeacher;
+import control.MaintainClassroomReservationByStudent;
+import control.MaintainClassroomReservationByTeacher;
 import exception.ClienteException;
 import exception.PatrimonyException;
 import exception.ReserveException;
@@ -29,8 +29,8 @@ public abstract class ReservaSalaView extends javax.swing.JDialog {
     protected final int ALUNO = 1;
     protected final int PROF = 2;
     protected final int ERRO = -1;
-    protected ManterResSalaAluno instanceAluno;
-    protected ManterResSalaProfessor instanceProf;
+    protected MaintainClassroomReservationByStudent instanceAluno;
+    protected MaintainClassroomReservationByTeacher instanceProf;
     protected Sala sala;
     protected Aluno aluno;
     protected Professor prof;
@@ -38,8 +38,8 @@ public abstract class ReservaSalaView extends javax.swing.JDialog {
     public ReservaSalaView( java.awt.Frame parent, boolean modal ) throws SQLException, PatrimonyException, PatrimonyException,
             ClienteException, ReserveException {
         super( parent, modal );
-        this.instanceProf = ManterResSalaProfessor.getInstance();
-        this.instanceAluno = ManterResSalaAluno.getInstance();
+        this.instanceProf = MaintainClassroomReservationByTeacher.getInstance();
+        this.instanceAluno = MaintainClassroomReservationByStudent.getInstance();
         initComponents();
         this.bucarCpfButton.setName( "BuscarCpfButton" );
 
@@ -79,7 +79,7 @@ public abstract class ReservaSalaView extends javax.swing.JDialog {
 
     protected void getProfessor() {
         try {
-            Vector<Professor> professor = ManterProfessor.getInstance().buscarCpf( this.cpfTextField.getText() );
+            Vector<Professor> professor = MaintainTeacher.getInstance().buscarCpf( this.cpfTextField.getText() );
             if ( professor.isEmpty() ) {
                 JOptionPane.showMessageDialog( this, "Professor nao Cadastrado."
                         + " Digite o CPF correto ou cadastre o professor desejado", "Erro", JOptionPane.ERROR_MESSAGE, null );

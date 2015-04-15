@@ -21,8 +21,8 @@ import view.reservasSalas.AlterarReservaAlunoSalaView;
 import view.reservasSalas.AlterarReservaProfSalaView;
 import view.reservasSalas.FazerReservaSalaView;
 import view.reservasSalas.ReservaSalaView;
-import control.ManterResSalaAluno;
-import control.ManterResSalaProfessor;
+import control.MaintainClassroomReservationByStudent;
+import control.MaintainClassroomReservationByTeacher;
 import exception.ClienteException;
 import exception.PatrimonyException;
 import exception.ReserveException;
@@ -33,8 +33,8 @@ import exception.ReserveException;
  */
 public class HorariosReservaSala extends HorariosReservaPatrimonio {
 
-    ManterResSalaAluno instanceAluno;
-    ManterResSalaProfessor instanceProf;
+    MaintainClassroomReservationByStudent instanceAluno;
+    MaintainClassroomReservationByTeacher instanceProf;
     Sala sala;
 
     public HorariosReservaSala( java.awt.Frame parent, boolean modal, String data, Sala sala ) {
@@ -85,8 +85,8 @@ public class HorariosReservaSala extends HorariosReservaPatrimonio {
     @Override protected DefaultTableModel fillTable( Patrimonio sala ) {
         this.sala = ( Sala ) sala;
         DefaultTableModel table = new DefaultTableModel();
-        instanceAluno = ManterResSalaAluno.getInstance();
-        instanceProf = ManterResSalaProfessor.getInstance();
+        instanceAluno = MaintainClassroomReservationByStudent.getInstance();
+        instanceProf = MaintainClassroomReservationByTeacher.getInstance();
         table.addColumn( "" );
         table.addColumn( "Tipo:" );
         table.addColumn( "Hora:" );

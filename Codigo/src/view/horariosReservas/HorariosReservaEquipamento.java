@@ -18,7 +18,7 @@ import model.Patrimonio;
 import model.TeacherEquipmentReserve;
 import view.reservasEquipamentos.FazerReservaEquipamentoView;
 import view.reservasEquipamentos.ReservaEquipamentoView;
-import control.ManterResEquipamentoProfessor;
+import control.MaintainEquipmentReservationByTeacher;
 import exception.ClienteException;
 import exception.PatrimonyException;
 import exception.ReserveException;
@@ -30,7 +30,7 @@ import exception.ReserveException;
 public class HorariosReservaEquipamento extends HorariosReservaPatrimonio {
 
     Equipamento eq;
-    ManterResEquipamentoProfessor instance;
+    MaintainEquipmentReservationByTeacher instance;
 
     public HorariosReservaEquipamento (java.awt.Frame parent, boolean modal, String data, Equipamento eq ) {
         super( parent, modal, data, eq );
@@ -60,7 +60,7 @@ public class HorariosReservaEquipamento extends HorariosReservaPatrimonio {
     @Override protected DefaultTableModel fillTable( Patrimonio equip ) {
         this.eq = ( Equipamento ) equip;
         DefaultTableModel table = new DefaultTableModel();
-        instance = ManterResEquipamentoProfessor.getInstance();
+        instance = MaintainEquipmentReservationByTeacher.getInstance();
         try {
             table.addColumn( "" );
             table.addColumn( "Hora:" );

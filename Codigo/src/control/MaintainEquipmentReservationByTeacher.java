@@ -11,14 +11,14 @@ import exception.ClienteException;
 import exception.PatrimonyException;
 import exception.ReserveException;
 
-public class ManterResEquipamentoProfessor {
+public class MaintainEquipmentReservationByTeacher {
 	
     private Vector < Object > rev_equipamento_professor_vet = new Vector < Object >();
 
     // Singleton
-    private static ManterResEquipamentoProfessor instance;
+    private static MaintainEquipmentReservationByTeacher instance;
 
-    private ManterResEquipamentoProfessor() {
+    private MaintainEquipmentReservationByTeacher() {
     }
 
     
@@ -26,9 +26,9 @@ public class ManterResEquipamentoProfessor {
 	 * Creates an instance of an equipment reserve for a teacher if it isn't already instantiated.
 	 * @return - ManterResEquipamentoProfessor - Equipment reserve
 	 */
-    public static ManterResEquipamentoProfessor getInstance() {
+    public static MaintainEquipmentReservationByTeacher getInstance() {
         if ( instance == null )
-            instance = new ManterResEquipamentoProfessor();
+            instance = new MaintainEquipmentReservationByTeacher();
         return instance;
     }
 

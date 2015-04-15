@@ -1,6 +1,6 @@
 package test.control;
 
-import control.ManterEquipamento;
+import control.MaintainEquipment;
 import exception.PatrimonyException;
 
 import java.sql.SQLException;
@@ -18,7 +18,7 @@ import org.junit.Test;
 
 public class ManterEquipamentoTest {
 
-	static ManterEquipamento instance;
+	static MaintainEquipment instance;
 	Vector<Equipamento> todos;
 	Equipamento e;
  
@@ -27,7 +27,7 @@ public class ManterEquipamentoTest {
 
 	@BeforeClass
 	public static void setUpClass() throws PatrimonyException {
-		instance = ManterEquipamento.getInstance();
+		instance = MaintainEquipment.getInstance();
 	}
 
 	@AfterClass
@@ -65,7 +65,7 @@ public class ManterEquipamentoTest {
 	
 	@Test
 	public void testSingleton(){
-		ManterEquipamento me = ManterEquipamento.getInstance();
+		MaintainEquipment me = MaintainEquipment.getInstance();
 		assertSame("Instancias diferentes", me, instance);
 		
 	}

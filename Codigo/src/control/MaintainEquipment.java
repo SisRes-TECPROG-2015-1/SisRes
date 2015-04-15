@@ -6,13 +6,13 @@ import persistence.EquipamentDAO;
 import exception.PatrimonyException;
 import model.Equipamento;
 
-public class ManterEquipamento {
+public class MaintainEquipment {
 
 	private Vector <Equipamento> Equipamento_vet = new Vector <Equipamento>();
 	
 	//Singleton
-	private static ManterEquipamento instance;
-	private ManterEquipamento() {
+	private static MaintainEquipment instance;
+	private MaintainEquipment() {
 		
 	}
 	
@@ -20,9 +20,9 @@ public class ManterEquipamento {
 	 * Creates an instance of an equipment if it isn't already instantiated.
 	 * @return Equipamento - An equipment
 	 */
-	public static ManterEquipamento getInstance() {
+	public static MaintainEquipment getInstance() {
 		if ( instance == null ) {
-			instance = new ManterEquipamento();
+			instance = new MaintainEquipment();
 		}
 		return instance;
 	}

@@ -11,7 +11,7 @@ import model.Equipamento;
 import view.alteracoes.AlterarEquipamento;
 import view.cadastros.CadastroEquipamento;
 import view.diasReservas.DiaReservaEquipamento;
-import control.ManterEquipamento;
+import control.MaintainEquipment;
 import exception.PatrimonyException;
 
 /**
@@ -46,7 +46,7 @@ public class EquipamentoView extends PatrimonioView {
         try {
             DefaultTableModel table = new DefaultTableModel();
 
-            Iterator<Equipamento> i = control.ManterEquipamento.getInstance().getEquipamento_vet().iterator();
+            Iterator<Equipamento> i = control.MaintainEquipment.getInstance().getEquipamento_vet().iterator();
 
             table.addColumn( "Codigo" );
             table.addColumn( "Descricao" );
@@ -87,11 +87,11 @@ public class EquipamentoView extends PatrimonioView {
 
         try {
             int confirm = JOptionPane.showConfirmDialog( this, "Deseja mesmo excluir Equipamento: "
-                    + ManterEquipamento.getInstance().getEquipamento_vet().get(index).getDescricao() + "?", "Excluir",
+                    + MaintainEquipment.getInstance().getEquipamento_vet().get(index).getDescricao() + "?", "Excluir",
                     JOptionPane.YES_NO_OPTION );
 
             if ( confirm == JOptionPane.YES_OPTION ) {
-                ManterEquipamento.getInstance().excluir( ManterEquipamento.getInstance().getEquipamento_vet().get(index) );
+                MaintainEquipment.getInstance().excluir( MaintainEquipment.getInstance().getEquipamento_vet().get(index) );
                 JOptionPane.showMessageDialog( this, "Equipamento excluido com sucesso", "Sucesso", JOptionPane.INFORMATION_MESSAGE,
                         null );
             }

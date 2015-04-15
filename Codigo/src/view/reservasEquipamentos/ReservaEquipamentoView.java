@@ -10,21 +10,21 @@ import java.util.Vector;
 import javax.swing.JOptionPane;
 
 import model.Professor;
-import control.ManterProfessor;
-import control.ManterResEquipamentoProfessor;
+import control.MaintainTeacher;
+import control.MaintainEquipmentReservationByTeacher;
 import exception.ClienteException;
 import exception.PatrimonyException;
 import exception.ReserveException;
 
 public abstract class ReservaEquipamentoView extends javax.swing.JDialog {
 
-    protected ManterResEquipamentoProfessor instanceProf;
+    protected MaintainEquipmentReservationByTeacher instanceProf;
     protected Professor prof;
 
     public ReservaEquipamentoView( java.awt.Frame parent, boolean modal ) throws SQLException, PatrimonyException,
             PatrimonyException, ClienteException, ReserveException {
         super( parent, modal );
-        this.instanceProf = ManterResEquipamentoProfessor.getInstance();
+        this.instanceProf = MaintainEquipmentReservationByTeacher.getInstance();
 
         initComponents();
     }
@@ -36,7 +36,7 @@ public abstract class ReservaEquipamentoView extends javax.swing.JDialog {
      */
     protected void getProfessor() {
         try {
-            Vector<Professor> professor = ManterProfessor.getInstance().buscarCpf( this.cpfTextField.getText() );
+            Vector<Professor> professor = MaintainTeacher.getInstance().buscarCpf( this.cpfTextField.getText() );
             if ( professor.isEmpty() ) {
                 JOptionPane.showMessageDialog( this, "Professor nao Cadastrado."
                         + " Digite o CPF correto ou cadastre o professor desejado", "Erro", JOptionPane.ERROR_MESSAGE, null );

@@ -20,7 +20,7 @@ import org.junit.Test;
 import persistence.FactoryConnection;
 import persistence.TeacherDAO;
 import persistence.ClassRoom;
-import control.ManterResSalaProfessor;
+import control.MaintainClassroomReservationByTeacher;
 import exception.ClienteException;
 import exception.PatrimonyException;
 import exception.ReserveException;
@@ -32,7 +32,7 @@ public class ManterResSalaProfessorTest {
 
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {
-		vet = ManterResSalaProfessor.getInstance().getResProfessorSala_vet();
+		vet = MaintainClassroomReservationByTeacher.getInstance().getResProfessorSala_vet();
 		sala1 = new Sala("123", "Sala de Aula", "120");
 		professor1 = new Professor("testInstance", "040.757.021-70", "0058801", "3333-3333", "nome@email");
 		
@@ -48,11 +48,11 @@ public class ManterResSalaProfessorTest {
 
 	@Test
 	public void testInstance() {
-		assertTrue("Teste de Instancia.", ManterResSalaProfessor.getInstance() instanceof ManterResSalaProfessor);
+		assertTrue("Teste de Instancia.", MaintainClassroomReservationByTeacher.getInstance() instanceof MaintainClassroomReservationByTeacher);
 	}
 	@Test
 	public void testSingleton() {
-		assertSame("Teste de Instancia.", ManterResSalaProfessor.getInstance(), ManterResSalaProfessor.getInstance());
+		assertSame("Teste de Instancia.", MaintainClassroomReservationByTeacher.getInstance(), MaintainClassroomReservationByTeacher.getInstance());
 	}
 	
 	
@@ -62,7 +62,7 @@ public class ManterResSalaProfessorTest {
 		String data = "20/12/33";
 		String hora = "9:11";
 		TeacherRoomReserve reserva = new TeacherRoomReserve(data, hora, sala1, finalidade, professor1);
-		ManterResSalaProfessor.getInstance().inserir(sala1, professor1, data, hora, finalidade);
+		MaintainClassroomReservationByTeacher.getInstance().inserir(sala1, professor1, data, hora, finalidade);
 		boolean resultado = this.inDB(reserva);
 		boolean resultado2 = reserva.equals(vet.lastElement());
 		if(resultado)
@@ -76,7 +76,7 @@ public class ManterResSalaProfessorTest {
 		this.insert_into(reserva);
 		vet.add(reserva);
 		TeacherRoomReserve reserva2 = new TeacherRoomReserve("20/12/33", "9:11", sala1, "Reuniao", professor1);
-		ManterResSalaProfessor.getInstance().alterar("Reuniao", vet.lastElement());
+		MaintainClassroomReservationByTeacher.getInstance().alterar("Reuniao", vet.lastElement());
 		boolean resultado = this.inDB(reserva2);
 		boolean resultado2 = reserva2.equals(vet.lastElement());
 		if(resultado)
@@ -93,7 +93,7 @@ public class ManterResSalaProfessorTest {
 		TeacherRoomReserve reserva = new TeacherRoomReserve(data, hora, sala1, finalidade, professor1);
 		this.insert_into(reserva);
 		vet.add(reserva);
-		ManterResSalaProfessor.getInstance().excluir(reserva);
+		MaintainClassroomReservationByTeacher.getInstance().excluir(reserva);
 		boolean resultado = this.inDB(reserva);
 		vet.remove(reserva);
 

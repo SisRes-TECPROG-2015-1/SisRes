@@ -11,13 +11,13 @@ import exception.ClienteException;
 import exception.PatrimonyException;
 import exception.ReserveException;
 
-public class ManterResSalaAluno {
+public class MaintainClassroomReservationByStudent {
 
 	private Vector<StudentRoomReserve> rev_sala_aluno_vet = new Vector<StudentRoomReserve>();
 	//Singleton
-	private static ManterResSalaAluno instance;
+	private static MaintainClassroomReservationByStudent instance;
 
-	private ManterResSalaAluno() {
+	private MaintainClassroomReservationByStudent() {
 	}
 
 	
@@ -25,9 +25,9 @@ public class ManterResSalaAluno {
 	 * Creates an instance of a classroom reserve for a student if it isn't already instantiated.
 	 * @return - ManterResSalaAluno - Classroom reserve for a student
 	 */
-	public static ManterResSalaAluno getInstance() {
+	public static MaintainClassroomReservationByStudent getInstance() {
 		if ( instance == null ) {
-			instance = new ManterResSalaAluno();
+			instance = new MaintainClassroomReservationByStudent();
 	}
 		return instance;
 	}

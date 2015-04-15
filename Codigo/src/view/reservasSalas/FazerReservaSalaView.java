@@ -12,8 +12,8 @@ import java.sql.SQLException;
 import javax.swing.JOptionPane;
 
 import model.Sala;
-import control.ManterResSalaAluno;
-import control.ManterResSalaProfessor;
+import control.MaintainClassroomReservationByStudent;
+import control.MaintainClassroomReservationByTeacher;
 import exception.ClienteException;
 import exception.PatrimonyException;
 import exception.ReserveException;
@@ -85,14 +85,14 @@ public class FazerReservaSalaView extends ReservaSalaView {
         this.qntCadeirasReservadasTextField.setEditable( false );
         this.qntCadeirasReservadasTextField.setBackground( new Color( 200, 208, 254 ) );
         this.qntCadeirasReservadasTextField.setText( this.qntCadeirasTxtField.getText() );
-        this.instanceProf = ManterResSalaProfessor.getInstance();
+        this.instanceProf = MaintainClassroomReservationByTeacher.getInstance();
         this.instanceAluno = null;
         this.verificarCadeiraButton.setEnabled( false );
         
     }
 
     @Override protected void alunoRadioButtonAction() {
-        this.instanceAluno = ManterResSalaAluno.getInstance();
+        this.instanceAluno = MaintainClassroomReservationByStudent.getInstance();
         this.alunoLabel.setText( this.alunoRadioButton.getText() + ": " );
         this.alunoTextArea.setText( "" );
         this.cpfTextField.setText( "" );

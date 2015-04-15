@@ -9,7 +9,7 @@ import java.sql.SQLException;
 import javax.swing.JOptionPane;
 
 import view.cadastros.CadastroCliente;
-import control.ManterProfessor;
+import control.MaintainTeacher;
 import exception.ClienteException;
 
 /**
@@ -28,11 +28,11 @@ public class AlterarProfessor extends CadastroCliente {
         this.index2 = index;
 
         try {
-            this.nomeTxtField.setText(ManterProfessor.getInstance().getProfessores_vet().get(index).getNome());
-            this.emailTxtField.setText(ManterProfessor.getInstance().getProfessores_vet().get(index).getEmail());
-            this.telefoneTxtField.setText(ManterProfessor.getInstance().getProfessores_vet().get(index).getTelefone());
-            this.matriculaTxtField.setText(ManterProfessor.getInstance().getProfessores_vet().get(index).getMatricula());
-            this.cpfTxtField.setText(ManterProfessor.getInstance().getProfessores_vet().get(index).getCpf());
+            this.nomeTxtField.setText(MaintainTeacher.getInstance().getProfessores_vet().get(index).getNome());
+            this.emailTxtField.setText(MaintainTeacher.getInstance().getProfessores_vet().get(index).getEmail());
+            this.telefoneTxtField.setText(MaintainTeacher.getInstance().getProfessores_vet().get(index).getTelefone());
+            this.matriculaTxtField.setText(MaintainTeacher.getInstance().getProfessores_vet().get(index).getMatricula());
+            this.cpfTxtField.setText(MaintainTeacher.getInstance().getProfessores_vet().get(index).getCpf());
 
         } catch (ClienteException ex) {
             JOptionPane.showMessageDialog(this, ex.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE, null);
@@ -44,9 +44,9 @@ public class AlterarProfessor extends CadastroCliente {
     // This method is the action to the cadastre button
     @Override public void cadastroAction() {
         try {
-            ManterProfessor.getInstance().alterar(nomeTxtField.getText(), cpfTxtField.getText(), matriculaTxtField.getText(),
+            MaintainTeacher.getInstance().alterar(nomeTxtField.getText(), cpfTxtField.getText(), matriculaTxtField.getText(),
                     telefoneTxtField.getText(), emailTxtField.getText(),
-                    ManterProfessor.getInstance().getProfessores_vet().get(index2));
+                    MaintainTeacher.getInstance().getProfessores_vet().get(index2));
 
             JOptionPane.showMessageDialog(this, "Cadastro alterado com sucesso", "Sucesso", JOptionPane.INFORMATION_MESSAGE, null);
             this.setVisible(false);

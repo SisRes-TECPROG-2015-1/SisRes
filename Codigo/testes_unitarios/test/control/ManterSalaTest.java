@@ -7,7 +7,7 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 import persistence.FactoryConnection;
-import control.ManterSala;
+import control.MaintainRoom;
 import model.Sala;
 import exception.PatrimonyException;
 
@@ -31,13 +31,13 @@ public class ManterSalaTest {
 	
 	@Test
 	public void testGetInstance() {
-		assertTrue("Verifica metodo getInstance().", ManterSala.getInstance() instanceof ManterSala);
+		assertTrue("Verifica metodo getInstance().", MaintainRoom.getInstance() instanceof MaintainRoom);
 	}
 	
 	@Test
 	public void testSingleton() {
-		ManterSala p = ManterSala.getInstance();
-		ManterSala q = ManterSala.getInstance();
+		MaintainRoom p = MaintainRoom.getInstance();
+		MaintainRoom q = MaintainRoom.getInstance();
 		assertSame("Testando o Padrao Singleton", p, q);
 	}
 
@@ -45,7 +45,7 @@ public class ManterSalaTest {
 	@Test
 	public void testInserir() throws PatrimonyException, SQLException {
 		Sala sala_new = new Sala("codigo", "descricao", "2");
-		ManterSala.getInstance().inserir("codigo", "descricao", "2");
+		MaintainRoom.getInstance().inserir("codigo", "descricao", "2");
 		assertNotNull("Falha ao inserir", this.procurarNoVetor(sala_new));
 		this.executaNoBanco("DELETE FROM sala WHERE " +
 				"sala.codigo = \"" + sala_new.getCodigo() + "\" and " +
@@ -65,7 +65,7 @@ public class ManterSalaTest {
 				"\"" + sala.getDescricao() + "\", " +
 				"" + sala.getCapacidade() + "); "
 				);
-		ManterSala.getInstance().alterar("codigo", "descricao", "2", sala);
+		MaintainRoom.getInstance().alterar("codigo", "descricao", "2", sala);
 		
 		assertNotNull("Falha ao alterar", this.procurarNoVetor(sala_new));
 		
@@ -87,13 +87,13 @@ public class ManterSalaTest {
 				"" + sala.getCapacidade() + "); "
 				);
 		
-		ManterSala.getInstance().excluir(sala);
+		MaintainRoom.getInstance().excluir(sala);
 		
 		assertNull("Falha ao excluir", this.procurarNoVetor(sala));
 	}
 
 	public Sala procurarNoVetor(Sala teste) throws PatrimonyException, SQLException {
-		Vector<Sala> todos = ManterSala.getInstance().getSalas_vet();
+		Vector<Sala> todos = MaintainRoom.getInstance().getSalas_vet();
 		Iterator<Sala> i = todos.iterator();
 		while(i.hasNext()){
 			Sala e = i.next();

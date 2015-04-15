@@ -7,24 +7,24 @@ import persistence.TeacherDAO;
 import exception.ClienteException;
 import model.Professor;
 
-public class ManterProfessor {
+public class MaintainTeacher {
 	
 	private Vector < Professor > professores_vet = new Vector < Professor > ();
 	
 	//Singleton
-	private static ManterProfessor instance;
+	private static MaintainTeacher instance;
 	
 	
-	private ManterProfessor() {
+	private MaintainTeacher() {
 	}
 	
 	/**
 	 * Creates an instance of an teacher if it isn't already instantiated.
 	 * @return Professor - A teacher
 	 */
-	public static ManterProfessor getInstance() {
+	public static MaintainTeacher getInstance() {
 		if ( instance == null )
-			instance = new ManterProfessor();
+			instance = new MaintainTeacher();
 		return instance;
 	}
 	

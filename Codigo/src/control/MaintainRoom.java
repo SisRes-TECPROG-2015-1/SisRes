@@ -7,14 +7,14 @@ import persistence.ClassRoom;
 import exception.PatrimonyException;
 import model.Sala;
 
-public class ManterSala {
+public class MaintainRoom {
 
 	private Vector < Sala > salas_vet = new Vector < Sala >();
 	
 	//Singleton
-	private static ManterSala instance;
+	private static MaintainRoom instance;
 	
-	private ManterSala() {
+	private MaintainRoom() {
 	}
 	
 	
@@ -22,9 +22,9 @@ public class ManterSala {
 	 * Creates an instance of a classroom if it isn't already instantiated.
 	 * @return ManterSala - A classroom
 	 */	
-	public static ManterSala getInstance() {
+	public static MaintainRoom getInstance() {
 		if ( instance == null )
-			instance = new ManterSala();
+			instance = new MaintainRoom();
 		return instance;
 	}
 	
