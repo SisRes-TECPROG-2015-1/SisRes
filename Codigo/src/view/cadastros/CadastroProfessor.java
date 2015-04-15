@@ -28,7 +28,7 @@ public class CadastroProfessor extends CadastroCliente {
         try {
             if (cadastroBtn.getText().equals("Cadastrar")) {
                 // TODO add your handling code here:
-                MaintainTeacher.getInstance().inserir(nomeTxtField.getText(), cpfTxtField.getText(), matriculaTxtField.getText(),
+                MaintainTeacher.getInstance().insertNewTeacher(nomeTxtField.getText(), cpfTxtField.getText(), matriculaTxtField.getText(),
                         telefoneTxtField.getText(), emailTxtField.getText());
 
                 JOptionPane.showMessageDialog(this, "Professor Cadastrado com sucesso", "Sucesso", JOptionPane.INFORMATION_MESSAGE,

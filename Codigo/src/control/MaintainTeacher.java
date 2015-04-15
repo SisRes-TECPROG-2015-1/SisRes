@@ -4,12 +4,12 @@ import java.sql.SQLException;
 import java.util.Vector;
 
 import persistence.TeacherDAO;
-import exception.ClienteException;
+import exception.ClientException;
 import model.Teacher;
 
 public class MaintainTeacher {
 	
-	private Vector < Teacher > professores_vet = new Vector < Teacher > ();
+	private Vector < Teacher > teacher_vet = new Vector < Teacher > ();
 	
 	//Singleton
 	private static MaintainTeacher instance;
@@ -20,7 +20,7 @@ public class MaintainTeacher {
 	
 	/**
 	 * Creates an instance of an teacher if it isn't already instantiated.
-	 * @return Professor - A teacher
+	 * @return Vector - A teacher
 	 */
 	public static MaintainTeacher getInstance() {
 		if ( instance == null )
@@ -31,46 +31,46 @@ public class MaintainTeacher {
 	
 	/**
 	 * Searches for a teacher by its name
-	 * @return Professor - A teacher
+	 * @return Vector - A teacher
 	 */
-	public Vector < Teacher > buscarNome ( String valor ) throws SQLException, ClienteException {
-		return TeacherDAO.getInstance().searchByName( valor );
+	public Vector < Teacher > getTeachersByName ( String teacherName ) throws SQLException, ClientException {
+		return TeacherDAO.getInstance().searchByName( teacherName );
 	}
 	
 	
 	/**
 	 * Searches for a teacher by its CPF
-	 * @return Professor - A teacher
+	 * @return Vector - A teacher
 	 */
-	public Vector < Teacher > buscarCpf( String valor ) throws SQLException, ClienteException {
-		return TeacherDAO.getInstance().searchByCpf( valor );
+	public Vector < Teacher > getTeachersByCpf( String teacherCpf ) throws SQLException, ClientException {
+		return TeacherDAO.getInstance().searchByCpf( teacherCpf );
 	}
 	
 	
 	/**
-	 * Searches for a teacher by its enrollment
-	 * @return Professor - A teacher
+	 * Searches for a teacher by its registration
+	 * @return Vector - A teacher
 	 */
-	public Vector < Teacher > buscarMatricula( String valor ) throws SQLException, ClienteException {
-		return TeacherDAO.getInstance().searchByRegistration( valor );
+	public Vector < Teacher > getTeachersByRegistration( String teacherRegistration ) throws SQLException, ClientException {
+		return TeacherDAO.getInstance().searchByRegistration( teacherRegistration );
 	}
 	
 	
 	/**
 	 * Searches for a teacher by its e-mail
-	 * @return Professor - A teacher
+	 * @return Vector - A teacher
 	 */
-	public Vector < Teacher > buscarEmail( String valor ) throws SQLException, ClienteException {
-		return TeacherDAO.getInstance().searchByEmail( valor );
+	public Vector < Teacher > getTeachersByEmail( String teacherEmail ) throws SQLException, ClientException {
+		return TeacherDAO.getInstance().searchByEmail( teacherEmail );
 	}
 	
 	
 	/**
 	 * Searches for a teacher by its telephone number
-	 * @return Professor - A teacher
+	 * @return Vector - A teacher
 	 */
-	public Vector < Teacher > buscarTelefone( String valor) throws SQLException, ClienteException {
-		return TeacherDAO.getInstance().searchByPhoneNumber( valor );
+	public Vector < Teacher > getTeachersByTelephone( String teacherTelephone) throws SQLException, ClientException {
+		return TeacherDAO.getInstance().searchByPhoneNumber( teacherTelephone );
 	}	
 	
 	
@@ -78,9 +78,9 @@ public class MaintainTeacher {
 	 * Captures all the teachers in database
 	 * @return Vector - Teachers
 	 */		
-	public Vector < Teacher > getProfessores_vet() throws SQLException, ClienteException{
-		this.professores_vet = TeacherDAO.getInstance().searchForAllTeachers();
-		return this.professores_vet;
+	public Vector < Teacher > getTeachers() throws SQLException, ClientException{
+		this.teacher_vet = TeacherDAO.getInstance().searchForAllTeachers();
+		return this.teacher_vet;
 	}
 	
 	
@@ -88,11 +88,11 @@ public class MaintainTeacher {
 	 * Inserts a new teacher in the database and its attributes
 	 * @return void
 	 */
-	public void inserir( String nome, String cpf, String matricula,
-			String telefone, String email) throws ClienteException, SQLException {
-		Teacher prof = new Teacher(nome, cpf, matricula, telefone, email );
+	public void insertNewTeacher( String name, String cpf, String registration,
+			String telephone, String email) throws ClientException, SQLException {
+		Teacher prof = new Teacher(name, cpf, registration, telephone, email );
 		TeacherDAO.getInstance().includeNewTeacher( prof );
-		this.professores_vet.add( prof );
+		this.teacher_vet.add( prof );
 	}
 
 	
@@ -100,20 +100,20 @@ public class MaintainTeacher {
 	 * Changes a teacher attributes like name, CPF, enrollment and others
 	 * @return void
 	 */
-	public void alterar( String nome, String cpf, String matricula,
-			String telefone, String email, Teacher prof ) throws ClienteException, SQLException {
-		Teacher prof_velho = new Teacher(
-								prof.getNome(),
-								prof.getCpf(),
-								prof.getMatricula(),
-								prof.getTelefone(),
-								prof.getEmail());
-		prof.setNome( nome );
-		prof.setCpf( cpf );
-		prof.setMatricula( matricula );
-		prof.setTelefone( telefone );
-		prof.setEmail( email );
-		TeacherDAO.getInstance().modifyATeacher( prof_velho, prof );
+	public void changeTeacher( String name, String cpf, String registration,
+			String telephone, String email, Teacher teacher ) throws ClientException, SQLException {
+		Teacher old_teacher = new Teacher(
+								teacher.getName(),
+								teacher.getCpf(),
+								teacher.getRegistration(),
+								teacher.getFone(),
+								teacher.getEmail());
+		teacher.setNome( name );
+		teacher.setCpf( cpf );
+		teacher.setMatricula( registration );
+		teacher.setTelefone( telephone );
+		teacher.setEmail( email );
+		TeacherDAO.getInstance().modifyATeacher( old_teacher, teacher );
 	}
 
 	
@@ -121,9 +121,9 @@ public class MaintainTeacher {
 	 * Excludes a teacher from the database by its instance
 	 * @return void
 	 */
-	public void excluir( Teacher professor ) throws SQLException, ClienteException {
-		TeacherDAO.getInstance().excludeATeacher( professor );
-		this.professores_vet.remove( professor );
+	public void excludeTeacher( Teacher teacher ) throws SQLException, ClientException {
+		TeacherDAO.getInstance().excludeATeacher( teacher );
+		this.teacher_vet.remove( teacher );
 	}
 
 }

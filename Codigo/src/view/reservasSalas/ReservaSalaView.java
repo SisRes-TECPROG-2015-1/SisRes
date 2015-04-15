@@ -79,7 +79,7 @@ public abstract class ReservaSalaView extends javax.swing.JDialog {
 
     protected void getProfessor() {
         try {
-            Vector<Teacher> professor = MaintainTeacher.getInstance().buscarCpf( this.cpfTextField.getText() );
+            Vector<Teacher> professor = MaintainTeacher.getInstance().getTeachersByCpf( this.cpfTextField.getText() );
             if ( professor.isEmpty() ) {
                 JOptionPane.showMessageDialog( this, "Professor nao Cadastrado."
                         + " Digite o CPF correto ou cadastre o professor desejado", "Erro", JOptionPane.ERROR_MESSAGE, null );

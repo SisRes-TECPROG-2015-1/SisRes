@@ -26,7 +26,7 @@ public class ManterProfessorTest {
 	
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {
-		vet = MaintainTeacher.getInstance().getProfessores_vet();
+		vet = MaintainTeacher.getInstance().getTeachers();
 	}
 
 	@AfterClass
@@ -52,7 +52,7 @@ public class ManterProfessorTest {
 	@Test
 	public void testInserirVet() throws ClienteException, SQLException {
 		Teacher prof = new Teacher("Nome para Incluir", "868.563.327-34", "123456", "1234-5678", "Nome@email");
-		MaintainTeacher.getInstance().inserir("Nome para Incluir", "868.563.327-34", "123456", "1234-5678", "Nome@email");
+		MaintainTeacher.getInstance().insertNewTeacher("Nome para Incluir", "868.563.327-34", "123456", "1234-5678", "Nome@email");
 		
 		boolean resultado = this.estaNoBanco("SELECT * FROM professor WHERE " +
 				"professor.nome = \"" + prof.getNome() + "\" and " +
@@ -89,7 +89,7 @@ public class ManterProfessorTest {
 				"\"" + prof.getEmail() + "\", " +
 				"\"" + prof.getMatricula() + "\"); ");
 		
-		MaintainTeacher.getInstance().alterar("Nome para Alterar", "868.563.327-34", "123456", 
+		MaintainTeacher.getInstance().changeTeacher("Nome para Alterar", "868.563.327-34", "123456", 
 				"1234-5678", "Nome@email", prof);
 		
 		boolean resultado =  this.estaNoBanco("SELECT * FROM professor WHERE " +
@@ -121,7 +121,7 @@ public class ManterProfessorTest {
 				"\"" + prof.getEmail() + "\", " +
 				"\"" + prof.getMatricula() + "\");");
 		
-		MaintainTeacher.getInstance().excluir(prof);
+		MaintainTeacher.getInstance().excludeTeacher(prof);
 		
 		boolean resultado =  this.estaNoBanco("SELECT * FROM professor WHERE " +
 				"professor.nome = \"" + prof.getNome() + "\" and " +

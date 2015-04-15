@@ -87,7 +87,7 @@ public class ManterAlunoTest {
 				"\"" + aluno.getEmail() + "\", " +
 				"\"" + aluno.getMatricula() + "\"); ");
 		
-		MaintainStudent.getInstance().alterar("Alterando", "040.757.021-70", "123456", 
+		MaintainStudent.getInstance().changeTeacher("Alterando", "040.757.021-70", "123456", 
 				"9999-9999", "Nome@email", aluno);
 		
 		boolean resultado =  this.estaNoBanco("SELECT * FROM aluno WHERE " +
