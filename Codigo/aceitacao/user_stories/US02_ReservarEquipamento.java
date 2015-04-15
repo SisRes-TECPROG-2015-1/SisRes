@@ -13,7 +13,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import persistence.EquipamentDAO;
+import persistence.EquipmentDAO;
 import view.Main2;
 import exception.PatrimonyException;
 
@@ -55,9 +55,9 @@ public class US02_ReservarEquipamento {
         window.show(new Dimension(900, 500)); // shows the frame to test
 
         equipamento = new Equipamento("code", "Equipamento para testes de aceitacao");
-        EquipamentDAO.getInstance().incluir(equipamento);
+        EquipmentDAO.getInstance().incluir(equipamento);
 
-        index = EquipamentDAO.getInstance().buscarTodos().size() - 1;
+        index = EquipmentDAO.getInstance().buscarTodos().size() - 1;
 
         window.button("Equipamento").click();
         dialog = window.dialog("EquipamentoView");
@@ -66,7 +66,7 @@ public class US02_ReservarEquipamento {
 
     @After public void tearDown() throws SQLException, PatrimonyException {
         if (equipamento != null)
-            EquipamentDAO.getInstance().excludeRoom(equipamento);
+            EquipmentDAO.getInstance().excludeRoom(equipamento);
         window.cleanUp();
     }
 

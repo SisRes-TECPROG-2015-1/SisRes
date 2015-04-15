@@ -18,7 +18,7 @@ import org.junit.Ignore;
 import org.junit.Test;
 
 import persistence.FactoryConnection;
-import persistence.ClassRoom;
+import persistence.ClassRoomDAO;
 import exception.PatrimonyException;
 
 
@@ -36,12 +36,12 @@ public class SalaDAOTest {
 	
 	@Test
 	public void testInstance() {
-		assertTrue("Instanciando SalaDAO", ClassRoom.getInstance() instanceof ClassRoom);
+		assertTrue("Instanciando SalaDAO", ClassRoomDAO.getInstance() instanceof ClassRoomDAO);
 	}
 	@Test
 	public void testSingleton() {
-		ClassRoom inst1 = ClassRoom.getInstance();
-		ClassRoom inst2 = ClassRoom.getInstance();
+		ClassRoomDAO inst1 = ClassRoomDAO.getInstance();
+		ClassRoomDAO inst2 = ClassRoomDAO.getInstance();
 		assertSame("Testando o Padrao Singleton", inst2, inst1);
 	}
 	
@@ -51,7 +51,7 @@ public class SalaDAOTest {
 		Sala s = new Sala("CodigoInc", "Descricao Da Sala Inclusao", "123");
 		boolean rs = false;
 		
-		ClassRoom.getInstance().includeARoom(s);
+		ClassRoomDAO.getInstance().includeARoom(s);
 		
 		rs = this.estaNoBanco("SELECT * FROM sala WHERE " +
 				"sala.codigo = \"" + s.getCodigo() + "\" and " +
@@ -69,7 +69,7 @@ public class SalaDAOTest {
 	}
 	@Test (expected= PatrimonyException.class)
 	public void testIncluirNulo() throws PatrimonyException, SQLException {
-		ClassRoom.getInstance().includeARoom(null);
+		ClassRoomDAO.getInstance().includeARoom(null);
 	}
 	@Test (expected= PatrimonyException.class)
 	public void testIncluirCodigoExistente() throws PatrimonyException, SQLException {
@@ -77,9 +77,9 @@ public class SalaDAOTest {
 		Sala s2 = new Sala("CodigoInc", "Descricao Dois", "200");
 		boolean rs = false;
 		
-		ClassRoom.getInstance().includeARoom(s2);
+		ClassRoomDAO.getInstance().includeARoom(s2);
 		try{
-			ClassRoom.getInstance().includeARoom(s);
+			ClassRoomDAO.getInstance().includeARoom(s);
 		} finally {
 			rs = this.estaNoBanco("SELECT * FROM sala WHERE " +
 					"sala.codigo = \"" + s.getCodigo() + "\" and " +
@@ -111,7 +111,7 @@ public class SalaDAOTest {
 				"\"" + s.getDescricao() + "\", " +
 				s.getCapacidade() + ");");
 		
-		ClassRoom.getInstance().changeRoomReserve(s, s2);
+		ClassRoomDAO.getInstance().changeRoomReserve(s, s2);
 		
 		rs = this.estaNoBanco("SELECT * FROM sala WHERE " +
 				"sala.codigo = \"" + s.getCodigo() + "\" and " +
@@ -142,12 +142,12 @@ public class SalaDAOTest {
 	@Test (expected= PatrimonyException.class)
 	public void testAletarPrimeiroNulo() throws PatrimonyException, SQLException {
 		Sala s = new Sala("CodigoInc", "Descricao Da Sala Inclusao", "123");
-		ClassRoom.getInstance().changeRoomReserve(null, s);
+		ClassRoomDAO.getInstance().changeRoomReserve(null, s);
 	}
 	@Test (expected= PatrimonyException.class)
 	public void testAletarSegundoNulo() throws PatrimonyException, SQLException {
 		Sala s = new Sala("CodigoInc", "Descricao Da Sala Inclusao", "123");
-		ClassRoom.getInstance().changeRoomReserve(s, null);
+		ClassRoomDAO.getInstance().changeRoomReserve(s, null);
 	}
 	@Test (expected= PatrimonyException.class)
 	public void testAletarNaoExistente() throws PatrimonyException, SQLException {
@@ -156,7 +156,7 @@ public class SalaDAOTest {
 		boolean rs2 = true;
 		
 		try{
-			ClassRoom.getInstance().changeRoomReserve(s, s2);
+			ClassRoomDAO.getInstance().changeRoomReserve(s, s2);
 		} finally {		
 		
 		rs2 = this.estaNoBanco("SELECT * FROM sala WHERE " +
@@ -195,7 +195,7 @@ public class SalaDAOTest {
 				s2.getCapacidade() + ");");
 		
 		try{
-			ClassRoom.getInstance().changeRoomReserve(s, s2);
+			ClassRoomDAO.getInstance().changeRoomReserve(s, s2);
 		} finally {
 		
 		rs = this.estaNoBanco("SELECT * FROM sala WHERE " +
@@ -248,7 +248,7 @@ public class SalaDAOTest {
 				s.getCapacidade() + ");");
 		
 		try{
-			ClassRoom.getInstance().changeRoomReserve(s, s2);
+			ClassRoomDAO.getInstance().changeRoomReserve(s, s2);
 		} finally {
 		
 		rs = this.estaNoBanco("SELECT * FROM sala WHERE " +
@@ -289,7 +289,7 @@ public class SalaDAOTest {
 				"\"" + s.getDescricao() + "\", " +
 				s.getCapacidade() + ");");
 		
-		ClassRoom.getInstance().excludeRoom(s);
+		ClassRoomDAO.getInstance().excludeRoom(s);
 		
 		rs = this.estaNoBanco("SELECT * FROM sala WHERE " +
 				"sala.codigo = \"" + s.getCodigo() + "\" and " +
@@ -307,7 +307,7 @@ public class SalaDAOTest {
 	}
 	@Test (expected= PatrimonyException.class)
 	public void testExcluirNulo() throws PatrimonyException, SQLException {
-		ClassRoom.getInstance().excluir(null);
+		ClassRoomDAO.getInstance().excluir(null);
 	}
 	@Ignore // (expected= PatrimonioException.class)
 	public void testExcluirEnvolvidoEmReserva() throws PatrimonyException, SQLException {
@@ -316,7 +316,7 @@ public class SalaDAOTest {
 	@Test (expected= PatrimonyException.class)
 	public void testExcluirNaoExistente() throws PatrimonyException, SQLException {
 		Sala s = new Sala("CodigoInc", "Descricao Da Sala Inclusao", "123");
-		ClassRoom.getInstance().excludeRoom(s);
+		ClassRoomDAO.getInstance().excludeRoom(s);
 	}
 	
 	
@@ -330,7 +330,7 @@ public class SalaDAOTest {
 				"\"" + s.getDescricao() + "\", " +
 				s.getCapacidade() + ");");
 		
-		Vector<Sala> vet = ClassRoom.getInstance().searchByCode("CodigoInc");
+		Vector<Sala> vet = ClassRoomDAO.getInstance().searchByCode("CodigoInc");
 		
 		this.executaNoBanco("DELETE FROM sala WHERE " +
 				"sala.codigo = \"" + s.getCodigo() + "\" and " +
@@ -349,7 +349,7 @@ public class SalaDAOTest {
 				"\"" + s.getDescricao() + "\", " +
 				s.getCapacidade() + ");");
 		
-		Vector<Sala> vet = ClassRoom.getInstance().searchByDescription("Descricao Da Sala Inclusao");
+		Vector<Sala> vet = ClassRoomDAO.getInstance().searchByDescription("Descricao Da Sala Inclusao");
 		
 		this.executaNoBanco("DELETE FROM sala WHERE " +
 				"sala.codigo = \"" + s.getCodigo() + "\" and " +
@@ -368,7 +368,7 @@ public class SalaDAOTest {
 				"\"" + s.getDescricao() + "\", " +
 				s.getCapacidade() + ");");
 		
-		Vector<Sala> vet = ClassRoom.getInstance().searchByCapacity("123");
+		Vector<Sala> vet = ClassRoomDAO.getInstance().searchByCapacity("123");
 		
 		this.executaNoBanco("DELETE FROM sala WHERE " +
 				"sala.codigo = \"" + s.getCodigo() + "\" and " +

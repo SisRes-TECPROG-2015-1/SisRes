@@ -20,7 +20,7 @@ import org.junit.Test;
 
 import persistence.StudentDAO;
 import persistence.FactoryConnection;
-import persistence.ClassRoom;
+import persistence.ClassRoomDAO;
 import control.MaintainClassroomReservationByStudent;
 import exception.ClienteException;
 import exception.PatrimonyException;
@@ -38,13 +38,13 @@ public class ManterResSalaAlunoTest {
 		aluno1 = new Aluno("testInstance", "501.341.852-69", "456678", "", "");
 		
 		StudentDAO.getInstance().includeNewStudent(aluno1);
-		ClassRoom.getInstance().includeARoom(sala1);
+		ClassRoomDAO.getInstance().includeARoom(sala1);
 	}
 
 	@AfterClass
 	public static void tearDownAfterClass() throws Exception {
 		StudentDAO.getInstance().deleteStudent(aluno1);
-		ClassRoom.getInstance().excludeRoom(sala1);
+		ClassRoomDAO.getInstance().excludeRoom(sala1);
 	}
 
 	

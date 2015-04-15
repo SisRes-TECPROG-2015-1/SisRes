@@ -18,7 +18,7 @@ public class TeacherEquipmentReserve extends EquipmentReserve {
 	 * @throws ReserveException
 	 */
 	public TeacherEquipmentReserve( String date, String hour,
-			Equipamento equipamento, Teacher teacher )
+			Equipment equipamento, Teacher teacher )
 			throws ReserveException {
 		super( date, hour, equipamento );
 		this.setProfessor( teacher );

@@ -23,7 +23,7 @@ import org.junit.Test;
 import persistence.FactoryConnection;
 import persistence.TeacherDAO;
 import persistence.ResSalaProfessorDAO;
-import persistence.ClassRoom;
+import persistence.ClassRoomDAO;
 import exception.ClienteException;
 import exception.PatrimonyException;
 import exception.ReserveException;
@@ -42,16 +42,16 @@ public class ResSalaProfessorDAOTest {
 		professor1 = new Teacher("ProfessorUm", "490.491.781-20", "58801", "3333-3333", "prof@email");
 		professor2 = new Teacher("ProfessorDois", "040.757.021-70", "36106", "3628-3079", "prof@email");
 		
-		ClassRoom.getInstance().includeARoom(sala_a);
-		ClassRoom.getInstance().includeARoom(sala_b);
+		ClassRoomDAO.getInstance().includeARoom(sala_a);
+		ClassRoomDAO.getInstance().includeARoom(sala_b);
 		TeacherDAO.getInstance().includeNewTeacher(professor1);
 		TeacherDAO.getInstance().includeNewTeacher(professor2);		
 	}
 
 	@AfterClass
 	public static void tearDownAfterClass() throws Exception {
-		ClassRoom.getInstance().excludeRoom(sala_a);
-		ClassRoom.getInstance().excludeRoom(sala_b);
+		ClassRoomDAO.getInstance().excludeRoom(sala_a);
+		ClassRoomDAO.getInstance().excludeRoom(sala_b);
 		TeacherDAO.getInstance().excludeATeacher(professor1);
 		TeacherDAO.getInstance().excludeATeacher(professor2);	
 	}

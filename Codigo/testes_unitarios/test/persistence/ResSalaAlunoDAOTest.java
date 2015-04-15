@@ -25,7 +25,7 @@ import org.junit.Test;
 import persistence.StudentDAO;
 import persistence.FactoryConnection;
 import persistence.StudentRoomReserveDAO;
-import persistence.ClassRoom;
+import persistence.ClassRoomDAO;
 import exception.ClienteException;
 import exception.PatrimonyException;
 import exception.ReserveException;
@@ -46,16 +46,16 @@ public class ResSalaAlunoDAOTest {
 		
 		StudentDAO.getInstance().includeNewStudent(aluno1);
 		StudentDAO.getInstance().includeNewStudent(aluno2);
-		ClassRoom.getInstance().includeARoom(sala1);
-		ClassRoom.getInstance().includeARoom(sala2);
+		ClassRoomDAO.getInstance().includeARoom(sala1);
+		ClassRoomDAO.getInstance().includeARoom(sala2);
 	}
 
 	@AfterClass
 	public static void tearDownAfterClass() throws Exception {
 		StudentDAO.getInstance().deleteStudent(aluno1);
 		StudentDAO.getInstance().deleteStudent(aluno2);
-		ClassRoom.getInstance().excludeRoom(sala1);
-		ClassRoom.getInstance().excludeRoom(sala2);
+		ClassRoomDAO.getInstance().excludeRoom(sala1);
+		ClassRoomDAO.getInstance().excludeRoom(sala2);
 	}
 
 	@Test

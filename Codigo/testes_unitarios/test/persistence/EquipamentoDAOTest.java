@@ -17,18 +17,18 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import persistence.EquipamentDAO;
+import persistence.EquipmentDAO;
 import exception.PatrimonyException;
 
 
 public class EquipamentoDAOTest {
-	static EquipamentDAO instance;
+	static EquipmentDAO instance;
 	Equipamento antigo, novo;
 	Vector <Equipamento> todos;
 	
 	@BeforeClass
 	public static void setUpClass() throws PatrimonyException, SQLException {
-		instance = EquipamentDAO.getInstance();
+		instance = EquipmentDAO.getInstance();
 	}
 	
 	@AfterClass
@@ -58,13 +58,13 @@ public class EquipamentoDAOTest {
 	
 	@Test
 	public void testInstance() {
-		assertTrue("Instanciando EquipamentoDAO", instance instanceof EquipamentDAO);
+		assertTrue("Instanciando EquipamentoDAO", instance instanceof EquipmentDAO);
 	}
 	
 	@Test
 	public void testSingleton() {
-		EquipamentDAO inst1 = EquipamentDAO.getInstance();
-		EquipamentDAO inst2 = EquipamentDAO.getInstance();
+		EquipmentDAO inst1 = EquipmentDAO.getInstance();
+		EquipmentDAO inst2 = EquipmentDAO.getInstance();
 		assertSame("Testando o Padrao Singleton", inst2, inst1);
 	}
 	

@@ -14,7 +14,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import persistence.EquipamentDAO;
+import persistence.EquipmentDAO;
 import view.Main2;
 import exception.PatrimonyException;
 
@@ -62,9 +62,9 @@ public class US10_AlterarEquipamento {
     window.show(new Dimension(900, 500)); // shows the frame to test
 
     equipamento = new Equipamento("code", "Equipamento para testes de aceitacao");
-    EquipamentDAO.getInstance().incluir(equipamento);
+    EquipmentDAO.getInstance().incluir(equipamento);
 
-    index = EquipamentDAO.getInstance().buscarTodos().size() - 1;
+    index = EquipmentDAO.getInstance().buscarTodos().size() - 1;
 
     window.button("Equipamento").click();
     dialog = window.dialog("EquipamentoView");
@@ -73,7 +73,7 @@ public class US10_AlterarEquipamento {
 
 @After public void tearDown() throws SQLException, PatrimonyException {
     if (equipamento != null)
-        EquipamentDAO.getInstance().excludeRoom(equipamento);
+        EquipmentDAO.getInstance().excludeRoom(equipamento);
     window.cleanUp();
 }
 
@@ -107,13 +107,13 @@ public void sleep() {
     sleep();
     cadastro.optionPane().okButton().click();
 
-    equipamento = EquipamentDAO.getInstance().buscarTodos().get(index);
+    equipamento = EquipmentDAO.getInstance().buscarTodos().get(index);
 }
 
 @Test public void testCenario2() throws SQLException, PatrimonyException {
 
     if (equipamento != null)
-        EquipamentDAO.getInstance().excludeRoom(equipamento);
+        EquipmentDAO.getInstance().excludeRoom(equipamento);
     equipamento = null;
     dialog.button("Alterar").click();
     dialog.optionPane().requireMessage("Selecione uma linha!");
@@ -135,7 +135,7 @@ public void sleep() {
     cadastro.optionPane().requireMessage("Codigo em Branco.");
     sleep();
     cadastro.optionPane().okButton().click();
-    equipamento = EquipamentDAO.getInstance().buscarTodos().get(index);
+    equipamento = EquipmentDAO.getInstance().buscarTodos().get(index);
 }
 
 @Test public void testCenario3DescricaoBranco() throws SQLException, PatrimonyException {
@@ -152,7 +152,7 @@ public void sleep() {
     cadastro.optionPane().requireMessage("Descricao em Branco.");
     sleep();
     cadastro.optionPane().okButton().click();
-    equipamento = EquipamentDAO.getInstance().buscarTodos().get(index);
+    equipamento = EquipmentDAO.getInstance().buscarTodos().get(index);
 }
 
 }

@@ -23,7 +23,7 @@ import persistence.StudentDAO;
 import persistence.TeacherDAO;
 import persistence.StudentRoomReserveDAO;
 import persistence.TeacherRoomReserveDAO;
-import persistence.ClassRoom;
+import persistence.ClassRoomDAO;
 import view.Main2;
 import exception.ClienteException;
 import exception.PatrimonyException;
@@ -57,7 +57,7 @@ public class US01_AlterarReservaSala {
         window.show(new Dimension(900, 500)); // shows the frame to test
 
         sala = new Sala("code", "Sala para testes de aceitacao", "123");
-        ClassRoom.getInstance().includeARoom(sala);
+        ClassRoomDAO.getInstance().includeARoom(sala);
 
         prof = new Teacher("Professor Teste", "658.535.144-40", "110038096", "9211-2144", "teste incluir repetido");
         TeacherDAO.getInstance().includeNewTeacher(prof);
@@ -67,7 +67,7 @@ public class US01_AlterarReservaSala {
 
         dataAtual();
                 
-        index = ClassRoom.getInstance().searchAll().size() - 1;
+        index = ClassRoomDAO.getInstance().searchAll().size() - 1;
         indexReserva = TeacherRoomReserveDAO.getInstance().buscagetTeacherReservedRoomsByDayrPorData(data).size() - 1;
 
         StudentDAO.getInstance().includeNewStudent(aluno);
@@ -85,7 +85,7 @@ public class US01_AlterarReservaSala {
         if (reservaAluno != null)
             StudentRoomReserveDAO.getInstance().deleteStudentReservedRoom(reservaAluno);
         if (sala != null)
-            ClassRoom.getInstance().excludeRoom(sala);
+            ClassRoomDAO.getInstance().excludeRoom(sala);
         if (aluno != null)
             StudentDAO.getInstance().deleteStudent(aluno);
         if (prof != null)

@@ -2,9 +2,9 @@ package model;
 
 import exception.ReserveException;
 
-public class EquipmentReserve extends Reserva {
+public class EquipmentReserve extends Reserve {
 
-	private Equipamento equipment;
+	private Equipment equipment;
 
 	// Message for exception
 	private final String EQUIPAMENTO_NULO = "O equipamneto esta nulo.";
@@ -16,7 +16,7 @@ public class EquipmentReserve extends Reserva {
 	 * @param equipment
 	 * @throws ReserveException
 	 */
-	public EquipmentReserve( String date, String hour, Equipamento equipment )
+	public EquipmentReserve( String date, String hour, Equipment equipment )
 			throws ReserveException {
 		super( date, hour );
 		this.setEquipment( equipment );
@@ -26,7 +26,7 @@ public class EquipmentReserve extends Reserva {
 	 * Getter method for attribute 'equipment'
 	 * @return
 	 */
-	public Equipamento getEquipment() {
+	public Equipment getEquipment() {
 		return this.equipment;
 	}
 
@@ -35,7 +35,7 @@ public class EquipmentReserve extends Reserva {
 	 * @param equipamento
 	 * @throws ReserveException
 	 */
-	public void setEquipment( Equipamento equipment ) throws ReserveException {
+	public void setEquipment( Equipment equipment ) throws ReserveException {
 		if ( equipment == null ) { 
 			throw new ReserveException( EQUIPAMENTO_NULO );
 		}

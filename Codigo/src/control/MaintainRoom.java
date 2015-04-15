@@ -3,7 +3,7 @@ package control;
 import java.sql.SQLException;
 import java.util.Vector;
 
-import persistence.ClassRoom;
+import persistence.ClassRoomDAO;
 import exception.PatrimonyException;
 import model.Room;
 
@@ -34,7 +34,7 @@ public class MaintainRoom {
 	 * @return Vector - All classrooms
 	 */	
 	public Vector < Room > getRooms() throws SQLException, PatrimonyException {
-		this.room = ClassRoom.getInstance().searchAll();
+		this.room = ClassRoomDAO.getInstance().searchAll();
 		return this.room;
 	}
 
@@ -44,7 +44,7 @@ public class MaintainRoom {
 	 */
 	public void insertRooms( String code, String description, String capacity ) throws PatrimonyException, SQLException {
 		Room room = new Room( code, description, capacity );
-		ClassRoom.getInstance().includeARoom( room );
+		ClassRoomDAO.getInstance().includeARoom( room );
 		this.room.add( room );
 	}
 
@@ -58,7 +58,7 @@ public class MaintainRoom {
 		room.setCode( code );
 		room.setDescription( description );
 		room.setCapacity( capacity );
-		ClassRoom.getInstance().alterar( old_room, room );
+		ClassRoomDAO.getInstance().alterar( old_room, room );
 	}
 
 	
@@ -66,7 +66,7 @@ public class MaintainRoom {
 	 * Excludes a classroom from the database.
 	 */
 	public void excludeRoom( Room room ) throws SQLException, PatrimonyException {
-		ClassRoom.getInstance().excludeTeacher( room );
+		ClassRoomDAO.getInstance().excludeTeacher( room );
 		this.room.remove( room );
 	}
 
