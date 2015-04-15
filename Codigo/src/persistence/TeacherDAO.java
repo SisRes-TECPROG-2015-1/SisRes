@@ -1,6 +1,6 @@
 package persistence;
 
-import model.Professor;
+import model.Teacher;
 
 import java.sql.*;
 import java.util.Vector;
@@ -42,7 +42,7 @@ public class TeacherDAO {
 	 * @throws SQLException
 	 * @throws ClienteException
 	 */
-	public void includeNewTeacher( Professor teacher ) throws SQLException, ClienteException {
+	public void includeNewTeacher( Teacher teacher ) throws SQLException, ClienteException {
 		if ( teacher == null ) {
 			throw new ClienteException( nullTeacher );
 		} else if ( this.inDBCpf( teacher.getCpf() ) ) {
@@ -65,7 +65,7 @@ public class TeacherDAO {
 	 * @throws SQLException
 	 * @throws ClienteException
 	 */
-	public void modifyATeacher( Professor oldTeacher, Professor newTeacher )
+	public void modifyATeacher( Teacher oldTeacher, Teacher newTeacher )
 			throws SQLException, ClienteException {
 		if ( oldTeacher == null ) {
 			throw new ClienteException( nullTeacher );
@@ -121,7 +121,7 @@ public class TeacherDAO {
 	 * @throws SQLException
 	 * @throws ClienteException
 	 */
-	public void excludeATeacher( Professor teacher ) throws SQLException, ClienteException {
+	public void excludeATeacher( Teacher teacher ) throws SQLException, ClienteException {
 		if ( teacher == null ) {
 			throw new ClienteException(nullTeacher);
 		}
@@ -144,7 +144,7 @@ public class TeacherDAO {
      * Captures the teachers
      * @return Vector - All the teachers
      */
-	public Vector<Professor> searchForAllTeachers() throws SQLException,
+	public Vector<Teacher> searchForAllTeachers() throws SQLException,
 			ClienteException {
 		return this.searchByQuery( "SELECT * FROM professor;" );
 	}
@@ -153,7 +153,7 @@ public class TeacherDAO {
      * Captures the teachers by their name.
      * @return Vector - Teachers
      */
-	public Vector<Professor> searchByName( String nameValue ) throws SQLException,
+	public Vector<Teacher> searchByName( String nameValue ) throws SQLException,
 			ClienteException {
 		return this.searchByQuery( "SELECT * FROM professor WHERE nome = " + "\""
 				+ nameValue + "\";" );
@@ -164,7 +164,7 @@ public class TeacherDAO {
      * Captures the teachers by their cpf.
      * @return Vector - Teachers
      */
-	public Vector<Professor> searchByCpf( String CPFValue ) throws SQLException,
+	public Vector<Teacher> searchByCpf( String CPFValue ) throws SQLException,
 			ClienteException {
 		return this.searchByQuery( "SELECT * FROM professor WHERE cpf = " + "\""
 				+ CPFValue + "\";" );
@@ -174,7 +174,7 @@ public class TeacherDAO {
      * Captures the teachers by their matricula
      * @return Vector - Teachers
      */	
-	public Vector<Professor> searchByRegistration( String registrationValue ) throws SQLException,
+	public Vector<Teacher> searchByRegistration( String registrationValue ) throws SQLException,
 			ClienteException {
 		return this.searchByQuery( "SELECT * FROM professor WHERE matricula = " + "\""
 				+ registrationValue + "\";" );
@@ -184,7 +184,7 @@ public class TeacherDAO {
      * Captures the teachers by their e-mail.
      * @return Vector - Teachers
      */
-	public Vector<Professor> searchByEmail( String emailValue ) throws SQLException,
+	public Vector<Teacher> searchByEmail( String emailValue ) throws SQLException,
 			ClienteException {
 		return this.searchByQuery( "SELECT * FROM professor WHERE email = " + "\""
 				+ emailValue + "\";" );
@@ -194,7 +194,7 @@ public class TeacherDAO {
      * Captures the teachers by their telephone.
      * @return Vector - Teachers
      */
-	public Vector<Professor> searchByPhoneNumber( String phoneNumberValue ) throws SQLException,
+	public Vector<Teacher> searchByPhoneNumber( String phoneNumberValue ) throws SQLException,
 			ClienteException {
 		return this.searchByQuery( "SELECT * FROM professor WHERE telefone = " + "\""
 				+ phoneNumberValue + "\";" );
@@ -207,9 +207,9 @@ public class TeacherDAO {
      * Searches for a teacher by a given query
      * @return Vector - Teachers
      */
-	private Vector<Professor> searchByQuery( String query ) throws SQLException,
+	private Vector<Teacher> searchByQuery( String query ) throws SQLException,
 			ClienteException {
-		Vector<Professor> teacherArrayList = new Vector<Professor>();
+		Vector<Teacher> teacherArrayList = new Vector<Teacher>();
 
 		Connection connection = FactoryConnection.getInstance().getConnection();
 
@@ -252,7 +252,7 @@ public class TeacherDAO {
      * Verifies if the given teacher exists in database
      * @return Boolean - Existence of a teacher 
      */
-	private boolean inDB( Professor prof ) throws SQLException {
+	private boolean inDB( Teacher prof ) throws SQLException {
 		return this.inDBGeneric( "SELECT * FROM professor WHERE "
 				+ "professor.nome = \"" + prof.getNome() + "\" and "
 				+ "professor.cpf = \"" + prof.getCpf() + "\" and "
@@ -283,7 +283,7 @@ public class TeacherDAO {
      * Verifies if the teacher exists in database
      * @return Boolean - Existence of an teacher 
      */
-	private boolean inOtherDB( Professor prof ) throws SQLException {
+	private boolean inOtherDB( Teacher prof ) throws SQLException {
 		if ( this.inDBGeneric( "SELECT * FROM reserva_sala_professor WHERE "
 				+ "id_professor = (SELECT id_professor FROM professor WHERE "
 				+ "professor.nome = \"" + prof.getNome() + "\" and "
@@ -307,9 +307,9 @@ public class TeacherDAO {
 	}
 
 	//Metodo pra buscar professor
-	private Professor fetchTeacher( ResultSet rs ) throws ClienteException,
+	private Teacher fetchTeacher( ResultSet rs ) throws ClienteException,
 			SQLException {
-		return new Professor( rs.getString( "nome" ), rs.getString( "cpf" ),
+		return new Teacher( rs.getString( "nome" ), rs.getString( "cpf" ),
 				rs.getString( "matricula" ), rs.getString( "telefone" ),
 				rs.getString( "email" ) );
 	}

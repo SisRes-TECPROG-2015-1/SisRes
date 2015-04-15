@@ -10,7 +10,7 @@ import java.util.Vector;
 import javax.swing.JOptionPane;
 
 import model.Aluno;
-import model.Professor;
+import model.Teacher;
 import model.Sala;
 import control.MaintainStudent;
 import control.MaintainTeacher;
@@ -33,7 +33,7 @@ public abstract class ReservaSalaView extends javax.swing.JDialog {
     protected MaintainClassroomReservationByTeacher instanceProf;
     protected Sala sala;
     protected Aluno aluno;
-    protected Professor prof;
+    protected Teacher prof;
 
     public ReservaSalaView( java.awt.Frame parent, boolean modal ) throws SQLException, PatrimonyException, PatrimonyException,
             ClienteException, ReserveException {
@@ -79,7 +79,7 @@ public abstract class ReservaSalaView extends javax.swing.JDialog {
 
     protected void getProfessor() {
         try {
-            Vector<Professor> professor = MaintainTeacher.getInstance().buscarCpf( this.cpfTextField.getText() );
+            Vector<Teacher> professor = MaintainTeacher.getInstance().buscarCpf( this.cpfTextField.getText() );
             if ( professor.isEmpty() ) {
                 JOptionPane.showMessageDialog( this, "Professor nao Cadastrado."
                         + " Digite o CPF correto ou cadastre o professor desejado", "Erro", JOptionPane.ERROR_MESSAGE, null );

@@ -4,7 +4,7 @@ import exception.ReserveException;
 
 public class TeacherRoomReserve extends RoomReserve {
 
-	private Professor teacher;
+	private Teacher teacher;
 
 	// Message for exception
 	private final String NULL_TEACHER = "O professor esta nulo.";
@@ -19,7 +19,7 @@ public class TeacherRoomReserve extends RoomReserve {
 	 * @throws ReserveException
 	 */
 	public TeacherRoomReserve( String date, String hour, Sala room,
-			String finality, Professor teacher ) throws ReserveException {
+			String finality, Teacher teacher ) throws ReserveException {
 		super( date, hour, room, finality );
 		this.setProfessor( teacher );
 	}
@@ -28,7 +28,7 @@ public class TeacherRoomReserve extends RoomReserve {
 	 * Getter method for attribute 'professor'
 	 * @return
 	 */
-	public Professor getProfessor() {
+	public Teacher getProfessor() {
 		return this.teacher;
 	}
 
@@ -36,7 +36,7 @@ public class TeacherRoomReserve extends RoomReserve {
 	 * Setter method for attribute 'professor'
 	 * @return
 	 */
-	public void setProfessor( Professor teacher ) throws ReserveException {
+	public void setProfessor( Teacher teacher ) throws ReserveException {
 		if ( teacher == null ) {
 			throw new ReserveException( NULL_TEACHER );
 		} else { 

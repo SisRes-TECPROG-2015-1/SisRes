@@ -3,7 +3,7 @@ package user_stories;
 import java.awt.Dimension;
 import java.sql.SQLException;
 
-import model.Professor;
+import model.Teacher;
 
 import org.fest.swing.core.BasicRobot;
 import org.fest.swing.core.Robot;
@@ -33,7 +33,7 @@ import exception.ClienteException;
 public class US05_ExcluirProfessor {
 	private FrameFixture window;
 	private Robot robot;
-	private Professor professor;
+	private Teacher professor;
 	private DialogFixture dialog;
 	private int index;
 	
@@ -45,7 +45,7 @@ public class US05_ExcluirProfessor {
 		window = new FrameFixture(robot, new Main2());
 		window.show(new Dimension(900, 500)); // shows the frame to test
 
-		professor = new Professor("Teste", "658.535.144-40", "110038096","9211-2144", "teste incluir repetido");
+		professor = new Teacher("Teste", "658.535.144-40", "110038096","9211-2144", "teste incluir repetido");
 		TeacherDAO.getInstance().includeNewTeacher(professor);
 
 		index = TeacherDAO.getInstance().searchForAllTeachers().size() - 1;

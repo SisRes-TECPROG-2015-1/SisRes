@@ -6,7 +6,7 @@ import java.util.Iterator;
 import java.util.Vector;
 
 import model.Equipamento;
-import model.Professor;
+import model.Teacher;
 import model.TeacherEquipmentReserve;
 import exception.ClienteException;
 import exception.PatrimonyException;
@@ -38,7 +38,7 @@ public class ResEquipamentoProfessorDAO extends DAO {
 	//
 
 	//Querys de reuso
-	private String select_id_professor( Professor p ) {
+	private String select_id_professor( Teacher p ) {
 		return "SELECT id_professor FROM professor WHERE "
 				+ "professor.nome = \"" + p.getNome() + "\" and "
 				+ "professor.cpf = \"" + p.getCpf() + "\" and "
@@ -221,7 +221,7 @@ public class ResEquipamentoProfessorDAO extends DAO {
 	@Override
 	protected Object fetch( ResultSet rs ) throws SQLException, ClienteException,
 			PatrimonyException, ReserveException {
-		Professor p = new Professor( rs.getString( "nome" ), rs.getString( "cpf" ),
+		Teacher p = new Teacher( rs.getString( "nome" ), rs.getString( "cpf" ),
 				rs.getString( "matricula" ), rs.getString( "telefone" ),
 				rs.getString( "email" ) );
 
@@ -234,7 +234,7 @@ public class ResEquipamentoProfessorDAO extends DAO {
 		return r;
 	}
 
-	private boolean professorinDB( Professor professor ) throws SQLException {
+	private boolean professorinDB( Teacher professor ) throws SQLException {
 		return super.inDBGeneric( "SELECT * FROM professor WHERE "
 				+ "professor.nome = \"" + professor.getNome() + "\" and "
 				+ "professor.cpf = \"" + professor.getCpf() + "\" and "
@@ -252,7 +252,7 @@ public class ResEquipamentoProfessorDAO extends DAO {
 				+ equipamento.getDescricao() + "\" and " + ";" );
 	}
 
-	private boolean professorinReservaDB( Professor professor, String data,
+	private boolean professorinReservaDB( Teacher professor, String data,
 			String hora ) throws SQLException {
 		return super.inDBGeneric( "SELECT * FROM reserva_sala_professor WHERE "
 				+ "data = \"" + data + "\" and " + "hora = \"" + hora

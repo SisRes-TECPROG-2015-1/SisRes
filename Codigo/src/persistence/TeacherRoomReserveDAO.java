@@ -6,7 +6,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Vector;
 
-import model.Professor;
+import model.Teacher;
 import model.TeacherRoomReserve;
 import model.Sala;
 import exception.ClienteException;
@@ -55,7 +55,7 @@ public class TeacherRoomReserveDAO extends DAO {
 	 * @param teacher
 	 * @return
 	 */
-	private String select_teacher_id( Professor teacher ) {
+	private String select_teacher_id( Teacher teacher ) {
 		return "SELECT id_professor FROM professor WHERE "
 				+ "professor.nome = \"" + teacher.getNome() + "\" and "
 				+ "professor.cpf = \"" + teacher.getCpf() + "\" and "
@@ -328,7 +328,7 @@ public class TeacherRoomReserveDAO extends DAO {
 	@Override
 	protected Object fetch( ResultSet rs ) throws SQLException,
 			ClienteException, PatrimonyException, ReserveException {
-		Professor p = new Professor( rs.getString( "nome" ),
+		Teacher p = new Teacher( rs.getString( "nome" ),
 				rs.getString( "cpf" ), rs.getString( "matricula" ),
 				rs.getString( "telefone" ), rs.getString( "email" ) );
 
@@ -348,7 +348,7 @@ public class TeacherRoomReserveDAO extends DAO {
 	 * @return
 	 * @throws SQLException
 	 */
-	private boolean checkExistingTeacher( Professor teacher )
+	private boolean checkExistingTeacher( Teacher teacher )
 			throws SQLException {
 		return super.inDBGeneric( "SELECT * FROM professor WHERE "
 				+ "professor.nome = \"" + teacher.getNome() + "\" and "

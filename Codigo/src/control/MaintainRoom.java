@@ -58,7 +58,7 @@ public class MaintainRoom {
 		sala.setCodigo( codigo );
 		sala.setDescricao( descricao );
 		sala.setCapacidade( capacidade );
-		ClassRoom.getInstance().alterar( old_sala, sala );
+		ClassRoom.getInstance().changeRoomReserve( old_sala, sala );
 	}
 
 	

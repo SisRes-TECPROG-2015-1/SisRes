@@ -9,7 +9,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Vector;
 
-import model.Professor;
+import model.Teacher;
 import model.TeacherRoomReserve;
 import model.Sala;
 
@@ -27,14 +27,14 @@ import exception.ReserveException;
 
 public class ManterResSalaProfessorTest {
 	private static Sala sala1;
-	private static Professor professor1;
+	private static Teacher professor1;
 	private static Vector<TeacherRoomReserve> vet;
 
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {
-		vet = MaintainClassroomReservationByTeacher.getInstance().getResProfessorSala_vet();
+		vet = MaintainClassroomReservationByTeacher.getInstance().getRoomsReserves();
 		sala1 = new Sala("123", "Sala de Aula", "120");
-		professor1 = new Professor("testInstance", "040.757.021-70", "0058801", "3333-3333", "nome@email");
+		professor1 = new Teacher("testInstance", "040.757.021-70", "0058801", "3333-3333", "nome@email");
 		
 		TeacherDAO.getInstance().includeNewTeacher(professor1);
 		ClassRoom.getInstance().includeARoom(sala1);
@@ -62,7 +62,7 @@ public class ManterResSalaProfessorTest {
 		String data = "20/12/33";
 		String hora = "9:11";
 		TeacherRoomReserve reserva = new TeacherRoomReserve(data, hora, sala1, finalidade, professor1);
-		MaintainClassroomReservationByTeacher.getInstance().inserir(sala1, professor1, data, hora, finalidade);
+		MaintainClassroomReservationByTeacher.getInstance().insertReserve(sala1, professor1, data, hora, finalidade);
 		boolean resultado = this.inDB(reserva);
 		boolean resultado2 = reserva.equals(vet.lastElement());
 		if(resultado)
@@ -76,7 +76,7 @@ public class ManterResSalaProfessorTest {
 		this.insert_into(reserva);
 		vet.add(reserva);
 		TeacherRoomReserve reserva2 = new TeacherRoomReserve("20/12/33", "9:11", sala1, "Reuniao", professor1);
-		MaintainClassroomReservationByTeacher.getInstance().alterar("Reuniao", vet.lastElement());
+		MaintainClassroomReservationByTeacher.getInstance().changeRoomReserve("Reuniao", vet.lastElement());
 		boolean resultado = this.inDB(reserva2);
 		boolean resultado2 = reserva2.equals(vet.lastElement());
 		if(resultado)
@@ -93,7 +93,7 @@ public class ManterResSalaProfessorTest {
 		TeacherRoomReserve reserva = new TeacherRoomReserve(data, hora, sala1, finalidade, professor1);
 		this.insert_into(reserva);
 		vet.add(reserva);
-		MaintainClassroomReservationByTeacher.getInstance().excluir(reserva);
+		MaintainClassroomReservationByTeacher.getInstance().excludeReserve(reserva);
 		boolean resultado = this.inDB(reserva);
 		vet.remove(reserva);
 
@@ -102,7 +102,7 @@ public class ManterResSalaProfessorTest {
 		assertTrue("Teste de Exclusao.", !resultado );
 	}
 
-	private String select_id_professor(Professor prof){
+	private String select_id_professor(Teacher prof){
 		return "SELECT id_professor FROM professor WHERE " +
 				"professor.nome = \"" + prof.getNome() + "\" and " +
 				"professor.cpf = \"" + prof.getCpf() + "\" and " +

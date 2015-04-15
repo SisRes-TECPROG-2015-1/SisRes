@@ -58,7 +58,7 @@ public class MaintainEquipment {
 		Equipamento old_equipamento = new Equipamento(equipamento.getCodigo(), equipamento.getDescricao());
 		equipamento.setCodigo(codigo);
 		equipamento.setDescricao(descricao);
-		EquipamentDAO.getInstance().alterar(old_equipamento, equipamento);
+		EquipamentDAO.getInstance().changeRoomReserve(old_equipamento, equipamento);
 		getEquipamento_vet();
 	}
 

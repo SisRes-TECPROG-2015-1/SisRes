@@ -5,11 +5,11 @@ import java.util.Vector;
 
 import persistence.TeacherDAO;
 import exception.ClienteException;
-import model.Professor;
+import model.Teacher;
 
 public class MaintainTeacher {
 	
-	private Vector < Professor > professores_vet = new Vector < Professor > ();
+	private Vector < Teacher > professores_vet = new Vector < Teacher > ();
 	
 	//Singleton
 	private static MaintainTeacher instance;
@@ -33,7 +33,7 @@ public class MaintainTeacher {
 	 * Searches for a teacher by its name
 	 * @return Professor - A teacher
 	 */
-	public Vector < Professor > buscarNome ( String valor ) throws SQLException, ClienteException {
+	public Vector < Teacher > buscarNome ( String valor ) throws SQLException, ClienteException {
 		return TeacherDAO.getInstance().searchByName( valor );
 	}
 	
@@ -42,7 +42,7 @@ public class MaintainTeacher {
 	 * Searches for a teacher by its CPF
 	 * @return Professor - A teacher
 	 */
-	public Vector < Professor > buscarCpf( String valor ) throws SQLException, ClienteException {
+	public Vector < Teacher > buscarCpf( String valor ) throws SQLException, ClienteException {
 		return TeacherDAO.getInstance().searchByCpf( valor );
 	}
 	
@@ -51,7 +51,7 @@ public class MaintainTeacher {
 	 * Searches for a teacher by its enrollment
 	 * @return Professor - A teacher
 	 */
-	public Vector < Professor > buscarMatricula( String valor ) throws SQLException, ClienteException {
+	public Vector < Teacher > buscarMatricula( String valor ) throws SQLException, ClienteException {
 		return TeacherDAO.getInstance().searchByRegistration( valor );
 	}
 	
@@ -60,7 +60,7 @@ public class MaintainTeacher {
 	 * Searches for a teacher by its e-mail
 	 * @return Professor - A teacher
 	 */
-	public Vector < Professor > buscarEmail( String valor ) throws SQLException, ClienteException {
+	public Vector < Teacher > buscarEmail( String valor ) throws SQLException, ClienteException {
 		return TeacherDAO.getInstance().searchByEmail( valor );
 	}
 	
@@ -69,7 +69,7 @@ public class MaintainTeacher {
 	 * Searches for a teacher by its telephone number
 	 * @return Professor - A teacher
 	 */
-	public Vector < Professor > buscarTelefone( String valor) throws SQLException, ClienteException {
+	public Vector < Teacher > buscarTelefone( String valor) throws SQLException, ClienteException {
 		return TeacherDAO.getInstance().searchByPhoneNumber( valor );
 	}	
 	
@@ -78,7 +78,7 @@ public class MaintainTeacher {
 	 * Captures all the teachers in database
 	 * @return Vector - Teachers
 	 */		
-	public Vector < Professor > getProfessores_vet() throws SQLException, ClienteException{
+	public Vector < Teacher > getProfessores_vet() throws SQLException, ClienteException{
 		this.professores_vet = TeacherDAO.getInstance().searchForAllTeachers();
 		return this.professores_vet;
 	}
@@ -90,7 +90,7 @@ public class MaintainTeacher {
 	 */
 	public void inserir( String nome, String cpf, String matricula,
 			String telefone, String email) throws ClienteException, SQLException {
-		Professor prof = new Professor(nome, cpf, matricula, telefone, email );
+		Teacher prof = new Teacher(nome, cpf, matricula, telefone, email );
 		TeacherDAO.getInstance().includeNewTeacher( prof );
 		this.professores_vet.add( prof );
 	}
@@ -101,8 +101,8 @@ public class MaintainTeacher {
 	 * @return void
 	 */
 	public void alterar( String nome, String cpf, String matricula,
-			String telefone, String email, Professor prof ) throws ClienteException, SQLException {
-		Professor prof_velho = new Professor(
+			String telefone, String email, Teacher prof ) throws ClienteException, SQLException {
+		Teacher prof_velho = new Teacher(
 								prof.getNome(),
 								prof.getCpf(),
 								prof.getMatricula(),
@@ -121,7 +121,7 @@ public class MaintainTeacher {
 	 * Excludes a teacher from the database by its instance
 	 * @return void
 	 */
-	public void excluir( Professor professor ) throws SQLException, ClienteException {
+	public void excluir( Teacher professor ) throws SQLException, ClienteException {
 		TeacherDAO.getInstance().excludeATeacher( professor );
 		this.professores_vet.remove( professor );
 	}

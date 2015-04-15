@@ -8,7 +8,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Vector;
 
-import model.Professor;
+import model.Teacher;
 
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
@@ -22,7 +22,7 @@ import exception.ClienteException;
 
 public class ManterProfessorTest {
 
-	private static Vector<Professor> vet;
+	private static Vector<Teacher> vet;
 	
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {
@@ -51,7 +51,7 @@ public class ManterProfessorTest {
 	
 	@Test
 	public void testInserirVet() throws ClienteException, SQLException {
-		Professor prof = new Professor("Nome para Incluir", "868.563.327-34", "123456", "1234-5678", "Nome@email");
+		Teacher prof = new Teacher("Nome para Incluir", "868.563.327-34", "123456", "1234-5678", "Nome@email");
 		MaintainTeacher.getInstance().inserir("Nome para Incluir", "868.563.327-34", "123456", "1234-5678", "Nome@email");
 		
 		boolean resultado = this.estaNoBanco("SELECT * FROM professor WHERE " +
@@ -70,7 +70,7 @@ public class ManterProfessorTest {
 					"professor.matricula = \"" + prof.getMatricula() + "\";");
 		}
 		
-		Professor p = vet.lastElement();
+		Teacher p = vet.lastElement();
 		boolean resultado2 = prof.equals(p);
 		vet.remove(vet.lastElement());
 		assertTrue("Teste de Inclusao do Professor.", resultado == true && resultado2 == true);
@@ -78,8 +78,8 @@ public class ManterProfessorTest {
 	
 	@Test
 	public void testAlterarVet() throws ClienteException, SQLException {
-		Professor prof = new Professor("Nome para Incluir", "868.563.327-34", "123456", "1234-5678", "Nome@email");
-		Professor p = new Professor("Nome para Alterar", "868.563.327-34", "123456", "1234-5678", "Nome@email");
+		Teacher prof = new Teacher("Nome para Incluir", "868.563.327-34", "123456", "1234-5678", "Nome@email");
+		Teacher p = new Teacher("Nome para Alterar", "868.563.327-34", "123456", "1234-5678", "Nome@email");
 		
 		this.executaNoBanco("INSERT INTO " +
 				"professor (nome, cpf, telefone, email, matricula) VALUES (" +
@@ -111,7 +111,7 @@ public class ManterProfessorTest {
 	
 	@Test
 	public void testExcluirVet() throws ClienteException, SQLException {
-		Professor prof = new Professor("Nome para Incluir", "868.563.327-34", "123456", "1234-5678", "Nome@email");
+		Teacher prof = new Teacher("Nome para Incluir", "868.563.327-34", "123456", "1234-5678", "Nome@email");
 		
 		this.executaNoBanco("INSERT INTO " +
 				"professor (nome, cpf, telefone, email, matricula) VALUES (" +

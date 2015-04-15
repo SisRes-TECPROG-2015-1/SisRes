@@ -36,14 +36,14 @@ public class AlterarReservaProfSalaView extends ReservaSalaView {
             PatrimonyException, PatrimonyException, ClienteException, ReserveException {
         super(parent, modal );
         this.setName( "AlterarReservaSalaView" );
-        this.reservaProfessor = instanceProf.buscarPorData( data ).get( index );
+        this.reservaProfessor = instanceProf.getRoomByDate( data ).get( index );
         resetComponents();
 
     }
 
     @Override protected void reservarProfessor() {
         try {
-            instanceProf.alterar( this.finalidadeTextField.getText(), reservaProfessor );
+            instanceProf.changeRoomReserve( this.finalidadeTextField.getText(), reservaProfessor );
 
             JOptionPane.showMessageDialog( this, "Reserva alterada com sucesso", "Sucesso", JOptionPane.INFORMATION_MESSAGE, null );
 

@@ -111,7 +111,7 @@ public class SalaDAOTest {
 				"\"" + s.getDescricao() + "\", " +
 				s.getCapacidade() + ");");
 		
-		ClassRoom.getInstance().alterar(s, s2);
+		ClassRoom.getInstance().changeRoomReserve(s, s2);
 		
 		rs = this.estaNoBanco("SELECT * FROM sala WHERE " +
 				"sala.codigo = \"" + s.getCodigo() + "\" and " +
@@ -142,12 +142,12 @@ public class SalaDAOTest {
 	@Test (expected= PatrimonyException.class)
 	public void testAletarPrimeiroNulo() throws PatrimonyException, SQLException {
 		Sala s = new Sala("CodigoInc", "Descricao Da Sala Inclusao", "123");
-		ClassRoom.getInstance().alterar(null, s);
+		ClassRoom.getInstance().changeRoomReserve(null, s);
 	}
 	@Test (expected= PatrimonyException.class)
 	public void testAletarSegundoNulo() throws PatrimonyException, SQLException {
 		Sala s = new Sala("CodigoInc", "Descricao Da Sala Inclusao", "123");
-		ClassRoom.getInstance().alterar(s, null);
+		ClassRoom.getInstance().changeRoomReserve(s, null);
 	}
 	@Test (expected= PatrimonyException.class)
 	public void testAletarNaoExistente() throws PatrimonyException, SQLException {
@@ -156,7 +156,7 @@ public class SalaDAOTest {
 		boolean rs2 = true;
 		
 		try{
-			ClassRoom.getInstance().alterar(s, s2);
+			ClassRoom.getInstance().changeRoomReserve(s, s2);
 		} finally {		
 		
 		rs2 = this.estaNoBanco("SELECT * FROM sala WHERE " +
@@ -195,7 +195,7 @@ public class SalaDAOTest {
 				s2.getCapacidade() + ");");
 		
 		try{
-			ClassRoom.getInstance().alterar(s, s2);
+			ClassRoom.getInstance().changeRoomReserve(s, s2);
 		} finally {
 		
 		rs = this.estaNoBanco("SELECT * FROM sala WHERE " +
@@ -248,7 +248,7 @@ public class SalaDAOTest {
 				s.getCapacidade() + ");");
 		
 		try{
-			ClassRoom.getInstance().alterar(s, s2);
+			ClassRoom.getInstance().changeRoomReserve(s, s2);
 		} finally {
 		
 		rs = this.estaNoBanco("SELECT * FROM sala WHERE " +

@@ -4,7 +4,7 @@ import java.sql.SQLException;
 import java.util.Vector;
 
 import model.Equipamento;
-import model.Professor;
+import model.Teacher;
 import model.TeacherEquipmentReserve;
 import persistence.ResEquipamentoProfessorDAO;
 import exception.ClienteException;
@@ -66,7 +66,7 @@ public class MaintainEquipmentReservationByTeacher {
     /**
      * Reserves an equipment to a teacher to a date and hour.
      */
-    public void inserir( Equipamento equipamento, Professor prof, String data, String hora ) throws SQLException, ReserveException {
+    public void inserir( Equipamento equipamento, Teacher prof, String data, String hora ) throws SQLException, ReserveException {
         TeacherEquipmentReserve reserva = new TeacherEquipmentReserve( data, hora, equipamento, prof );
         ResEquipamentoProfessorDAO.getInstance().incluir( reserva );
         this.rev_equipamento_professor_vet.add( reserva );

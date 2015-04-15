@@ -65,7 +65,7 @@ public class FazerReservaSalaView extends ReservaSalaView {
     @Override protected void reservarProfessor() {
         try {
 
-            instanceProf.inserir( sala, prof, this.dataTextField.getText(), this.horaTextField.getText(),
+            instanceProf.insertReserve( sala, prof, this.dataTextField.getText(), this.horaTextField.getText(),
                     this.finalidadeTextField.getText() );
 
             JOptionPane.showMessageDialog( this, "Reserva feita com sucesso", "Sucesso", JOptionPane.INFORMATION_MESSAGE, null );

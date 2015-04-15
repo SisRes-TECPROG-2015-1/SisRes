@@ -101,7 +101,7 @@ public class HorariosReservaSala extends HorariosReservaPatrimonio {
         this.mes = Integer.parseInt( this.data.substring( 3, 5 ) );
 
         try {
-            Vector v = instanceProf.buscarPorData( this.data );
+            Vector v = instanceProf.getRoomByDate( this.data );
 
             if ( v != null )
                 for ( int i = 0; i < v.size(); i++ ) {
@@ -154,11 +154,11 @@ public class HorariosReservaSala extends HorariosReservaPatrimonio {
                 }
             } else if ( tipoCliente.equals( "Professor" ) ) {
                 int confirm = JOptionPane.showConfirmDialog( this,
-                        "Deseja mesmo excluir Reserva?\n" + instanceProf.buscarPorData( data ).get( index ).toString(), "Excluir",
+                        "Deseja mesmo excluir Reserva?\n" + instanceProf.getRoomByDate( data ).get( index ).toString(), "Excluir",
                         JOptionPane.YES_NO_OPTION );
 
                 if ( confirm == JOptionPane.YES_OPTION ) {
-                    this.instanceProf.excluir( instanceProf.buscarPorData( data ).get( index ) );
+                    this.instanceProf.excludeReserve( instanceProf.getRoomByDate( data ).get( index ) );
                     JOptionPane.showMessageDialog( this, "Reserva excluida com sucesso", "Sucesso", JOptionPane.INFORMATION_MESSAGE,
                             null );
                 }

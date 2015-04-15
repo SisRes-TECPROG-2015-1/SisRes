@@ -2,7 +2,7 @@ package model;
 
 import exception.ClientException;
 
-public class Professor extends Client {
+public class Teacher extends Client {
 
 	/**
 	 * Defining constants for error messages and alerts. Constant
@@ -22,7 +22,7 @@ public class Professor extends Client {
 	 * @param email
 	 * @throws ClientException
 	 */
-	public Professor( String nome, String cpf, String matricula,
+	public Teacher( String nome, String cpf, String matricula,
 			String fone, String email ) throws ClientException {
 		super( nome, cpf, matricula, fone, email );
 	}

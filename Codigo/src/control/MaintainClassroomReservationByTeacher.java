@@ -3,17 +3,16 @@ package control;
 import java.sql.SQLException;
 import java.util.Vector;
 
-import persistence.TeacherRoomReserveDAO;
-
-import model.Professor;
+import model.Room;
+import model.Teacher;
 import model.TeacherRoomReserve;
-import model.Sala;
-import exception.ClienteException;
+import persistence.TeacherRoomReserveDAO;
+import exception.ClientException;
 import exception.PatrimonyException;
 import exception.ReserveException;
 
 public class MaintainClassroomReservationByTeacher {
-	private Vector<TeacherRoomReserve> rev_sala_professor_vet = new Vector<TeacherRoomReserve>();
+	private Vector<TeacherRoomReserve> roomReserve = new Vector<TeacherRoomReserve>();
 	
 	//Singleton
 	private static MaintainClassroomReservationByTeacher instance;
@@ -37,8 +36,8 @@ public class MaintainClassroomReservationByTeacher {
      * Captures the classroom reserves for teachers in the date searched.
      * @return Vector - Classroom reserves
      */	
-	public Vector < TeacherRoomReserve > buscarPorData( String data ) throws SQLException, ClienteException, PatrimonyException, ReserveException {
-		return TeacherRoomReserveDAO.getInstance().buscagetTeacherReservedRoomsByDayrPorData( data );
+	public Vector < TeacherRoomReserve > getRoomByDate( String date ) throws SQLException, ClientException, PatrimonyException, ReserveException {
+		return TeacherRoomReserveDAO.getInstance().buscagetTeacherReservedRoomsByDayrPorData( date );
 	} 
 	    	
 		
@@ -46,45 +45,45 @@ public class MaintainClassroomReservationByTeacher {
      * Lists all the classroom reserves for teachers.
      * @return Vector - Classroom reserves for teachers
      */
-	public Vector < TeacherRoomReserve > getResProfessorSala_vet() throws SQLException, ClienteException, PatrimonyException, ReserveException {
-		this.rev_sala_professor_vet = TeacherRoomReserveDAO.getInstance().getAllTeacherReservedRooms();
-		return this.rev_sala_professor_vet;
+	public Vector < TeacherRoomReserve > getRoomsReserves() throws SQLException, ClientException, PatrimonyException, ReserveException {
+		this.roomReserve = TeacherRoomReserveDAO.getInstance().getAllTeacherReservedRooms();
+		return this.roomReserve;
 	}
 
 	
 	/**
      * Reserves an classroom to a teacher.
      */
-	public void inserir( Sala sala, Professor prof,
-						String data, String hora, String finalidade ) 
+	public void insertReserve( Room room, Teacher teacher,
+						String date, String hour, String finality ) 
 					throws SQLException, ReserveException {
 
-		TeacherRoomReserve reserva = new TeacherRoomReserve( data, hora, sala , finalidade, prof );
+		TeacherRoomReserve reserva = new TeacherRoomReserve( date, hour, room , finality, teacher );
 		TeacherRoomReserveDAO.getInstance().saveNewTeacherRoomReserve( reserva );
-		this.rev_sala_professor_vet.add( reserva );
+		this.roomReserve.add( reserva );
 	}
 
 	
 	/**
      * Changes the classroom reserve to a new one.
      */
-	public void alterar( String finalidade, TeacherRoomReserve reserva ) 
+	public void changeRoomReserve( String finality, TeacherRoomReserve reserve ) 
 				throws SQLException, ReserveException {
 		
-		TeacherRoomReserve reserva_old = new TeacherRoomReserve( reserva.getData(), reserva.getHora(), reserva.getSala() , 
-				reserva.getFinality(), reserva.getProfessor() );
+		TeacherRoomReserve old_reserve = new TeacherRoomReserve( reserve.getData(), reserve.getHora(), reserve.getSala() , 
+				reserve.getFinality(), reserve.getProfessor() );
 		
-		reserva.setFinality( finalidade );
-		TeacherRoomReserveDAO.getInstance().updateTeacherRoomReserve( reserva_old, reserva );
+		reserve.setFinality( finality );
+		TeacherRoomReserveDAO.getInstance().updateTeacherRoomReserve( old_reserve, reserve );
 		
 	}
 
 	/**
      * Excludes a classroom reserve for a teacher.
      */
-	public void excluir( TeacherRoomReserve reserva ) throws SQLException, ReserveException {
-		TeacherRoomReserveDAO.getInstance().deleteTeacherReservedRoom( reserva );
-		this.rev_sala_professor_vet.remove( reserva );
+	public void excludeReserve( TeacherRoomReserve reserve ) throws SQLException, ReserveException {
+		TeacherRoomReserveDAO.getInstance().deleteTeacherReservedRoom( reserve );
+		this.roomReserve.remove( reserve );
 	}
 
 }

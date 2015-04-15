@@ -6,7 +6,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import model.Aluno;
-import model.Professor;
+import model.Teacher;
 import model.StudentRoomReserve;
 import model.TeacherRoomReserve;
 import model.Sala;
@@ -36,7 +36,7 @@ public class US01_AlterarReservaSala {
     private TeacherRoomReserve reservaProf;
     private StudentRoomReserve reservaAluno;
     private Aluno aluno;
-    private Professor prof;
+    private Teacher prof;
     private DialogFixture dialog;
     private int index;
     private int indexReserva;
@@ -59,7 +59,7 @@ public class US01_AlterarReservaSala {
         sala = new Sala("code", "Sala para testes de aceitacao", "123");
         ClassRoom.getInstance().includeARoom(sala);
 
-        prof = new Professor("Professor Teste", "658.535.144-40", "110038096", "9211-2144", "teste incluir repetido");
+        prof = new Teacher("Professor Teste", "658.535.144-40", "110038096", "9211-2144", "teste incluir repetido");
         TeacherDAO.getInstance().includeNewTeacher(prof);
 
         aluno = new Aluno("Aluno Teste", "658.535.144-40", "110038096", "9211-2144", "teste incluir repetido");

@@ -99,7 +99,7 @@ public class EquipamentoDAOTest {
 	
 	@Test
 	public void testAlterar() throws PatrimonyException, SQLException {
-		instance.alterar(antigo, novo);
+		instance.changeRoomReserve(antigo, novo);
 		Equipamento e = procurarNoVetor(antigo);
 		assertNull("Equipamento nao foi alterado", e);
 		assertNotNull("Equipamento nao foi alterado", procurarNoVetor(novo));
@@ -122,7 +122,7 @@ public class EquipamentoDAOTest {
 	
 	@Test (expected= PatrimonyException.class)
 	public void testAlterarSegundoNull() throws PatrimonyException, SQLException {
-		instance.alterar(antigo, null);
+		instance.changeRoomReserve(antigo, null);
 	}
 	
 	
@@ -130,19 +130,19 @@ public class EquipamentoDAOTest {
 	public void testAlterarNaoExistente() throws PatrimonyException, SQLException {
 		Equipamento equip = new Equipamento("codigo", "eqpt nao existente");
 		Equipamento equipAlter = new Equipamento("codigo", "eqpt nao existente alteraddo");
-		instance.alterar(equip, equipAlter);
+		instance.changeRoomReserve(equip, equipAlter);
 	}
 	
 	@Test (expected= PatrimonyException.class)
 	public void testAlterarIgual() throws PatrimonyException, SQLException {
-		instance.alterar(novo, novo);
+		instance.changeRoomReserve(novo, novo);
 	}
 	
 	@Test (expected= PatrimonyException.class)
 	public void testAlterarParaOutroEquipamento() throws PatrimonyException, SQLException {
 		Equipamento e = new Equipamento("novo", "teste Alterar para outro");
 		instance.incluir(e);
-		instance.alterar(e, novo);
+		instance.changeRoomReserve(e, novo);
 	}
 	
 	@Test (expected= PatrimonyException.class)

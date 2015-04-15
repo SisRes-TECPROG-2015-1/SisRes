@@ -3,7 +3,7 @@ package user_stories;
 import java.awt.Dimension;
 import java.sql.SQLException;
 
-import model.Professor;
+import model.Teacher;
 
 import org.fest.swing.core.BasicRobot;
 import org.fest.swing.core.Robot;
@@ -43,7 +43,7 @@ public class US03_CadastrarProfessor {
 
 	private FrameFixture window;
 	private Robot robot;
-	private Professor professor;
+	private Teacher professor;
 	private DialogFixture dialog;
 	private int index;
 	
@@ -104,7 +104,7 @@ public class US03_CadastrarProfessor {
 	@Test
 	public void testCenario2() throws SQLException, ClienteException {
 
-		professor = new Professor("Teste", "658.535.144-40", "110038096","9211-2144", "teste incluir repetido");
+		professor = new Teacher("Teste", "658.535.144-40", "110038096","9211-2144", "teste incluir repetido");
 		TeacherDAO.getInstance().includeNewTeacher(professor);
 		
 		dialog.button("Cadastrar").click();
