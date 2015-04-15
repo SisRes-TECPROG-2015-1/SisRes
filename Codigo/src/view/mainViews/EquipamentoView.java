@@ -46,7 +46,7 @@ public class EquipamentoView extends PatrimonioView {
         try {
             DefaultTableModel table = new DefaultTableModel();
 
-            Iterator<Equipamento> i = control.MaintainEquipment.getInstance().getEquipamento_vet().iterator();
+            Iterator<Equipamento> i = control.MaintainEquipment.getInstance().getEquipments().iterator();
 
             table.addColumn( "Codigo" );
             table.addColumn( "Descricao" );
@@ -87,11 +87,11 @@ public class EquipamentoView extends PatrimonioView {
 
         try {
             int confirm = JOptionPane.showConfirmDialog( this, "Deseja mesmo excluir Equipamento: "
-                    + MaintainEquipment.getInstance().getEquipamento_vet().get(index).getDescricao() + "?", "Excluir",
+                    + MaintainEquipment.getInstance().getEquipments().get(index).getDescricao() + "?", "Excluir",
                     JOptionPane.YES_NO_OPTION );
 
             if ( confirm == JOptionPane.YES_OPTION ) {
-                MaintainEquipment.getInstance().excludeRoom( MaintainEquipment.getInstance().getEquipamento_vet().get(index) );
+                MaintainEquipment.getInstance().excludeRoom( MaintainEquipment.getInstance().getEquipments().get(index) );
                 JOptionPane.showMessageDialog( this, "Equipamento excluido com sucesso", "Sucesso", JOptionPane.INFORMATION_MESSAGE,
                         null );
             }

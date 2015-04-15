@@ -32,7 +32,7 @@ public class MaintainEquipment {
 	 * Captures all the equipments in the database
 	 * @return Vector - All equipments
 	 */	
-	public Vector<Equipamento> getEquipamento_vet() throws SQLException, PatrimonyException {
+	public Vector<Equipamento> getEquipments() throws SQLException, PatrimonyException {
 		this.Equipamento_vet = EquipamentDAO.getInstance().buscarTodos();
 		return this.Equipamento_vet;
 	}
@@ -41,17 +41,17 @@ public class MaintainEquipment {
 	/**
 	 * Inserts a new equipment and its attributes
 	 */
-	public void inserir(String codigo, String descricao) throws PatrimonyException, SQLException {
+	public void insertEquipment(String codigo, String descricao) throws PatrimonyException, SQLException {
 		Equipamento equipamento = new Equipamento(codigo, descricao);
 		EquipamentDAO.getInstance().incluir(equipamento);
-		getEquipamento_vet();
+		getEquipments();
 	}
 
 	
 	/**
 	 * Changes an equipment's attributes
 	 */
-	public void alterar(String codigo, String descricao, Equipamento equipamento) throws PatrimonyException, SQLException {
+	public void changeEquipment(String codigo, String descricao, Equipamento equipamento) throws PatrimonyException, SQLException {
 		if (equipamento == null) {
 			throw new PatrimonyException("Equipamento em branco");
 		}
@@ -59,7 +59,7 @@ public class MaintainEquipment {
 		equipamento.setCodigo(codigo);
 		equipamento.setDescricao(descricao);
 		EquipamentDAO.getInstance().changeRoomReserve(old_equipamento, equipamento);
-		getEquipamento_vet();
+		getEquipments();
 	}
 
 	
@@ -67,11 +67,11 @@ public class MaintainEquipment {
 	 * Excludes an equipment from the database
 	 * @return void
 	 */
-	public void excluir(Equipamento equipamento) throws SQLException, PatrimonyException {
+	public void excludeEquipment(Equipamento equipamento) throws SQLException, PatrimonyException {
 		if (equipamento == null) {
 			throw new PatrimonyException("Equipamento em branco");
 		}
 		EquipamentDAO.getInstance().excludeRoom(equipamento);
-		getEquipamento_vet();
+		getEquipments();
 	}
 }

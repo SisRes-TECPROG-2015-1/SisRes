@@ -25,7 +25,7 @@ public class DiaReservaEquipamento extends DiaReservaPatrimonio {
 
     public DiaReservaEquipamento( Frame parent, boolean modal, int indexEquipamento ) throws SQLException, PatrimonyException {
         super( parent, modal );
-        eq = MaintainEquipment.getInstance().getEquipamento_vet().get( indexEquipamento );
+        eq = MaintainEquipment.getInstance().getEquipments().get( indexEquipamento );
     }
     
     

@@ -38,13 +38,13 @@ public class ManterEquipamentoTest {
 	@Before
 	public void setUp() throws Exception {
 		e = new Equipamento("codigo", "descricao");
-		instance.inserir("codigo","descricao");
-		todos = instance.getEquipamento_vet();
+		instance.insertEquipment("codigo","descricao");
+		todos = instance.getEquipments();
 	}
 
 	@After
 	public void tearDown() throws SQLException, PatrimonyException {
-		todos = instance.getEquipamento_vet();
+		todos = instance.getEquipments();
 		Iterator<Equipamento> i = todos.iterator();
 		while(i.hasNext()){
 			e = i.next();
@@ -90,7 +90,7 @@ public class ManterEquipamentoTest {
 	
 	@Test(expected = PatrimonyException.class)
 	public void testAlterarNull() throws SQLException, PatrimonyException {
-		instance.alterar("codigo alterado", "descricao alterarda", null);
+		instance.changeEquipment("codigo alterado", "descricao alterarda", null);
 	}
 	
 	@Test (expected = PatrimonyException.class)
@@ -100,7 +100,7 @@ public class ManterEquipamentoTest {
 	}
 	
 	public Equipamento procurarNoVetor(Equipamento teste) throws PatrimonyException, SQLException {
-		todos = instance.getEquipamento_vet();
+		todos = instance.getEquipments();
 		Iterator<Equipamento> i = todos.iterator();
 		while(i.hasNext()){
 			Equipamento e = i.next();
