@@ -9,7 +9,6 @@ import model.Equipment;
 import model.Teacher;
 import model.TeacherEquipmentReserve;
 import exception.ClientException;
-import exception.ClienteException;
 import exception.PatrimonyException;
 import exception.ReserveException;
 
@@ -193,7 +192,7 @@ public class ReserveEquipmentTeacherDAO extends DAO {
 	}
 
 	@SuppressWarnings( "unchecked" )
-	public Vector<Object> buscarTodos() throws SQLException, ClienteException,
+	public Vector<Object> buscarTodos() throws SQLException, ClientException,
 			PatrimonyException, ReserveException, ClientException {
 		return super
 				.search( "SELECT * FROM reserva_sala_professor "
@@ -203,7 +202,7 @@ public class ReserveEquipmentTeacherDAO extends DAO {
 
 	@SuppressWarnings( "unchecked" )
 	public Vector<TeacherEquipmentReserve> buscarPorMes( int mes )
-			throws SQLException, ClienteException, PatrimonyException,
+			throws SQLException, ClientException, PatrimonyException,
 			ReserveException, ClientException {
 		Vector<TeacherEquipmentReserve> reservas_prof_mes = super
 				.search( "SELECT * FROM reserva_equipamento_professor "
@@ -221,7 +220,7 @@ public class ReserveEquipmentTeacherDAO extends DAO {
 
 	@SuppressWarnings( "unchecked" )
 	public Vector<TeacherEquipmentReserve> buscarPorHora( String hora )
-			throws SQLException, ClienteException, PatrimonyException,
+			throws SQLException, ClientException, PatrimonyException,
 			ReserveException, ClientException {
 		String hora_a = "", hora_b = "";
 		if ( hora.length() == 4 ) {
@@ -239,7 +238,7 @@ public class ReserveEquipmentTeacherDAO extends DAO {
 	}
 
 	@Override
-	protected Object fetch( ResultSet rs ) throws SQLException, ClienteException,
+	protected Object fetch( ResultSet rs ) throws SQLException, ClientException,
 			PatrimonyException, ReserveException, ClientException {
 		
 		Teacher p = new Teacher( rs.getString( "nome" ), rs.getString( "cpf" ),

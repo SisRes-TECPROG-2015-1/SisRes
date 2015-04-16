@@ -78,7 +78,7 @@ public class MaintainEquipmentReservationByTeacher {
      */
     public void changeClassroomReserve( String finality, TeacherEquipmentReserve reserve ) throws SQLException, ReserveException {
 
-        TeacherEquipmentReserve reserva_old = new TeacherEquipmentReserve( reserve.getData(), reserve.getHora(),
+        TeacherEquipmentReserve reserva_old = new TeacherEquipmentReserve( reserve.getDate(), reserve.getHour(),
                 reserve.getEquipment(), reserve.getProfessor());
         ReserveEquipmentTeacherDAO.getInstance().alterar( reserva_old, reserve );
 

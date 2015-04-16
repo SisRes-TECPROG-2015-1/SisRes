@@ -10,7 +10,6 @@ import model.Teacher;
 import model.TeacherRoomReserve;
 import model.Room;
 import exception.ClientException;
-import exception.ClienteException;
 import exception.PatrimonyException;
 import exception.ReserveException;
 
@@ -296,7 +295,7 @@ public class TeacherRoomReserveDAO extends DAO {
 	 * @throws ReserveException
 	 */
 	public Vector<TeacherRoomReserve> getAllTeacherReservedRooms()
-			throws SQLException, ClienteException, PatrimonyException,
+			throws SQLException, ClientException, PatrimonyException,
 			ReserveException, ClientException {
 		return super
 				.search( "SELECT * FROM reserva_sala_professor "
@@ -316,7 +315,7 @@ public class TeacherRoomReserveDAO extends DAO {
 	 * @throws ReserveException
 	 */
 	public Vector<TeacherRoomReserve> buscagetTeacherReservedRoomsByDayrPorData(
-			String date ) throws SQLException, ClienteException,
+			String date ) throws SQLException, ClientException,
 			PatrimonyException, ReserveException, ClientException {
 		return super
 				.search( "SELECT * FROM reserva_sala_professor "
@@ -328,7 +327,7 @@ public class TeacherRoomReserveDAO extends DAO {
 
 	@Override
 	protected Object fetch( ResultSet rs ) throws SQLException,
-			ClienteException, PatrimonyException, ReserveException, ClientException {
+			ClientException, PatrimonyException, ReserveException, ClientException {
 		Teacher p = new Teacher( rs.getString( "nome" ),
 				rs.getString( "cpf" ), rs.getString( "matricula" ),
 				rs.getString( "telefone" ), rs.getString( "email" ) );

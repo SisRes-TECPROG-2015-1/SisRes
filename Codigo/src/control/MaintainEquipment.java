@@ -2,7 +2,7 @@ package control;
 
 import java.sql.SQLException;
 import java.util.Vector;
-import persistence.EquipamentoDAO;
+import persistence.EquipmentDAO;
 import exception.PatrimonyException;
 import model.Equipment;
 
@@ -33,7 +33,7 @@ public class MaintainEquipment {
 	 * @return Vector - All equipments
 	 */	
 	public Vector <Equipment> getEquipments() throws SQLException, PatrimonyException {
-		this.Equipment_vet = EquipamentoDAO.getInstance().searchForAll();
+		this.Equipment_vet = EquipmentDAO.getInstance().searchForAll();
 		return this.Equipment_vet;
 	}
 	
@@ -42,8 +42,8 @@ public class MaintainEquipment {
 	 */
 	public void insertNewEquipment (String code, String description) throws PatrimonyException, SQLException {
 		Equipment equipment = new Equipment ( code, description );
-		EquipamentoDAO.getInstance().includeReserve( equipment );
-		getEquipamento_vet();
+		EquipmentDAO.getInstance().incluir( equipment );
+		getEquipments();
 	}
 
 	
@@ -57,8 +57,8 @@ public class MaintainEquipment {
 		Equipment old_equipment = new Equipment (equipment.getCode(), equipment.getDescription());
 		equipment.setCode(code);
 		equipment.setDescription(description);
-		EquipamentoDAO.getInstance().changeClassroomReserve(old_equipment, equipment);
-		getEquipamento_vet();
+		EquipmentDAO.getInstance().modifyEquipment(old_equipment, equipment);
+		getEquipments();
 	}
 
 	
@@ -70,7 +70,7 @@ public class MaintainEquipment {
 		if (equipment == null) {
 			throw new PatrimonyException("Equipamento em branco");
 		}
-		EquipamentoDAO.getInstance().excludeEquipment(equipment);
-		getEquipamento_vet();
+		EquipmentDAO.getInstance().exludeEquipment(equipment);
+		getEquipments();
 	}
 }

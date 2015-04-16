@@ -33,7 +33,7 @@ public class MaintainStudent {
 	 * @return Vector - Students
 	 */
 	public Vector <Student> searchStudentByName ( String studantsName ) throws SQLException, ClientException {
-		return StudentDAO.getInstance().search(studantsName);
+		return StudentDAO.getInstance().searchByName(studantsName);
 	}
 	
 	/**
