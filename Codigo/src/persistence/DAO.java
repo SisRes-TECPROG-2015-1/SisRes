@@ -7,7 +7,6 @@ import java.sql.SQLException;
 import java.util.Vector;
 
 import exception.ClientException;
-import exception.ClienteException;
 import exception.PatrimonyException;
 import exception.ReserveException;
 
@@ -21,7 +20,7 @@ public abstract class DAO {
 	 * */
 
 	@SuppressWarnings( { "rawtypes", "unchecked" } )
-	protected Vector search(String query) throws SQLException, ClienteException, 
+	protected Vector search(String query) throws SQLException, ClientException, 
 													PatrimonyException, ReserveException, ClientException {
 		Vector vet = new Vector();
 		
@@ -70,7 +69,7 @@ public abstract class DAO {
 	 * Function used into search method, implemented into others DAO class
 	 * @throws ClientException 
 	 * */
-	protected abstract Object fetch( ResultSet rs ) throws SQLException, ClienteException,
+	protected abstract Object fetch( ResultSet rs ) throws SQLException, ClientException,
 														PatrimonyException, ReserveException, ClientException;
 	
 	

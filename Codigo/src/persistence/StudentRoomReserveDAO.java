@@ -7,8 +7,8 @@ import java.util.Date;
 import java.util.Iterator;
 import java.util.Vector;
 
+
 import exception.ClientException;
-import exception.ClienteException;
 import exception.PatrimonyException;
 import exception.ReserveException;
 import model.Student;
@@ -187,7 +187,7 @@ public class StudentRoomReserveDAO extends DAO {
 	 * @throws NumberFormatException 
 	 */
 	public void saveNewStudentRoomReserve( StudentRoomReserve roomToReserve )
-			throws ReserveException, SQLException, ClienteException,
+			throws ReserveException, SQLException, ClientException,
 			PatrimonyException, NumberFormatException, ClientException {
 		if ( roomToReserve == null ) {
 			throw new ReserveException( NULL_TERM );
@@ -235,7 +235,7 @@ public class StudentRoomReserveDAO extends DAO {
 	public void updateStudentRoomReserve(
 			StudentRoomReserve alreadyReservedRoom,
 			StudentRoomReserve newReserveRoomData ) throws ReserveException,
-			SQLException, ClienteException, PatrimonyException, NumberFormatException, ClientException {
+			SQLException, ClientException, PatrimonyException, NumberFormatException, ClientException {
 		if ( alreadyReservedRoom == null ) {
 			throw new ReserveException( NULL_TERM );
 		} else if ( newReserveRoomData == null ) {
@@ -314,7 +314,7 @@ public class StudentRoomReserveDAO extends DAO {
 	 * @throws ClientException 
 	 */
 	public Vector<StudentRoomReserve> getAllStudentReservedRooms()
-			throws SQLException, ClienteException, PatrimonyException,
+			throws SQLException, ClientException, PatrimonyException,
 			ReserveException, ClientException {
 		return super
 				.search( "SELECT * FROM reserva_sala_aluno "
@@ -335,7 +335,7 @@ public class StudentRoomReserveDAO extends DAO {
 	 * @throws ClientException 
 	 */
 	public Vector<StudentRoomReserve> getStudentReservedRoomsByDay( String date )
-			throws SQLException, ClienteException, PatrimonyException,
+			throws SQLException, ClientException, PatrimonyException,
 			ReserveException, ClientException {
 		date = this.standardizeDate( date );
 		return super
@@ -358,7 +358,7 @@ public class StudentRoomReserveDAO extends DAO {
 	 * @throws ClientException 
 	 */
 	public Vector<StudentRoomReserve> getStudentReservedRoomsByHour( String hour )
-			throws SQLException, ClienteException, PatrimonyException,
+			throws SQLException, ClientException, PatrimonyException,
 			ReserveException, ClientException {
 		hour = this.standardizeHour( hour );
 		return super
@@ -382,7 +382,7 @@ public class StudentRoomReserveDAO extends DAO {
 	 * @throws ClientException 
 	 */
 	public int getAvailableChairs( Room room, String date, String hour )
-			throws SQLException, PatrimonyException, ClienteException,
+			throws SQLException, PatrimonyException, ClientException,
 			ReserveException, ClientException {
 		date = this.standardizeDate( date );
 		hour = this.standardizeHour( hour );
@@ -416,7 +416,7 @@ public class StudentRoomReserveDAO extends DAO {
 	 */
 	private boolean checkIfExistsAvailableChairs( String reservedChairs,
 			Room room, String date, String hour ) throws SQLException,
-			ClienteException, PatrimonyException, ReserveException, NumberFormatException, ClientException {
+			ClientException, PatrimonyException, ReserveException, NumberFormatException, ClientException {
 		if ( this.getAvailableChairs( room, date, hour ) >= Integer
 				.parseInt( reservedChairs ) ) {
 			return true;
@@ -426,7 +426,7 @@ public class StudentRoomReserveDAO extends DAO {
 
 	@Override
 	protected Object fetch( ResultSet resulSet ) throws SQLException,
-			ClienteException, PatrimonyException, ReserveException, ClientException {
+			ClientException, PatrimonyException, ReserveException, ClientException {
 		Student student = new Student( resulSet.getString( "nome" ),
 				resulSet.getString( "cpf" ), resulSet.getString( "matricula" ),
 				resulSet.getString( "telefone" ), resulSet.getString( "email" ) );
