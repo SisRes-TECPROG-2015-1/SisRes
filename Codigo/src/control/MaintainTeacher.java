@@ -110,7 +110,7 @@ public class MaintainTeacher {
 								teacher.getEmail());
 		teacher.setNome( name );
 		teacher.setCpf( cpf );
-		teacher.setMatricula( registration );
+		teacher.setRegistration( registration );
 		teacher.setTelefone( telephone );
 		teacher.setEmail( email );
 		TeacherDAO.getInstance().modifyATeacher( old_teacher, teacher );

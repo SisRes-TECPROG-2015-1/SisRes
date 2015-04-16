@@ -6,7 +6,7 @@ import java.sql.*;
 import java.util.Vector;
 
 import exception.ClientException;
-import exception.ClienteException;
+
 
 public class TeacherDAO {
 
@@ -43,13 +43,13 @@ public class TeacherDAO {
 	 * @throws SQLException
 	 * @throws ClienteException
 	 */
-	public void includeNewTeacher( Teacher teacher ) throws SQLException, ClienteException {
+	public void includeNewTeacher( Teacher teacher ) throws SQLException, ClientException {
 		if ( teacher == null ) {
-			throw new ClienteException( nullTeacher );
+			throw new ClientException( nullTeacher );
 		} else if ( this.inDBCpf( teacher.getCpf() ) ) {
-			throw new ClienteException( existentCPF );
+			throw new ClientException( existentCPF );
 		} else if ( this.inDBMatricula( teacher.getRegistration() ) ) {
-			throw new ClienteException( existentRegistration );
+			throw new ClientException( existentRegistration );
 		}
 		this.updateQuery( "INSERT INTO "
 				+ "professor (nome, cpf, telefone, email, matricula) VALUES ("
@@ -67,29 +67,29 @@ public class TeacherDAO {
 	 * @throws ClienteException
 	 */
 	public void modifyATeacher( Teacher oldTeacher, Teacher newTeacher )
-			throws SQLException, ClienteException {
+			throws SQLException, ClientException {
 		if ( oldTeacher == null ) {
-			throw new ClienteException( nullTeacher );
+			throw new ClientException( nullTeacher );
 		}
 		if (newTeacher == null) {
-			throw new ClienteException( nullTeacher );
+			throw new ClientException( nullTeacher );
 		}
 
 		Connection con = FactoryConnection.getInstance().getConnection();
 		PreparedStatement pst;
 
 		if ( !this.inDB( oldTeacher ) ) {
-			throw new ClienteException( notExistentTeacher );
+			throw new ClientException( notExistentTeacher );
 		}
 		if ( this.inOtherDB( oldTeacher ) ) {
-			throw new ClienteException( classroomInUseByTeacher );
+			throw new ClientException( classroomInUseByTeacher );
 		}
 		else if ( !oldTeacher.getCpf().equals( newTeacher.getCpf() ) 
 				&& this.inDBCpf( newTeacher.getCpf() ) ) {
-			throw new ClienteException( existentCPF );
+			throw new ClientException( existentCPF );
 		} else if ( !oldTeacher.getRegistration().equals( newTeacher.getRegistration() )
 				&& this.inDBMatricula( newTeacher.getRegistration() ) ) {
-			throw new ClienteException( existentRegistration );
+			throw new ClientException( existentRegistration );
 		} else if ( !this.inDB( newTeacher ) ) {
 			String msg = "UPDATE professor SET " + "nome = \""
 					+ newTeacher.getName() + "\", " + "cpf = \""
@@ -109,7 +109,7 @@ public class TeacherDAO {
 			pst.executeUpdate();
 			con.commit();
 		} else {
-			throw new ClienteException( existentTeacher );
+			throw new ClientException( existentTeacher );
 		}
 
 		pst.close();
@@ -122,12 +122,12 @@ public class TeacherDAO {
 	 * @throws SQLException
 	 * @throws ClienteException
 	 */
-	public void excludeATeacher( Teacher teacher ) throws SQLException, ClienteException {
+	public void excludeATeacher( Teacher teacher ) throws SQLException, ClientException {
 		if ( teacher == null ) {
-			throw new ClienteException(nullTeacher);
+			throw new ClientException(nullTeacher);
 		}
 		if ( this.inOtherDB( teacher ) ) {
-			throw new ClienteException( classroomInUseByTeacher );
+			throw new ClientException( classroomInUseByTeacher );
 		} else if ( this.inDB( teacher ) ) {
 			this.updateQuery( "DELETE FROM professor WHERE "
 					+ "professor.nome = \"" + teacher.getName() + "\" and "
@@ -137,7 +137,7 @@ public class TeacherDAO {
 					+ "\" and " + "professor.matricula = \""
 					+ teacher.getRegistration() + "\";" );
 		} else {
-			throw new ClienteException( notExistentTeacher );
+			throw new ClientException( notExistentTeacher );
 		}
 	}
 
@@ -147,7 +147,7 @@ public class TeacherDAO {
 	 * @throws ClientException 
      */
 	public Vector<Teacher> searchForAllTeachers() throws SQLException,
-			ClienteException, ClientException {
+			ClientException, ClientException {
 		return this.searchByQuery( "SELECT * FROM professor;" );
 	}
 
@@ -157,7 +157,7 @@ public class TeacherDAO {
 	 * @throws ClientException 
      */
 	public Vector<Teacher> searchByName( String nameValue ) throws SQLException,
-			ClienteException, ClientException {
+			ClientException, ClientException {
 		return this.searchByQuery( "SELECT * FROM professor WHERE nome = " + "\""
 				+ nameValue + "\";" );
 	}
@@ -169,7 +169,7 @@ public class TeacherDAO {
 	 * @throws ClientException 
      */
 	public Vector<Teacher> searchByCpf( String CPFValue ) throws SQLException,
-			ClienteException, ClientException {
+			ClientException, ClientException {
 		return this.searchByQuery( "SELECT * FROM professor WHERE cpf = " + "\""
 				+ CPFValue + "\";" );
 	}
@@ -180,7 +180,7 @@ public class TeacherDAO {
 	 * @throws ClientException 
      */	
 	public Vector<Teacher> searchByRegistration( String registrationValue ) throws SQLException,
-			ClienteException, ClientException {
+			ClientException, ClientException {
 		return this.searchByQuery( "SELECT * FROM professor WHERE matricula = " + "\""
 				+ registrationValue + "\";" );
 	}
@@ -191,7 +191,7 @@ public class TeacherDAO {
 	 * @throws ClientException 
      */
 	public Vector<Teacher> searchByEmail( String emailValue ) throws SQLException,
-			ClienteException, ClientException {
+			ClientException, ClientException {
 		return this.searchByQuery( "SELECT * FROM professor WHERE email = " + "\""
 				+ emailValue + "\";" );
 	}
@@ -202,7 +202,7 @@ public class TeacherDAO {
 	 * @throws ClientException 
      */
 	public Vector<Teacher> searchByPhoneNumber( String phoneNumberValue ) throws SQLException,
-			ClienteException, ClientException {
+			ClientException, ClientException {
 		return this.searchByQuery( "SELECT * FROM professor WHERE telefone = " + "\""
 				+ phoneNumberValue + "\";" );
 	}
@@ -216,7 +216,7 @@ public class TeacherDAO {
 	 * @throws ClientException 
      */
 	private Vector<Teacher> searchByQuery( String query ) throws SQLException,
-			ClienteException, ClientException {
+			ClientException, ClientException {
 		Vector<Teacher> teacherArrayList = new Vector<Teacher>();
 
 		Connection connection = FactoryConnection.getInstance().getConnection();
@@ -315,7 +315,7 @@ public class TeacherDAO {
 	}
 
 	//Metodo pra buscar professor
-	private Teacher fetchTeacher( ResultSet rs ) throws ClienteException,
+	private Teacher fetchTeacher( ResultSet rs ) throws ClientException,
 			SQLException, ClientException {
 		return new Teacher( rs.getString( "nome" ), rs.getString( "cpf" ),
 				rs.getString( "matricula" ), rs.getString( "telefone" ),
