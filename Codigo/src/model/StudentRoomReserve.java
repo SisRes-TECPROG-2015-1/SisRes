@@ -4,7 +4,7 @@ import exception.ReserveException;
 
 public class StudentRoomReserve extends RoomReserve {
 
-	private Aluno student;
+	private Student student;
 	private String reserved_chairs;
 
 	// Messages for exception
@@ -25,8 +25,8 @@ public class StudentRoomReserve extends RoomReserve {
 	 * @param student
 	 * @throws ReserveException
 	 */
-	public StudentRoomReserve( String date, String hour, Sala sala,
-			String finality, String reserved_chairs, Aluno student )
+	public StudentRoomReserve( String date, String hour, Room sala,
+			String finality, String reserved_chairs, Student student )
 			throws ReserveException {
 		super( date, hour, sala, finality );
 		this.setAluno( student );
@@ -37,7 +37,7 @@ public class StudentRoomReserve extends RoomReserve {
 	 * Getter method for attribute 'student'
 	 * @return
 	 */
-	public Aluno getAluno() {
+	public Student getAluno() {
 		return this.student;
 	}
 	
@@ -53,7 +53,7 @@ public class StudentRoomReserve extends RoomReserve {
 	 * Setter method for attribute 'student'
 	 * @return
 	 */
-	public void setAluno( Aluno student ) throws ReserveException {
+	public void setAluno( Student student ) throws ReserveException {
 		if ( student == null ) { 
 			throw new ReserveException( NULL_STUDENT );
 		} else {
@@ -78,7 +78,7 @@ public class StudentRoomReserve extends RoomReserve {
 		if ( chairs_control.equals( "" ) ) { 
 			throw new ReserveException( BLANK_CHAIRS );
 		} else if ( chairs_control.matches( CHAIRS_PATTERN ) ) {
-			if ( Integer.parseInt( super.getSala().getCapacidade() ) < Integer
+			if ( Integer.parseInt( super.getSala().getCapacity() ) < Integer
 					.parseInt( reserved_chairs ) ) { 
 				throw new ReserveException( OVER_LIMIT_CHAIRS );
 			} else {

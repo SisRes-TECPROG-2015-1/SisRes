@@ -2,9 +2,9 @@ package model;
 
 import exception.ReserveException;
 
-public class RoomReserve extends Reserva {
+public class RoomReserve extends Reserve {
 
-	private Sala room;
+	private Room room;
 	private String finality;
 
 	// Message for exception
@@ -20,7 +20,7 @@ public class RoomReserve extends Reserva {
 	 * @param finality
 	 * @throws ReserveException
 	 */
-	public RoomReserve( String date, String hour, Sala room, String finality )
+	public RoomReserve( String date, String hour, Room room, String finality )
 			throws ReserveException {
 		super( date, hour );
 		this.setSala( room );
@@ -31,7 +31,7 @@ public class RoomReserve extends Reserva {
 	 * Getter method for attribute 'room'
 	 * @return
 	 */
-	public Sala getSala() {
+	public Room getSala() {
 		return this.room;
 	}
 
@@ -47,7 +47,7 @@ public class RoomReserve extends Reserva {
 	 * Setter method for attribute 'room'
 	 * @return
 	 */
-	public void setSala( Sala room ) throws ReserveException {
+	public void setSala( Room room ) throws ReserveException {
 		if ( room == null )
 			throw new ReserveException( NULL_ROOM );
 		this.room = room;

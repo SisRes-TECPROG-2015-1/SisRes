@@ -11,7 +11,6 @@ import exception.PatrimonyException;
 
 public class EquipmentDAO {
 
-    // Mensagens
     private static final String existentEquipment = "Equipamento ja cadastrado.";
     private static final String noExistentEquipment = "Equipamento nao cadastrado.";
     private static final String nullEquipment = "Equipamento esta nulo.";
@@ -53,8 +52,14 @@ public class EquipmentDAO {
         }
     }
     
-    //Método para alterar equipamento
-    public void alterar( Equipment old_equipamento, Equipment new_equipamento ) throws SQLException, PatrimonyException {
+    /**
+     * This method modifies an equipment into the database
+     * @param old_equipamento: refers to the equipment will be modified
+     * @param new_equipamento: refers to the equipment will substitute the actual
+     * @throws SQLException
+     * @throws PatrimonyException
+     */
+    public void modifyEquipment( Equipment old_equipamento, Equipment new_equipamento ) throws SQLException, PatrimonyException {
         if ( old_equipamento == null ) {
             throw new PatrimonyException( nullEquipment );
         }
@@ -89,8 +94,13 @@ public class EquipmentDAO {
         con.close();
     }
 
-    //Metodo para excluir equipamento
-    public void excluir( Equipment equipamento ) throws SQLException, PatrimonyException {
+    /**
+     * Method delete an equipment into the database.
+     * @param equipamento: equipment to be deleted
+     * @throws SQLException
+     * @throws PatrimonyException
+     */
+    public void exludeEquipment( Equipment equipamento ) throws SQLException, PatrimonyException {
         if ( equipamento == null ) {
             throw new PatrimonyException( nullEquipment );
         } else if ( this.inOtherDB( equipamento ) ) {
@@ -108,24 +118,24 @@ public class EquipmentDAO {
      * Captures all the equipments
      * @return Vector - All the equipments
      */
-    public Vector<Equipment> buscarTodos() throws SQLException, PatrimonyException {
-        return this.buscar( "SELECT * FROM equipamento;" );
+    public Vector<Equipment> searchForAll() throws SQLException, PatrimonyException {
+        return this.search( "SELECT * FROM equipamento;" );
     }
 
     /**
      * Captures all the equipments by its identification code
      * @return Vector - Equipments
      */
-    public Vector<Equipment> buscarPorCodigo( String valor ) throws SQLException, PatrimonyException {
-        return this.buscar( "SELECT * FROM equipamento WHERE codigo = " + "\"" + valor + "\";" );
+    public Vector<Equipment> searchByCode( String valor ) throws SQLException, PatrimonyException {
+        return this.search( "SELECT * FROM equipamento WHERE codigo = " + "\"" + valor + "\";" );
     }
 
     /**
      * Captures all the equipments with the given description 
      * @return Vector - Equipments
      */
-    public Vector<Equipment> buscarPorDescricao( String valor ) throws SQLException, PatrimonyException {
-        return this.buscar( "SELECT * FROM equipamento WHERE descricao = " + "\"" + valor + "\";" );
+    public Vector<Equipment> searchByDescription( String valor ) throws SQLException, PatrimonyException {
+        return this.search( "SELECT * FROM equipamento WHERE descricao = " + "\"" + valor + "\";" );
     }
 
     
@@ -136,7 +146,7 @@ public class EquipmentDAO {
      * Searches for an equipment by a given query
      * @return Vector - Equipments
      */
-    private Vector<Equipment> buscar( String query ) throws SQLException, PatrimonyException {
+    private Vector<Equipment> search( String query ) throws SQLException, PatrimonyException {
         Vector<Equipment> vet = new Vector<Equipment>();
 
         Connection con = FactoryConnection.getInstance().getConnection();
@@ -212,7 +222,11 @@ public class EquipmentDAO {
         return new Equipment( rs.getString( "codigo" ), rs.getString( "descricao" ) );
     }
     
-    //Metodo para atualizar a query no banco
+    /**
+     * This method updates a query into the db
+     * @param msg
+     * @throws SQLException
+     */
     private void updateQuery( String msg ) throws SQLException {
         Connection con = FactoryConnection.getInstance().getConnection();
         PreparedStatement pst = con.prepareStatement( msg );

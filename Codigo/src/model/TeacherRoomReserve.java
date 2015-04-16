@@ -18,7 +18,7 @@ public class TeacherRoomReserve extends RoomReserve {
 	 * @param teacher
 	 * @throws ReserveException
 	 */
-	public TeacherRoomReserve( String date, String hour, Sala room,
+	public TeacherRoomReserve( String date, String hour, Room room,
 			String finality, Teacher teacher ) throws ReserveException {
 		super( date, hour, room, finality );
 		this.setProfessor( teacher );

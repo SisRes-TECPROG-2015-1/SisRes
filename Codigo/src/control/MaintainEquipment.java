@@ -33,7 +33,7 @@ public class MaintainEquipment {
 	 * @return Vector - All equipments
 	 */	
 	public Vector <Equipment> getEquipments() throws SQLException, PatrimonyException {
-		this.Equipment_vet = EquipamentoDAO.getInstance().buscarTodos();
+		this.Equipment_vet = EquipamentoDAO.getInstance().searchForAll();
 		return this.Equipment_vet;
 	}
 	
@@ -42,7 +42,7 @@ public class MaintainEquipment {
 	 */
 	public void insertNewEquipment (String code, String description) throws PatrimonyException, SQLException {
 		Equipment equipment = new Equipment ( code, description );
-		EquipamentoDAO.getInstance().incluir( equipment );
+		EquipamentoDAO.getInstance().includeReserve( equipment );
 		getEquipamento_vet();
 	}
 

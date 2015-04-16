@@ -6,7 +6,7 @@ import java.util.Vector;
 import model.Equipment;
 import model.Teacher;
 import model.TeacherEquipmentReserve;
-import persistence.ResEquipamentoProfessorDAO;
+import persistence.ReserveEquipmentTeacherDAO;
 import exception.ClientException;
 import exception.PatrimonyException;
 import exception.ReserveException;
@@ -39,7 +39,7 @@ public class MaintainEquipmentReservationByTeacher {
      */
     public Vector < TeacherEquipmentReserve > getClassroomReserves( String time ) throws SQLException, PatrimonyException,
             ClientException, ReserveException {
-        return ResEquipamentoProfessorDAO.getInstance().buscarPorHora( time );
+        return ReserveEquipmentTeacherDAO.getInstance().buscarPorHora( time );
     }
 
     /**
@@ -48,7 +48,7 @@ public class MaintainEquipmentReservationByTeacher {
      */
     public Vector < TeacherEquipmentReserve > getClassroomReservesByMonth( int month ) throws SQLException, PatrimonyException, ClientException,
             ReserveException {
-        return ResEquipamentoProfessorDAO.getInstance().buscarPorMes( month );
+        return ReserveEquipmentTeacherDAO.getInstance().buscarPorMes( month );
     }
 
     
@@ -58,7 +58,7 @@ public class MaintainEquipmentReservationByTeacher {
      */
     public Vector < Object > getReserves () throws SQLException, ClientException, PatrimonyException,
             ReserveException {
-        this.rev_equipamento_professor_vet = ResEquipamentoProfessorDAO.getInstance().buscarTodos();
+        this.rev_equipamento_professor_vet = ReserveEquipmentTeacherDAO.getInstance().buscarTodos();
         return this.rev_equipamento_professor_vet;
     }
 
@@ -68,7 +68,7 @@ public class MaintainEquipmentReservationByTeacher {
      */
     public void insertNewEquipment( Equipment equipment, Teacher teacher, String date, String time ) throws SQLException, ReserveException {
         TeacherEquipmentReserve reserve = new TeacherEquipmentReserve( date, time, equipment, teacher );
-        ResEquipamentoProfessorDAO.getInstance().incluir( reserve );
+        ReserveEquipmentTeacherDAO.getInstance().includeReserve( reserve );
         this.rev_equipamento_professor_vet.add( reserve );
     }
 
@@ -80,7 +80,7 @@ public class MaintainEquipmentReservationByTeacher {
 
         TeacherEquipmentReserve reserva_old = new TeacherEquipmentReserve( reserve.getData(), reserve.getHora(),
                 reserve.getEquipment(), reserve.getProfessor());
-        ResEquipamentoProfessorDAO.getInstance().alterar( reserva_old, reserve );
+        ReserveEquipmentTeacherDAO.getInstance().alterar( reserva_old, reserve );
 
     }
 
@@ -89,7 +89,7 @@ public class MaintainEquipmentReservationByTeacher {
      * Excludes a classroom reserve.
      */
     public void excludeClassroomReserve( TeacherEquipmentReserve reserve ) throws SQLException, ReserveException {
-        ResEquipamentoProfessorDAO.getInstance().excluir( reserve );
+        ReserveEquipmentTeacherDAO.getInstance().excludeReservation( reserve );
         this.rev_equipamento_professor_vet.remove( reserve );
     }
 

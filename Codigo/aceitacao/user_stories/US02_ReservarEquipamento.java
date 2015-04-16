@@ -55,9 +55,9 @@ public class US02_ReservarEquipamento {
         window.show(new Dimension(900, 500)); // shows the frame to test
 
         equipamento = new Equipamento("code", "Equipamento para testes de aceitacao");
-        EquipmentDAO.getInstance().incluir(equipamento);
+        EquipmentDAO.getInstance().includeReserve(equipamento);
 
-        index = EquipmentDAO.getInstance().buscarTodos().size() - 1;
+        index = EquipmentDAO.getInstance().searchForAll().size() - 1;
 
         window.button("Equipamento").click();
         dialog = window.dialog("EquipamentoView");

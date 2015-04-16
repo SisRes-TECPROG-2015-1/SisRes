@@ -7,13 +7,13 @@ import java.util.Date;
 import java.util.Iterator;
 import java.util.Vector;
 
+import exception.ClientException;
 import exception.ClienteException;
 import exception.PatrimonyException;
 import exception.ReserveException;
-
-import model.Aluno;
+import model.Student;
 import model.StudentRoomReserve;
-import model.Sala;
+import model.Room;
 
 @SuppressWarnings("unchecked")
 public class StudentRoomReserveDAO extends DAO {
@@ -60,13 +60,13 @@ public class StudentRoomReserveDAO extends DAO {
 	 * @param student
 	 * @return
 	 */
-	private String select_student_id( Aluno student ) {
+	private String select_student_id( Student student ) {
 		return "SELECT id_aluno FROM aluno WHERE " + "aluno.nome = \""
-				+ student.getNome() + "\" and " + "aluno.cpf = \""
+				+ student.getName() + "\" and " + "aluno.cpf = \""
 				+ student.getCpf() + "\" and " + "aluno.telefone = \""
-				+ student.getTelefone() + "\" and " + "aluno.email = \""
+				+ student.getFone() + "\" and " + "aluno.email = \""
 				+ student.getEmail() + "\" and " + "aluno.matricula = \""
-				+ student.getMatricula() + "\"";
+				+ student.getRegistration() + "\"";
 	}
 
 	/**
@@ -75,11 +75,11 @@ public class StudentRoomReserveDAO extends DAO {
 	 * @param room
 	 * @return
 	 */
-	private String select_room_id( Sala room ) {
+	private String select_room_id( Room room ) {
 		return "SELECT id_sala FROM sala WHERE " + "sala.codigo = \""
-				+ room.getCodigo() + "\" and " + "sala.descricao = \""
-				+ room.getDescricao() + "\" and " + "sala.capacidade = "
-				+ room.getCapacidade();
+				+ room.getCode() + "\" and " + "sala.descricao = \""
+				+ room.getDescription() + "\" and " + "sala.capacidade = "
+				+ room.getCapacity();
 	}
 
 	/**
@@ -94,8 +94,8 @@ public class StudentRoomReserveDAO extends DAO {
 				+ select_student_id( reservedRoom.getAluno() ) + " ) and "
 				+ "id_sala = ( " + select_room_id( reservedRoom.getSala() )
 				+ " ) and " + "finalidade = \"" + reservedRoom.getFinality()
-				+ "\" and " + "hora = \"" + reservedRoom.getHora() + "\" and "
-				+ "data = \"" + reservedRoom.getData() + "\" and "
+				+ "\" and " + "hora = \"" + reservedRoom.getHour() + "\" and "
+				+ "data = \"" + reservedRoom.getDate() + "\" and "
 				+ "cadeiras_reservadas = " + reservedRoom.getReservedChairs();
 	}
 
@@ -110,8 +110,8 @@ public class StudentRoomReserveDAO extends DAO {
 		return "( " + select_student_id( reservingRoom.getAluno() ) + " ), "
 				+ "( " + select_room_id( reservingRoom.getSala() ) + " ), "
 				+ "\"" + reservingRoom.getFinality() + "\", " + "\""
-				+ reservingRoom.getHora() + "\", " + "\""
-				+ reservingRoom.getData() + "\", "
+				+ reservingRoom.getHour() + "\", " + "\""
+				+ reservingRoom.getDate() + "\", "
 				+ reservingRoom.getReservedChairs();
 	}
 
@@ -128,8 +128,8 @@ public class StudentRoomReserveDAO extends DAO {
 				+ "id_sala = ( "
 				+ select_room_id( updateReservedRoom.getSala() ) + " ), "
 				+ "finalidade = \"" + updateReservedRoom.getFinality() + "\", "
-				+ "hora = \"" + updateReservedRoom.getHora() + "\", "
-				+ "data = \"" + updateReservedRoom.getData() + "\", "
+				+ "hora = \"" + updateReservedRoom.getHour() + "\", "
+				+ "data = \"" + updateReservedRoom.getDate() + "\", "
 				+ "cadeiras_reservadas = "
 				+ updateReservedRoom.getReservedChairs();
 	}
@@ -183,10 +183,12 @@ public class StudentRoomReserveDAO extends DAO {
 	 * @throws SQLException
 	 * @throws ClienteException
 	 * @throws PatrimonyException
+	 * @throws ClientException 
+	 * @throws NumberFormatException 
 	 */
 	public void saveNewStudentRoomReserve( StudentRoomReserve roomToReserve )
 			throws ReserveException, SQLException, ClienteException,
-			PatrimonyException {
+			PatrimonyException, NumberFormatException, ClientException {
 		if ( roomToReserve == null ) {
 			throw new ReserveException( NULL_TERM );
 		} else if ( !this.checkExistingStudent( roomToReserve.getAluno() ) ) {
@@ -194,21 +196,21 @@ public class StudentRoomReserveDAO extends DAO {
 		} else if ( !this.checkExistingRoom( roomToReserve.getSala() ) ) {
 			throw new ReserveException( ABSENT_ROOM );
 		} else if ( this.checkExistingTeacherRoomReserve( roomToReserve.getSala(),
-				roomToReserve.getData(), roomToReserve.getHora() ) ) {
+				roomToReserve.getDate(), roomToReserve.getHour() ) ) {
 			throw new ReserveException( UNAVAILABLE_ROOM );
 		} else if ( this.checkExistingStudentRoomReserve( roomToReserve.getAluno(),
-				roomToReserve.getData(), roomToReserve.getHora() ) ) {
+				roomToReserve.getDate(), roomToReserve.getHour() ) ) {
 			throw new ReserveException( UNAVAILABLE_STUDENT );
 		} else if ( !this.checkIfExistsAvailableChairs(
 				roomToReserve.getReservedChairs(), roomToReserve.getSala(),
-				roomToReserve.getData(), roomToReserve.getHora() ) ) {
+				roomToReserve.getDate(), roomToReserve.getHour() ) ) {
 			throw new ReserveException( UNAVAILABLE_CHAIRS );
 		}
-		if ( this.checkPassedDate( roomToReserve.getData() ) ) {
+		if ( this.checkPassedDate( roomToReserve.getDate() ) ) {
 			throw new ReserveException( DATE_TIME_PASSED );
 		}
-		if ( this.checkDateWithCurrent( roomToReserve.getData() ) ) {
-			if ( this.checkHourHasPassed( roomToReserve.getHora() ) ) {
+		if ( this.checkDateWithCurrent( roomToReserve.getDate() ) ) {
+			if ( this.checkHourHasPassed( roomToReserve.getHour() ) ) {
 				throw new ReserveException( HOUR_PASSED );
 			} else {
 				super.executeQuery( this.insert_into( roomToReserve ) );
@@ -227,11 +229,13 @@ public class StudentRoomReserveDAO extends DAO {
 	 * @throws SQLException
 	 * @throws ClienteException
 	 * @throws PatrimonyException
+	 * @throws ClientException 
+	 * @throws NumberFormatException 
 	 */
 	public void updateStudentRoomReserve(
 			StudentRoomReserve alreadyReservedRoom,
 			StudentRoomReserve newReserveRoomData ) throws ReserveException,
-			SQLException, ClienteException, PatrimonyException {
+			SQLException, ClienteException, PatrimonyException, NumberFormatException, ClientException {
 		if ( alreadyReservedRoom == null ) {
 			throw new ReserveException( NULL_TERM );
 		} else if ( newReserveRoomData == null ) {
@@ -244,16 +248,16 @@ public class StudentRoomReserveDAO extends DAO {
 			throw new ReserveException( ABSENT_STUDENT );
 		} else if ( !this.checkExistingRoom( newReserveRoomData.getSala() ) ) {
 			throw new ReserveException( ABSENT_ROOM );
-		} else if ( !alreadyReservedRoom.getData().equals(
-				newReserveRoomData.getData() )
-				|| !alreadyReservedRoom.getHora().equals(
-						newReserveRoomData.getHora() ) ) {
+		} else if ( !alreadyReservedRoom.getDate().equals(
+				newReserveRoomData.getDate() )
+				|| !alreadyReservedRoom.getHour().equals(
+						newReserveRoomData.getHour() ) ) {
 			if ( this.checkExistingStudentRoomReserve( newReserveRoomData.getAluno(),
-					newReserveRoomData.getData(), newReserveRoomData.getHora() ) ) {
+					newReserveRoomData.getDate(), newReserveRoomData.getHour() ) ) {
 				throw new ReserveException( UNAVAILABLE_STUDENT );
 			} else if ( this.checkExistingTeacherRoomReserve(
-					newReserveRoomData.getSala(), newReserveRoomData.getData(),
-					newReserveRoomData.getHora() ) ) {
+					newReserveRoomData.getSala(), newReserveRoomData.getDate(),
+					newReserveRoomData.getHour() ) ) {
 				throw new ReserveException( UNAVAILABLE_ROOM );
 			}
 		}
@@ -263,15 +267,15 @@ public class StudentRoomReserveDAO extends DAO {
 								.getReservedChairs() ) - Integer
 								.parseInt( alreadyReservedRoom
 										.getReservedChairs() ) ),
-				newReserveRoomData.getSala(), newReserveRoomData.getData(),
-				newReserveRoomData.getHora() ) ) {
+				newReserveRoomData.getSala(), newReserveRoomData.getDate(),
+				newReserveRoomData.getHour() ) ) {
 			throw new ReserveException( UNAVAILABLE_CHAIRS );
 		}
-		if ( this.checkPassedDate( newReserveRoomData.getData() ) ) {
+		if ( this.checkPassedDate( newReserveRoomData.getDate() ) ) {
 			throw new ReserveException( DATE_TIME_PASSED );
 		}
-		if ( this.checkHourHasPassed( newReserveRoomData.getHora() )
-				&& this.checkDateWithCurrent( newReserveRoomData.getData() ) ) {
+		if ( this.checkHourHasPassed( newReserveRoomData.getHour() )
+				&& this.checkDateWithCurrent( newReserveRoomData.getDate() ) ) {
 			throw new ReserveException( HOUR_PASSED );
 		} else {
 			super.updateQuery( this.update( alreadyReservedRoom,
@@ -307,12 +311,13 @@ public class StudentRoomReserveDAO extends DAO {
 	 * @throws ClienteException
 	 * @throws PatrimonyException
 	 * @throws ReserveException
+	 * @throws ClientException 
 	 */
 	public Vector<StudentRoomReserve> getAllStudentReservedRooms()
 			throws SQLException, ClienteException, PatrimonyException,
-			ReserveException {
+			ReserveException, ClientException {
 		return super
-				.buscar( "SELECT * FROM reserva_sala_aluno "
+				.search( "SELECT * FROM reserva_sala_aluno "
 						+ "INNER JOIN sala ON sala.id_sala = reserva_sala_aluno.id_sala "
 						+ "INNER JOIN aluno ON aluno.id_aluno = reserva_sala_aluno.id_aluno;" );
 	}
@@ -327,13 +332,14 @@ public class StudentRoomReserveDAO extends DAO {
 	 * @throws ClienteException
 	 * @throws PatrimonyException
 	 * @throws ReserveException
+	 * @throws ClientException 
 	 */
 	public Vector<StudentRoomReserve> getStudentReservedRoomsByDay( String date )
 			throws SQLException, ClienteException, PatrimonyException,
-			ReserveException {
+			ReserveException, ClientException {
 		date = this.standardizeDate( date );
 		return super
-				.buscar( "SELECT * FROM reserva_sala_aluno "
+				.search( "SELECT * FROM reserva_sala_aluno "
 						+ "INNER JOIN sala ON sala.id_sala = reserva_sala_aluno.id_sala "
 						+ "INNER JOIN aluno ON aluno.id_aluno = reserva_sala_aluno.id_aluno "
 						+ "WHERE data = \"" + date + "\";" );
@@ -349,13 +355,14 @@ public class StudentRoomReserveDAO extends DAO {
 	 * @throws ClienteException
 	 * @throws PatrimonyException
 	 * @throws ReserveException
+	 * @throws ClientException 
 	 */
 	public Vector<StudentRoomReserve> getStudentReservedRoomsByHour( String hour )
 			throws SQLException, ClienteException, PatrimonyException,
-			ReserveException {
+			ReserveException, ClientException {
 		hour = this.standardizeHour( hour );
 		return super
-				.buscar( "SELECT * FROM reserva_sala_aluno "
+				.search( "SELECT * FROM reserva_sala_aluno "
 						+ "INNER JOIN sala ON sala.id_sala = reserva_sala_aluno.id_sala "
 						+ "INNER JOIN aluno ON aluno.id_aluno = reserva_sala_aluno.id_aluno "
 						+ " WHERE hora = \"" + hour + "\";" );
@@ -372,19 +379,20 @@ public class StudentRoomReserveDAO extends DAO {
 	 * @throws PatrimonyException
 	 * @throws ClienteException
 	 * @throws ReserveException
+	 * @throws ClientException 
 	 */
-	public int getAvailableChairs( Sala room, String date, String hour )
+	public int getAvailableChairs( Room room, String date, String hour )
 			throws SQLException, PatrimonyException, ClienteException,
-			ReserveException {
+			ReserveException, ClientException {
 		date = this.standardizeDate( date );
 		hour = this.standardizeHour( hour );
 		Vector<StudentRoomReserve> vet = this.getAllStudentReservedRooms();
 		Iterator<StudentRoomReserve> it = vet.iterator();
-		int total = Integer.parseInt( room.getCapacidade() );
+		int total = Integer.parseInt( room.getCapacity() );
 		while ( it.hasNext() ) {
 			StudentRoomReserve r = it.next();
-			if ( r.getSala().equals( room ) && r.getData().equals( date )
-					&& r.getHora().equals( hour ) ) {
+			if ( r.getSala().equals( room ) && r.getDate().equals( date )
+					&& r.getHour().equals( hour ) ) {
 				total -= Integer.parseInt( r.getReservedChairs() );
 			}
 		}
@@ -403,10 +411,12 @@ public class StudentRoomReserveDAO extends DAO {
 	 * @throws ClienteException
 	 * @throws PatrimonyException
 	 * @throws ReserveException
+	 * @throws ClientException 
+	 * @throws NumberFormatException 
 	 */
 	private boolean checkIfExistsAvailableChairs( String reservedChairs,
-			Sala room, String date, String hour ) throws SQLException,
-			ClienteException, PatrimonyException, ReserveException {
+			Room room, String date, String hour ) throws SQLException,
+			ClienteException, PatrimonyException, ReserveException, NumberFormatException, ClientException {
 		if ( this.getAvailableChairs( room, date, hour ) >= Integer
 				.parseInt( reservedChairs ) ) {
 			return true;
@@ -416,12 +426,12 @@ public class StudentRoomReserveDAO extends DAO {
 
 	@Override
 	protected Object fetch( ResultSet resulSet ) throws SQLException,
-			ClienteException, PatrimonyException, ReserveException {
-		Aluno student = new Aluno( resulSet.getString( "nome" ),
+			ClienteException, PatrimonyException, ReserveException, ClientException {
+		Student student = new Student( resulSet.getString( "nome" ),
 				resulSet.getString( "cpf" ), resulSet.getString( "matricula" ),
 				resulSet.getString( "telefone" ), resulSet.getString( "email" ) );
 
-		Sala room = new Sala( resulSet.getString( "codigo" ),
+		Room room = new Room( resulSet.getString( "codigo" ),
 				resulSet.getString( "descricao" ),
 				resulSet.getString( "capacidade" ) );
 
@@ -440,13 +450,13 @@ public class StudentRoomReserveDAO extends DAO {
 	 * @return
 	 * @throws SQLException
 	 */
-	private boolean checkExistingStudent( Aluno student ) throws SQLException {
+	private boolean checkExistingStudent( Student student ) throws SQLException {
 		return super.inDBGeneric( "SELECT * FROM aluno WHERE "
-				+ "aluno.nome = \"" + student.getNome() + "\" and "
+				+ "aluno.nome = \"" + student.getName() + "\" and "
 				+ "aluno.cpf = \"" + student.getCpf() + "\" and "
-				+ "aluno.telefone = \"" + student.getTelefone() + "\" and "
+				+ "aluno.telefone = \"" + student.getFone() + "\" and "
 				+ "aluno.email = \"" + student.getEmail() + "\" and "
-				+ "aluno.matricula = \"" + student.getMatricula() + "\";" );
+				+ "aluno.matricula = \"" + student.getRegistration() + "\";" );
 	}
 
 	/**
@@ -456,11 +466,11 @@ public class StudentRoomReserveDAO extends DAO {
 	 * @return
 	 * @throws SQLException
 	 */
-	private boolean checkExistingRoom( Sala room ) throws SQLException {
+	private boolean checkExistingRoom( Room room ) throws SQLException {
 		return super.inDBGeneric( "SELECT * FROM sala WHERE "
-				+ "sala.codigo = \"" + room.getCodigo() + "\" and "
-				+ "sala.descricao = \"" + room.getDescricao() + "\" and "
-				+ "sala.capacidade = " + room.getCapacidade() + ";" );
+				+ "sala.codigo = \"" + room.getCode() + "\" and "
+				+ "sala.descricao = \"" + room.getDescription() + "\" and "
+				+ "sala.capacidade = " + room.getCapacity() + ";" );
 	}
 
 	/**
@@ -472,18 +482,18 @@ public class StudentRoomReserveDAO extends DAO {
 	 * @return
 	 * @throws SQLException
 	 */
-	private boolean checkExistingStudentRoomReserve( Aluno student, String date,
+	private boolean checkExistingStudentRoomReserve( Student student, String date,
 			String hour ) throws SQLException {
 		return super.inDBGeneric( "SELECT * FROM reserva_sala_aluno WHERE "
 				+ "data = \"" + date + "\" and " + "hora = \"" + hour
 				+ "\" and " + "id_aluno = (SELECT id_aluno FROM aluno WHERE "
-				+ "aluno.nome = \"" + student.getNome() + "\" and "
+				+ "aluno.nome = \"" + student.getName() + "\" and "
 				+ "aluno.cpf = \"" + student.getCpf() + "\" and "
-				+ "aluno.telefone = \"" + student.getTelefone() + "\" and "
+				+ "aluno.telefone = \"" + student.getFone() + "\" and "
 				+ "aluno.email = \"" + student.getEmail() + "\" and "
-				+ "aluno.matricula = \"" + student.getMatricula() + "\");" );
+				+ "aluno.matricula = \"" + student.getRegistration() + "\");" );
 	}
-
+	
 	/**
 	 * Function to if a teacher room reserve exists in database
 	 * 
@@ -493,15 +503,15 @@ public class StudentRoomReserveDAO extends DAO {
 	 * @return
 	 * @throws SQLException
 	 */
-	private boolean checkExistingTeacherRoomReserve( Sala room, String date,
+	private boolean checkExistingTeacherRoomReserve( Room room, String date,
 			String hour ) throws SQLException {
 		return super.inDBGeneric( "SELECT * FROM reserva_sala_professor WHERE "
 				+ "data = \"" + this.standardizeDate( date ) + "\" and "
 				+ "hora = \"" + this.standardizeHour( hour ) + "\" and "
 				+ "id_sala = (SELECT id_sala FROM sala WHERE "
-				+ "sala.codigo = \"" + room.getCodigo() + "\" and "
-				+ "sala.descricao = \"" + room.getDescricao() + "\" and "
-				+ "sala.capacidade = " + room.getCapacidade() + " );" );
+				+ "sala.codigo = \"" + room.getCode() + "\" and "
+				+ "sala.descricao = \"" + room.getDescription() + "\" and "
+				+ "sala.capacidade = " + room.getCapacity() + " );" );
 	}
 
 	/**
@@ -514,38 +524,38 @@ public class StudentRoomReserveDAO extends DAO {
 		return super.inDBGeneric( "SELECT * FROM reserva_sala_aluno WHERE "
 				+ "id_aluno = (SELECT id_aluno FROM aluno WHERE "
 				+ "aluno.nome = \""
-				+ reservedRoom.getAluno().getNome()
+				+ reservedRoom.getAluno().getName()
 				+ "\" and "
 				+ "aluno.cpf = \""
 				+ reservedRoom.getAluno().getCpf()
 				+ "\" and "
 				+ "aluno.telefone = \""
-				+ reservedRoom.getAluno().getTelefone()
+				+ reservedRoom.getAluno().getFone()
 				+ "\" and "
 				+ "aluno.email = \""
 				+ reservedRoom.getAluno().getEmail()
 				+ "\" and "
 				+ "aluno.matricula = \""
-				+ reservedRoom.getAluno().getMatricula()
+				+ reservedRoom.getAluno().getRegistration()
 				+ "\") and "
 				+ "id_sala = (SELECT id_sala FROM sala WHERE "
 				+ "sala.codigo = \""
-				+ reservedRoom.getSala().getCodigo()
+				+ reservedRoom.getSala().getCode()
 				+ "\" and "
 				+ "sala.descricao = \""
-				+ reservedRoom.getSala().getDescricao()
+				+ reservedRoom.getSala().getDescription()
 				+ "\" and "
 				+ "sala.capacidade = "
-				+ reservedRoom.getSala().getCapacidade()
+				+ reservedRoom.getSala().getCapacity()
 				+ " ) and "
 				+ "finalidade = \""
 				+ reservedRoom.getFinality()
 				+ "\" and "
 				+ "hora = \""
-				+ reservedRoom.getHora()
+				+ reservedRoom.getHour()
 				+ "\" and "
 				+ "data = \""
-				+ reservedRoom.getData()
+				+ reservedRoom.getDate()
 				+ "\" and "
 				+ "cadeiras_reservadas = " + reservedRoom.getReservedChairs() + ";" );
 	}

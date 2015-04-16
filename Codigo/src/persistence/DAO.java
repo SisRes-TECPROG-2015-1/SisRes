@@ -15,13 +15,13 @@ public abstract class DAO {
 	//Esta classe nao sera testada diretamente.
 		
 	/**
-	 * O vetor obtido deste metodo deve ser convertido pra o vetor
-	 * do tipo que se vai utilizar, se necessario.
+	 * The vector obtained in this method have to be converted into the
+	 * vector of the type will be used.
 	 * @throws ClientException 
 	 * */
 
 	@SuppressWarnings( { "rawtypes", "unchecked" } )
-	protected Vector buscar(String query) throws SQLException, ClienteException, 
+	protected Vector search(String query) throws SQLException, ClienteException, 
 													PatrimonyException, ReserveException, ClientException {
 		Vector vet = new Vector();
 		
@@ -42,6 +42,12 @@ public abstract class DAO {
 	
 	
 	//Metodo privado para checar se o registro esta no banco.
+	/**
+	 * This method checks if there is a register into the database
+	 * @param query
+	 * @return
+	 * @throws SQLException
+	 */
 	protected boolean inDBGeneric( String query ) throws SQLException {
 		Connection con = FactoryConnection.getInstance().getConnection();
 		PreparedStatement pst = con.prepareStatement( query );
@@ -61,9 +67,7 @@ public abstract class DAO {
 	}
 
 	/**
-	 * Funcao utilizada no buscar, por isso precisa ser implementada
-	 * Ja foi implementada nas outras classes DAO. A implementacao eh
-	 * semelhante.
+	 * Function used into search method, implemented into others DAO class
 	 * @throws ClientException 
 	 * */
 	protected abstract Object fetch( ResultSet rs ) throws SQLException, ClienteException,
@@ -83,7 +87,11 @@ public abstract class DAO {
 	}
 	
 	
-	 //Este metodo eh utilizado para Alterar alguma coisa no Banco
+	/**
+	 * This method is used to update a query into the database
+	 * @param msg
+	 * @throws SQLException
+	 */
 	protected void updateQuery( String msg ) throws SQLException {
 		Connection con =  FactoryConnection.getInstance().getConnection();
 		con.setAutoCommit( false );

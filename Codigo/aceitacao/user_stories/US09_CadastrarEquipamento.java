@@ -95,14 +95,14 @@ public class US09_CadastrarEquipamento {
         sleep();
         cadastro.optionPane().okButton().click();
 
-        index = EquipmentDAO.getInstance().buscarTodos().size() - 1;
-        equipamento = EquipmentDAO.getInstance().buscarTodos().get(index);
+        index = EquipmentDAO.getInstance().searchForAll().size() - 1;
+        equipamento = EquipmentDAO.getInstance().searchForAll().get(index);
     }
 
     @Test public void testCenario2() throws SQLException, PatrimonyException {
 
         equipamento = new Equipamento("code","Equipamento para testes de aceitacao");
-        EquipmentDAO.getInstance().incluir(equipamento);
+        EquipmentDAO.getInstance().includeReserve(equipamento);
 
         dialog.button("Cadastrar").click();
         DialogFixture cadastro = dialog.dialog("CadastroEquipamento");

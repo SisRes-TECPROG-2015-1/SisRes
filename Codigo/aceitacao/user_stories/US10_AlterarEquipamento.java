@@ -62,9 +62,9 @@ public class US10_AlterarEquipamento {
     window.show(new Dimension(900, 500)); // shows the frame to test
 
     equipamento = new Equipamento("code", "Equipamento para testes de aceitacao");
-    EquipmentDAO.getInstance().incluir(equipamento);
+    EquipmentDAO.getInstance().includeReserve(equipamento);
 
-    index = EquipmentDAO.getInstance().buscarTodos().size() - 1;
+    index = EquipmentDAO.getInstance().searchForAll().size() - 1;
 
     window.button("Equipamento").click();
     dialog = window.dialog("EquipamentoView");
@@ -107,7 +107,7 @@ public void sleep() {
     sleep();
     cadastro.optionPane().okButton().click();
 
-    equipamento = EquipmentDAO.getInstance().buscarTodos().get(index);
+    equipamento = EquipmentDAO.getInstance().searchForAll().get(index);
 }
 
 @Test public void testCenario2() throws SQLException, PatrimonyException {
@@ -135,7 +135,7 @@ public void sleep() {
     cadastro.optionPane().requireMessage("Codigo em Branco.");
     sleep();
     cadastro.optionPane().okButton().click();
-    equipamento = EquipmentDAO.getInstance().buscarTodos().get(index);
+    equipamento = EquipmentDAO.getInstance().searchForAll().get(index);
 }
 
 @Test public void testCenario3DescricaoBranco() throws SQLException, PatrimonyException {
@@ -152,7 +152,7 @@ public void sleep() {
     cadastro.optionPane().requireMessage("Descricao em Branco.");
     sleep();
     cadastro.optionPane().okButton().click();
-    equipamento = EquipmentDAO.getInstance().buscarTodos().get(index);
+    equipamento = EquipmentDAO.getInstance().searchForAll().get(index);
 }
 
 }
