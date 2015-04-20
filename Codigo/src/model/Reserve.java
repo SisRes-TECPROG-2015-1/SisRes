@@ -12,7 +12,7 @@ public class Reserve {
 
 	// Defining constants for error messages and alerts.
 	private final String HOUR_NULL = "A hora esta nula.";
-	private final String HOUR_INVALID = "A hora eh invalida.";
+	//private final String HOUR_INVALID = "A hora eh invalida.";
 	private final String HOUR_WHITE = "A hora esta em branco.";
 	private final String HOUR_PATTERN = "^[012]?[\\d]:[0-5][\\d]$";
 	private final String DATE_NULL = "A data esta nula.";
@@ -94,7 +94,7 @@ public class Reserve {
 	}
 
 	/**
-	 * Function to validate if an object passed is equal to an instancied object
+	 * Function to validate if an object passed is equal to an instanced object
 	 * @param obj
 	 * @return
 	 */

@@ -4,10 +4,10 @@ import exception.ReserveException;
 
 public class EquipmentReserve extends Reserve {
 
-	private Equipment equipment;
+	private Equipment teacher;
 
 	// Message for exception
-	private final String EQUIPAMENTO_NULO = "O equipamneto esta nulo.";
+	private final String NULL_EQUIPMENT = "O equipamento esta nulo.";
 
 	/**
 	 * Constructor method for ReservaEquipamento class
@@ -17,7 +17,7 @@ public class EquipmentReserve extends Reserve {
 	 * @throws ReserveException
 	 */
 	public EquipmentReserve( String date, String hour, Equipment equipment )
-			throws ReserveException {
+							throws ReserveException {
 		super( date, hour );
 		this.setEquipment( equipment );
 	}
@@ -27,29 +27,33 @@ public class EquipmentReserve extends Reserve {
 	 * @return
 	 */
 	public Equipment getEquipment() {
-		return this.equipment;
+		return this.teacher;
 	}
 
 	/**
 	 * Setter method for attribute 'equipment'
-	 * @param equipamento
+	 * @param equipment
 	 * @throws ReserveException
 	 */
 	public void setEquipment( Equipment equipment ) throws ReserveException {
 		if ( equipment == null ) { 
-			throw new ReserveException( EQUIPAMENTO_NULO );
-		}
-		this.equipment = equipment;
+			lauchException( NULL_EQUIPMENT );
+		} else this.teacher = equipment;
 	}
 
+	public void lauchException (String message)throws ReserveException {
+		throw new ReserveException( message );
+	}
+	
+	
 	/**
-	 * Function to validate if an object passed is equal to an instancied object
-	 * @param obj
-	 * @return
+	 * Function to validate if an object passed is equal to an instanced object
+	 * @param reserve
+	 * @return Boolean - Equality between two objects
 	 */
-	public boolean equals( EquipmentReserve obj ) {
-		return ( super.equals( obj ) && this.getEquipment().equals( 
-				obj.getEquipment() ) );
+	public boolean equals( EquipmentReserve reserve ) {
+		return ( super.equals( reserve ) && this.getEquipment().equals( 
+				reserve.getEquipment() ) );
 	}
 
 	@Override

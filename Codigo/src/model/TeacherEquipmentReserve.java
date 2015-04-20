@@ -21,7 +21,7 @@ public class TeacherEquipmentReserve extends EquipmentReserve {
 			Equipment equipamento, Teacher teacher )
 			throws ReserveException {
 		super( date, hour, equipamento );
-		this.setProfessor( teacher );
+		this.setTeacher( teacher );
 	}
 
 	/**
@@ -37,11 +37,14 @@ public class TeacherEquipmentReserve extends EquipmentReserve {
 	 * @param teacher
 	 * @throws ReserveException
 	 */
-	public void setProfessor( Teacher teacher ) throws ReserveException {
+	public void setTeacher( Teacher teacher ) throws ReserveException {
 		if ( teacher == null ) {
-			throw new ReserveException( NULL_TEACHER );
-		} 
-		this.teacher = teacher;
+			lauchException( NULL_TEACHER );
+		} else this.teacher = teacher;
+	}
+
+	public void lauchException (String message)throws ReserveException {
+		throw new ReserveException( message );
 	}
 
 	/**
