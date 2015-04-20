@@ -4,7 +4,7 @@ import exception.ReserveException;
 
 public class EquipmentReserve extends Reserve {
 
-	private Equipment teacher;
+	private Equipment equipment;
 
 	// Message for exception
 	private final String NULL_EQUIPMENT = "O equipamento esta nulo.";
@@ -27,21 +27,37 @@ public class EquipmentReserve extends Reserve {
 	 * @return
 	 */
 	public Equipment getEquipment() {
-		return this.teacher;
+		return this.equipment;
 	}
 
+	/**
+	 * Checks if the object is null
+	 * @param teacher
+	 * @param exceptionMessage
+	 * @throws ReserveException
+	 * @return Boolean - Nullity of the instance teacher
+	 */
+	public boolean checkEquipmentNullity (Equipment teacher, String exceptionMessage)throws ReserveException{
+		if ( teacher == null ){
+			launchException( exceptionMessage );
+			return true;
+		} else return false;
+	}
+	
 	/**
 	 * Setter method for attribute 'equipment'
 	 * @param equipment
 	 * @throws ReserveException
 	 */
 	public void setEquipment( Equipment equipment ) throws ReserveException {
-		if ( equipment == null ) { 
-			lauchException( NULL_EQUIPMENT );
-		} else this.teacher = equipment;
+		boolean isNull = checkEquipmentNullity(equipment, NULL_EQUIPMENT);
+		
+		if ( isNull == false ) { 
+			this.equipment = equipment;
+		}
 	}
 
-	public void lauchException (String message)throws ReserveException {
+	public void launchException (String message)throws ReserveException {
 		throw new ReserveException( message );
 	}
 	

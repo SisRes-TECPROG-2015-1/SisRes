@@ -33,19 +33,40 @@ public class TeacherEquipmentReserve extends EquipmentReserve {
 	}
 
 	/**
+	 * Launches an exception message
+	 * @param message
+	 * @throws ReserveException
+	 */
+	public void launchException (String message)throws ReserveException {
+		throw new ReserveException( message );
+	}
+
+	/**
+	 * Checks if the object is null
+	 * @param teacher
+	 * @param exceptionMessage
+	 * @throws ReserveException
+	 * @return Boolean - Nullity of the instance teacher
+	 */
+	public boolean checkNullity (Teacher teacher, String exceptionMessage)throws ReserveException{
+		if ( teacher == null ){
+			launchException( exceptionMessage );
+			return true;
+		} else return false;
+	}
+	
+	/**
 	 * Setter method for attribute 'teacher'
 	 * @param teacher
 	 * @throws ReserveException
 	 */
 	public void setTeacher( Teacher teacher ) throws ReserveException {
-		if ( teacher == null ) {
-			lauchException( NULL_TEACHER );
-		} else this.teacher = teacher;
+		boolean isNull = checkNullity( teacher, NULL_TEACHER );
+		if (isNull == false ) {
+			this.teacher = teacher;
+		}else;
 	}
 
-	public void lauchException (String message)throws ReserveException {
-		throw new ReserveException( message );
-	}
 
 	/**
 	 * Function to validate if an TeacherEquipmentReserveObjectect passed is equal to an instancied TeacherEquipmentReserveObjectect

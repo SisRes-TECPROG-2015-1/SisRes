@@ -45,28 +45,64 @@ public class RoomReserve extends Reserve {
 
 	/**
 	 * Setter method for attribute 'room'
-	 * @return
 	 */
 	public void setSala( Room room ) throws ReserveException {
-		if ( room == null )
-			throw new ReserveException( NULL_ROOM );
-		this.room = room;
+		if ( room == null ){
+			launchException( NULL_ROOM );
+		} else this.room = room;
 	}
 
+	/**
+	 * Launches an exception message
+	 * @param message
+	 * @throws ReserveException
+	 */
+	public void launchException (String message)throws ReserveException {
+		throw new ReserveException( message );
+	}
+
+	/**
+	 * Checks if the string is null
+	 * @param name
+	 * @param exceptionMessage
+	 * @throws ReserveException
+	 */
+	public void checkNullity (String name, String exceptionMessage)throws ReserveException{
+		if ( name == null ){
+			launchException( exceptionMessage );
+		} else ;
+	}
+	
+	/**
+	 * Checks for blank spaces
+	 * @param name
+	 * @param exceptionMessage
+	 * @return
+	 * @throws ReserveException
+	 */
+	public boolean checkForBlankSpace (String name, String exceptionMessage) throws ReserveException{
+		if ( name.equals( "" ) ) {
+			launchException( exceptionMessage );
+			return true;
+		} 
+		return false;
+	}
+	
+	
 	/**
 	 * Setter method for attribute 'finality'
 	 * @return
 	 */
 	public void setFinality( String finality ) throws ReserveException {
-		if ( finality == null )
-			throw new ReserveException( NULL_FINALITY );
-
+		checkNullity( finality, NULL_FINALITY );
 		finality = finality.trim();
-		if ( finality.equals( "" ) )
-			throw new ReserveException( BLANK_FINALITY );
-		else
+		boolean hasBlankSpace = checkForBlankSpace ( finality, BLANK_FINALITY );
+		if ( hasBlankSpace == false ){
 			this.finality = finality;
+		}else;
 	}
+	
+	
 
 	/**
 	 * Function to validate if an roomReserveObjectect passed is equal to an instancied roomReserveObjectect
