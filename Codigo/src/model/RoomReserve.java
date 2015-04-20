@@ -62,15 +62,17 @@ public class RoomReserve extends Reserve {
 	}
 
 	/**
-	 * Checks if the string is null
-	 * @param name
+	 * Checks if the object is null
+	 * @param finality
 	 * @param exceptionMessage
 	 * @throws ReserveException
+	 * @return Boolean - Nullity of the instance room
 	 */
-	public void checkNullity (String name, String exceptionMessage)throws ReserveException{
-		if ( name == null ){
+	public boolean checkRoomNullity (String finality, String exceptionMessage)throws ReserveException{
+		if ( finality == null ){
 			launchException( exceptionMessage );
-		} else ;
+			return true;
+		} else return false;
 	}
 	
 	/**
@@ -94,12 +96,14 @@ public class RoomReserve extends Reserve {
 	 * @return
 	 */
 	public void setFinality( String finality ) throws ReserveException {
-		checkNullity( finality, NULL_FINALITY );
-		finality = finality.trim();
-		boolean hasBlankSpace = checkForBlankSpace ( finality, BLANK_FINALITY );
-		if ( hasBlankSpace == false ){
-			this.finality = finality;
-		}else;
+		boolean isNull = checkRoomNullity( finality, NULL_FINALITY );
+		if (isNull == false){
+			finality = finality.trim();
+			boolean hasBlankSpace = checkForBlankSpace ( finality, BLANK_FINALITY );
+			if ( hasBlankSpace == false ){
+				this.finality = finality;
+			}else;
+		}
 	}
 	
 	
