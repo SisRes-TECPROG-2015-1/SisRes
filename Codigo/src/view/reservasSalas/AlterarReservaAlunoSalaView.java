@@ -12,7 +12,7 @@ import javax.swing.JOptionPane;
 
 import model.StudentRoomReserve;
 import model.TeacherRoomReserve;
-import exception.ClienteException;
+import exception.ClientException;
 import exception.PatrimonyException;
 import exception.ReserveException;
 
@@ -35,7 +35,7 @@ public class AlterarReservaAlunoSalaView extends ReservaSalaView {
     }
 
     public AlterarReservaAlunoSalaView( Frame parent, boolean modal, int index, String data ) throws SQLException,
-            PatrimonyException, PatrimonyException, ClienteException, ReserveException {
+            PatrimonyException, PatrimonyException, ClientException, ReserveException {
         super( parent, modal );
         this.setName( "AlterarReservaSalaView" );
         this.reservaAluno = instanceAluno.getRoomReservesByDate( data ).get( index );
@@ -54,7 +54,7 @@ public class AlterarReservaAlunoSalaView extends ReservaSalaView {
             JOptionPane.showMessageDialog( this, ex.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE, null);
         } catch ( PatrimonyException ex ) {
             JOptionPane.showMessageDialog( this, ex.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE, null);
-        } catch ( ClienteException ex ) {
+        } catch ( ClientException ex ) {
             JOptionPane.showMessageDialog( this, ex.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE, null);
         } catch ( SQLException ex ) {
             JOptionPane.showMessageDialog( this, ex.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE, null);
@@ -90,7 +90,7 @@ public class AlterarReservaAlunoSalaView extends ReservaSalaView {
 
     @Override protected void verificarAction() {
         try {
-            this.qntCadeirasTxtField.setText( String.valueOf( instanceAluno.captureAvailableChairs( sala, this.dataTextField.getText(),
+            this.qntCadeirasTxtField.setText( String.valueOf( instanceAluno.captureAvailableChairs( classRoom, this.dataTextField.getText(),
                     this.horaTextField.getText() ) ) );
         } catch ( ReserveException ex ) {
             

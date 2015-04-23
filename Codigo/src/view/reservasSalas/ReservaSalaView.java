@@ -9,14 +9,14 @@ import java.util.Vector;
 
 import javax.swing.JOptionPane;
 
-import model.Aluno;
+import model.Room;
+import model.Student;
 import model.Teacher;
-import model.Sala;
-import control.MaintainStudent;
-import control.MaintainTeacher;
 import control.MaintainClassroomReservationByStudent;
 import control.MaintainClassroomReservationByTeacher;
-import exception.ClienteException;
+import control.MaintainStudent;
+import control.MaintainTeacher;
+import exception.ClientException;
 import exception.PatrimonyException;
 import exception.ReserveException;
 
@@ -31,12 +31,12 @@ public abstract class ReservaSalaView extends javax.swing.JDialog {
     protected final int ERRO = -1;
     protected MaintainClassroomReservationByStudent instanceAluno;
     protected MaintainClassroomReservationByTeacher instanceProf;
-    protected Sala sala;
-    protected Aluno aluno;
+    protected Room classRoom;
+    protected Student student;
     protected Teacher prof;
 
     public ReservaSalaView( java.awt.Frame parent, boolean modal ) throws SQLException, PatrimonyException, PatrimonyException,
-            ClienteException, ReserveException {
+            ClientException, ReserveException {
         super( parent, modal );
         this.instanceProf = MaintainClassroomReservationByTeacher.getInstance();
         this.instanceAluno = MaintainClassroomReservationByStudent.getInstance();
@@ -58,17 +58,17 @@ public abstract class ReservaSalaView extends javax.swing.JDialog {
     protected void getAluno() {
         try {
 
-            Vector<Aluno> alunos = MaintainStudent.getInstance().searchByCpf( this.cpfTextField.getText() );
+            Vector<Student> alunos = MaintainStudent.getInstance().searchStudentByCpf( this.cpfTextField.getText() );
             if ( alunos.isEmpty() ) {
                 JOptionPane.showMessageDialog( this, "Aluno nao Cadastrado." + " Digite o CPF correto ou cadastre o aluno desejado",
                         "Erro", JOptionPane.ERROR_MESSAGE, null );
                 this.alunoTextArea.setText( "" );
-                this.aluno = null;
+                this.student = null;
                 return;
             }
-            this.aluno = alunos.firstElement();
-            this.alunoTextArea.setText(aluno.toString());
-        } catch ( ClienteException ex ) {
+            this.student = alunos.firstElement();
+            this.alunoTextArea.setText(student.toString());
+        } catch ( ClientException ex ) {
             JOptionPane.showMessageDialog( this, ex.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE, null );
         } catch ( SQLException ex ) {
             JOptionPane.showMessageDialog(this, ex.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE, null );
@@ -89,7 +89,7 @@ public abstract class ReservaSalaView extends javax.swing.JDialog {
             }
             this.prof = professor.firstElement();
             this.alunoTextArea.setText( professor.firstElement().toString() );
-        } catch ( ClienteException ex ) {
+        } catch ( ClientException ex ) {
             JOptionPane.showMessageDialog( this, ex.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE, null );
         } catch ( SQLException ex ) {
             JOptionPane.showMessageDialog( this, ex.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE, null );

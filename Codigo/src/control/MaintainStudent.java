@@ -40,7 +40,7 @@ public class MaintainStudent {
 	 * Searches for students by its CPF
 	 * @return Vector - Students
 	 */
-	public Vector <Student> getStudentsByCpf ( String studentsCpf ) throws SQLException, ClientException {
+	public Vector <Student> searchStudentByCpf ( String studentsCpf ) throws SQLException, ClientException {
 		return StudentDAO.getInstance().searchByCpf( studentsCpf );
 	}
 	

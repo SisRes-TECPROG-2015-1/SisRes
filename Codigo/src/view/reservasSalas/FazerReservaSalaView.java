@@ -27,7 +27,7 @@ public class FazerReservaSalaView extends ReservaSalaView {
     public FazerReservaSalaView( Frame parent, boolean modal, Sala sala, String data ) throws SQLException, PatrimonyException,
             PatrimonyException, ClienteException, ReserveException {
         super( parent, modal );
-        this.sala = sala;
+        this.classRoom = sala;
         this.dataTextField.setText( data );
         this.salaTextArea.setText( sala.toString() );
         this.qntCadeirasTxtField.setText( sala.getCapacidade() );
@@ -37,7 +37,7 @@ public class FazerReservaSalaView extends ReservaSalaView {
 
     @Override protected void reservarAluno() {
         try {
-            instanceAluno.insertReserve( sala, aluno, this.dataTextField.getText(), this.horaTextField.getText(),
+            instanceAluno.insertReserve( classRoom, student, this.dataTextField.getText(), this.horaTextField.getText(),
                     this.finalidadeTextField.getText(), this.qntCadeirasReservadasTextField.getText() );
 
             instanceAluno.getRoomReserves();
@@ -65,7 +65,7 @@ public class FazerReservaSalaView extends ReservaSalaView {
     @Override protected void reservarProfessor() {
         try {
 
-            instanceProf.insertReserve( sala, prof, this.dataTextField.getText(), this.horaTextField.getText(),
+            instanceProf.insertReserve( classRoom, prof, this.dataTextField.getText(), this.horaTextField.getText(),
                     this.finalidadeTextField.getText() );
 
             JOptionPane.showMessageDialog( this, "Reserva feita com sucesso", "Sucesso", JOptionPane.INFORMATION_MESSAGE, null );
@@ -105,7 +105,7 @@ public class FazerReservaSalaView extends ReservaSalaView {
 
     @Override protected void verificarAction() {
         try {
-            this.qntCadeirasTxtField.setText( String.valueOf( instanceAluno.captureAvailableChairs( sala, this.dataTextField.getText(),
+            this.qntCadeirasTxtField.setText( String.valueOf( instanceAluno.captureAvailableChairs( classRoom, this.dataTextField.getText(),
                     this.horaTextField.getText() ) ) );
         } catch ( ReserveException ex ) {
             

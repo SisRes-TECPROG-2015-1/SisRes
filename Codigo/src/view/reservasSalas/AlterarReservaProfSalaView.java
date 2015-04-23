@@ -11,7 +11,7 @@ import java.sql.SQLException;
 import javax.swing.JOptionPane;
 
 import model.TeacherRoomReserve;
-import exception.ClienteException;
+import exception.ClientException;
 import exception.PatrimonyException;
 import exception.ReserveException;
 
@@ -33,7 +33,7 @@ public class AlterarReservaProfSalaView extends ReservaSalaView {
     }
 
     public AlterarReservaProfSalaView( Frame parent, boolean modal, int index, String data ) throws SQLException,
-            PatrimonyException, PatrimonyException, ClienteException, ReserveException {
+            PatrimonyException, PatrimonyException, ClientException, ReserveException {
         super(parent, modal );
         this.setName( "AlterarReservaSalaView" );
         this.reservaProfessor = instanceProf.getRoomByDate( data ).get( index );
@@ -67,12 +67,12 @@ public class AlterarReservaProfSalaView extends ReservaSalaView {
         this.qntCadeirasReservadasTextField.setBackground( Color.white );
         this.horaTextField.setBackground( blue );
         this.horaTextField.setEditable( false );
-        this.horaTextField.setText( reservaProfessor.getHora() );
+        this.horaTextField.setText( reservaProfessor.getHour() );
         this.alunoTextArea.setText( reservaProfessor.getProfessor().toString() );
         this.salaTextArea.setText( reservaProfessor.getSala().toString() );
-        this.dataTextField.setText( reservaProfessor.getData() );
-        this.qntCadeirasTxtField.setText( reservaProfessor.getSala().getCapacidade() );
-        this.qntCadeirasReservadasTextField.setText( reservaProfessor.getSala().getCapacidade() );
+        this.dataTextField.setText( reservaProfessor.getDate() );
+        this.qntCadeirasTxtField.setText( reservaProfessor.getSala().getCapacity() );
+        this.qntCadeirasReservadasTextField.setText( reservaProfessor.getSala().getCapacity() );
         this.qntCadeirasReservadasTextField.setBackground( blue );
         this.qntCadeirasReservadasTextField.setEditable( false );
         this.finalidadeTextField.setText( reservaProfessor.getFinality() );

@@ -9,8 +9,8 @@ import java.sql.SQLException;
 
 import javax.swing.JOptionPane;
 
-import model.Equipamento;
-import exception.ClienteException;
+import model.Equipment;
+import exception.ClientException;
 import exception.PatrimonyException;
 import exception.ReserveException;
 
@@ -20,10 +20,10 @@ import exception.ReserveException;
  */
 public class FazerReservaEquipamentoView extends ReservaEquipamentoView {
 
-    Equipamento equipamento;
+    Equipment equipamento;
 
-    public FazerReservaEquipamentoView( Frame parent, boolean modal, Equipamento e, String data ) throws SQLException,
-            PatrimonyException, PatrimonyException, ClienteException, ReserveException {
+    public FazerReservaEquipamentoView( Frame parent, boolean modal, Equipment e, String data ) throws SQLException,
+            PatrimonyException, PatrimonyException, ClientException, ReserveException {
         super( parent, modal );
         this.equipamento = e;
         this.dataTextField.setText( data );

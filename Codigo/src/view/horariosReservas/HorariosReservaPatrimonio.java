@@ -7,7 +7,7 @@ package view.horariosReservas;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
-import model.Patrimonio;
+import model.Heritage;
 
 /**
  * 
@@ -17,9 +17,8 @@ public abstract class HorariosReservaPatrimonio extends javax.swing.JDialog {
 
     protected String data;
     int mes;
-    protected Patrimonio p;
+    protected Heritage p;
 
-    protected abstract DefaultTableModel fillTable( Patrimonio p );
 
     protected abstract void cancelarReservaAction( int indexLinha );
 
@@ -27,7 +26,7 @@ public abstract class HorariosReservaPatrimonio extends javax.swing.JDialog {
 
     protected abstract void alterarAction( int indexLinha );
 
-    public HorariosReservaPatrimonio( java.awt.Frame parent, boolean modal, String data, Patrimonio p ) {
+    public HorariosReservaPatrimonio( java.awt.Frame parent, boolean modal, String data, Heritage p ) {
         super( parent, modal );
         this.data = data;
         this.setTitle( data );
@@ -198,4 +197,9 @@ public abstract class HorariosReservaPatrimonio extends javax.swing.JDialog {
     protected javax.swing.JButton reservarButton;
     protected javax.swing.JTable reservasTable;
     // End of variables declaration//GEN-END:variables
+
+	protected DefaultTableModel fillTable( Heritage equip ) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }
