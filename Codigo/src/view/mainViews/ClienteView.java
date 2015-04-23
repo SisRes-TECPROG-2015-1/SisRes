@@ -10,7 +10,7 @@ import java.util.Vector;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
-import model.Cliente;
+import model.Client;;
 
 /**
  * 
@@ -39,19 +39,19 @@ public abstract class ClienteView extends javax.swing.JDialog {
 
     public abstract void excluirAction();
 
-    protected Vector<String> fillDataVector( Cliente cliente ) {
+    protected Vector<String> fillDataVector( Client client ) {
 
         Vector<String> nomesTabela = new Vector<String>();
 
-        if ( cliente == null ) {
+        if ( client == null ) {
             return null;
         }
 
-        nomesTabela.add( cliente.getMatricula() );
-        nomesTabela.add( cliente.getNome() );
-        nomesTabela.add( cliente.getTelefone() );
-        nomesTabela.add( cliente.getCpf() );
-        nomesTabela.add( cliente.getEmail() );
+        nomesTabela.add( client.getRegistration() );
+        nomesTabela.add( client.getName() );
+        nomesTabela.add( client.getFone() );
+        nomesTabela.add( client.getCpf() );
+        nomesTabela.add( client.getEmail() );
 
         return nomesTabela;
 
@@ -64,7 +64,7 @@ public abstract class ClienteView extends javax.swing.JDialog {
     protected DefaultTableModel fillTable() {
         DefaultTableModel table = new DefaultTableModel();
 
-        Iterator<Cliente> i = getIterator();
+        Iterator<Client> i = getIterator();
 
         table.addColumn( "Matricula" );
         table.addColumn( "Nome" );
@@ -74,7 +74,7 @@ public abstract class ClienteView extends javax.swing.JDialog {
 
         while ( i.hasNext() ) {
             // int col, row = 0;
-            Cliente cliente = i.next();
+            Client cliente = i.next();
             table.addRow( fillDataVector(cliente) );
         }
 

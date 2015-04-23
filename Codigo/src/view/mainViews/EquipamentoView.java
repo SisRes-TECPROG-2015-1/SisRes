@@ -7,7 +7,7 @@ import java.util.Vector;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
-import model.Equipamento;
+import model.Equipment;
 import view.alteracoes.AlterarEquipamento;
 import view.cadastros.CadastroEquipamento;
 import view.diasReservas.DiaReservaEquipamento;
@@ -27,7 +27,7 @@ public class EquipamentoView extends PatrimonioView {
         this.setName( "EquipamentoView" );
     }
 
-    private Vector<String> fillDataVector( Equipamento equipamento ) {
+    private Vector<String> fillDataVector( Equipment equipamento ) {
 
         if ( equipamento == null ) {
             return null;
@@ -35,8 +35,8 @@ public class EquipamentoView extends PatrimonioView {
 
         Vector<String> nomesTabela = new Vector<String>();
 
-        nomesTabela.add( equipamento.getCodigo() );
-        nomesTabela.add( equipamento.getDescricao() );
+        nomesTabela.add( equipamento.getCode() );
+        nomesTabela.add( equipamento.getDescription() );
 
         return nomesTabela;
 
@@ -46,13 +46,13 @@ public class EquipamentoView extends PatrimonioView {
         try {
             DefaultTableModel table = new DefaultTableModel();
 
-            Iterator<Equipamento> i = control.MaintainEquipment.getInstance().getEquipments().iterator();
+            Iterator<Equipment> i = control.MaintainEquipment.getInstance().getEquipments().iterator();
 
             table.addColumn( "Codigo" );
             table.addColumn( "Descricao" );
 
             while ( i.hasNext() ) {
-                Equipamento equipamento = i.next();
+                Equipment equipamento = i.next();
                 table.addRow( fillDataVector( equipamento ) );
             }
             return table;
@@ -87,11 +87,11 @@ public class EquipamentoView extends PatrimonioView {
 
         try {
             int confirm = JOptionPane.showConfirmDialog( this, "Deseja mesmo excluir Equipamento: "
-                    + MaintainEquipment.getInstance().getEquipments().get(index).getDescricao() + "?", "Excluir",
+                    + MaintainEquipment.getInstance().getEquipments().get(index).getDescription() + "?", "Excluir",
                     JOptionPane.YES_NO_OPTION );
 
             if ( confirm == JOptionPane.YES_OPTION ) {
-                MaintainEquipment.getInstance().excludeRoom( MaintainEquipment.getInstance().getEquipments().get(index) );
+                MaintainEquipment.getInstance().excludeEquipment( MaintainEquipment.getInstance().getEquipments().get(index) );
                 JOptionPane.showMessageDialog( this, "Equipamento excluido com sucesso", "Sucesso", JOptionPane.INFORMATION_MESSAGE,
                         null );
             }

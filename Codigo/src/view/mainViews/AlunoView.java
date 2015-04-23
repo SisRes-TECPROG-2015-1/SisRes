@@ -13,7 +13,7 @@ import view.alteracoes.AlterarAluno;
 import view.cadastros.CadastroAluno;
 import view.cadastros.CadastroCliente;
 import control.MaintainStudent;
-import exception.ClienteException;
+import exception.ClientException;
 
 /**
  * 
@@ -33,7 +33,7 @@ public class AlunoView extends ClienteView {
         try {
             return MaintainStudent.getInstance().getStudents().iterator();
 
-        } catch ( ClienteException ex ) {
+        } catch ( ClientException ex ) {
             JOptionPane.showMessageDialog(this, ex.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE, null);
         } catch ( SQLException ex ) {
             JOptionPane.showMessageDialog(this, ex.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE, null);
@@ -76,14 +76,14 @@ public class AlunoView extends ClienteView {
             }
 
             int confirm = JOptionPane.showConfirmDialog( this, "Deseja mesmo excluir Aluno: "
-                    + MaintainStudent.getInstance().getStudents().get(index).getNome() + "?", "Excluir", JOptionPane.YES_NO_OPTION);
+                    + MaintainStudent.getInstance().getStudents().get(index).getName() + "?", "Excluir", JOptionPane.YES_NO_OPTION);
             if (confirm == JOptionPane.YES_OPTION ) {
                 MaintainStudent.getInstance().excludeStudent( MaintainStudent.getInstance().getStudents().get(index) );
                 JOptionPane.showMessageDialog( this, "Aluno excluido com sucesso", "Sucesso", JOptionPane.INFORMATION_MESSAGE, null );
             }
             this.tabelaCliente.setModel( fillTable() );
 
-        } catch ( ClienteException ex ) {
+        } catch ( ClientException ex ) {
             JOptionPane.showMessageDialog( this, ex.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE, null );
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog( this, ex.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE, null );

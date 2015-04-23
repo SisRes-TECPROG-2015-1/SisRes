@@ -13,7 +13,7 @@ import view.alteracoes.AlterarProfessor;
 import view.cadastros.CadastroCliente;
 import view.cadastros.CadastroProfessor;
 import control.MaintainTeacher;
-import exception.ClienteException;
+import exception.ClientException;
 
 /**
  * 
@@ -33,7 +33,7 @@ public class ProfessorView extends ClienteView {
         try {
             return MaintainTeacher.getInstance().getTeachers().iterator();
 
-        } catch ( ClienteException ex ) {
+        } catch ( ClientException ex ) {
             JOptionPane.showMessageDialog( this, ex.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE, null );
         } catch ( SQLException ex ) {
             JOptionPane.showMessageDialog( this, ex.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE, null );
@@ -76,7 +76,7 @@ public class ProfessorView extends ClienteView {
             }
 
             int confirm = JOptionPane.showConfirmDialog( this, "Deseja mesmo excluir Professor: "
-                    + MaintainTeacher.getInstance().getTeachers().get(index).getNome() + "?", "Excluir",
+                    + MaintainTeacher.getInstance().getTeachers().get(index).getName() + "?", "Excluir",
                     JOptionPane.YES_NO_OPTION );
             if ( confirm == JOptionPane.YES_OPTION ) {
                 MaintainTeacher.getInstance().excludeTeacher( MaintainTeacher.getInstance().getTeachers().get(index) );
@@ -85,7 +85,7 @@ public class ProfessorView extends ClienteView {
             }
             this.tabelaCliente.setModel( fillTable() );
 
-        } catch ( ClienteException ex ) {
+        } catch ( ClientException ex ) {
             JOptionPane.showMessageDialog( this, ex.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE, null );
         } catch ( SQLException ex ) {
             JOptionPane.showMessageDialog( this, ex.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE, null );

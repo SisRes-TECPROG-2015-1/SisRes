@@ -11,7 +11,7 @@ import java.util.Vector;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
-import model.Sala;
+import model.Room;
 import view.alteracoes.AlterarSala;
 import view.cadastros.CadastroPatrimonio;
 import view.cadastros.CadastroSala;
@@ -34,7 +34,7 @@ public class SalaView extends PatrimonioView {
     /**
      * This method fills a vector with the information about room reservation
      */
-    protected Vector<String> fillDataVector( Sala sala ) {
+    protected Vector<String> fillDataVector( Room sala ) {
 
         if ( sala == null ) {
             return null;
@@ -42,9 +42,9 @@ public class SalaView extends PatrimonioView {
 
         Vector<String> nomesTabela = new Vector<String>();
 
-        nomesTabela.add( sala.getCodigo() );
-        nomesTabela.add( sala.getDescricao() );
-        nomesTabela.add( sala.getCapacidade() );
+        nomesTabela.add( sala.getCode() );
+        nomesTabela.add( sala.getDescription() );
+        nomesTabela.add( sala.getCapacity() );
 
         return nomesTabela;
 
@@ -57,13 +57,13 @@ public class SalaView extends PatrimonioView {
         try {
             DefaultTableModel table = new DefaultTableModel();
 
-            Iterator<Sala> i = MaintainRoom.getInstance().getRooms().iterator();
+            Iterator<Room> i = MaintainRoom.getInstance().getRooms().iterator();
 
             table.addColumn( "Codigo" );
             table.addColumn( "Nome" );
             table.addColumn( "Capacidade" );
             while ( i.hasNext() ) {
-                Sala sala = i.next();
+                Room sala = i.next();
                 table.addRow( fillDataVector(sala) );
             }
 
@@ -106,7 +106,7 @@ public class SalaView extends PatrimonioView {
         try {
             int confirm = JOptionPane
                     .showConfirmDialog( this, "Deseja mesmo excluir Sala: "
-                            + MaintainRoom.getInstance().getRooms().get(index).getDescricao() + "?", "Excluir",
+                            + MaintainRoom.getInstance().getRooms().get(index).getDescription() + "?", "Excluir",
                             JOptionPane.YES_NO_OPTION );
 
             if ( confirm == JOptionPane.YES_OPTION ) {
