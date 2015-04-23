@@ -89,7 +89,7 @@ public class MaintainClassroomReservationByStudent {
 		throws SQLException, ReserveException, ClientException, PatrimonyException {
 
 		StudentRoomReserve res_old = new StudentRoomReserve( r.getDate(), r.getHour(), r.getSala(),
-			r.getFinality(), r.getReservedChairs(), r.getAluno());
+			r.getFinality(), r.getReservedChairs(), r.getStudent());
 		r.setFinality( finality );
 		r.setReservedChairs( reservedChairs );
 		StudentRoomReserveDAO.getInstance().updateStudentRoomReserve( res_old, r );

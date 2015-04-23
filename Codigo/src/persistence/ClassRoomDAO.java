@@ -110,7 +110,7 @@ public class ClassRoomDAO {
 	 * @throws SQLException
 	 * @throws PatrimonyException
 	 */
-	public void excluir( Room room ) throws SQLException, PatrimonyException {
+	public void excludeRoom( Room room ) throws SQLException, PatrimonyException {
 		if ( room == null ) {
 			throw new PatrimonyException( NullClassRoom );
 		} else if ( this.inOtherDB( room ) ) {

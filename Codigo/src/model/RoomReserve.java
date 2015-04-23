@@ -31,7 +31,7 @@ public class RoomReserve extends Reserve {
 	 * Getter method for attribute 'room'
 	 * @return
 	 */
-	public Room getSala() {
+	public Room getRoom() {
 		return this.room;
 	}
 
@@ -114,7 +114,7 @@ public class RoomReserve extends Reserve {
 	 * @return
 	 */
 	public boolean equals( RoomReserve roomReserveObject ) {
-		return ( super.equals( roomReserveObject ) && this.getSala().equals( roomReserveObject.getSala() ) && this
+		return ( super.equals( roomReserveObject ) && this.getRoom().equals( roomReserveObject.getRoom() ) && this
 				.getFinality().equals( roomReserveObject.getFinality() ) );
 	}
 
@@ -123,7 +123,7 @@ public class RoomReserve extends Reserve {
 	 * To string method for ReservaSala class
 	 */
 	public String toString() {
-		return "\n" + this.getSala().toString() + "\nFinalidade="
+		return "\n" + this.getRoom().toString() + "\nFinalidade="
 				+ this.getFinality() + super.toString();
 	}
 

@@ -48,21 +48,21 @@ public class HorariosReservaSala extends HorariosReservaPatrimonio {
         Vector<String> nomesTabela = new Vector<String>();
         if ( o instanceof StudentRoomReserve ) {
             StudentRoomReserve r = ( StudentRoomReserve ) o;
-            if ( this.room != null && ( r.getSala().equals( this.room ) ) ) {
+            if ( this.room != null && ( r.getRoom().equals( this.room ) ) ) {
                 nomesTabela.add( String.valueOf( index ) );
                 nomesTabela.add( "Aluno" );
                 nomesTabela.add( r.getHour() );
-                nomesTabela.add( r.getAluno().getName() );
-                nomesTabela.add( r.getAluno().getRegistration() );
+                nomesTabela.add( r.getStudent().getName() );
+                nomesTabela.add( r.getStudent().getRegistration() );
                 nomesTabela.add( r.getFinality() );
-                nomesTabela.add( r.getSala().getCode() );
-                nomesTabela.add( r.getSala().getDescription() );
+                nomesTabela.add( r.getRoom().getCode() );
+                nomesTabela.add( r.getRoom().getDescription() );
                 nomesTabela.add( r.getReservedChairs() );
-                nomesTabela.add( r.getSala().getCapacity() );
+                nomesTabela.add( r.getRoom().getCapacity() );
             }
         } else if ( o instanceof TeacherRoomReserve ) {
             TeacherRoomReserve r = ( TeacherRoomReserve ) o;
-            if (this.room != null && ( r.getSala().equals( this.room ) ) ) {
+            if (this.room != null && ( r.getRoom().equals( this.room ) ) ) {
 
                 nomesTabela.add( String.valueOf( index ) );
                 nomesTabela.add( "Professor" );
@@ -70,10 +70,10 @@ public class HorariosReservaSala extends HorariosReservaPatrimonio {
                 nomesTabela.add( r.getProfessor().getName() );
                 nomesTabela.add( r.getProfessor().getRegistration() );
                 nomesTabela.add( r.getFinality() );
-                nomesTabela.add( r.getSala().getCode() );
-                nomesTabela.add( r.getSala().getDescription() );
-                nomesTabela.add( r.getSala().getCapacity() );
-                nomesTabela.add( r.getSala().getCapacity() );
+                nomesTabela.add( r.getRoom().getCode() );
+                nomesTabela.add( r.getRoom().getDescription() );
+                nomesTabela.add( r.getRoom().getCapacity() );
+                nomesTabela.add( r.getRoom().getCapacity() );
             }
         }
 

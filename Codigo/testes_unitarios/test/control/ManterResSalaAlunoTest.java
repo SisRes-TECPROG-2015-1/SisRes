@@ -10,32 +10,32 @@ import java.sql.SQLException;
 import java.util.Iterator;
 import java.util.Vector;
 
-import model.Aluno;
+import model.Room;
+import model.Student;
 import model.StudentRoomReserve;
-import model.Sala;
 
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import persistence.StudentDAO;
-import persistence.FactoryConnection;
 import persistence.ClassRoomDAO;
+import persistence.FactoryConnection;
+import persistence.StudentDAO;
 import control.MaintainClassroomReservationByStudent;
-import exception.ClienteException;
+import exception.ClientException;
 import exception.PatrimonyException;
 import exception.ReserveException;
 
 public class ManterResSalaAlunoTest {
-	private static Sala sala1;
-	private static Aluno aluno1;
+	private static Room sala1;
+	private static Student aluno1;
 	private static Vector<StudentRoomReserve> vet;
 	
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {
 		vet = MaintainClassroomReservationByStudent.getInstance().getRoomReserves();
-		sala1 = new Sala("123", "Sala de Aula", "120");
-		aluno1 = new Aluno("testInstance", "501.341.852-69", "456678", "", "");
+		sala1 = new Room("123", "Sala de Aula", "120");
+		aluno1 = new Student("testInstance", "501.341.852-69", "456678", "", "");
 		
 		StudentDAO.getInstance().includeNewStudent(aluno1);
 		ClassRoomDAO.getInstance().includeARoom(sala1);
@@ -60,7 +60,7 @@ public class ManterResSalaAlunoTest {
 	
 	
 	@Test
-	public void testInserir() throws SQLException, ReserveException, ClienteException, PatrimonyException {
+	public void testInserir() throws SQLException, ReserveException, ClientException, PatrimonyException {
 		String cadeiras_reservadas = "120";
 		String finalidade = "Sala de Estudos";
 		String data = "20/12/33";
@@ -74,7 +74,7 @@ public class ManterResSalaAlunoTest {
 		assertTrue("Teste de Insercao.", resultado && resultado2);
 	}
 	@Test
-	public void testAlterar() throws ReserveException, SQLException, ClienteException, PatrimonyException {
+	public void testAlterar() throws ReserveException, SQLException, ClientException, PatrimonyException {
 		String cadeiras_reservadas = "120";
 		String finalidade = "Sala de Estudos";
 		String data = "20/12/33";
@@ -112,8 +112,8 @@ public class ManterResSalaAlunoTest {
 	}
 	
 	@Test
-	public void testVetDia() throws SQLException, ReserveException, ClienteException, PatrimonyException {
-		Aluno aluno2 = new Aluno("testInswewee", "490.491.781-20", "4324678", "", "");
+	public void testVetDia() throws SQLException, ReserveException, ClientException, PatrimonyException {
+		Student aluno2 = new Student("testInswewee", "490.491.781-20", "4324678", "", "");
 		StudentRoomReserve r = new StudentRoomReserve("1/3/20", "9:11", sala1, "Sala de Estudos", "60", aluno1);
 		StudentRoomReserve r2 = new StudentRoomReserve("1/3/20", "9:11", sala1,"Sala de Estudos", "30", aluno2);
 		StudentRoomReserve r3 = new StudentRoomReserve("1/3/20", "10:00", sala1,"Sala de Estudos", "120", aluno1);
@@ -145,8 +145,8 @@ public class ManterResSalaAlunoTest {
 	}
 	
 	@Test
-	public void testVetDiaHoje() throws SQLException, ReserveException, ClienteException, PatrimonyException {
-		Aluno aluno2 = new Aluno("testInswewee", "490.491.781-20", "4324678", "", "");
+	public void testVetDiaHoje() throws SQLException, ReserveException, ClientException, PatrimonyException {
+		Student aluno2 = new Student("testInswewee", "490.491.781-20", "4324678", "", "");
 		StudentRoomReserve r = new StudentRoomReserve("26/02/2013", "20:00", sala1, "Sala de Estudos", "60", aluno1);
 		StudentRoomReserve r2 = new StudentRoomReserve("26/02/2013", "20:00", sala1,"Sala de Estudos", "30", aluno2);
 		StudentRoomReserve r3 = new StudentRoomReserve("26/02/2013", "21:00", sala1,"Sala de Estudos", "120", aluno1);
@@ -178,35 +178,35 @@ public class ManterResSalaAlunoTest {
 	}
 	
 	
-	private String select_id_aluno(Aluno a){
+	private String select_id_aluno(Student a){
 		return "SELECT id_aluno FROM aluno WHERE " +
-				"aluno.nome = \"" + a.getNome() + "\" and " +
+				"aluno.nome = \"" + a.getName() + "\" and " +
 				"aluno.cpf = \"" + a.getCpf() + "\" and " +
-				"aluno.telefone = \"" + a.getTelefone() + "\" and " +
+				"aluno.telefone = \"" + a.getFone() + "\" and " +
 				"aluno.email = \"" + a.getEmail() + "\" and " +
-				"aluno.matricula = \"" + a.getMatricula() + "\"";
+				"aluno.matricula = \"" + a.getRegistration() + "\"";
 	}
-	private String select_id_sala(Sala sala){
+	private String select_id_sala(Room sala){
 		return "SELECT id_sala FROM sala WHERE " +
-				"sala.codigo = \"" + sala.getCodigo() + "\" and " +
-				"sala.descricao = \"" + sala.getDescricao() +  "\" and " +
-				"sala.capacidade = " + sala.getCapacidade();
+				"sala.codigo = \"" + sala.getCode() + "\" and " +
+				"sala.descricao = \"" + sala.getDescription() +  "\" and " +
+				"sala.capacidade = " + sala.getCapacity();
 	}
 	private String where_reserva_sala_aluno(StudentRoomReserve r){
 		return " WHERE " +
-		"id_aluno = ( " + select_id_aluno(r.getAluno()) + " ) and " +
-		"id_sala = ( " + select_id_sala(r.getSala()) + " ) and " +
+		"id_aluno = ( " + select_id_aluno(r.getStudent()) + " ) and " +
+		"id_sala = ( " + select_id_sala(r.getRoom()) + " ) and " +
 		"finalidade = \"" + r.getFinality() + "\" and " +
-		"hora = \"" + r.getHora() + "\" and " +
-		"data = \"" + r.getData() + "\" and " +
+		"hora = \"" + r.getHour() + "\" and " +
+		"data = \"" + r.getDate() + "\" and " +
 		"cadeiras_reservadas = " + r.getReservedChairs();
 	}
 	private String values_reserva_sala_aluno(StudentRoomReserve r){
-		return "( " + select_id_aluno(r.getAluno()) + " ), " +
-		"( " + select_id_sala(r.getSala()) + " ), " +
+		return "( " + select_id_aluno(r.getStudent()) + " ), " +
+		"( " + select_id_sala(r.getRoom()) + " ), " +
 		"\"" + r.getFinality() + "\", " +
-		"\"" + r.getHora() + "\", " +
-		"\"" + r.getData() + "\", " +
+		"\"" + r.getHour() + "\", " +
+		"\"" + r.getDate() + "\", " +
 		r.getReservedChairs();
 	}
 	private void insert_into(StudentRoomReserve r){

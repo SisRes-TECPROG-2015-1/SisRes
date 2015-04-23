@@ -43,7 +43,7 @@ public class Heritage {
 	 * Getter method to attribute 'Description'
 	 * @return description
 	 */
-	public String getDescription() {
+	public  String getDescription() {
 		return description;
 	}
 

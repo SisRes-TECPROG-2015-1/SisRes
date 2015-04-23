@@ -66,7 +66,7 @@ public class MaintainRoom {
 	 * Excludes a classroom from the database.
 	 */
 	public void excludeRoom( Room room ) throws SQLException, PatrimonyException {
-		ClassRoomDAO.getInstance().excluir( room );
+		ClassRoomDAO.getInstance().excludeRoom( room );
 		this.room.remove( room );
 	}
 

@@ -42,7 +42,7 @@ public class MaintainEquipment {
 	 */
 	public void insertNewEquipment (String code, String description) throws PatrimonyException, SQLException {
 		Equipment equipment = new Equipment ( code, description );
-		EquipmentDAO.getInstance().incluir( equipment );
+		EquipmentDAO.getInstance().includeEquipment( equipment );
 		getEquipments();
 	}
 
@@ -70,7 +70,7 @@ public class MaintainEquipment {
 		if (equipment == null) {
 			throw new PatrimonyException("Equipamento em branco");
 		}
-		EquipmentDAO.getInstance().exludeEquipment(equipment);
+		EquipmentDAO.getInstance().excludeEquipment(equipment);
 		getEquipments();
 	}
 }

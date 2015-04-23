@@ -9,7 +9,7 @@ import java.sql.SQLException;
 import java.util.Iterator;
 import java.util.Vector;
 
-import model.Equipamento;
+import model.Equipment;
 
 import org.junit.After;
 import org.junit.AfterClass;
@@ -23,8 +23,8 @@ import exception.PatrimonyException;
 
 public class EquipamentoDAOTest {
 	static EquipmentDAO instance;
-	Equipamento antigo, novo;
-	Vector <Equipamento> todos;
+	Equipment antigo, novo;
+	Vector <Equipment> todos;
 	
 	@BeforeClass
 	public static void setUpClass() throws PatrimonyException, SQLException {
@@ -38,19 +38,19 @@ public class EquipamentoDAOTest {
 	
 	@Before
 	public void setUp() throws PatrimonyException, SQLException {
-		 antigo = new Equipamento("codigo", "descricao - antigo");
-		 novo = new Equipamento("codigo", "descricao - alterada");
-		 instance.includeReserve(antigo);
+		 antigo = new Equipment("codigo", "descricao - antigo");
+		 novo = new Equipment("codigo", "descricao - alterada");
+		 instance.includeEquipment(antigo);
 		 todos = instance.searchForAll();
 	}
 	
 	@After
 	public void tearDown() throws SQLException, PatrimonyException {
 		todos = instance.searchForAll();
-		Iterator<Equipamento> i = todos.iterator();
+		Iterator<Equipment> i = todos.iterator();
 		while(i.hasNext()){
-			Equipamento e = i.next();
-			instance.excludeRoom(e);
+			Equipment e = i.next();
+			instance.excludeEquipment(e);
 		}
 		antigo = null;
 		novo = null;
@@ -58,7 +58,7 @@ public class EquipamentoDAOTest {
 	
 	@Test
 	public void testInstance() {
-		assertTrue("Instanciando EquipamentoDAO", instance instanceof EquipmentDAO);
+		assertTrue("Instanciando EquipmentDAO", instance instanceof EquipmentDAO);
 	}
 	
 	@Test
@@ -70,7 +70,7 @@ public class EquipamentoDAOTest {
 	
 	@Test
 	public void testIncluir() throws PatrimonyException, SQLException {
-		assertNotNull("Equipamento nao foi incluido", procurarNoVetor(antigo));
+		assertNotNull("Equipment nao foi incluido", procurarNoVetor(antigo));
 	}
 	@Test
 	public void testBuscarTodos() throws SQLException, PatrimonyException {
@@ -79,12 +79,12 @@ public class EquipamentoDAOTest {
 	
 	@Test
 	public void testBuscarPorCodigo() throws SQLException, PatrimonyException {
-		assertNotNull("Testando a busca por codigo de elementos no BD.", instance.searchByCode(antigo.getCodigo()));
+		assertNotNull("Testando a busca por codigo de elementos no BD.", instance.searchByCode(antigo.getCode()));
 	}
 	
 	@Test
 	public void testBuscarPorDescricao() throws SQLException, PatrimonyException {
-		assertNotNull("Testando a busca por descricao de elementos no BD.", instance.searchByDescription(antigo.getDescricao()));
+		assertNotNull("Testando a busca por descricao de elementos no BD.", instance.searchByDescription(antigo.getDescription()));
 	}
 	
 	@Test
@@ -99,20 +99,20 @@ public class EquipamentoDAOTest {
 	
 	@Test
 	public void testAlterar() throws PatrimonyException, SQLException {
-		instance.changeRoomReserve(antigo, novo);
-		Equipamento e = procurarNoVetor(antigo);
-		assertNull("Equipamento nao foi alterado", e);
-		assertNotNull("Equipamento nao foi alterado", procurarNoVetor(novo));
+		instance.modifyEquipment(antigo, novo);
+		Equipment e = procurarNoVetor(antigo);
+		assertNull("Equipment nao foi alterado", e);
+		assertNotNull("Equipment nao foi alterado", procurarNoVetor(novo));
 	}
 	
 	@Test (expected= PatrimonyException.class)
 	public void testIncluirComCodigoExistente() throws PatrimonyException, SQLException {
-		instance.includeReserve(antigo);
+		instance.includeEquipment(antigo);
 	}
 	
 	@Test (expected= PatrimonyException.class)
 	public void testIncluirNulo() throws PatrimonyException, SQLException {
-		instance.incluir(null);
+		instance.includeEquipment(null);
 	}
 	
 	@Test (expected= PatrimonyException.class)
@@ -122,53 +122,53 @@ public class EquipamentoDAOTest {
 	
 	@Test (expected= PatrimonyException.class)
 	public void testAlterarSegundoNull() throws PatrimonyException, SQLException {
-		instance.changeRoomReserve(antigo, null);
+		instance.modifyEquipment(antigo, null);
 	}
 	
 	
 	@Test (expected= PatrimonyException.class)
 	public void testAlterarNaoExistente() throws PatrimonyException, SQLException {
-		Equipamento equip = new Equipamento("codigo", "eqpt nao existente");
-		Equipamento equipAlter = new Equipamento("codigo", "eqpt nao existente alteraddo");
-		instance.changeRoomReserve(equip, equipAlter);
+		Equipment equip = new Equipment("codigo", "eqpt nao existente");
+		Equipment equipAlter = new Equipment("codigo", "eqpt nao existente alteraddo");
+		instance.modifyEquipment(equip, equipAlter);
 	}
 	
 	@Test (expected= PatrimonyException.class)
 	public void testAlterarIgual() throws PatrimonyException, SQLException {
-		instance.changeRoomReserve(novo, novo);
+		instance.modifyEquipment(novo, novo);
 	}
 	
 	@Test (expected= PatrimonyException.class)
-	public void testAlterarParaOutroEquipamento() throws PatrimonyException, SQLException {
-		Equipamento e = new Equipamento("novo", "teste Alterar para outro");
-		instance.includeReserve(e);
-		instance.changeRoomReserve(e, novo);
+	public void testAlterarParaOutroEquipment() throws PatrimonyException, SQLException {
+		Equipment e = new Equipment("novo", "teste Alterar para outro");
+		instance.includeEquipment(e);
+		instance.modifyEquipment(e, novo);
 	}
 	
 	@Test (expected= PatrimonyException.class)
 	public void testExcluirNull() throws PatrimonyException, SQLException {
-		instance.exludeEquipment(null);
+		instance.excludeEquipment(null);
 	}
 	
 	@Test (expected= PatrimonyException.class)
 	public void testExcluirNaoExistente() throws PatrimonyException, SQLException {
-		Equipamento eq = new Equipamento("codigo"," nao existe descricao");
-		instance.excludeRoom(eq);
+		Equipment eq = new Equipment("codigo"," nao existe descricao");
+		instance.excludeEquipment(eq);
 	}
 	
 	@Test
 	public void testExcluirExistente() throws PatrimonyException, SQLException {
-		Equipamento novoExclusao = new Equipamento("cdg", "teste exclusao");
-		instance.includeReserve(novoExclusao);
-		instance.excludeRoom(novoExclusao);
-		assertNull("Equipamento nao foi alterado", procurarNoVetor(novoExclusao));
+		Equipment novoExclusao = new Equipment("cdg", "teste exclusao");
+		instance.includeEquipment(novoExclusao);
+		instance.excludeEquipment(novoExclusao);
+		assertNull("Equipment nao foi alterado", procurarNoVetor(novoExclusao));
 	}
 	
-	public Equipamento procurarNoVetor(Equipamento teste) throws PatrimonyException, SQLException {
+	public Equipment procurarNoVetor(Equipment teste) throws PatrimonyException, SQLException {
 		todos = instance.searchForAll();
-		Iterator<Equipamento> i = todos.iterator();
+		Iterator<Equipment> i = todos.iterator();
 		while(i.hasNext()){
-			Equipamento e = i.next();
+			Equipment e = i.next();
 			if(e.equals(teste))
 				return e;			
 		}

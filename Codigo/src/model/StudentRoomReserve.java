@@ -37,7 +37,7 @@ public class StudentRoomReserve extends RoomReserve {
 	 * Getter method for attribute 'student'
 	 * @return
 	 */
-	public Student getAluno() {
+	public Student getStudent() {
 		return this.student;
 	}
 	
@@ -113,7 +113,7 @@ public class StudentRoomReserve extends RoomReserve {
 	public boolean roomHasCapacity 	( String reserved_chairs )throws ReserveException{
 		boolean hasCapacity = true;
 		if ( reserved_chairs.matches( CHAIRS_PATTERN ) ) {
-			if ( Integer.parseInt( super.getSala().getCapacity() ) < Integer.parseInt( reserved_chairs ) ) { 
+			if ( Integer.parseInt( super.getRoom().getCapacity() ) < Integer.parseInt( reserved_chairs ) ) { 
 				hasCapacity = false;
 				throw new ReserveException( OVER_LIMIT_CHAIRS );
 			}else return hasCapacity;
@@ -126,7 +126,7 @@ public class StudentRoomReserve extends RoomReserve {
 	 * @return
 	 */
 	public boolean equals( StudentRoomReserve StudentRoomReserveObject ) {
-		return ( super.equals( StudentRoomReserveObject ) && this.getAluno().equals( StudentRoomReserveObject.getAluno() ) && this
+		return ( super.equals( StudentRoomReserveObject ) && this.getStudent().equals( StudentRoomReserveObject.getStudent() ) && this
 				.getReservedChairs().equals( StudentRoomReserveObject.getReservedChairs() ) );
 	}
 
@@ -135,7 +135,7 @@ public class StudentRoomReserve extends RoomReserve {
 	 * To String method for class ReservaSalaAluno
 	 */
 	public String toString() {
-		return "Aluno: " + this.getAluno().toString()
+		return "Aluno: " + this.getStudent().toString()
 				+ "\nCadeiras Reservadas: " + this.getReservedChairs()
 				+ super.toString();
 	}

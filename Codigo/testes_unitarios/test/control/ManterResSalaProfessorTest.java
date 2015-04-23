@@ -9,31 +9,31 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Vector;
 
+import model.Room;
 import model.Teacher;
 import model.TeacherRoomReserve;
-import model.Sala;
 
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
+import persistence.ClassRoomDAO;
 import persistence.FactoryConnection;
 import persistence.TeacherDAO;
-import persistence.ClassRoomDAO;
 import control.MaintainClassroomReservationByTeacher;
-import exception.ClienteException;
+import exception.ClientException;
 import exception.PatrimonyException;
 import exception.ReserveException;
 
 public class ManterResSalaProfessorTest {
-	private static Sala sala1;
+	private static Room sala1;
 	private static Teacher professor1;
 	private static Vector<TeacherRoomReserve> vet;
 
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {
 		vet = MaintainClassroomReservationByTeacher.getInstance().getRoomsReserves();
-		sala1 = new Sala("123", "Sala de Aula", "120");
+		sala1 = new Room("123", "Sala de Aula", "120");
 		professor1 = new Teacher("testInstance", "040.757.021-70", "0058801", "3333-3333", "nome@email");
 		
 		TeacherDAO.getInstance().includeNewTeacher(professor1);
@@ -57,7 +57,7 @@ public class ManterResSalaProfessorTest {
 	
 	
 	@Test
-	public void testInserir() throws SQLException, ReserveException, ClienteException, PatrimonyException {
+	public void testInserir() throws SQLException, ReserveException, ClientException, PatrimonyException {
 		String finalidade = "Sala de Estudos";
 		String data = "20/12/33";
 		String hora = "9:11";
@@ -70,7 +70,7 @@ public class ManterResSalaProfessorTest {
 		assertTrue("Teste de Insercao.", resultado && resultado2);
 	}
 	@Test
-	public void testAlterar() throws ReserveException, SQLException, ClienteException, PatrimonyException {
+	public void testAlterar() throws ReserveException, SQLException, ClientException, PatrimonyException {
 		
 		TeacherRoomReserve reserva = new TeacherRoomReserve("20/12/33", "9:11", sala1, "Pesquisa", professor1);
 		this.insert_into(reserva);
@@ -104,32 +104,32 @@ public class ManterResSalaProfessorTest {
 
 	private String select_id_professor(Teacher prof){
 		return "SELECT id_professor FROM professor WHERE " +
-				"professor.nome = \"" + prof.getNome() + "\" and " +
+				"professor.nome = \"" + prof.getName() + "\" and " +
 				"professor.cpf = \"" + prof.getCpf() + "\" and " +
-				"professor.telefone = \"" + prof.getTelefone() + "\" and " +
+				"professor.telefone = \"" + prof.getFone() + "\" and " +
 				"professor.email = \"" + prof.getEmail() + "\" and " +
-				"professor.matricula = \"" + prof.getMatricula() + "\"";
+				"professor.matricula = \"" + prof.getRegistration() + "\"";
 	}
-	private String select_id_sala(Sala sala){
+	private String select_id_sala(Room sala){
 		return "SELECT id_sala FROM sala WHERE " +
-				"sala.codigo = \"" + sala.getCodigo() + "\" and " +
-				"sala.descricao = \"" + sala.getDescricao() +  "\" and " +
-				"sala.capacidade = " + sala.getCapacidade();
+				"sala.codigo = \"" + sala.getCode() + "\" and " +
+				"sala.descricao = \"" + sala.getDescription() +  "\" and " +
+				"sala.capacidade = " + sala.getCapacity();
 	}
 	private String where_reserva_sala_professor(TeacherRoomReserve reserva){
 		return " WHERE " +
 		"id_professor = ( " + select_id_professor(reserva.getProfessor()) + " ) and " +
-		"id_sala = ( " + select_id_sala(reserva.getSala()) + " ) and " +
+		"id_sala = ( " + select_id_sala(reserva.getRoom()) + " ) and " +
 		"finalidade = \"" + reserva.getFinality() + "\" and " +
-		"hora = \"" + reserva.getHora() + "\" and " +
-		"data = \"" + reserva.getData() + "\" ";
+		"hora = \"" + reserva.getHour() + "\" and " +
+		"data = \"" + reserva.getDate() + "\" ";
 	}
 	private String values_reserva_sala_professor(TeacherRoomReserve reserva){
 		return "( " + select_id_professor(reserva.getProfessor()) + " ), " +
-		"( " + select_id_sala(reserva.getSala()) + " ), " +
+		"( " + select_id_sala(reserva.getRoom()) + " ), " +
 		"\"" + reserva.getFinality() + "\", " +
-		"\"" + reserva.getHora() + "\", " +
-		"\"" + reserva.getData() + "\"";
+		"\"" + reserva.getHour() + "\", " +
+		"\"" + reserva.getDate() + "\"";
 	}
 	private void insert_into(TeacherRoomReserve reserva){
 		try {

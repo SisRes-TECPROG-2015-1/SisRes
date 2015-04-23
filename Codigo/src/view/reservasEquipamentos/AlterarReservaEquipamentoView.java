@@ -11,7 +11,7 @@ import java.sql.SQLException;
 import javax.swing.JOptionPane;
 
 import model.TeacherEquipmentReserve;
-import exception.ClienteException;
+import exception.ClientException;
 import exception.PatrimonyException;
 import exception.ReserveException;
 
@@ -30,13 +30,13 @@ public class AlterarReservaEquipamentoView extends ReservaEquipamentoView {
         this.cpfLabel.setEnabled( false );
         this.cpfTextField.setBackground( new Color( 200, 208, 254 ) );
         this.cpfTextField.setEditable( false );
-        this.horaTextField.setText( reserva.getHora() );
-        this.dataTextField.setText( reserva.getData() );
+        this.horaTextField.setText( reserva.getHour() );
+        this.dataTextField.setText( reserva.getDate() );
         this.professorTextArea.setText( reserva.getProfessor().toString() );
     }
 
     public AlterarReservaEquipamentoView( Frame parent, boolean modal, int index, int mes ) throws SQLException, PatrimonyException,
-            PatrimonyException, ClienteException, ReserveException {
+            PatrimonyException, ClientException, ReserveException {
         super( parent, modal );
         this.index = index;
         reserva = this.instanceProf.getClassroomReservesByMonth( mes ).get( index );

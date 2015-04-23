@@ -40,7 +40,7 @@ public class EquipmentDAO {
      * @throws SQLException
      * @throws PatrimonyException
      */
-    public void incluir( Equipment equipament ) throws SQLException, PatrimonyException {
+    public void includeEquipment( Equipment equipament ) throws SQLException, PatrimonyException {
         if ( equipament == null ) {
             throw new PatrimonyException( nullEquipment );
         } else if ( this.inDBCodigo( equipament.getCode() ) ) {
@@ -100,7 +100,7 @@ public class EquipmentDAO {
      * @throws SQLException
      * @throws PatrimonyException
      */
-    public void exludeEquipment( Equipment equipamento ) throws SQLException, PatrimonyException {
+    public void excludeEquipment( Equipment equipamento ) throws SQLException, PatrimonyException {
         if ( equipamento == null ) {
             throw new PatrimonyException( nullEquipment );
         } else if ( this.inOtherDB( equipamento ) ) {

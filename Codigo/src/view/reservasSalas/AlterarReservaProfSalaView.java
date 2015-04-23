@@ -69,10 +69,10 @@ public class AlterarReservaProfSalaView extends ReservaSalaView {
         this.horaTextField.setEditable( false );
         this.horaTextField.setText( reservaProfessor.getHour() );
         this.alunoTextArea.setText( reservaProfessor.getProfessor().toString() );
-        this.salaTextArea.setText( reservaProfessor.getSala().toString() );
+        this.salaTextArea.setText( reservaProfessor.getRoom().toString() );
         this.dataTextField.setText( reservaProfessor.getDate() );
-        this.qntCadeirasTxtField.setText( reservaProfessor.getSala().getCapacity() );
-        this.qntCadeirasReservadasTextField.setText( reservaProfessor.getSala().getCapacity() );
+        this.qntCadeirasTxtField.setText( reservaProfessor.getRoom().getCapacity() );
+        this.qntCadeirasReservadasTextField.setText( reservaProfessor.getRoom().getCapacity() );
         this.qntCadeirasReservadasTextField.setBackground( blue );
         this.qntCadeirasReservadasTextField.setEditable( false );
         this.finalidadeTextField.setText( reservaProfessor.getFinality() );

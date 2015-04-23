@@ -87,7 +87,7 @@ public class TeacherRoomReserveDAO extends DAO {
 			TeacherRoomReserve reservedRoom ) {
 		return " WHERE " + "id_professor = ( "
 				+ select_teacher_id( reservedRoom.getProfessor() ) + " ) and "
-				+ "id_sala = ( " + select_id_sala( reservedRoom.getSala() )
+				+ "id_sala = ( " + select_id_sala( reservedRoom.getRoom() )
 				+ " ) and " + "finalidade = \"" + reservedRoom.getFinality()
 				+ "\" and " + "hora = \"" + reservedRoom.getHour() + "\" and "
 				+ "data = \"" + reservedRoom.getDate() + "\"";
@@ -102,7 +102,7 @@ public class TeacherRoomReserveDAO extends DAO {
 	private String teacher_room_reserve_insert_values_construct(
 			TeacherRoomReserve reservingRoom ) {
 		return "( " + select_teacher_id( reservingRoom.getProfessor() )
-				+ " ), " + "( " + select_id_sala( reservingRoom.getSala() )
+				+ " ), " + "( " + select_id_sala( reservingRoom.getRoom() )
 				+ " ), " + "\"" + reservingRoom.getFinality() + "\", " + "\""
 				+ reservingRoom.getHour() + "\", " + "\""
 				+ reservingRoom.getDate() + "\"";
@@ -119,7 +119,7 @@ public class TeacherRoomReserveDAO extends DAO {
 		return "id_professor = ( "
 				+ select_teacher_id( updateReservedRoom.getProfessor() )
 				+ " ), " + "id_sala = ( "
-				+ select_id_sala( updateReservedRoom.getSala() ) + " ), "
+				+ select_id_sala( updateReservedRoom.getRoom() ) + " ), "
 				+ "finalidade = \"" + updateReservedRoom.getFinality() + "\", "
 				+ "hora = \"" + updateReservedRoom.getHour() + "\", "
 				+ "data = \"" + updateReservedRoom.getDate() + "\"";
@@ -192,9 +192,9 @@ public class TeacherRoomReserveDAO extends DAO {
 			throw new ReserveException( NULL_TERM );
 		} else if ( !this.checkExistingTeacher( roomToReserve.getProfessor() ) ) {
 			throw new ReserveException( ABSENT_TEACHER );
-		} else if ( !this.checkExistingRoom( roomToReserve.getSala() ) ) {
+		} else if ( !this.checkExistingRoom( roomToReserve.getRoom() ) ) {
 			throw new ReserveException( ABSENT_ROOM );
-		} else if ( this.checkExistingRoomReserve( roomToReserve.getSala(),
+		} else if ( this.checkExistingRoomReserve( roomToReserve.getRoom(),
 				roomToReserve.getDate(), roomToReserve.getHour() ) ) {
 			throw new ReserveException( UNAVAILABLE_ROOM );
 		} else if ( this.checkExistingTeacherRoomReserve( roomToReserve ) ) {
@@ -240,13 +240,13 @@ public class TeacherRoomReserveDAO extends DAO {
 		} else if ( !this.checkExistingTeacher( newReserveRoomData
 				.getProfessor() ) ) {
 			throw new ReserveException( ABSENT_TEACHER );
-		} else if ( !this.checkExistingRoom( newReserveRoomData.getSala() ) ) {
+		} else if ( !this.checkExistingRoom( newReserveRoomData.getRoom() ) ) {
 			throw new ReserveException( ABSENT_ROOM );
 		} else if ( !alreadyReservedRoom.getDate().equals(
 				newReserveRoomData.getDate() )
 				|| !alreadyReservedRoom.getHour().equals(
 						newReserveRoomData.getHour() ) ) {
-			if ( this.checkExistingRoomReserve( newReserveRoomData.getSala(),
+			if ( this.checkExistingRoomReserve( newReserveRoomData.getRoom(),
 					newReserveRoomData.getDate(), newReserveRoomData.getHour() ) ) {
 				throw new ReserveException( UNAVAILABLE_ROOM );
 			}
@@ -420,13 +420,13 @@ public class TeacherRoomReserveDAO extends DAO {
 				+ "\") and "
 				+ "id_sala = (SELECT id_sala FROM sala WHERE "
 				+ "sala.codigo = \""
-				+ roomReserve.getSala().getCode()
+				+ roomReserve.getRoom().getCode()
 				+ "\" and "
 				+ "sala.descricao = \""
-				+ roomReserve.getSala().getDescription()
+				+ roomReserve.getRoom().getDescription()
 				+ "\" and "
 				+ "sala.capacidade = "
-				+ roomReserve.getSala().getCapacity()
+				+ roomReserve.getRoom().getCapacity()
 				+ " ) and "
 				+ "finalidade = \""
 				+ roomReserve.getFinality()

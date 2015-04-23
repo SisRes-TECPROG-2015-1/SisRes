@@ -307,7 +307,7 @@ public class SalaDAOTest {
 	}
 	@Test (expected= PatrimonyException.class)
 	public void testExcluirNulo() throws PatrimonyException, SQLException {
-		ClassRoomDAO.getInstance().excluir(null);
+		ClassRoomDAO.getInstance().excludeRoom(null);
 	}
 	@Ignore // (expected= PatrimonioException.class)
 	public void testExcluirEnvolvidoEmReserva() throws PatrimonyException, SQLException {
