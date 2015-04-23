@@ -79,11 +79,11 @@ public class AlterarReservaAlunoSalaView extends ReservaSalaView {
         this.qntCadeirasReservadasTextField.setBackground( Color.white );
         this.horaTextField.setBackground( new Color( 200, 208, 254 ) );
         this.horaTextField.setEditable( false );
-        this.horaTextField.setText( reservaAluno.getHora() );
+        this.horaTextField.setText( reservaAluno.getHour() );
         this.alunoTextArea.setText( reservaAluno.getAluno().toString() );
         this.salaTextArea.setText( reservaAluno.getSala().toString() );
-        this.dataTextField.setText( reservaAluno.getData() );
-        this.qntCadeirasTxtField.setText( reservaAluno.getSala().getCapacidade() );
+        this.dataTextField.setText( reservaAluno.getDate() );
+        this.qntCadeirasTxtField.setText( reservaAluno.getSala().getCapacity() );
         this.qntCadeirasReservadasTextField.setText( reservaAluno.getReservedChairs() );
         this.finalidadeTextField.setText( reservaAluno.getFinality() );
     }
@@ -97,7 +97,7 @@ public class AlterarReservaAlunoSalaView extends ReservaSalaView {
             JOptionPane.showMessageDialog( this, ex.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE, null );
         } catch ( PatrimonyException ex ) {
             JOptionPane.showMessageDialog( this, ex.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE, null );
-        } catch ( ClienteException ex ) {
+        } catch ( ClientException ex ) {
             
             JOptionPane.showMessageDialog( this, ex.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE, null );
         } catch ( SQLException ex ) {

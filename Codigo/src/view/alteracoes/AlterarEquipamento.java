@@ -28,8 +28,8 @@ public class AlterarEquipamento extends CadastroPatrimonio {
 
         try {
 
-            this.codigoTxtField.setText( MaintainEquipment.getInstance().getEquipments().get( index ).getCodigo() );
-            this.descricaoTextArea.setText(MaintainEquipment.getInstance().getEquipments().get( index ).getDescricao() );
+            this.codigoTxtField.setText( MaintainEquipment.getInstance().getEquipments().get( index ).getCode() );
+            this.descricaoTextArea.setText(MaintainEquipment.getInstance().getEquipments().get( index ).getDescription() );
             this.index2 = index;
 
         } catch ( PatrimonyException ex ) {
@@ -46,7 +46,7 @@ public class AlterarEquipamento extends CadastroPatrimonio {
     @Override protected void cadastroAction() {
         try {
 
-            MaintainEquipment.getInstance().changeReserve( codigoTxtField.getText(), descricaoTextArea.getText(),
+            MaintainEquipment.getInstance().changeEquipmentsAttributes( codigoTxtField.getText(), descricaoTextArea.getText(),
                     MaintainEquipment.getInstance().getEquipments().get( index2 ) );
 
             JOptionPane.showMessageDialog( this, "Equipamento alterado com sucesso", "Sucesso", JOptionPane.INFORMATION_MESSAGE,

@@ -27,7 +27,7 @@ public class CadastroEquipamento extends CadastroPatrimonio {
     @Override protected void cadastroAction() {
 
         try {
-            MaintainEquipment.getInstance().insertEquipment( codigoTxtField.getText(), descricaoTextArea.getText() );
+            MaintainEquipment.getInstance().insertNewEquipment( codigoTxtField.getText(), descricaoTextArea.getText() );
             JOptionPane.showMessageDialog( this, "Equipamento Cadastrado com sucesso", "Sucesso", JOptionPane.INFORMATION_MESSAGE,
                     null );
             this.setVisible( false );

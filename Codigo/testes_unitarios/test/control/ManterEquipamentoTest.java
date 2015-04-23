@@ -1,26 +1,28 @@
 package test.control;
 
-import control.MaintainEquipment;
-import exception.PatrimonyException;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertSame;
 
 import java.sql.SQLException;
 import java.util.Iterator;
 import java.util.Vector;
-import model.Equipamento;
+
+import model.Equipment;
 
 import org.junit.After;
 import org.junit.AfterClass;
-import static org.junit.Assert.*;
-
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
+import control.MaintainEquipment;
+import exception.PatrimonyException;
+
 public class ManterEquipamentoTest {
 
 	static MaintainEquipment instance;
-	Vector<Equipamento> todos;
-	Equipamento e;
+	Vector<Equipment> todos;
+	Equipment e;
  
 	public ManterEquipamentoTest() {
 	}
@@ -37,18 +39,18 @@ public class ManterEquipamentoTest {
 
 	@Before
 	public void setUp() throws Exception {
-		e = new Equipamento("codigo", "descricao");
-		instance.insertEquipment("codigo","descricao");
+		e = new Equipment("codigo", "descricao");
+		instance.insertNewEquipment("codigo","descricao");
 		todos = instance.getEquipments();
 	}
 
 	@After
 	public void tearDown() throws SQLException, PatrimonyException {
 		todos = instance.getEquipments();
-		Iterator<Equipamento> i = todos.iterator();
+		Iterator<Equipment> i = todos.iterator();
 		while(i.hasNext()){
 			e = i.next();
-			instance.excludeRoom(e);
+			instance.excludeEquipment(e);
 		}
 		e = null;
 	}
@@ -77,33 +79,33 @@ public class ManterEquipamentoTest {
 	
 	@Test
 	public void testAlterarVet() throws SQLException, PatrimonyException {
-		instance.changeReserve("codigo alterado", "descricao alterarda", e);
-		Equipamento e2 = new Equipamento("codigo alterado", "descricao alterarda");
+		instance.changeEquipmentsAttributes("codigo alterado", "descricao alterarda", e);
+		Equipment e2 = new Equipment("codigo alterado", "descricao alterarda");
 		assertNotNull("Teste de Inclusao no Equipamento Vet.", procurarNoVetor(e2));
 	}
 	
 	@Test(expected = PatrimonyException.class)
 	public void testAlterarNaoExistente() throws SQLException, PatrimonyException {
-		Equipamento eq = new Equipamento("codigo", "nao existe");
-		instance.changeReserve("codigo alterado", "descricao alterarda", eq);
+		Equipment eq = new Equipment("codigo", "nao existe");
+		instance.changeEquipmentsAttributes("codigo alterado", "descricao alterarda", eq);
 	}
 	
 	@Test(expected = PatrimonyException.class)
 	public void testAlterarNull() throws SQLException, PatrimonyException {
-		instance.changeEquipment("codigo alterado", "descricao alterarda", null);
+		instance.changeEquipmentsAttributes("codigo alterado", "descricao alterarda", null);
 	}
 	
 	@Test (expected = PatrimonyException.class)
 	public void testExcluirNull() throws SQLException, PatrimonyException {
 		e = null;
-		instance.excludeRoom(e);
+		instance.excludeEquipment(e);
 	}
 	
-	public Equipamento procurarNoVetor(Equipamento teste) throws PatrimonyException, SQLException {
+	public Equipment procurarNoVetor(Equipment teste) throws PatrimonyException, SQLException {
 		todos = instance.getEquipments();
-		Iterator<Equipamento> i = todos.iterator();
+		Iterator<Equipment> i = todos.iterator();
 		while(i.hasNext()){
-			Equipamento e = i.next();
+			Equipment e = i.next();
 			if(e.equals(teste))
 				return e;			
 		}

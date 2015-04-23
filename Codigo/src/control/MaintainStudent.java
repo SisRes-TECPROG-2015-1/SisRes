@@ -98,7 +98,7 @@ public class MaintainStudent {
 	 * Changes a student attributes like name, CPF, enrollment and others
 	 * @return void
 	 */
-	public void alterar ( String name, String cpf, String registration,
+	public void changeStudent ( String name, String cpf, String registration,
 						String fone, String email, Student student ) 
 						throws ClientException, SQLException {
 		Student old_student = new Student (

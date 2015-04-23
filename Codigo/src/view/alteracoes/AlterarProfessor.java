@@ -10,7 +10,7 @@ import javax.swing.JOptionPane;
 
 import view.cadastros.CadastroCliente;
 import control.MaintainTeacher;
-import exception.ClienteException;
+import exception.ClientException;
 
 /**
  * 
@@ -28,13 +28,13 @@ public class AlterarProfessor extends CadastroCliente {
         this.index2 = index;
 
         try {
-            this.nomeTxtField.setText(MaintainTeacher.getInstance().getTeachers().get(index).getNome());
+            this.nomeTxtField.setText(MaintainTeacher.getInstance().getTeachers().get(index).getName());
             this.emailTxtField.setText(MaintainTeacher.getInstance().getTeachers().get(index).getEmail());
-            this.telefoneTxtField.setText(MaintainTeacher.getInstance().getTeachers().get(index).getTelefone());
-            this.matriculaTxtField.setText(MaintainTeacher.getInstance().getTeachers().get(index).getMatricula());
+            this.telefoneTxtField.setText(MaintainTeacher.getInstance().getTeachers().get(index).getFone());
+            this.matriculaTxtField.setText(MaintainTeacher.getInstance().getTeachers().get(index).getRegistration());
             this.cpfTxtField.setText(MaintainTeacher.getInstance().getTeachers().get(index).getCpf());
 
-        } catch (ClienteException ex) {
+        } catch (ClientException ex) {
             JOptionPane.showMessageDialog(this, ex.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE, null);
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(this, ex.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE, null);
@@ -50,7 +50,7 @@ public class AlterarProfessor extends CadastroCliente {
 
             JOptionPane.showMessageDialog(this, "Cadastro alterado com sucesso", "Sucesso", JOptionPane.INFORMATION_MESSAGE, null);
             this.setVisible(false);
-        } catch (ClienteException ex) {
+        } catch (ClientException ex) {
             JOptionPane.showMessageDialog(this, ex.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE, null);
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(this, ex.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE, null);

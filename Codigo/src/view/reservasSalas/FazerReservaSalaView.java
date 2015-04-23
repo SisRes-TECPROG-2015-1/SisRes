@@ -11,10 +11,10 @@ import java.sql.SQLException;
 
 import javax.swing.JOptionPane;
 
-import model.Sala;
+import model.Room;
 import control.MaintainClassroomReservationByStudent;
 import control.MaintainClassroomReservationByTeacher;
-import exception.ClienteException;
+import exception.ClientException;
 import exception.PatrimonyException;
 import exception.ReserveException;
 
@@ -24,13 +24,13 @@ import exception.ReserveException;
  */
 public class FazerReservaSalaView extends ReservaSalaView {
 
-    public FazerReservaSalaView( Frame parent, boolean modal, Sala sala, String data ) throws SQLException, PatrimonyException,
-            PatrimonyException, ClienteException, ReserveException {
+    public FazerReservaSalaView( Frame parent, boolean modal, Room sala, String data ) throws SQLException, PatrimonyException,
+            PatrimonyException, ClientException, ReserveException {
         super( parent, modal );
         this.classRoom = sala;
         this.dataTextField.setText( data );
         this.salaTextArea.setText( sala.toString() );
-        this.qntCadeirasTxtField.setText( sala.getCapacidade() );
+        this.qntCadeirasTxtField.setText( sala.getCapacity() );
         this.setName( "FazerReservaSalaView" );
         
     }
@@ -51,7 +51,7 @@ public class FazerReservaSalaView extends ReservaSalaView {
             JOptionPane.showMessageDialog( this, ex.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE, null );
         } catch ( PatrimonyException ex ) {
             JOptionPane.showMessageDialog( this, ex.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE, null );
-        } catch ( ClienteException ex ) {
+        } catch ( ClientException ex ) {
             
             JOptionPane.showMessageDialog( this, ex.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE, null );
         } catch ( SQLException ex ) {
@@ -112,7 +112,7 @@ public class FazerReservaSalaView extends ReservaSalaView {
             JOptionPane.showMessageDialog( this, ex.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE, null );
         } catch ( PatrimonyException ex ) {
             JOptionPane.showMessageDialog( this, ex.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE, null );
-        } catch ( ClienteException ex ) {
+        } catch ( ClientException ex ) {
             
             JOptionPane.showMessageDialog( this, ex.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE, null );
         } catch ( SQLException ex ) {

@@ -9,7 +9,7 @@ import java.sql.SQLException;
 import javax.swing.JOptionPane;
 
 import control.MaintainStudent;
-import exception.ClienteException;
+import exception.ClientException;
 
 /**
  * 
@@ -34,7 +34,7 @@ public class CadastroAluno extends CadastroCliente {
 
                 this.setVisible( false );
             }
-        } catch ( ClienteException ex ) {
+        } catch ( ClientException ex ) {
             JOptionPane.showMessageDialog( this, ex.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE, null );
         } catch ( SQLException ex ) {
             JOptionPane.showMessageDialog( this, ex.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE, null );

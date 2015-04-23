@@ -1,6 +1,7 @@
 package test.control;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertSame;
+import static org.junit.Assert.assertTrue;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -8,18 +9,19 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Vector;
 
+import model.Student;
+
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import model.Aluno;
 import persistence.FactoryConnection;
 import control.MaintainStudent;
-import exception.ClienteException;
+import exception.ClientException;
 
 public class ManterAlunoTest {
 
-	private static Vector<Aluno> alunos;
+	private static Vector<Student> alunos;
 	
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {
@@ -47,27 +49,27 @@ public class ManterAlunoTest {
 	
 	
 	@Test
-	public void testInserir() throws ClienteException, SQLException {
-		Aluno aluno = new Aluno("Incluindo", "040.757.021-70", "123456", "9999-9999", "aluno@email");
+	public void testInserir() throws ClientException, SQLException {
+		Student aluno = new Student("Incluindo", "040.757.021-70", "123456", "9999-9999", "aluno@email");
 		MaintainStudent.getInstance().insertStudents("Incluindo", "040.757.021-70", "123456", "9999-9999", "aluno@email");
 		
 		boolean resultado = this.estaNoBanco("SELECT * FROM aluno WHERE " +
-				"aluno.nome = \"" + aluno.getNome() + "\" and " +
+				"aluno.nome = \"" + aluno.getName() + "\" and " +
 				"aluno.cpf = \"" + aluno.getCpf() + "\" and " +
-				"aluno.telefone = \"" + aluno.getTelefone() + "\" and " +
+				"aluno.telefone = \"" + aluno.getFone() + "\" and " +
 				"aluno.email = \"" + aluno.getEmail() + "\" and " +
-				"aluno.matricula = \"" + aluno.getMatricula() + "\";");
+				"aluno.matricula = \"" + aluno.getRegistration() + "\";");
 				
 		if(resultado){
 			this.executaNoBanco("DELETE FROM aluno WHERE " +
-					"aluno.nome = \"" + aluno.getNome() + "\" and " +
+					"aluno.nome = \"" + aluno.getName() + "\" and " +
 					"aluno.cpf = \"" + aluno.getCpf() + "\" and " +
-					"aluno.telefone = \"" + aluno.getTelefone() + "\" and " +
+					"aluno.telefone = \"" + aluno.getFone() + "\" and " +
 					"aluno.email = \"" + aluno.getEmail() + "\" and " +
-					"aluno.matricula = \"" + aluno.getMatricula() + "\";");
+					"aluno.matricula = \"" + aluno.getRegistration() + "\";");
 		}
 		
-		Aluno a = alunos.lastElement();
+		Student a = alunos.lastElement();
 		boolean resultado2 = aluno.equals(a);
 		alunos.remove(alunos.lastElement());
 		assertTrue("Teste de Inclusao do Aluno.", resultado == true && resultado2 == true);
@@ -75,65 +77,65 @@ public class ManterAlunoTest {
 	
 	
 	@Test
-	public void testAlterar() throws ClienteException, SQLException {
-		Aluno aluno = new Aluno("Incluindo", "040.757.021-70", "123456", "9999-9999", "aluno@email");
-		Aluno a = new Aluno("Alterando", "040.757.021-70", "123456", "9999-9999", "Nome@email");
+	public void testAlterar() throws ClientException, SQLException {
+		Student aluno = new Student("Incluindo", "040.757.021-70", "123456", "9999-9999", "aluno@email");
+		Student a = new Student("Alterando", "040.757.021-70", "123456", "9999-9999", "Nome@email");
 		
 		this.executaNoBanco("INSERT INTO " +
 				"aluno (nome, cpf, telefone, email, matricula) VALUES (" +
-				"\"" + aluno.getNome() + "\", " +
+				"\"" + aluno.getName() + "\", " +
 				"\"" + aluno.getCpf()+ "\", " +
-				"\"" + aluno.getTelefone() + "\", " +
+				"\"" + aluno.getFone() + "\", " +
 				"\"" + aluno.getEmail() + "\", " +
-				"\"" + aluno.getMatricula() + "\"); ");
+				"\"" + aluno.getRegistration() + "\"); ");
 		
-		MaintainStudent.getInstance().changeTeacher("Alterando", "040.757.021-70", "123456", 
+		MaintainStudent.getInstance().changeStudent("Alterando", "040.757.021-70", "123456", 
 				"9999-9999", "Nome@email", aluno);
 		
 		boolean resultado =  this.estaNoBanco("SELECT * FROM aluno WHERE " +
-				"aluno.nome = \"" + a.getNome() + "\" and " +
+				"aluno.nome = \"" + a.getName() + "\" and " +
 				"aluno.cpf = \"" + a.getCpf() + "\" and " +
-				"aluno.telefone = \"" + a.getTelefone() + "\" and " +
+				"aluno.telefone = \"" + a.getFone() + "\" and " +
 				"aluno.email = \"" + a.getEmail() + "\" and " +
-				"aluno.matricula = \"" + a.getMatricula() + "\";");
+				"aluno.matricula = \"" + a.getRegistration() + "\";");
 		if(resultado)
 			this.executaNoBanco("DELETE FROM aluno WHERE " +
-					"aluno.nome = \"" + a.getNome() + "\" and " +
+					"aluno.nome = \"" + a.getName() + "\" and " +
 					"aluno.cpf = \"" + a.getCpf() + "\" and " +
-					"aluno.telefone = \"" + a.getTelefone() + "\" and " +
+					"aluno.telefone = \"" + a.getFone() + "\" and " +
 					"aluno.email = \"" + a.getEmail() + "\" and " +
-					"aluno.matricula = \"" + a.getMatricula() + "\";");
+					"aluno.matricula = \"" + a.getRegistration() + "\";");
 		
 		assertTrue("Teste de Alteracao do Aluno.", resultado);
 	}
 	
 	@Test
-	public void testExcluir() throws ClienteException, SQLException {
-		Aluno aluno = new Aluno("Incluindo", "040.757.021-70", "123456", "9999-9999", "aluno@email");
+	public void testExcluir() throws ClientException, SQLException {
+		Student aluno = new Student("Incluindo", "040.757.021-70", "123456", "9999-9999", "aluno@email");
 		
 		this.executaNoBanco("INSERT INTO " +
 				"aluno (nome, cpf, telefone, email, matricula) VALUES (" +
-				"\"" + aluno.getNome() + "\", " +
+				"\"" + aluno.getName() + "\", " +
 				"\"" + aluno.getCpf()+ "\", " +
-				"\"" + aluno.getTelefone() + "\", " +
+				"\"" + aluno.getFone() + "\", " +
 				"\"" + aluno.getEmail() + "\", " +
-				"\"" + aluno.getMatricula() + "\");");
+				"\"" + aluno.getRegistration() + "\");");
 		
-		MaintainStudent.getInstance().excludeRoom(aluno);
+		MaintainStudent.getInstance().excludeStudent(aluno);
 		
 		boolean resultado =  this.estaNoBanco("SELECT * FROM aluno WHERE " +
-				"aluno.nome = \"" + aluno.getNome() + "\" and " +
+				"aluno.nome = \"" + aluno.getName() + "\" and " +
 				"aluno.cpf = \"" + aluno.getCpf() + "\" and " +
-				"aluno.telefone = \"" + aluno.getTelefone() + "\" and " +
+				"aluno.telefone = \"" + aluno.getFone() + "\" and " +
 				"aluno.email = \"" + aluno.getEmail() + "\" and " +
-				"aluno.matricula = \"" + aluno.getMatricula() + "\";");
+				"aluno.matricula = \"" + aluno.getRegistration() + "\";");
 		if(resultado)
 			this.executaNoBanco("DELETE FROM aluno WHERE " +
-					"aluno.nome = \"" + aluno.getNome() + "\" and " +
+					"aluno.nome = \"" + aluno.getName() + "\" and " +
 					"aluno.cpf = \"" + aluno.getCpf() + "\" and " +
-					"aluno.telefone = \"" + aluno.getTelefone() + "\" and " +
+					"aluno.telefone = \"" + aluno.getFone() + "\" and " +
 					"aluno.email = \"" + aluno.getEmail() + "\" and " +
-					"aluno.matricula = \"" + aluno.getMatricula() + "\";");
+					"aluno.matricula = \"" + aluno.getRegistration() + "\";");
 		
 		boolean resultado2 = true;
 		if(alunos.size() > 0)

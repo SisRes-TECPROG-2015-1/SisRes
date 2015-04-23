@@ -9,7 +9,7 @@ import java.sql.SQLException;
 
 import javax.swing.JFrame;
 
-import model.Sala;
+import model.Room;
 import view.horariosReservas.HorariosReservaSala;
 import control.MaintainRoom;
 import exception.PatrimonyException;
@@ -20,16 +20,16 @@ import exception.PatrimonyException;
  */
 public class DiaReservaSala extends DiaReservaPatrimonio {
 
-    Sala sala;
+    Room classRoom;
 
     public DiaReservaSala( Frame parent, boolean modal, int indexSala ) throws SQLException, PatrimonyException {
         super( parent, modal );
-        sala = MaintainRoom.getInstance().getRooms().get( indexSala );
+        classRoom = MaintainRoom.getInstance().getRooms().get( indexSala );
         this.setName( "DiaReservaSala" );
     }
 
     @Override protected void visualizarAction( String data ) {
-        HorariosReservaSala reserva = new HorariosReservaSala( new JFrame(), true, data, sala );
+        HorariosReservaSala reserva = new HorariosReservaSala( new JFrame(), true, data, classRoom );
         reserva.setVisible( true );
         reserva.setResizable( false );
     }
