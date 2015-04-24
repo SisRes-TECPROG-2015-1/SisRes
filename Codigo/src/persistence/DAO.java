@@ -52,16 +52,16 @@ public abstract class DAO {
 		PreparedStatement pst = con.prepareStatement( query );
 		ResultSet rs = pst.executeQuery();
 		
-		if ( !rs.next() ) {
-			rs.close();
-			pst.close();
-			con.close();
-			return false;
-		} else {
+		if ( rs.next() ) {
 			rs.close();
 			pst.close();
 			con.close();
 			return true;
+		} else {
+			rs.close();
+			pst.close();
+			con.close();
+			return false;
 		}
 	}
 

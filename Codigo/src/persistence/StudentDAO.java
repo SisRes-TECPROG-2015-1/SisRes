@@ -66,13 +66,10 @@ public class StudentDAO {
 	 * @throws ClienteException
 	 */
 	public void modifyStudent( Student oldStudent, Student newStudent ) throws SQLException, ClientException {
-		if( oldStudent == null ) {
+		if( oldStudent == null || newStudent == null ) {
 			throw new ClientException( nullStudent );
 		}
-		if( newStudent == null ) {
-			throw new ClientException( nullStudent );
-		}
-		
+				
 		Connection con = FactoryConnection.getInstance().getConnection();
 		PreparedStatement pst;
 		
@@ -118,8 +115,7 @@ public class StudentDAO {
 	public void deleteStudent( Student student ) throws SQLException, ClientException {
 		if ( student == null ) {
 			throw new ClientException( nullStudent );
-		}
-		else if ( this.inOtherDB( student ) ) {
+		} else if ( this.inOtherDB( student ) ) {
 			throw new ClientException( studentInUse );
 		} else if ( this.inDB( student ) ) {
 			this.updateQuery( "DELETE FROM aluno WHERE " +
@@ -223,16 +219,16 @@ public class StudentDAO {
 		PreparedStatement pst = con.prepareStatement( query );
 		ResultSet rs = pst.executeQuery();
 		
-		if( !rs.next() ) {
-			rs.close();
-			pst.close();
-			con.close();
-			return false;
-		} else {
+		if( rs.next() ) {
 			rs.close();
 			pst.close();
 			con.close();
 			return true;
+		} else {
+			rs.close();
+			pst.close();
+			con.close();
+			return false;
 		}
 	}
 	
@@ -260,7 +256,7 @@ public class StudentDAO {
 	
 	
 	/**
-     * Verifies if the student exists in database by his matricula
+     * Verifies if the student exists in database by his registration
      * @return Boolean - Existence of a student 
      */
 	private boolean inDBMatricula( String registrationCode ) throws SQLException {
