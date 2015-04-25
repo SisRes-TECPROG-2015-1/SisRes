@@ -35,12 +35,20 @@ public class EquipamentoView extends PatrimonioView {
 
         Vector<String> nomesTabela = new Vector<String>();
 
-        nomesTabela.add( equipamento.getCode() );
-        nomesTabela.add( equipamento.getDescription() );
+        addIntoTable( equipamento, nomesTabela );
 
         return nomesTabela;
 
     }
+
+	/**
+	 * @param equipamento
+	 * @param nomesTabela
+	 */
+	private void addIntoTable( Equipment equipamento, Vector<String> nomesTabela ) {
+		nomesTabela.add( equipamento.getCode() );
+        nomesTabela.add( equipamento.getDescription() );
+	}
 
     @Override protected DefaultTableModel fillTable() {
         try {
