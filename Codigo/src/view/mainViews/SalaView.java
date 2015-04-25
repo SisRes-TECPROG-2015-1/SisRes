@@ -42,13 +42,21 @@ public class SalaView extends PatrimonioView {
 
         Vector<String> nomesTabela = new Vector<String>();
 
-        nomesTabela.add( sala.getCode() );
-        nomesTabela.add( sala.getDescription() );
-        nomesTabela.add( sala.getCapacity() );
+        addNamesInTable( sala, nomesTabela );
 
         return nomesTabela;
 
     }
+
+	/**
+	 * @param sala
+	 * @param nomesTabela
+	 */
+	private void addNamesInTable( Room sala, Vector<String> nomesTabela ) {
+		nomesTabela.add( sala.getCode() );
+        nomesTabela.add( sala.getDescription() );
+        nomesTabela.add( sala.getCapacity() );
+	}
 
     /**
      * This method fills a table with the rooms available
@@ -59,9 +67,7 @@ public class SalaView extends PatrimonioView {
 
             Iterator<Room> i = MaintainRoom.getInstance().getRooms().iterator();
 
-            table.addColumn( "Codigo" );
-            table.addColumn( "Nome" );
-            table.addColumn( "Capacidade" );
+            addColumnsInTable( table );
             while ( i.hasNext() ) {
                 Room sala = i.next();
                 table.addRow( fillDataVector(sala) );
@@ -77,6 +83,15 @@ public class SalaView extends PatrimonioView {
 
         return null;
     }
+
+	/**
+	 * @param table
+	 */
+	private void addColumnsInTable( DefaultTableModel table ) {
+		table.addColumn( "Codigo" );
+		table.addColumn( "Nome" );
+		table.addColumn( "Capacidade" );
+	}
 
     /**
      * This method is the action of the cadastre button.
