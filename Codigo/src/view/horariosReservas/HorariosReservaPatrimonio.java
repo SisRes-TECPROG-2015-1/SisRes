@@ -47,39 +47,15 @@ public abstract class HorariosReservaPatrimonio extends javax.swing.JDialog {
     // This method initialize the components of view
     private void initComponents() {
 
-        jPanel3 = new javax.swing.JPanel();
-        jPanel2 = new javax.swing.JPanel();
-        reservarButton = new javax.swing.JButton();
-        alterarButton = new javax.swing.JButton();
-        cancelarReservaButton = new javax.swing.JButton();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        reservasTable = new javax.swing.JTable();
+        instanciateComponents();
 
         setDefaultCloseOperation( javax.swing.WindowConstants.DISPOSE_ON_CLOSE );
 
-        reservarButton.setText( "Reservar" );
-        reservarButton.setName( "ReservarButton" ); // NOI18N
-        reservarButton.addActionListener( new java.awt.event.ActionListener() {
-            public void actionPerformed( java.awt.event.ActionEvent evt ) {
-                reservarButtonActionPerformed( evt );
-            }
-        });
+        defineReserveButton();
 
-        alterarButton.setText( "Alterar Reserva" );
-        alterarButton.setName( "AlterarButton" ); // NOI18N
-        alterarButton.addActionListener( new java.awt.event.ActionListener() {
-            public void actionPerformed( java.awt.event.ActionEvent evt ) {
-                alterarButtonActionPerformed( evt );
-            }
-        } );
+        defineModifyButton();
 
-        cancelarReservaButton.setText( "Cancelar Reserva" );
-        cancelarReservaButton.setName( "CancelarReservaButton" ); // NOI18N
-        cancelarReservaButton.addActionListener( new java.awt.event.ActionListener() {
-            public void actionPerformed( java.awt.event.ActionEvent evt ) {
-                cancelarReservaButtonActionPerformed( evt );
-            }
-        } );
+        defineCancelButton();
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout( jPanel2 );
         jPanel2.setLayout( jPanel2Layout );
@@ -157,6 +133,58 @@ public abstract class HorariosReservaPatrimonio extends javax.swing.JDialog {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+	/**
+	 * 
+	 */
+	private void defineCancelButton() {
+		cancelarReservaButton.setText( "Cancelar Reserva" );
+        cancelarReservaButton.setName( "CancelarReservaButton" ); // NOI18N
+        cancelarReservaButton.addActionListener( new java.awt.event.ActionListener() {
+            public void actionPerformed( java.awt.event.ActionEvent evt ) {
+                cancelarReservaButtonActionPerformed( evt );
+            }
+        } );
+	}
+
+	/**
+	 * 
+	 */
+	private void defineModifyButton() {
+		alterarButton.setText( "Alterar Reserva" );
+        alterarButton.setName( "AlterarButton" ); // NOI18N
+        alterarButton.addActionListener( new java.awt.event.ActionListener() {
+            public void actionPerformed( java.awt.event.ActionEvent evt ) {
+                alterarButtonActionPerformed( evt );
+            }
+        } );
+	}
+
+	/**
+	 * 
+	 */
+	private void defineReserveButton() {
+		reservarButton.setText( "Reservar" );
+        reservarButton.setName( "ReservarButton" ); // NOI18N
+        reservarButton.addActionListener( new java.awt.event.ActionListener() {
+            public void actionPerformed( java.awt.event.ActionEvent evt ) {
+                reservarButtonActionPerformed( evt );
+            }
+        });
+	}
+
+	/**
+	 * 
+	 */
+	private void instanciateComponents() {
+		jPanel3 = new javax.swing.JPanel();
+        jPanel2 = new javax.swing.JPanel();
+        reservarButton = new javax.swing.JButton();
+        alterarButton = new javax.swing.JButton();
+        cancelarReservaButton = new javax.swing.JButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        reservasTable = new javax.swing.JTable();
+	}
 
     // This method is the action to cancel a booking
     private void cancelarReservaButtonActionPerformed( java.awt.event.ActionEvent evt ) {// GEN-FIRST:event_cancelarReservaButtonActionPerformed

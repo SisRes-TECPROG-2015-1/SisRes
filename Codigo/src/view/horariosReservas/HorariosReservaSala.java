@@ -49,31 +49,13 @@ public class HorariosReservaSala extends HorariosReservaPatrimonio {
         if ( o instanceof StudentRoomReserve ) {
             StudentRoomReserve r = ( StudentRoomReserve ) o;
             if ( this.room != null && ( r.getRoom().equals( this.room ) ) ) {
-                nomesTabela.add( String.valueOf( index ) );
-                nomesTabela.add( "Aluno" );
-                nomesTabela.add( r.getHour() );
-                nomesTabela.add( r.getStudent().getName() );
-                nomesTabela.add( r.getStudent().getRegistration() );
-                nomesTabela.add( r.getFinality() );
-                nomesTabela.add( r.getRoom().getCode() );
-                nomesTabela.add( r.getRoom().getDescription() );
-                nomesTabela.add( r.getReservedChairs() );
-                nomesTabela.add( r.getRoom().getCapacity() );
+                addNamesInTableStudentReserve( index, nomesTabela, r );
             }
         } else if ( o instanceof TeacherRoomReserve ) {
             TeacherRoomReserve r = ( TeacherRoomReserve ) o;
             if (this.room != null && ( r.getRoom().equals( this.room ) ) ) {
 
-                nomesTabela.add( String.valueOf( index ) );
-                nomesTabela.add( "Professor" );
-                nomesTabela.add( r.getHour() );
-                nomesTabela.add( r.getProfessor().getName() );
-                nomesTabela.add( r.getProfessor().getRegistration() );
-                nomesTabela.add( r.getFinality() );
-                nomesTabela.add( r.getRoom().getCode() );
-                nomesTabela.add( r.getRoom().getDescription() );
-                nomesTabela.add( r.getRoom().getCapacity() );
-                nomesTabela.add( r.getRoom().getCapacity() );
+                addNamesInTableTeacherReserve( index, nomesTabela, r );
             }
         }
 
@@ -81,22 +63,51 @@ public class HorariosReservaSala extends HorariosReservaPatrimonio {
 
     }
 
+	/**
+	 * @param index
+	 * @param nomesTabela
+	 * @param r
+	 */
+	private void addNamesInTableTeacherReserve( int index,
+			Vector<String> nomesTabela, TeacherRoomReserve r ) {
+		nomesTabela.add( String.valueOf( index ) );
+		nomesTabela.add( "Professor" );
+		nomesTabela.add( r.getHour() );
+		nomesTabela.add( r.getProfessor().getName() );
+		nomesTabela.add( r.getProfessor().getRegistration() );
+		nomesTabela.add( r.getFinality() );
+		nomesTabela.add( r.getRoom().getCode() );
+		nomesTabela.add( r.getRoom().getDescription() );
+		nomesTabela.add( r.getRoom().getCapacity() );
+		nomesTabela.add( r.getRoom().getCapacity() );
+	}
+
+	/**
+	 * @param index
+	 * @param nomesTabela
+	 * @param r
+	 */
+	private void addNamesInTableStudentReserve( int index, Vector<String> nomesTabela,
+			StudentRoomReserve r ) {
+		nomesTabela.add( String.valueOf( index ) );
+		nomesTabela.add( "Aluno" );
+		nomesTabela.add( r.getHour() );
+		nomesTabela.add( r.getStudent().getName() );
+		nomesTabela.add( r.getStudent().getRegistration() );
+		nomesTabela.add( r.getFinality() );
+		nomesTabela.add( r.getRoom().getCode() );
+		nomesTabela.add( r.getRoom().getDescription() );
+		nomesTabela.add( r.getReservedChairs() );
+		nomesTabela.add( r.getRoom().getCapacity() );
+	}
+
     // This method fill a table with the information of the room
     @Override protected DefaultTableModel fillTable( Heritage sala ) {
         this.room = ( Room ) sala;
         DefaultTableModel table = new DefaultTableModel();
         instanceAluno = MaintainClassroomReservationByStudent.getInstance();
         instanceProf = MaintainClassroomReservationByTeacher.getInstance();
-        table.addColumn( "" );
-        table.addColumn( "Tipo:" );
-        table.addColumn( "Hora:" );
-        table.addColumn( "Nome" );
-        table.addColumn( "Matricula" );
-        table.addColumn( "Finalidade" );
-        table.addColumn( "Codigo da Sala" );
-        table.addColumn( "Descricao da Sala" );
-        table.addColumn( "Reservadas" );
-        table.addColumn( "Capacidade" );
+        addColumnsInTable( table );
 
         this.mes = Integer.parseInt( this.data.substring( 3, 5 ) );
 
@@ -136,6 +147,22 @@ public class HorariosReservaSala extends HorariosReservaPatrimonio {
         return table;
 
     }
+
+	/**
+	 * @param table
+	 */
+	private void addColumnsInTable( DefaultTableModel table ) {
+		table.addColumn( "" );
+        table.addColumn( "Tipo:" );
+        table.addColumn( "Hora:" );
+        table.addColumn( "Nome" );
+        table.addColumn( "Matricula" );
+        table.addColumn( "Finalidade" );
+        table.addColumn( "Codigo da Sala" );
+        table.addColumn( "Descricao da Sala" );
+        table.addColumn( "Reservadas" );
+        table.addColumn( "Capacidade" );
+	}
 
     // This method is the action of the buttom to cancel the booking of the room
     @Override protected void cancelarReservaAction( int index ) {
