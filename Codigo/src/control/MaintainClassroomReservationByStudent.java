@@ -88,7 +88,7 @@ public class MaintainClassroomReservationByStudent {
 	public void changeReserve( String finality, String reservedChairs, StudentRoomReserve r )
 		throws SQLException, ReserveException, ClientException, PatrimonyException {
 
-		StudentRoomReserve res_old = new StudentRoomReserve( r.getDate(), r.getHour(), r.getSala(),
+		StudentRoomReserve res_old = new StudentRoomReserve( r.getDate(), r.getHour(), r.getRoom(),
 			r.getFinality(), r.getReservedChairs(), r.getStudent());
 		r.setFinality( finality );
 		r.setReservedChairs( reservedChairs );

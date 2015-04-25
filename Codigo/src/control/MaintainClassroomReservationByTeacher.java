@@ -70,7 +70,7 @@ public class MaintainClassroomReservationByTeacher {
 	public void changeRoomReserve( String finality, TeacherRoomReserve reserve ) 
 				throws SQLException, ReserveException {
 		
-		TeacherRoomReserve old_reserve = new TeacherRoomReserve( reserve.getDate(), reserve.getHour(), reserve.getSala() , 
+		TeacherRoomReserve old_reserve = new TeacherRoomReserve( reserve.getDate(), reserve.getHour(), reserve.getRoom() , 
 				reserve.getFinality(), reserve.getProfessor() );
 		
 		reserve.setFinality( finality );

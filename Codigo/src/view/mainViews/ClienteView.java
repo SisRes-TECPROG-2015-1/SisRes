@@ -7,6 +7,7 @@ package view.mainViews;
 import java.util.Iterator;
 import java.util.Vector;
 
+import javax.swing.GroupLayout;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -46,16 +47,26 @@ public abstract class ClienteView extends javax.swing.JDialog {
         if ( client == null ) {
             return null;
         }
+        else
+        {
+	        fillClientData( client, nomesTabela );
 
-        nomesTabela.add( client.getRegistration() );
-        nomesTabela.add( client.getName() );
-        nomesTabela.add( client.getFone() );
-        nomesTabela.add( client.getCpf() );
-        nomesTabela.add( client.getEmail() );
-
-        return nomesTabela;
-
+        	return nomesTabela;
+        }
     }
+
+	/**
+	 * Atomic function to add into a names arraylist the client data
+	 * @param client: Client object
+	 * @param nomesTabela: arrayList of names
+	 */
+	private void fillClientData( Client client, Vector<String> nomesTabela ) {
+		nomesTabela.add( client.getRegistration() );
+		nomesTabela.add( client.getName() );
+		nomesTabela.add( client.getFone() );
+		nomesTabela.add( client.getCpf() );
+		nomesTabela.add( client.getEmail() );
+	}
 
     /**
      * This method fills a table with the client information
@@ -66,11 +77,7 @@ public abstract class ClienteView extends javax.swing.JDialog {
 
         Iterator<Client> i = getIterator();
 
-        table.addColumn( "Matricula" );
-        table.addColumn( "Nome" );
-        table.addColumn( "Telefone" );
-        table.addColumn( "CPF" );
-        table.addColumn( "E-mail" );
+        addColumnsInTable( table );
 
         while ( i.hasNext() ) {
             // int col, row = 0;
@@ -81,52 +88,43 @@ public abstract class ClienteView extends javax.swing.JDialog {
         return table;
     }
 
+	/**
+	 * Atomic function to insert a new table column
+	 * @param table
+	 */
+	private void addColumnsInTable( DefaultTableModel table ) {
+		table.addColumn( "Matricula" );
+        table.addColumn( "Nome" );
+        table.addColumn( "Telefone" );
+        table.addColumn( "CPF" );
+        table.addColumn( "E-mail" );
+	}
+
    /**@SuppressWarnings("unchecked")
      *<editor-fold defaultstate="collapsed"
      *desc="Generated Code">//GEN-BEGIN:initComponents
      */
     private void initComponents() {
 
-        panelBotoes = new javax.swing.JPanel();
-        cadastrarBtn = new javax.swing.JButton();
-        alterarBtn = new javax.swing.JButton();
-        excluirBtn = new javax.swing.JButton();
-        panelLista = new javax.swing.JPanel();
-        pesquisarLbl = new javax.swing.JLabel();
-        pesquisarTextField = new javax.swing.JTextField();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        tabelaCliente = new javax.swing.JTable();
+    	// Procedure to instanciate swing components
+        instanciateComponents();
 
         setDefaultCloseOperation( javax.swing.WindowConstants.DISPOSE_ON_CLOSE );
         setTitle( "Cliente" );
 
         panelBotoes.setBorder( javax.swing.BorderFactory.createLineBorder( new java.awt.Color( 0, 0, 0 ) ) );
 
-        cadastrarBtn.setText( "Cadastrar" );
-        cadastrarBtn.setName( "Cadastrar" );
-        cadastrarBtn.addActionListener( new java.awt.event.ActionListener() {
-            public void actionPerformed( java.awt.event.ActionEvent evt ) {
-                cadastrarBtnActionPerformed( evt );
-            }
-        } );
+        // Procedure to configure the component 'cadastre button'
+        configureCadastreButton();
 
-        alterarBtn.setText( "Alterar" );
-        alterarBtn.setName( "Alterar" );
-        alterarBtn.addActionListener( new java.awt.event.ActionListener() {
-            public void actionPerformed( java.awt.event.ActionEvent evt ) {
-                alterarBtnActionPerformed( evt );
-            }
-        } );
+        // Procedure to configure the component 'modify button'
+        configureModifyButton();
 
-        excluirBtn.setText( "Excluir" );
-        excluirBtn.setName( "Excluir" );
-        excluirBtn.addActionListener( new java.awt.event.ActionListener() {
-            public void actionPerformed( java.awt.event.ActionEvent evt ) {
-                excluirBtnActionPerformed( evt );
-            }
-        });
+        // Procedure to configure the component 'exclude button'
+        configureExcludeButton();
 
-        javax.swing.GroupLayout panelBotoesLayout = new javax.swing.GroupLayout( panelBotoes );
+        // Define of the group layout
+        GroupLayout panelBotoesLayout = new GroupLayout( panelBotoes );
         panelBotoes.setLayout( panelBotoesLayout );
         panelBotoesLayout.setHorizontalGroup( panelBotoesLayout.createParallelGroup( javax.swing.GroupLayout.Alignment.LEADING )
                 .addGroup(
@@ -220,6 +218,60 @@ public abstract class ClienteView extends javax.swing.JDialog {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+/**
+ * 
+ */
+private void configureExcludeButton() {
+	excluirBtn.setText( "Excluir" );
+	excluirBtn.setName( "Excluir" );
+	excluirBtn.addActionListener( new java.awt.event.ActionListener() {
+	    public void actionPerformed( java.awt.event.ActionEvent evt ) {
+	        excluirBtnActionPerformed( evt );
+	    }
+	});
+}
+
+/**
+ * 
+ */
+private void configureModifyButton() {
+	alterarBtn.setText( "Alterar" );
+	alterarBtn.setName( "Alterar" );
+	alterarBtn.addActionListener( new java.awt.event.ActionListener() {
+	    public void actionPerformed( java.awt.event.ActionEvent evt ) {
+	        alterarBtnActionPerformed( evt );
+	    }
+	} );
+}
+
+/**
+ * 
+ */
+private void configureCadastreButton() {
+	cadastrarBtn.setText( "Cadastrar" );
+	cadastrarBtn.setName( "Cadastrar" );
+	cadastrarBtn.addActionListener( new java.awt.event.ActionListener() {
+	    public void actionPerformed( java.awt.event.ActionEvent evt ) {
+	        cadastrarBtnActionPerformed( evt );
+	    }
+	} );
+}
+
+/**
+ * 
+ */
+private void instanciateComponents() {
+	panelBotoes = new javax.swing.JPanel();
+	cadastrarBtn = new javax.swing.JButton();
+	alterarBtn = new javax.swing.JButton();
+	excluirBtn = new javax.swing.JButton();
+	panelLista = new javax.swing.JPanel();
+	pesquisarLbl = new javax.swing.JLabel();
+	pesquisarTextField = new javax.swing.JTextField();
+	jScrollPane1 = new javax.swing.JScrollPane();
+	tabelaCliente = new javax.swing.JTable();
+}
 
     /**
      * This method is the action of the find textfield 
