@@ -37,54 +37,20 @@ public abstract class PatrimonioView extends JDialog {
      */
     private void initComponents() {
 
-        panelBotoes = new javax.swing.JPanel();
-        cadastrar = new javax.swing.JButton();
-        alterar = new javax.swing.JButton();
-        excluir = new javax.swing.JButton();
-        visualizarBtn = new javax.swing.JButton();
-        panelLista = new javax.swing.JPanel();
-        pesquisarLbl = new javax.swing.JLabel();
-        pesquisarTextField = new javax.swing.JTextField();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        tabelaPatrimonio = new javax.swing.JTable();
+        instanciateComponents();
 
         setDefaultCloseOperation( javax.swing.WindowConstants.DISPOSE_ON_CLOSE );
         setTitle( "Salas" );
 
         panelBotoes.setBorder( javax.swing.BorderFactory.createLineBorder( new java.awt.Color( 0, 0, 0 ) ) );
 
-        cadastrar.setText( "Cadastrar" );
-        cadastrar.setName( "Cadastrar" );
-        cadastrar.addActionListener( new java.awt.event.ActionListener() {
-            public void actionPerformed( java.awt.event.ActionEvent evt ) {
-                cadastrarActionPerformed( evt );
-            }
-        } );
+        defineCadastreButton();
 
-        alterar.setText( "Alterar" );
-        alterar.setName( "Alterar" );
-        alterar.addActionListener( new java.awt.event.ActionListener() {
-            public void actionPerformed( java.awt.event.ActionEvent evt ) {
-                alterarActionPerformed( evt );
-            }
-        } );
+        defineModifyButton();
 
-        excluir.setText( "Excluir" );
-        excluir.setName( "Excluir" );
-        excluir.addActionListener( new java.awt.event.ActionListener() {
-            public void actionPerformed( java.awt.event.ActionEvent evt ) {
-                excluirActionPerformed( evt );
-            }
-        } );
+        defineExcludeButton();
 
-        visualizarBtn.setText( "Visualizar Horarios" );
-        visualizarBtn.setName( "Visualizar Horarios" );
-        visualizarBtn.setEnabled( true );
-        visualizarBtn.addActionListener( new java.awt.event.ActionListener() {
-            public void actionPerformed( java.awt.event.ActionEvent evt ) {
-                visualizarActionPerformed( evt );
-            }
-        } );
+        defineVisualizeButton();
 
         javax.swing.GroupLayout panelBotoesLayout = new javax.swing.GroupLayout( panelBotoes );
         panelBotoes.setLayout( panelBotoesLayout );
@@ -156,10 +122,7 @@ public abstract class PatrimonioView extends JDialog {
                                                 javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE ) )
                         .addContainerGap( javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE) ) );
 
-        tabelaPatrimonio.setModel( fillTable() );
-        tabelaPatrimonio.setName( "tabelaPatrimonio" );
-        tabelaPatrimonio.setRowSelectionAllowed( true );
-        // tabelaPatrimonio.setSelectionMode();
+        defineHeritageTable();
 
         jScrollPane1.setViewportView( tabelaPatrimonio );
 
@@ -195,6 +158,84 @@ public abstract class PatrimonioView extends JDialog {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+	/**
+	 * 
+	 */
+	private void defineHeritageTable() {
+		tabelaPatrimonio.setModel( fillTable() );
+        tabelaPatrimonio.setName( "tabelaPatrimonio" );
+        tabelaPatrimonio.setRowSelectionAllowed( true );
+	}
+
+	/**
+	 * 
+	 */
+	private void defineVisualizeButton() {
+		visualizarBtn.setText( "Visualizar Horarios" );
+        visualizarBtn.setName( "Visualizar Horarios" );
+        visualizarBtn.setEnabled( true );
+        visualizarBtn.addActionListener( new java.awt.event.ActionListener() {
+            public void actionPerformed( java.awt.event.ActionEvent evt ) {
+                visualizarActionPerformed( evt );
+            }
+        } );
+	}
+
+	/**
+	 * 
+	 */
+	private void defineExcludeButton() {
+		excluir.setText( "Excluir" );
+        excluir.setName( "Excluir" );
+        excluir.addActionListener( new java.awt.event.ActionListener() {
+            public void actionPerformed( java.awt.event.ActionEvent evt ) {
+                excluirActionPerformed( evt );
+            }
+        } );
+	}
+
+	/**
+	 * 
+	 */
+	private void defineModifyButton() {
+		alterar.setText( "Alterar" );
+        alterar.setName( "Alterar" );
+        alterar.addActionListener( new java.awt.event.ActionListener() {
+            public void actionPerformed( java.awt.event.ActionEvent evt ) {
+                alterarActionPerformed( evt );
+            }
+        } );
+	}
+
+	/**
+	 * 
+	 */
+	private void defineCadastreButton() {
+		cadastrar.setText( "Cadastrar" );
+        cadastrar.setName( "Cadastrar" );
+        cadastrar.addActionListener( new java.awt.event.ActionListener() {
+            public void actionPerformed( java.awt.event.ActionEvent evt ) {
+                cadastrarActionPerformed( evt );
+            }
+        } );
+	}
+
+	/**
+	 * 
+	 */
+	private void instanciateComponents() {
+		panelBotoes = new javax.swing.JPanel();
+        cadastrar = new javax.swing.JButton();
+        alterar = new javax.swing.JButton();
+        excluir = new javax.swing.JButton();
+        visualizarBtn = new javax.swing.JButton();
+        panelLista = new javax.swing.JPanel();
+        pesquisarLbl = new javax.swing.JLabel();
+        pesquisarTextField = new javax.swing.JTextField();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tabelaPatrimonio = new javax.swing.JTable();
+	}
 
     private void visualizarActionPerformed( java.awt.event.ActionEvent evt ) {
         int index = this.tabelaPatrimonio.getSelectedRow();
