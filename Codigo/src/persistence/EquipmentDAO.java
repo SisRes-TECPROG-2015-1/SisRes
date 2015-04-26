@@ -40,15 +40,15 @@ public class EquipmentDAO {
      * @throws SQLException
      * @throws PatrimonyException
      */
-    public void includeEquipment( Equipment equipament ) throws SQLException, PatrimonyException {
-        if ( equipament == null ) {
+    public void includeEquipment( Equipment equipment ) throws SQLException, PatrimonyException {
+        if ( equipment == null ) {
             throw new PatrimonyException( nullEquipment );
-        } else if ( this.inDBCodigo( equipament.getCode() ) ) {
+        } else if ( this.inDBCodigo( equipment.getCode() ) ) {
             throw new PatrimonyException( existentCode );
         }
-        else if ( !this.inDB( equipament ) ) {
-            this.updateQuery( "INSERT INTO " + "equipamento ( codigo, descricao ) VALUES ( " + "\"" + equipament.getCode() + "\", "
-                    + "\"" + equipament.getDescription() + "\" );" );
+        else if ( !this.inDB( equipment ) ) {
+            this.updateQuery( "INSERT INTO " + "equipamento ( codigo, descricao ) VALUES ( " + "\"" + equipment.getCode() + "\", "
+                    + "\"" + equipment.getDescription() + "\" );" );
         }
     }
     
@@ -59,27 +59,30 @@ public class EquipmentDAO {
      * @throws SQLException
      * @throws PatrimonyException
      */
-    public void modifyEquipment( Equipment old_equipamento, Equipment new_equipamento ) throws SQLException, PatrimonyException {
-        if ( old_equipamento == null ) {
-            throw new PatrimonyException( nullEquipment );
-        }
-        if ( new_equipamento == null ) {
+    /**
+     * @param old_equipment
+     * @param new_equipment
+     * @throws SQLException
+     * @throws PatrimonyException
+     */
+    public void modifyEquipment( Equipment old_equipment, Equipment new_equipment ) throws SQLException, PatrimonyException {
+        if ( old_equipment == null || new_equipment == null) {
             throw new PatrimonyException( nullEquipment );
         }
 
         Connection con = FactoryConnection.getInstance().getConnection();
         PreparedStatement pst;
 
-        if ( !this.inDB( old_equipamento ) ) {
+        if ( !this.inDB( old_equipment ) ) {
             throw new PatrimonyException( noExistentEquipment );
-        } else if ( this.inOtherDB( old_equipamento ) ) {
+        } else if ( this.inOtherDB( old_equipment ) ) {
             throw new PatrimonyException( inUseEquipment );
-        } else if ( !new_equipamento.getCode().equals( old_equipamento.getCode() ) && this.inDBCodigo( new_equipamento.getCode() ) ) {
+        } else if ( !new_equipment.getCode().equals( old_equipment.getCode() ) && this.inDBCodigo( new_equipment.getCode() ) ) {
             throw new PatrimonyException( existentCode );
-        } else if ( !this.inDB( new_equipamento ) ) {
-            String msg = "UPDATE equipamento SET " + "codigo = \"" + new_equipamento.getCode() + "\", " + "descricao = \""
-                    + new_equipamento.getDescription() + "\"" + " WHERE " + "equipamento.codigo = \"" + old_equipamento.getCode()
-                    + "\" and " + "equipamento.descricao = \"" + old_equipamento.getDescription() + "\";";
+        } else if ( !this.inDB( new_equipment ) ) {
+            String msg = "UPDATE equipamento SET " + "codigo = \"" + new_equipment.getCode() + "\", " + "descricao = \""
+                    + new_equipment.getDescription() + "\"" + " WHERE " + "equipamento.codigo = \"" + old_equipment.getCode()
+                    + "\" and " + "equipamento.descricao = \"" + old_equipment.getDescription() + "\";";
 
             con.setAutoCommit( false );
             pst = con.prepareStatement( msg );
@@ -100,15 +103,15 @@ public class EquipmentDAO {
      * @throws SQLException
      * @throws PatrimonyException
      */
-    public void excludeEquipment( Equipment equipamento ) throws SQLException, PatrimonyException {
-        if ( equipamento == null ) {
+    public void excludeEquipment( Equipment equipment ) throws SQLException, PatrimonyException {
+        if ( equipment == null ) {
             throw new PatrimonyException( nullEquipment );
-        } else if ( this.inOtherDB( equipamento ) ) {
+        } else if ( this.inOtherDB( equipment ) ) {
             throw new PatrimonyException( inUseEquipment );
         }
-        if ( this.inDB( equipamento ) ) {
-            this.updateQuery( "DELETE FROM equipamento WHERE " + "equipamento.codigo = \"" + equipamento.getCode() + "\" and "
-                    + "equipamento.descricao = \"" + equipamento.getDescription() + "\";" );
+        if ( this.inDB( equipment ) ) {
+            this.updateQuery( "DELETE FROM equipamento WHERE " + "equipamento.codigo = \"" + equipment.getCode() + "\" and "
+                    + "equipamento.descricao = \"" + equipment.getDescription() + "\";" );
         } else {
             throw new PatrimonyException( noExistentEquipment );
         }
@@ -126,16 +129,16 @@ public class EquipmentDAO {
      * Captures all the equipments by its identification code
      * @return Vector - Equipments
      */
-    public Vector<Equipment> searchByCode( String valor ) throws SQLException, PatrimonyException {
-        return this.search( "SELECT * FROM equipamento WHERE codigo = " + "\"" + valor + "\";" );
+    public Vector<Equipment> searchByCode( String value ) throws SQLException, PatrimonyException {
+        return this.search( "SELECT * FROM equipamento WHERE codigo = " + "\"" + value + "\";" );
     }
 
     /**
      * Captures all the equipments with the given description 
      * @return Vector - Equipments
      */
-    public Vector<Equipment> searchByDescription( String valor ) throws SQLException, PatrimonyException {
-        return this.search( "SELECT * FROM equipamento WHERE descricao = " + "\"" + valor + "\";" );
+    public Vector<Equipment> searchByDescription( String value ) throws SQLException, PatrimonyException {
+        return this.search( "SELECT * FROM equipamento WHERE descricao = " + "\"" + value + "\";" );
     }
 
     
@@ -174,16 +177,16 @@ public class EquipmentDAO {
         PreparedStatement pst = con.prepareStatement(query);
         ResultSet rs = pst.executeQuery();
 
-        if ( !rs.next() ) {
-            rs.close();
-            pst.close();
-            con.close();
-            return false;
-        } else {
+        if ( rs.next() ) {
             rs.close();
             pst.close();
             con.close();
             return true;
+        } else {
+            rs.close();
+            pst.close();
+            con.close();
+            return false;
         }
     }
 
