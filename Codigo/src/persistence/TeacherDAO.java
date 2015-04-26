@@ -68,13 +68,10 @@ public class TeacherDAO {
 	 */
 	public void modifyATeacher( Teacher oldTeacher, Teacher newTeacher )
 			throws SQLException, ClientException {
-		if ( oldTeacher == null ) {
+		if ( oldTeacher == null || newTeacher == null) {
 			throw new ClientException( nullTeacher );
 		}
-		if (newTeacher == null) {
-			throw new ClientException( nullTeacher );
-		}
-
+		
 		Connection con = FactoryConnection.getInstance().getConnection();
 		PreparedStatement pst;
 
@@ -243,16 +240,16 @@ public class TeacherDAO {
 		PreparedStatement pst = con.prepareStatement( query );
 		ResultSet rs = pst.executeQuery();
 
-		if ( !rs.next() ) {
-			rs.close();
-			pst.close();
-			con.close();
-			return false;
-		} else {
+		if ( rs.next() ) {
 			rs.close();
 			pst.close();
 			con.close();
 			return true;
+		} else {
+			rs.close();
+			pst.close();
+			con.close();
+			return false;
 		}
 	}
 	

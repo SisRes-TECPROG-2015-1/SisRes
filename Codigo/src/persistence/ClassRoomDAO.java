@@ -200,16 +200,16 @@ public class ClassRoomDAO {
 		PreparedStatement pst = con.prepareStatement( query );
 		ResultSet rs = pst.executeQuery();
 
-		if ( !rs.next() ) {
-			rs.close();
-			pst.close();
-			con.close();
-			return false;
-		} else {
+		if ( rs.next() ) {
 			rs.close();
 			pst.close();
 			con.close();
 			return true;
+		} else {
+			rs.close();
+			pst.close();
+			con.close();
+			return false;
 		}
 	}
 
@@ -229,9 +229,9 @@ public class ClassRoomDAO {
      * Verifies if the code exists in database
      * @return Boolean - Existence of a code
      */
-	private boolean inDBCodigo( String codigo ) throws SQLException {
+	private boolean inDBCodigo( String code ) throws SQLException {
 		return this.inDBGeneric( "SELECT * FROM sala WHERE "
-				+ "sala.codigo = \"" + codigo + "\";" );
+				+ "sala.codigo = \"" + code + "\";" );
 	}
 
 	/**
