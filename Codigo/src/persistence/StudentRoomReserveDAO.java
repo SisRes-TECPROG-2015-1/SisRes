@@ -20,7 +20,7 @@ public class StudentRoomReserveDAO extends DAO {
 
 	/**
 	 * Defining constants for error messages and alerts. It will stay like that
-	 * for future analyse.
+	 * for future analyze.
 	 */
 	private final String NULL_TERM = "Termo nulo.";
 	private final String UNAVAILABLE_STUDENT = "O aluno possui uma reserva no mesmo dia e horario.";
@@ -55,129 +55,130 @@ public class StudentRoomReserveDAO extends DAO {
 	}
 
 	/**
-	 * Function to get the student id from database
-	 * 
+	 * Function to get the string containing a selsct clause 
 	 * @param student
-	 * @return
+	 * @return String - Select Clause
 	 */
-	private String select_student_id( Student student ) {
-		return "SELECT id_aluno FROM aluno WHERE " + "aluno.nome = \""
+	private String createSelectClause( Student student ) {
+		String selectClause = "SELECT id_aluno FROM aluno WHERE " + "aluno.nome = \""
 				+ student.getName() + "\" and " + "aluno.cpf = \""
 				+ student.getCpf() + "\" and " + "aluno.telefone = \""
 				+ student.getFone() + "\" and " + "aluno.email = \""
 				+ student.getEmail() + "\" and " + "aluno.matricula = \""
 				+ student.getRegistration() + "\"";
+		return selectClause;
 	}
 
 	/**
-	 * Function to get the room id in the databse
-	 * 
+	 * Function to give the necessary string containing the
+	 * instruction to select a room from the database 
 	 * @param room
-	 * @return
+	 * @return String - The string to select a room in the database
 	 */
-	private String select_room_id( Room room ) {
-		return "SELECT id_sala FROM sala WHERE " + "sala.codigo = \""
+	private String createSelectFromIdClause( Room room ) {
+		String roomSelect = "SELECT id_sala FROM sala WHERE " + "sala.codigo = \""
 				+ room.getCode() + "\" and " + "sala.descricao = \""
 				+ room.getDescription() + "\" and " + "sala.capacidade = "
 				+ room.getCapacity();
+		return roomSelect;
 	}
 
 	/**
-	 * Function to construct an where clause for a calling sql query
-	 * 
+	 * Function to construct a where clause for a calling sql query 
 	 * @param reservedRoom
-	 * @return
+	 * @return String - Where clause
 	 */
-	private String student_room_reserve_where_clausule_construct(
-			StudentRoomReserve reservedRoom ) {
-		return " WHERE " + "id_aluno = ( "
-				+ select_student_id( reservedRoom.getStudent() ) + " ) and "
-				+ "id_sala = ( " + select_room_id( reservedRoom.getRoom() )
+	private String createWhereClause( StudentRoomReserve reservedRoom ) {
+		String whereClause = " WHERE " + "id_aluno = ( "
+				+ createSelectClause( reservedRoom.getStudent() ) + " ) and "
+				+ "id_sala = ( " + createSelectFromIdClause( reservedRoom.getRoom() )
 				+ " ) and " + "finalidade = \"" + reservedRoom.getFinality()
 				+ "\" and " + "hora = \"" + reservedRoom.getHour() + "\" and "
 				+ "data = \"" + reservedRoom.getDate() + "\" and "
 				+ "cadeiras_reservadas = " + reservedRoom.getReservedChairs();
+		return whereClause;
 	}
 
 	/**
-	 * Function to construct the values cases for an 'insert'sql query
-	 * 
-	 * @param reservingRoom
-	 * @return
+	 * Details the reserve
+	 * @param roomReserve
+	 * @return String - The details of the reserve
 	 */
-	private String student_room_reserve_insert_values_construct(
-			StudentRoomReserve reservingRoom ) {
-		return "( " + select_student_id( reservingRoom.getStudent() ) + " ), "
-				+ "( " + select_room_id( reservingRoom.getRoom() ) + " ), "
-				+ "\"" + reservingRoom.getFinality() + "\", " + "\""
-				+ reservingRoom.getHour() + "\", " + "\""
-				+ reservingRoom.getDate() + "\", "
-				+ reservingRoom.getReservedChairs();
+	private String detailStudentRoomReserve(
+			StudentRoomReserve roomReserve ) {
+		String details = "( " + createSelectClause( roomReserve.getStudent() ) + " ), "
+				+ "( " + createSelectFromIdClause( roomReserve.getRoom() ) + " ), "
+				+ "\"" + roomReserve.getFinality() + "\", " + "\""
+				+ roomReserve.getHour() + "\", " + "\""
+				+ roomReserve.getDate() + "\", "
+				+ roomReserve.getReservedChairs();
+		return details;
 	}
 
 	/**
-	 * Function to construct the attributes of an update sql value cases
-	 * 
-	 * @param updateReservedRoom
-	 * @return
+	 * Updates a reserve in the database
+	 * @param roomReserve
+	 * @return String - Update Clause
 	 */
-	private String student_room_reserve_update_values_construct(
-			StudentRoomReserve updateReservedRoom ) {
-		return "id_aluno = ( "
-				+ select_student_id( updateReservedRoom.getStudent() ) + " ), "
+	private String createUpdateClause(
+			StudentRoomReserve roomReserve ) {
+		
+		String reserve = "id_aluno = ( "
+				+ createSelectClause( roomReserve.getStudent() ) + " ), "
 				+ "id_sala = ( "
-				+ select_room_id( updateReservedRoom.getRoom() ) + " ), "
-				+ "finalidade = \"" + updateReservedRoom.getFinality() + "\", "
-				+ "hora = \"" + updateReservedRoom.getHour() + "\", "
-				+ "data = \"" + updateReservedRoom.getDate() + "\", "
+				+ createSelectFromIdClause( roomReserve.getRoom() ) + " ), "
+				+ "finalidade = \"" + roomReserve.getFinality() + "\", "
+				+ "hora = \"" + roomReserve.getHour() + "\", "
+				+ "data = \"" + roomReserve.getDate() + "\", "
 				+ "cadeiras_reservadas = "
-				+ updateReservedRoom.getReservedChairs();
+				+ roomReserve.getReservedChairs();
+		return reserve;
 	}
 
 	/**
-	 * Function to construct an insert sql for a new StudentRoomReserve
-	 * 
+	 * Function to construct an insert sql clause for a new StudentRoomReserve
 	 * @param newRoomReserve
-	 * @return
+	 * @return String - Insert clause
 	 */
-	private String insert_into( StudentRoomReserve newRoomReserve ) {
-		return "INSERT INTO "
+	private String createInsertClause( StudentRoomReserve newRoomReserve ) {
+		String insertClause = "INSERT INTO "
 				+ "reserva_sala_aluno (id_aluno, id_sala, finalidade, hora, data, cadeiras_reservadas) "
 				+ "VALUES ( "
-				+ student_room_reserve_insert_values_construct( newRoomReserve )
+				+ detailStudentRoomReserve( newRoomReserve )
 				+ " );";
+		return insertClause;
 	}
 
 	/**
-	 * Function to construct an update sql to update a StudentRoomReserve
-	 * 
+	 * Function to construct an update sql clause to update a StudentRoomReserve
 	 * @param updatingRoomReserve
 	 * @param newAttributesRoomToSave
-	 * @return
+	 * @return String - Update clause
 	 */
-	private String update( StudentRoomReserve updatingRoomReserve,
+	private String createUpdateClause( StudentRoomReserve updatingRoomReserve,
 			StudentRoomReserve newAttributesRoomToSave ) {
-		return "UPDATE reserva_sala_aluno SET "
-				+ this.student_room_reserve_update_values_construct( newAttributesRoomToSave )
-				+ this.student_room_reserve_where_clausule_construct( updatingRoomReserve )
+		
+		String updateClause = "UPDATE reserva_sala_aluno SET "
+				+ this.createUpdateClause( newAttributesRoomToSave )
+				+ this.createWhereClause( updatingRoomReserve )
 				+ " ;";
+		return updateClause;
 	}
 
 	/**
-	 * Function to construct a delete sql for a StudentRoomReserve
-	 * 
+	 * Function to construct a delete sql clause for a StudentRoomReserve
 	 * @param reservedRommToDelete
-	 * @return
+	 * @return String - Delete clause
 	 */
-	private String delete_from( StudentRoomReserve reservedRommToDelete ) {
-		return "DELETE FROM reserva_sala_aluno "
-				+ this.student_room_reserve_where_clausule_construct( reservedRommToDelete )
+	private String createDeleteClause( StudentRoomReserve reservedRommToDelete ) {
+		String deleteClause = "DELETE FROM reserva_sala_aluno "
+				+ this.createWhereClause( reservedRommToDelete )
 				+ " ;";
+		return deleteClause;
 	}
 
 	/**
 	 * Method to save a new room reserve for a student
-	 * 
 	 * @param roomToReserve
 	 * @throws ReserveException
 	 * @throws SQLException
@@ -193,12 +194,12 @@ public class StudentRoomReserveDAO extends DAO {
 			throw new ReserveException( NULL_TERM );
 		} else if ( !this.checkExistingStudent( roomToReserve.getStudent() ) ) {
 			throw new ReserveException( ABSENT_STUDENT );
-		} else if ( !this.checkExistingRoom( roomToReserve.getRoom() ) ) {
+		} else if ( !this.checkRoomExistence( roomToReserve.getRoom() ) ) {
 			throw new ReserveException( ABSENT_ROOM );
-		} else if ( this.checkExistingTeacherRoomReserve( roomToReserve.getRoom(),
+		} else if ( this.checkTeacherRoomReserveExistence( roomToReserve.getRoom(),
 				roomToReserve.getDate(), roomToReserve.getHour() ) ) {
 			throw new ReserveException( UNAVAILABLE_ROOM );
-		} else if ( this.checkExistingStudentRoomReserve( roomToReserve.getStudent(),
+		} else if ( this.checkStudentRoomReserveExistence( roomToReserve.getStudent(),
 				roomToReserve.getDate(), roomToReserve.getHour() ) ) {
 			throw new ReserveException( UNAVAILABLE_STUDENT );
 		} else if ( !this.checkIfExistsAvailableChairs(
@@ -213,10 +214,10 @@ public class StudentRoomReserveDAO extends DAO {
 			if ( this.checkHourHasPassed( roomToReserve.getHour() ) ) {
 				throw new ReserveException( HOUR_PASSED );
 			} else {
-				super.executeQuery( this.insert_into( roomToReserve ) );
+				super.executeQuery( this.createInsertClause( roomToReserve ) );
 			}
 		} else {
-			super.executeQuery( this.insert_into( roomToReserve ) );
+			super.executeQuery( this.createInsertClause( roomToReserve ) );
 		}
 	}
 
@@ -240,22 +241,22 @@ public class StudentRoomReserveDAO extends DAO {
 			throw new ReserveException( NULL_TERM );
 		} else if ( newReserveRoomData == null ) {
 			throw new ReserveException( NULL_TERM );
-		} else if ( !this.checkIfaStudentRoomReserveExists( alreadyReservedRoom ) ) {
+		} else if ( !this.checkIfaStudentRoomReserveExistsById( alreadyReservedRoom ) ) {
 			throw new ReserveException( ABSENT_RESERV );
-		} else if ( this.checkIfaStudentRoomReserveExists( newReserveRoomData ) ) {
+		} else if ( this.checkIfaStudentRoomReserveExistsById( newReserveRoomData ) ) {
 			throw new ReserveException( EXISTING_RESERV );
 		} else if ( !this.checkExistingStudent( newReserveRoomData.getStudent() ) ) {
 			throw new ReserveException( ABSENT_STUDENT );
-		} else if ( !this.checkExistingRoom( newReserveRoomData.getRoom() ) ) {
+		} else if ( !this.checkRoomExistence( newReserveRoomData.getRoom() ) ) {
 			throw new ReserveException( ABSENT_ROOM );
 		} else if ( !alreadyReservedRoom.getDate().equals(
 				newReserveRoomData.getDate() )
 				|| !alreadyReservedRoom.getHour().equals(
 						newReserveRoomData.getHour() ) ) {
-			if ( this.checkExistingStudentRoomReserve( newReserveRoomData.getStudent(),
+			if ( this.checkStudentRoomReserveExistence( newReserveRoomData.getStudent(),
 					newReserveRoomData.getDate(), newReserveRoomData.getHour() ) ) {
 				throw new ReserveException( UNAVAILABLE_STUDENT );
-			} else if ( this.checkExistingTeacherRoomReserve(
+			} else if ( this.checkTeacherRoomReserveExistence(
 					newReserveRoomData.getRoom(), newReserveRoomData.getDate(),
 					newReserveRoomData.getHour() ) ) {
 				throw new ReserveException( UNAVAILABLE_ROOM );
@@ -278,7 +279,7 @@ public class StudentRoomReserveDAO extends DAO {
 				&& this.checkDateWithCurrent( newReserveRoomData.getDate() ) ) {
 			throw new ReserveException( HOUR_PASSED );
 		} else {
-			super.updateQuery( this.update( alreadyReservedRoom,
+			super.updateQuery( this.createUpdateClause( alreadyReservedRoom,
 					newReserveRoomData ) );
 		}
 
@@ -296,10 +297,10 @@ public class StudentRoomReserveDAO extends DAO {
 			SQLException {
 		if ( reservedRoomToDelete == null ) {
 			throw new ReserveException( NULL_TERM );
-		} else if ( !this.checkIfaStudentRoomReserveExists( reservedRoomToDelete ) ) {
+		} else if ( !this.checkIfaStudentRoomReserveExistsById( reservedRoomToDelete ) ) {
 			throw new ReserveException( ABSENT_RESERV );
 		} else {
-			super.executeQuery( this.delete_from( reservedRoomToDelete ) );
+			super.executeQuery( this.createDeleteClause( reservedRoomToDelete ) );
 		}
 	}
 
@@ -316,18 +317,18 @@ public class StudentRoomReserveDAO extends DAO {
 	public Vector<StudentRoomReserve> getAllStudentReservedRooms()
 			throws SQLException, ClientException, PatrimonyException,
 			ReserveException, ClientException {
-		return super
-				.search( "SELECT * FROM reserva_sala_aluno "
+		 
+		Vector<StudentRoomReserve> vectorOfReserves =
+		 				super.search( "SELECT * FROM reserva_sala_aluno "
 						+ "INNER JOIN sala ON sala.id_sala = reserva_sala_aluno.id_sala "
 						+ "INNER JOIN aluno ON aluno.id_aluno = reserva_sala_aluno.id_aluno;" );
+		return vectorOfReserves;
 	}
 
 	/**
-	 * Function to get from the database the reserved rooms for students in a
-	 * given day
-	 * 
+	 * Function to get from the database the reserved rooms for students in a given day
 	 * @param date
-	 * @return
+	 * @return Vector<StudentRoomReserve> = A vector of reserves made by students
 	 * @throws SQLException
 	 * @throws ClienteException
 	 * @throws PatrimonyException
@@ -337,20 +338,20 @@ public class StudentRoomReserveDAO extends DAO {
 	public Vector<StudentRoomReserve> getStudentReservedRoomsByDay( String date )
 			throws SQLException, ClientException, PatrimonyException,
 			ReserveException, ClientException {
+		
 		date = this.standardizeDate( date );
-		return super
-				.search( "SELECT * FROM reserva_sala_aluno "
+		Vector<StudentRoomReserve> vectorOfReserves =
+				super.search( "SELECT * FROM reserva_sala_aluno "
 						+ "INNER JOIN sala ON sala.id_sala = reserva_sala_aluno.id_sala "
 						+ "INNER JOIN aluno ON aluno.id_aluno = reserva_sala_aluno.id_aluno "
 						+ "WHERE data = \"" + date + "\";" );
+		return vectorOfReserves;
 	}
 
 	/**
-	 * Function to get from the database the reserved rooms for students in a
-	 * given hour
-	 * 
+	 * Function to get from the database the reserved rooms for students in a given hour
 	 * @param hour
-	 * @return
+	 * @return Vector<StudentRoomReserve> - A vector of reserves made by students
 	 * @throws SQLException
 	 * @throws ClienteException
 	 * @throws PatrimonyException
@@ -360,21 +361,22 @@ public class StudentRoomReserveDAO extends DAO {
 	public Vector<StudentRoomReserve> getStudentReservedRoomsByHour( String hour )
 			throws SQLException, ClientException, PatrimonyException,
 			ReserveException, ClientException {
+		
 		hour = this.standardizeHour( hour );
-		return super
-				.search( "SELECT * FROM reserva_sala_aluno "
+		Vector<StudentRoomReserve> vectorOfreserves = 
+				super.search( "SELECT * FROM reserva_sala_aluno "
 						+ "INNER JOIN sala ON sala.id_sala = reserva_sala_aluno.id_sala "
 						+ "INNER JOIN aluno ON aluno.id_aluno = reserva_sala_aluno.id_aluno "
 						+ " WHERE hora = \"" + hour + "\";" );
+		return vectorOfreserves;
 	}
 
 	/**
 	 * Function to get the number of available chairs in a room
-	 * 
 	 * @param room
 	 * @param date
 	 * @param hour
-	 * @return
+	 * @return int - Number of available chairs
 	 * @throws SQLException
 	 * @throws PatrimonyException
 	 * @throws ClienteException
@@ -387,10 +389,10 @@ public class StudentRoomReserveDAO extends DAO {
 		date = this.standardizeDate( date );
 		hour = this.standardizeHour( hour );
 		Vector<StudentRoomReserve> vet = this.getAllStudentReservedRooms();
-		Iterator<StudentRoomReserve> it = vet.iterator();
+		Iterator<StudentRoomReserve> iterator = vet.iterator();
 		int total = Integer.parseInt( room.getCapacity() );
-		while ( it.hasNext() ) {
-			StudentRoomReserve r = it.next();
+		while ( iterator.hasNext() ) {
+			StudentRoomReserve r = iterator.next();
 			if ( r.getRoom().equals( room ) && r.getDate().equals( date )
 					&& r.getHour().equals( hour ) ) {
 				total -= Integer.parseInt( r.getReservedChairs() );
@@ -400,13 +402,12 @@ public class StudentRoomReserveDAO extends DAO {
 	}
 
 	/**
-	 * Method to check if any available chairs exist
-	 * 
+	 * Method to check if any available chairs exists
 	 * @param reservedChairs
 	 * @param room
 	 * @param date
 	 * @param hour
-	 * @return
+	 * @return boolean - Existence of available chairs
 	 * @throws SQLException
 	 * @throws ClienteException
 	 * @throws PatrimonyException
@@ -417,11 +418,11 @@ public class StudentRoomReserveDAO extends DAO {
 	private boolean checkIfExistsAvailableChairs( String reservedChairs,
 			Room room, String date, String hour ) throws SQLException,
 			ClientException, PatrimonyException, ReserveException, NumberFormatException, ClientException {
-		if ( this.getAvailableChairs( room, date, hour ) >= Integer
-				.parseInt( reservedChairs ) ) {
-			return true;
-		}
-		return false;
+		
+		int avaiableChairsNumber = this.getAvailableChairs( room, date, hour );
+		int reservedChairsNumber = Integer.parseInt( reservedChairs );
+		boolean isAvaiableChairs = avaiableChairsNumber >= reservedChairsNumber;
+		return isAvaiableChairs;
 	}
 
 	@Override
@@ -461,30 +462,30 @@ public class StudentRoomReserveDAO extends DAO {
 
 	/**
 	 * Function to check if a room exists in database
-	 * 
 	 * @param room
 	 * @return
 	 * @throws SQLException
 	 */
-	private boolean checkExistingRoom( Room room ) throws SQLException {
-		return super.inDBGeneric( "SELECT * FROM sala WHERE "
+	private boolean checkRoomExistence( Room room ) throws SQLException {
+		boolean isARoom = super.inDBGeneric( "SELECT * FROM sala WHERE "
 				+ "sala.codigo = \"" + room.getCode() + "\" and "
 				+ "sala.descricao = \"" + room.getDescription() + "\" and "
 				+ "sala.capacidade = " + room.getCapacity() + ";" );
+		return isARoom;
 	}
 
 	/**
 	 * Function to check if a student room reserve exists in database
-	 * 
 	 * @param student
 	 * @param date
 	 * @param hour
-	 * @return
+	 * @return boolean - Existence of a Student Room Reserve
 	 * @throws SQLException
 	 */
-	private boolean checkExistingStudentRoomReserve( Student student, String date,
+	private boolean checkStudentRoomReserveExistence( Student student, String date,
 			String hour ) throws SQLException {
-		return super.inDBGeneric( "SELECT * FROM reserva_sala_aluno WHERE "
+		
+		boolean isARoomReserve = super.inDBGeneric( "SELECT * FROM reserva_sala_aluno WHERE "
 				+ "data = \"" + date + "\" and " + "hora = \"" + hour
 				+ "\" and " + "id_aluno = (SELECT id_aluno FROM aluno WHERE "
 				+ "aluno.nome = \"" + student.getName() + "\" and "
@@ -492,36 +493,40 @@ public class StudentRoomReserveDAO extends DAO {
 				+ "aluno.telefone = \"" + student.getFone() + "\" and "
 				+ "aluno.email = \"" + student.getEmail() + "\" and "
 				+ "aluno.matricula = \"" + student.getRegistration() + "\");" );
+		
+		return isARoomReserve;
 	}
 	
 	/**
 	 * Function to if a teacher room reserve exists in database
-	 * 
 	 * @param room
 	 * @param date
 	 * @param hour
-	 * @return
+	 * @return boolean - Existence of a teacher room reserve
 	 * @throws SQLException
 	 */
-	private boolean checkExistingTeacherRoomReserve( Room room, String date,
+	private boolean checkTeacherRoomReserveExistence( Room room, String date,
 			String hour ) throws SQLException {
-		return super.inDBGeneric( "SELECT * FROM reserva_sala_professor WHERE "
+		
+		boolean isATeacherRoomReserve = super.inDBGeneric( "SELECT * FROM reserva_sala_professor WHERE "
 				+ "data = \"" + this.standardizeDate( date ) + "\" and "
 				+ "hora = \"" + this.standardizeHour( hour ) + "\" and "
 				+ "id_sala = (SELECT id_sala FROM sala WHERE "
 				+ "sala.codigo = \"" + room.getCode() + "\" and "
 				+ "sala.descricao = \"" + room.getDescription() + "\" and "
 				+ "sala.capacidade = " + room.getCapacity() + " );" );
+		
+		return isATeacherRoomReserve;
 	}
 
 	/**
 	 * Function to check if a student room reserve exists in database
 	 * @param reservedRoom
-	 * @return
+	 * @return boolean - Existence of a student room 
 	 * @throws SQLException
 	 */
-	private boolean checkIfaStudentRoomReserveExists( StudentRoomReserve reservedRoom ) throws SQLException {
-		return super.inDBGeneric( "SELECT * FROM reserva_sala_aluno WHERE "
+	private boolean checkIfaStudentRoomReserveExistsById( StudentRoomReserve reservedRoom ) throws SQLException {
+		boolean isAStudentRoomReserve = super.inDBGeneric( "SELECT * FROM reserva_sala_aluno WHERE "
 				+ "id_aluno = (SELECT id_aluno FROM aluno WHERE "
 				+ "aluno.nome = \""
 				+ reservedRoom.getStudent().getName()
@@ -558,31 +563,35 @@ public class StudentRoomReserveDAO extends DAO {
 				+ reservedRoom.getDate()
 				+ "\" and "
 				+ "cadeiras_reservadas = " + reservedRoom.getReservedChairs() + ";" );
+		
+		return isAStudentRoomReserve;
 	}
 
 	/**
 	 * Function to get the current date
-	 * @return
+	 * @return String - Current date
 	 */
 	private String getCurrentDate() {
 		Date date = new Date( System.currentTimeMillis() );
-		SimpleDateFormat formatador = new SimpleDateFormat( "dd/MM/yyyy" );
-		return formatador.format( date );
+		SimpleDateFormat formatedDate = new SimpleDateFormat( "dd/MM/yyyy" );
+		String currentDate = formatedDate.format( date );
+		return currentDate;
 	}
 
 	/**
 	 * Function to get the current hour
-	 * @return
+	 * @return String - Current hour
 	 */
 	private String getCurrentHour() {
 		Date date = new Date( System.currentTimeMillis() );
-		return date.toString().substring( 11, 16 );
+		String currentHour = date.toString().substring( 11, 16 );
+		return currentHour;
 	}
 
 	/**
 	 * Function to validate if a given date already passed
 	 * @param givenDate
-	 * @return
+	 * @return boolean - Is true if the current date didn't passes
 	 */
 	private boolean checkPassedDate( String givenDate ) {
 		String currentDate[] = this.getCurrentDate().split( "[./-]" );
@@ -615,7 +624,7 @@ public class StudentRoomReserveDAO extends DAO {
 	/**
 	 * Function to check if the given date is equal to current date
 	 * @param givenDate
-	 * @return
+	 * @return boolean 
 	 */
 	public boolean checkDateWithCurrent( String givenDate ) {
 		givenDate = this.standardizeDate( givenDate );
@@ -632,20 +641,32 @@ public class StudentRoomReserveDAO extends DAO {
 	/**
 	 * Function to check if the given hour has already passed
 	 * @param givenHour
-	 * @return
+	 * @return boolean - True if the given hour has passed
 	 */
 	private boolean checkHourHasPassed( String givenHour ) {
+		
 		String currentHour = this.getCurrentHour();
-		if ( givenHour.length() == 4 ) {
+		
+		boolean hasLengthFour = givenHour.length() == 4;
+		
+		if(hasLengthFour == true){
 			givenHour = "0" + givenHour;
 		}
-		if ( Integer.parseInt( currentHour.substring( 0, 2 ) ) > Integer
-				.parseInt( givenHour.substring( 0, 2 ) ) ) {
+		
+		int currentHourFirstAlgarisms = Integer.parseInt( currentHour.substring( 0, 2 ));
+		int givenHourFirstAlgarisms = Integer.parseInt( givenHour.substring( 0, 2 ));
+		
+		boolean isPassedHour = currentHourFirstAlgarisms >  givenHourFirstAlgarisms ;
+		boolean isTheSameHour = currentHourFirstAlgarisms == givenHourFirstAlgarisms ;
+		boolean isTheSameSeconds =  Integer.parseInt( currentHour.substring( 3, 5 ) ) > Integer
+													.parseInt( givenHour.substring( 3, 5 ) );
+		
+		
+		
+		if ( isPassedHour == true ) {
 			return true;
-		} else if ( Integer.parseInt( currentHour.substring( 0, 2 ) ) == Integer
-				.parseInt( givenHour.substring( 0, 2 ) ) ) {
-			if ( Integer.parseInt( currentHour.substring( 3, 5 ) ) > Integer
-					.parseInt( givenHour.substring( 3, 5 ) ) ) {
+		} else if ( isTheSameHour == true) {
+			if ( isTheSameSeconds == true ) {
 				return true;
 			} else {
 				return false;
@@ -658,9 +679,10 @@ public class StudentRoomReserveDAO extends DAO {
 	/**
 	 * Function to standardize date pattern
 	 * @param givenDate
-	 * @return
+	 * @return String - Date in a standard
 	 */
 	private String standardizeDate( String givenDate ) {
+		
 		String currentDate[] = getCurrentDate().split( "[./-]" );
 		String dateSplits[] = givenDate.split( "[./-]" );
 		String standardDatePattern = "";
@@ -684,10 +706,11 @@ public class StudentRoomReserveDAO extends DAO {
 	/**
 	 * Function to standardize hour pattern
 	 * @param givenHour
-	 * @return
+	 * @return String - Hour in a standard
 	 */
 	private String standardizeHour( String givenHour ) {
-		if ( givenHour.length() == 4 ) {
+		boolean isStandardized = (givenHour.length() == 4) ;
+		if (isStandardized == true){
 			return "0" + givenHour;
 		}
 		return givenHour;
