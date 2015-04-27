@@ -466,7 +466,7 @@ public class ResRoomProfessorDAOTest {
 				"Grupo de Pesquisa", professor1);
 		
 		this.executeQuery("INSERT INTO reserva_sala_professor (id_professor,id_sala,finalidade,hora,data) "+
-				"VALUES ((SELECT id_professor FROM professor WHERE cpf = \"" + reserva.getProfessor().getCpf() + "\")," + 
+				"VALUES ((SELECT id_professor FROM professor WHERE cpf = \"" + reserva.getTeacher().getCpf() + "\")," + 
 						"(SELECT id_sala FROM sala WHERE codigo = \"" + sala_a.getCode() + "\")," +
 						"\"Grupo de Pesquisa\", \"08:00\", \"20/12/2034\");");
 		
@@ -502,13 +502,13 @@ public class ResRoomProfessorDAOTest {
 				"Reuniao", professor1);
 		
 		this.executeQuery("INSERT INTO reserva_sala_professor (id_professor,id_sala,finalidade,hora,data) "+
-				"VALUES ((SELECT id_professor FROM professor WHERE cpf = \"" + reserva.getProfessor().getCpf() + "\")," + 
+				"VALUES ((SELECT id_professor FROM professor WHERE cpf = \"" + reserva.getTeacher().getCpf() + "\")," + 
 						"(SELECT id_sala FROM sala WHERE codigo = \"" + sala_a.getCode() + "\")," +
 						"\"" + reserva.getFinality() + "\", \"" +
 						reserva.getHora() + "\", \"" + reserva.getDate() +"\");");
 		
 		this.executeQuery("INSERT INTO reserva_sala_professor (id_professor,id_sala,finalidade,hora,data) "+
-				"VALUES ((SELECT id_professor FROM professor WHERE cpf = \"" + reserva2.getProfessor().getCpf() + "\")," + 
+				"VALUES ((SELECT id_professor FROM professor WHERE cpf = \"" + reserva2.getTeacher().getCpf() + "\")," + 
 						"(SELECT id_sala FROM sala WHERE codigo = \"" + sala_a.getCode() + "\")," +
 						"\"" + reserva2.getFinality() + "\", \"" +
 						reserva2.getHora() + "\", \"" + reserva2.getDate() +"\");");
@@ -549,14 +549,14 @@ public class ResRoomProfessorDAOTest {
 	}
 	private String where_reserva_sala_professor(TeacherRoomReserve r){
 		return " WHERE " +
-		"id_professor = ( " + select_id_professor(r.getProfessor()) + " ) and " +
+		"id_professor = ( " + select_id_professor(r.getTeacher()) + " ) and " +
 		"id_sala = ( " + select_id_sala(r.getRoom()) + " ) and " +
 		"finalidade = \"" + r.getFinality() + "\" and " +
 		"hora = \"" + r.getHora() + "\" and " +
 		"data = \"" + r.getDate() + "\"";
 	}
 	private String values_reserva_sala_professor(TeacherRoomReserve r){
-		return "( " + select_id_professor(r.getProfessor()) + " ), " +
+		return "( " + select_id_professor(r.getTeacher()) + " ), " +
 		"( " + select_id_sala(r.getRoom()) + " ), " +
 		"\"" + r.getFinality() + "\", " +
 		"\"" + r.getHora() + "\", " +

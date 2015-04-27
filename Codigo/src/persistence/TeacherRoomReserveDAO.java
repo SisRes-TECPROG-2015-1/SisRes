@@ -86,7 +86,7 @@ public class TeacherRoomReserveDAO extends DAO {
 	private String teacher_room_reserve_where_clausule_construct(
 			TeacherRoomReserve reservedRoom ) {
 		return " WHERE " + "id_professor = ( "
-				+ select_teacher_id( reservedRoom.getProfessor() ) + " ) and "
+				+ select_teacher_id( reservedRoom.getTeacher() ) + " ) and "
 				+ "id_sala = ( " + select_id_sala( reservedRoom.getRoom() )
 				+ " ) and " + "finalidade = \"" + reservedRoom.getFinality()
 				+ "\" and " + "hora = \"" + reservedRoom.getHour() + "\" and "
@@ -101,7 +101,7 @@ public class TeacherRoomReserveDAO extends DAO {
 	 */
 	private String teacher_room_reserve_insert_values_construct(
 			TeacherRoomReserve reservingRoom ) {
-		return "( " + select_teacher_id( reservingRoom.getProfessor() )
+		return "( " + select_teacher_id( reservingRoom.getTeacher() )
 				+ " ), " + "( " + select_id_sala( reservingRoom.getRoom() )
 				+ " ), " + "\"" + reservingRoom.getFinality() + "\", " + "\""
 				+ reservingRoom.getHour() + "\", " + "\""
@@ -117,7 +117,7 @@ public class TeacherRoomReserveDAO extends DAO {
 	private String teacher_room_reserve_update_values_construct(
 			TeacherRoomReserve updateReservedRoom ) {
 		return "id_professor = ( "
-				+ select_teacher_id( updateReservedRoom.getProfessor() )
+				+ select_teacher_id( updateReservedRoom.getTeacher() )
 				+ " ), " + "id_sala = ( "
 				+ select_id_sala( updateReservedRoom.getRoom() ) + " ), "
 				+ "finalidade = \"" + updateReservedRoom.getFinality() + "\", "
@@ -190,7 +190,7 @@ public class TeacherRoomReserveDAO extends DAO {
 			throws ReserveException, SQLException {
 		if ( roomToReserve == null ) {
 			throw new ReserveException( NULL_TERM );
-		} else if ( !this.checkExistingTeacher( roomToReserve.getProfessor() ) ) {
+		} else if ( !this.checkExistingTeacher( roomToReserve.getTeacher() ) ) {
 			throw new ReserveException( ABSENT_TEACHER );
 		} else if ( !this.checkExistingRoom( roomToReserve.getRoom() ) ) {
 			throw new ReserveException( ABSENT_ROOM );
@@ -238,7 +238,7 @@ public class TeacherRoomReserveDAO extends DAO {
 		} else if ( this.checkExistingTeacherRoomReserve( newReserveRoomData ) ) {
 			throw new ReserveException( EXISTING_RESERV );
 		} else if ( !this.checkExistingTeacher( newReserveRoomData
-				.getProfessor() ) ) {
+				.getTeacher() ) ) {
 			throw new ReserveException( ABSENT_TEACHER );
 		} else if ( !this.checkExistingRoom( newReserveRoomData.getRoom() ) ) {
 			throw new ReserveException( ABSENT_ROOM );
@@ -404,19 +404,19 @@ public class TeacherRoomReserveDAO extends DAO {
 		return super.inDBGeneric( "SELECT * FROM reserva_sala_professor WHERE "
 				+ "id_professor = (SELECT id_professor FROM professor WHERE "
 				+ "professor.nome = \""
-				+ roomReserve.getProfessor().getName()
+				+ roomReserve.getTeacher().getName()
 				+ "\" and "
 				+ "professor.cpf = \""
-				+ roomReserve.getProfessor().getCpf()
+				+ roomReserve.getTeacher().getCpf()
 				+ "\" and "
 				+ "professor.telefone = \""
-				+ roomReserve.getProfessor().getFone()
+				+ roomReserve.getTeacher().getFone()
 				+ "\" and "
 				+ "professor.email = \""
-				+ roomReserve.getProfessor().getEmail()
+				+ roomReserve.getTeacher().getEmail()
 				+ "\" and "
 				+ "professor.matricula = \""
-				+ roomReserve.getProfessor().getRegistration()
+				+ roomReserve.getTeacher().getRegistration()
 				+ "\") and "
 				+ "id_sala = (SELECT id_sala FROM sala WHERE "
 				+ "sala.codigo = \""

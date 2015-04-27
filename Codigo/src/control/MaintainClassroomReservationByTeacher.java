@@ -71,7 +71,7 @@ public class MaintainClassroomReservationByTeacher {
 				throws SQLException, ReserveException {
 		
 		TeacherRoomReserve old_reserve = new TeacherRoomReserve( reserve.getDate(), reserve.getHour(), reserve.getRoom() , 
-				reserve.getFinality(), reserve.getProfessor() );
+				reserve.getFinality(), reserve.getTeacher() );
 		
 		reserve.setFinality( finality );
 		TeacherRoomReserveDAO.getInstance().updateTeacherRoomReserve( old_reserve, reserve );

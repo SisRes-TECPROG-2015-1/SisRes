@@ -21,22 +21,21 @@ public class TeacherRoomReserve extends RoomReserve {
 	public TeacherRoomReserve( String date, String hour, Room room,
 			String finality, Teacher teacher ) throws ReserveException {
 		super( date, hour, room, finality );
-		this.setProfessor( teacher );
+		this.setTeacher( teacher );
 	}
 
 	/**
-	 * Getter method for attribute 'professor'
-	 * @return
+	 * Getter method for attribute 'teacher'
+	 * @return Teacher - An instance o a teacher
 	 */
-	public Teacher getProfessor() {
+	public Teacher getTeacher() {
 		return this.teacher;
 	}
 
 	/**
-	 * Setter method for attribute 'professor'
-	 * @return
+	 * Setter method for attribute 'teacher'
 	 */
-	public void setProfessor( Teacher teacher ) throws ReserveException {
+	public void setTeacher( Teacher teacher ) throws ReserveException {
 		if ( teacher == null ) {
 			throw new ReserveException( NULL_TEACHER );
 		} else { 
@@ -46,13 +45,15 @@ public class TeacherRoomReserve extends RoomReserve {
 	}
 
 	/**
-	 * Function to validate if an TeacherRoomReserveObjectect passed is equal to an instancied TeacherRoomReserveObjectect
+	 * Function to validate if an TeacherRoomReserveObject passed is equal to an instanced TeacherRoomReserveObjectect
 	 * @param TeacherRoomReserveObject
-	 * @return
+	 * @return boolean = 
 	 */
 	public boolean equals( TeacherRoomReserve TeacherRoomReserveObject ) {
-		return ( super.equals( TeacherRoomReserveObject ) && this.getProfessor().equals(
-				TeacherRoomReserveObject.getProfessor() ) );
+		boolean isTeacherRoomReserve = super.equals( TeacherRoomReserveObject );
+		boolean isTeacher = this.getTeacher().equals(TeacherRoomReserveObject.getTeacher());
+		boolean areEqualInstances = isTeacherRoomReserve &&  isTeacher;
+		return areEqualInstances;
 	}
 
 	@Override
@@ -60,8 +61,8 @@ public class TeacherRoomReserve extends RoomReserve {
 	 * To string method for class ReservaSalaProfessor
 	 */
 	public String toString() {
-		return "ReservaSalaProfessor [professor="
-				+ this.getProfessor().toString() + ", toString()="
+		return "TeacherRoomReserve [professor="
+				+ this.getTeacher().toString() + ", toString()="
 				+ super.toString() + "]";
 	}
 

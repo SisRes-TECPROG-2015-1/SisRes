@@ -73,8 +73,8 @@ public class HorariosReservaSala extends HorariosReservaPatrimonio {
 		nomesTabela.add( String.valueOf( index ) );
 		nomesTabela.add( "Professor" );
 		nomesTabela.add( r.getHour() );
-		nomesTabela.add( r.getProfessor().getName() );
-		nomesTabela.add( r.getProfessor().getRegistration() );
+		nomesTabela.add( r.getTeacher().getName() );
+		nomesTabela.add( r.getTeacher().getRegistration() );
 		nomesTabela.add( r.getFinality() );
 		nomesTabela.add( r.getRoom().getCode() );
 		nomesTabela.add( r.getRoom().getDescription() );

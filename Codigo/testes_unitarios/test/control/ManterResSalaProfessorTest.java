@@ -118,14 +118,14 @@ public class ManterResSalaProfessorTest {
 	}
 	private String where_reserva_sala_professor(TeacherRoomReserve reserva){
 		return " WHERE " +
-		"id_professor = ( " + select_id_professor(reserva.getProfessor()) + " ) and " +
+		"id_professor = ( " + select_id_professor(reserva.getTeacher()) + " ) and " +
 		"id_sala = ( " + select_id_sala(reserva.getRoom()) + " ) and " +
 		"finalidade = \"" + reserva.getFinality() + "\" and " +
 		"hora = \"" + reserva.getHour() + "\" and " +
 		"data = \"" + reserva.getDate() + "\" ";
 	}
 	private String values_reserva_sala_professor(TeacherRoomReserve reserva){
-		return "( " + select_id_professor(reserva.getProfessor()) + " ), " +
+		return "( " + select_id_professor(reserva.getTeacher()) + " ), " +
 		"( " + select_id_sala(reserva.getRoom()) + " ), " +
 		"\"" + reserva.getFinality() + "\", " +
 		"\"" + reserva.getHour() + "\", " +
