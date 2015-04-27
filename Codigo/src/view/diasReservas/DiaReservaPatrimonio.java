@@ -19,19 +19,11 @@ public abstract class DiaReservaPatrimonio extends javax.swing.JDialog {
     // This method initialize the swing components
     private void initComponents() {
 
-        visualizarButton = new javax.swing.JButton();
-        jPanel1 = new javax.swing.JPanel();
-        jCalendar1 = new com.toedter.calendar.JCalendar();
+        instanciateComponents();
 
         setDefaultCloseOperation( javax.swing.WindowConstants.DISPOSE_ON_CLOSE );
 
-        visualizarButton.setText( "Visualizar Reservas do Dia" );
-        visualizarButton.setName( "VisualizarButton" ); // NOI18N
-        visualizarButton.addActionListener( new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                visualizarButtonActionPerformed( evt );
-            }
-        } );
+        defineVisualizeButton();
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout( jPanel1 );
         jPanel1.setLayout( jPanel1Layout );
@@ -66,6 +58,28 @@ public abstract class DiaReservaPatrimonio extends javax.swing.JDialog {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+	/**
+	 * 
+	 */
+	private void defineVisualizeButton() {
+		visualizarButton.setText( "Visualizar Reservas do Dia" );
+        visualizarButton.setName( "VisualizarButton" ); // NOI18N
+        visualizarButton.addActionListener( new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                visualizarButtonActionPerformed( evt );
+            }
+        } );
+	}
+
+	/**
+	 * 
+	 */
+	private void instanciateComponents() {
+		visualizarButton = new javax.swing.JButton();
+        jPanel1 = new javax.swing.JPanel();
+        jCalendar1 = new com.toedter.calendar.JCalendar();
+	}
     
     
     // This method is the action to make appear the data to the user

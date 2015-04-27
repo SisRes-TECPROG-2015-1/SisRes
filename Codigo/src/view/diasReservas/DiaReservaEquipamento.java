@@ -21,17 +21,17 @@ import exception.PatrimonyException;
  */
 public class DiaReservaEquipamento extends DiaReservaPatrimonio {
 
-    Equipment eq;
+    Equipment equipment;
 
     public DiaReservaEquipamento( Frame parent, boolean modal, int indexEquipamento ) throws SQLException, PatrimonyException {
         super( parent, modal );
-        eq = MaintainEquipment.getInstance().getEquipments().get( indexEquipamento );
+        equipment = MaintainEquipment.getInstance().getEquipments().get( indexEquipamento );
     }
     
     
     // This method sets the action visible to the user
     @Override protected void visualizarAction( String data ) {
-        HorariosReservaPatrimonio reserva = new HorariosReservaEquipamento( new JFrame(), true, data, this.eq );
+        HorariosReservaPatrimonio reserva = new HorariosReservaEquipamento( new JFrame(), true, data, this.equipment );
         reserva.setVisible( true );
         reserva.setResizable( false );
     }
