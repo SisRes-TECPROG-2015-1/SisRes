@@ -100,7 +100,7 @@ public class US01_ReservarSala {
         dataAtual();
 
         index = ClassRoomDAO.getInstance().searchAll().size() - 1;
-        indexReserva = TeacherRoomReserveDAO.getInstance().buscagetTeacherReservedRoomsByDayrPorData(data).size() - 1;
+        indexReserva = TeacherRoomReserveDAO.getInstance().getTeacherReservedRoomsByDay(data).size() - 1;
 
         window.button("Sala").click();
         dialog = window.dialog("SalaView");
@@ -151,8 +151,8 @@ public class US01_ReservarSala {
         fazerReservaSalaView.optionPane().requireMessage("Reserva feita com sucesso");
         fazerReservaSalaView.optionPane().okButton().click();
 
-        indexReserva = TeacherRoomReserveDAO.getInstance().buscagetTeacherReservedRoomsByDayrPorData(data).size() - 1;
-        reservaProf = TeacherRoomReserveDAO.getInstance().buscagetTeacherReservedRoomsByDayrPorData(data).get(indexReserva);
+        indexReserva = TeacherRoomReserveDAO.getInstance().getTeacherReservedRoomsByDay(data).size() - 1;
+        reservaProf = TeacherRoomReserveDAO.getInstance().getTeacherReservedRoomsByDay(data).get(indexReserva);
     }
 
     @Test public void testCenario1ProfessorCpfInvalido() throws SQLException, ClienteException, PatrimonyException, ReserveException {
@@ -326,8 +326,8 @@ public class US01_ReservarSala {
         fazerReservaSalaView.optionPane().requireMessage("Reserva feita com sucesso");
         fazerReservaSalaView.optionPane().okButton().click();
 
-        indexReserva = TeacherRoomReserveDAO.getInstance().buscagetTeacherReservedRoomsByDayrPorData(data).size() - 1;
-        reservaProf = TeacherRoomReserveDAO.getInstance().buscagetTeacherReservedRoomsByDayrPorData(data).get(indexReserva);
+        indexReserva = TeacherRoomReserveDAO.getInstance().getTeacherReservedRoomsByDay(data).size() - 1;
+        reservaProf = TeacherRoomReserveDAO.getInstance().getTeacherReservedRoomsByDay(data).get(indexReserva);
         reservaAluno = null;
     }
 
@@ -391,8 +391,8 @@ public class US01_ReservarSala {
         fazerReservaSalaView.textBox("Hora").enterText("23:59");
         fazerReservaSalaView.button("Reservar").click();
 
-        indexReserva = TeacherRoomReserveDAO.getInstance().buscagetTeacherReservedRoomsByDayrPorData(data).size() - 1;
-        reservaProf = TeacherRoomReserveDAO.getInstance().buscagetTeacherReservedRoomsByDayrPorData(data).get(indexReserva);
+        indexReserva = TeacherRoomReserveDAO.getInstance().getTeacherReservedRoomsByDay(data).size() - 1;
+        reservaProf = TeacherRoomReserveDAO.getInstance().getTeacherReservedRoomsByDay(data).get(indexReserva);
         reservaAluno = null;
 
         fazerReservaSalaView.optionPane().requireMessage("A Sala esta reservada no mesmo dia e horario.");

@@ -37,7 +37,7 @@ public class MaintainClassroomReservationByTeacher {
      * @return Vector - Classroom reserves
      */	
 	public Vector < TeacherRoomReserve > getRoomByDate( String date ) throws SQLException, ClientException, PatrimonyException, ReserveException {
-		return TeacherRoomReserveDAO.getInstance().buscagetTeacherReservedRoomsByDayrPorData( date );
+		return TeacherRoomReserveDAO.getInstance().getTeacherReservedRoomsByDay( date );
 	} 
 	    	
 		

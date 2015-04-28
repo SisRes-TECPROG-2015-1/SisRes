@@ -59,7 +59,7 @@ public class StudentRoomReserveDAO extends DAO {
 	 * @param student
 	 * @return String - Select Clause
 	 */
-	private String createSelectClause( Student student ) {
+	private String createStudentSelectClause( Student student ) {
 		String selectClause = "SELECT id_aluno FROM aluno WHERE " + "aluno.nome = \""
 				+ student.getName() + "\" and " + "aluno.cpf = \""
 				+ student.getCpf() + "\" and " + "aluno.telefone = \""
@@ -90,7 +90,7 @@ public class StudentRoomReserveDAO extends DAO {
 	 */
 	private String createWhereClause( StudentRoomReserve reservedRoom ) {
 		String whereClause = " WHERE " + "id_aluno = ( "
-				+ createSelectClause( reservedRoom.getStudent() ) + " ) and "
+				+ createStudentSelectClause( reservedRoom.getStudent() ) + " ) and "
 				+ "id_sala = ( " + createSelectFromIdClause( reservedRoom.getRoom() )
 				+ " ) and " + "finalidade = \"" + reservedRoom.getFinality()
 				+ "\" and " + "hora = \"" + reservedRoom.getHour() + "\" and "
@@ -106,7 +106,7 @@ public class StudentRoomReserveDAO extends DAO {
 	 */
 	private String detailStudentRoomReserve(
 			StudentRoomReserve roomReserve ) {
-		String details = "( " + createSelectClause( roomReserve.getStudent() ) + " ), "
+		String details = "( " + createStudentSelectClause( roomReserve.getStudent() ) + " ), "
 				+ "( " + createSelectFromIdClause( roomReserve.getRoom() ) + " ), "
 				+ "\"" + roomReserve.getFinality() + "\", " + "\""
 				+ roomReserve.getHour() + "\", " + "\""
@@ -124,7 +124,7 @@ public class StudentRoomReserveDAO extends DAO {
 			StudentRoomReserve roomReserve ) {
 		
 		String reserve = "id_aluno = ( "
-				+ createSelectClause( roomReserve.getStudent() ) + " ), "
+				+ createStudentSelectClause( roomReserve.getStudent() ) + " ), "
 				+ "id_sala = ( "
 				+ createSelectFromIdClause( roomReserve.getRoom() ) + " ), "
 				+ "finalidade = \"" + roomReserve.getFinality() + "\", "
@@ -150,7 +150,7 @@ public class StudentRoomReserveDAO extends DAO {
 	}
 
 	/**
-	 * Function to construct an update sql clause to update a StudentRoomReserve
+	 * Function to construct an update sql clause to update a student room reserve
 	 * @param updatingRoomReserve
 	 * @param newAttributesRoomToSave
 	 * @return String - Update clause
@@ -166,7 +166,7 @@ public class StudentRoomReserveDAO extends DAO {
 	}
 
 	/**
-	 * Function to construct a delete sql clause for a StudentRoomReserve
+	 * Function to construct a delete sql clause for a student room reserve
 	 * @param reservedRommToDelete
 	 * @return String - Delete clause
 	 */
@@ -307,7 +307,7 @@ public class StudentRoomReserveDAO extends DAO {
 	/**
 	 * Function to get all student reserved rooms from database
 	 * 
-	 * @return
+	 * @return Vector<StudentRoomReserve> - Reserves
 	 * @throws SQLException
 	 * @throws ClienteException
 	 * @throws PatrimonyException
@@ -448,16 +448,17 @@ public class StudentRoomReserveDAO extends DAO {
 	 * Function to check if a student exists in database
 	 * 
 	 * @param student
-	 * @return
+	 * @return Boolean - Existence of a student
 	 * @throws SQLException
 	 */
 	private boolean checkExistingStudent( Student student ) throws SQLException {
-		return super.inDBGeneric( "SELECT * FROM aluno WHERE "
+		boolean isAStudent = super.inDBGeneric( "SELECT * FROM aluno WHERE "
 				+ "aluno.nome = \"" + student.getName() + "\" and "
 				+ "aluno.cpf = \"" + student.getCpf() + "\" and "
 				+ "aluno.telefone = \"" + student.getFone() + "\" and "
 				+ "aluno.email = \"" + student.getEmail() + "\" and "
 				+ "aluno.matricula = \"" + student.getRegistration() + "\";" );
+		return isAStudent;
 	}
 
 	/**
