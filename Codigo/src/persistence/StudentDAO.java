@@ -137,7 +137,8 @@ public class StudentDAO {
 	 * @throws ClientException 
      */
 	public Vector<Student> captureStudents() throws SQLException, ClientException, ClientException {
-		return this.search( "SELECT * FROM aluno;" );
+		Vector<Student> student = this.search( "SELECT * FROM aluno;" ); 
+		return student;
 	}
 	
 	/**
@@ -146,7 +147,8 @@ public class StudentDAO {
 	 * @throws ClientException 
      */
 	public Vector<Student> searchByName( String nameValue ) throws SQLException, ClientException, ClientException {
-		return this.search( "SELECT * FROM aluno WHERE nome = " + "\"" + nameValue + "\";" );
+		Vector<Student> student = this.search( "SELECT * FROM aluno WHERE nome = " + "\"" + nameValue + "\";" );
+		return student;
 	}
 	
 	/**
@@ -155,16 +157,18 @@ public class StudentDAO {
 	 * @throws ClienteException 
      */
 	public Vector<Student> searchByCpf( String cpfValue ) throws SQLException, ClientException, ClientException {
-		return this.search( "SELECT * FROM aluno WHERE cpf = " + "\"" + cpfValue + "\";" );
+		Vector<Student> student = this.search( "SELECT * FROM aluno WHERE cpf = " + "\"" + cpfValue + "\";" );
+		return student;
 	}
 	
 	/**
-     * Captures the students by their matricula
+     * Captures the students by their registration
      * @return Vector - Students
 	 * @throws ClientException 
      */
 	public Vector<Student> searchByRegistration( String registrationValue ) throws SQLException, ClientException, ClientException {
-		return this.search( "SELECT * FROM aluno WHERE matricula = " + "\"" + registrationValue + "\";" );
+		Vector<Student> student = this.search( "SELECT * FROM aluno WHERE registration = " + "\"" + registrationValue + "\";" );
+		return student;
 	}
 	
 	/**
@@ -173,16 +177,18 @@ public class StudentDAO {
 	 * @throws ClientException 
      */
 	public Vector<Student> searchByEmail( String emailValue ) throws SQLException, ClientException, ClientException {
-		return this.search( "SELECT * FROM aluno WHERE email = " + "\"" + emailValue + "\";" );
+		Vector<Student> student = this.search( "SELECT * FROM aluno WHERE email = " + "\"" + emailValue + "\";" );
+		return student;
 	}
 	
 	/**
-     * Captures the students by their telephone.
+     * Captures the students by their phoneNumber.
      * @return Vector - Students
 	 * @throws ClientException 
      */
 	public Vector<Student> searchByPhoneNumber( String phoneNumberValue ) throws SQLException, ClientException, ClientException {
-		return this.search( "SELECT * FROM aluno WHERE telefone = " + "\"" + phoneNumberValue + "\";" );
+		Vector<Student> student = this.search( "SELECT * FROM aluno WHERE phoneNumber = " + "\"" + phoneNumberValue + "\";" );
+		return student;
 	}
 	
 	
