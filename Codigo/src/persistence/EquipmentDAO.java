@@ -7,6 +7,7 @@ import java.sql.SQLException;
 import java.util.Vector;
 
 import model.Equipment;
+import model.Student;
 import exception.PatrimonyException;
 
 public class EquipmentDAO {
@@ -122,7 +123,8 @@ public class EquipmentDAO {
      * @return Vector - All the equipments
      */
     public Vector<Equipment> searchForAll() throws SQLException, PatrimonyException {
-        return this.search( "SELECT * FROM equipamento;" );
+    	Vector<Equipment> equipment = this.search( "SELECT * FROM equipamento;" );
+        return equipment;
     }
 
     /**
@@ -130,7 +132,8 @@ public class EquipmentDAO {
      * @return Vector - Equipments
      */
     public Vector<Equipment> searchByCode( String value ) throws SQLException, PatrimonyException {
-        return this.search( "SELECT * FROM equipamento WHERE codigo = " + "\"" + value + "\";" );
+    	Vector<Equipment> equipment = this.search( "SELECT * FROM equipamento WHERE codigo = " + "\"" + value + "\";" );
+        return equipment;
     }
 
     /**
@@ -138,7 +141,8 @@ public class EquipmentDAO {
      * @return Vector - Equipments
      */
     public Vector<Equipment> searchByDescription( String value ) throws SQLException, PatrimonyException {
-        return this.search( "SELECT * FROM equipamento WHERE descricao = " + "\"" + value + "\";" );
+    	Vector<Equipment> equipment = this.search( "SELECT * FROM equipamento WHERE descricao = " + "\"" + value + "\";" );
+        return equipment;
     }
 
     
