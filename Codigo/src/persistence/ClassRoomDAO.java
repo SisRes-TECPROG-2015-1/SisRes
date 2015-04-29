@@ -1,6 +1,7 @@
 package persistence;
 
 import model.Room;
+import model.Teacher;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -131,7 +132,8 @@ public class ClassRoomDAO {
      * @return Vector - All the classrooms
      */
 	public Vector<Room> searchAll() throws SQLException, PatrimonyException {
-		return this.searchByQuery( "SELECT * FROM sala;" );
+		Vector<Room> room = this.searchByQuery( "SELECT * FROM sala;" );
+		return room;
 	}
 
 	
@@ -141,8 +143,9 @@ public class ClassRoomDAO {
      */
 	public Vector<Room> searchByCode( String roomCode ) throws SQLException,
 			PatrimonyException {
-		return this.searchByQuery( "SELECT * FROM sala WHERE codigo = " + "\"" + roomCode
+		Vector<Room> room = this.searchByQuery( "SELECT * FROM sala WHERE codigo = " + "\"" + roomCode
 				+ "\";" );
+		return room;
 	}
 
 	
@@ -152,18 +155,20 @@ public class ClassRoomDAO {
      */
 	public Vector<Room> searchByDescription( String roomDescription ) throws SQLException,
 			PatrimonyException {
-		return this.searchByQuery( "SELECT * FROM sala WHERE descricao = " + "\""
+		Vector<Room> room = this.searchByQuery( "SELECT * FROM sala WHERE descricao = " + "\""
 				+ roomDescription + "\";" );
+		return room;
 	}
 
 	/**
-     * Captures all the classroomns with the given capacity value 
+     * Captures all the classrooms with the given capacity value 
      * @return Vector - Classrooms
      */
 	public Vector<Room> searchByCapacity( String capacityValue ) throws SQLException,
 			PatrimonyException {
-		return this.searchByQuery( "SELECT * FROM sala WHERE capacidade = " + capacityValue
+		Vector<Room> room = this.searchByQuery( "SELECT * FROM sala WHERE capacidade = " + capacityValue
 				+ ";" );
+		return room;
 	}
 	
 	
