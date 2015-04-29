@@ -1,5 +1,6 @@
 package persistence;
 
+import model.Equipment;
 import model.Teacher;
 
 import java.sql.*;
@@ -145,7 +146,8 @@ public class TeacherDAO {
      */
 	public Vector<Teacher> searchForAllTeachers() throws SQLException,
 			ClientException, ClientException {
-		return this.searchByQuery( "SELECT * FROM professor;" );
+		Vector<Teacher> teacher = this.searchByQuery( "SELECT * FROM professor;" );
+        return teacher;
 	}
 
 	/**
@@ -155,8 +157,9 @@ public class TeacherDAO {
      */
 	public Vector<Teacher> searchByName( String nameValue ) throws SQLException,
 			ClientException, ClientException {
-		return this.searchByQuery( "SELECT * FROM professor WHERE nome = " + "\""
+		Vector<Teacher> teacher = this.searchByQuery( "SELECT * FROM professor WHERE nome = " + "\""
 				+ nameValue + "\";" );
+		return teacher;
 	}
 
 	
@@ -167,19 +170,21 @@ public class TeacherDAO {
      */
 	public Vector<Teacher> searchByCpf( String CPFValue ) throws SQLException,
 			ClientException, ClientException {
-		return this.searchByQuery( "SELECT * FROM professor WHERE cpf = " + "\""
+		Vector<Teacher> teacher = this.searchByQuery( "SELECT * FROM professor WHERE cpf = " + "\""
 				+ CPFValue + "\";" );
+		return teacher;
 	}
 
 	/**
-     * Captures the teachers by their matricula
+     * Captures the teachers by their registration
      * @return Vector - Teachers
 	 * @throws ClientException 
      */	
 	public Vector<Teacher> searchByRegistration( String registrationValue ) throws SQLException,
 			ClientException, ClientException {
-		return this.searchByQuery( "SELECT * FROM professor WHERE matricula = " + "\""
+		Vector<Teacher> teacher = this.searchByQuery( "SELECT * FROM professor WHERE matricula = " + "\""
 				+ registrationValue + "\";" );
+		return teacher;
 	}
 
 	/**
@@ -189,8 +194,9 @@ public class TeacherDAO {
      */
 	public Vector<Teacher> searchByEmail( String emailValue ) throws SQLException,
 			ClientException, ClientException {
-		return this.searchByQuery( "SELECT * FROM professor WHERE email = " + "\""
+		Vector<Teacher> teacher = this.searchByQuery( "SELECT * FROM professor WHERE email = " + "\""
 				+ emailValue + "\";" );
+		return teacher;
 	}
 
 	/**
@@ -200,8 +206,9 @@ public class TeacherDAO {
      */
 	public Vector<Teacher> searchByPhoneNumber( String phoneNumberValue ) throws SQLException,
 			ClientException, ClientException {
-		return this.searchByQuery( "SELECT * FROM professor WHERE telefone = " + "\""
+		Vector<Teacher> teacher = this.searchByQuery( "SELECT * FROM professor WHERE telefone = " + "\""
 				+ phoneNumberValue + "\";" );
+		return teacher;
 	}
 
 	
