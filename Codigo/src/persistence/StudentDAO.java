@@ -243,12 +243,14 @@ public class StudentDAO {
      * @return Boolean - Existence of a student 
      */
 	private boolean inDB( Student student ) throws SQLException {
-		return this.inDBGeneric( "SELECT * FROM aluno WHERE " +
+		boolean select = this.inDBGeneric( "SELECT * FROM aluno WHERE " +
 				"aluno.nome = \"" + student.getName() + "\" and " +
 				"aluno.cpf = \"" + student.getCpf() + "\" and " +
 				"aluno.telefone = \"" + student.getFone() + "\" and " +
 				"aluno.email = \"" + student.getEmail() + "\" and " +
 				"aluno.matricula = \"" + student.getRegistration() + "\";" );
+		
+		return select;
 	}
 	
 	/**
@@ -256,8 +258,9 @@ public class StudentDAO {
      * @return Boolean - Existence of a student 
      */
 	private boolean inDBCpf( String CPFCode ) throws SQLException {
-		return this.inDBGeneric( "SELECT * FROM aluno WHERE " +
+		boolean select = this.inDBGeneric( "SELECT * FROM aluno WHERE " +
 				"aluno.cpf = \"" + CPFCode + "\";" );
+		return select;
 	}
 	
 	
@@ -266,8 +269,9 @@ public class StudentDAO {
      * @return Boolean - Existence of a student 
      */
 	private boolean inDBMatricula( String registrationCode ) throws SQLException {
-		return this.inDBGeneric( "SELECT * FROM aluno WHERE " +
+		boolean select = this.inDBGeneric( "SELECT * FROM aluno WHERE " +
 				"aluno.matricula = \"" + registrationCode + "\";" );
+		return select;
 	}
 	
 	/**
@@ -275,7 +279,7 @@ public class StudentDAO {
      * @return Boolean - Existence of an student 
      */
 	private boolean inOtherDB( Student student ) throws SQLException, ClientException {
-		return this.inDBGeneric(
+		boolean select = this.inDBGeneric(
 				"SELECT * FROM reserva_sala_aluno WHERE " +
 				"id_aluno = (SELECT id_aluno FROM aluno WHERE " +
 				"aluno.nome = \"" + student.getName() + "\" and " +
@@ -283,6 +287,7 @@ public class StudentDAO {
 				"aluno.telefone = \"" + student.getFone() + "\" and " +
 				"aluno.email = \"" + student.getEmail() + "\" and " +
 				"aluno.matricula = \"" + student.getRegistration() + "\");" );
+		return select;
 	}
 	
 	/**
