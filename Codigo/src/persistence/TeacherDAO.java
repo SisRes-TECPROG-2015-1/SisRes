@@ -265,12 +265,13 @@ public class TeacherDAO {
      * @return Boolean - Existence of a teacher 
      */
 	private boolean inDB( Teacher prof ) throws SQLException {
-		return this.inDBGeneric( "SELECT * FROM professor WHERE "
+		boolean select = this.inDBGeneric( "SELECT * FROM professor WHERE "
 				+ "professor.nome = \"" + prof.getName() + "\" and "
 				+ "professor.cpf = \"" + prof.getCpf() + "\" and "
 				+ "professor.telefone = \"" + prof.getFone() + "\" and "
 				+ "professor.email = \"" + prof.getEmail() + "\" and "
-				+ "professor.matricula = \"" + prof.getRegistration() + "\";" );
+				+ "professor.matricula = \"" + prof.getRegistration() + "\";" ); 
+		return select;
 	}
 
 	/**
@@ -278,8 +279,9 @@ public class TeacherDAO {
      * @return Boolean - Existence of a teacher 
      */
 	private boolean inDBCpf( String codigo ) throws SQLException {
-		return this.inDBGeneric( "SELECT * FROM professor WHERE " + "cpf = \""
-				+ codigo + "\";" );
+		boolean select = this.inDBGeneric( "SELECT * FROM professor WHERE " + "cpf = \""
+				+ codigo + "\";" ); 
+		return select;
 	}
 
 	/**
@@ -287,8 +289,9 @@ public class TeacherDAO {
      * @return Boolean - Existence of a teacher 
      */
 	private boolean inDBMatricula( String codigo ) throws SQLException {
-		return this.inDBGeneric( "SELECT * FROM professor WHERE "
+		boolean select = this.inDBGeneric( "SELECT * FROM professor WHERE "
 				+ "matricula = \"" + codigo + "\";" );
+		return select;
 	}
 
 	/**
