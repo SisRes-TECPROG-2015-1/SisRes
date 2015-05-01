@@ -43,68 +43,77 @@ public class ReserveEquipmentTeacherDAO extends DAO {
 	 * @return
 	 */
 	private String select_id_professor( Teacher p ) {
-		return "SELECT id_professor FROM professor WHERE "
+		String select = "SELECT id_professor FROM professor WHERE "
 				+ "professor.nome = \"" + p.getName() + "\" and "
 				+ "professor.cpf = \"" + p.getCpf() + "\" and "
 				+ "professor.telefone = \"" + p.getFone() + "\" and "
 				+ "professor.email = \"" + p.getEmail() + "\" and "
 				+ "professor.matricula = \"" + p.getRegistration() + "\"";
+		return select;
 	}
 
 	private String select_id_equipamento( Equipment equipamento ) {
-		return "SELECT id_equipamento FROM equipamento WHERE "
+		String select = "SELECT id_equipamento FROM equipamento WHERE "
 				+ "equipamento.codigo = \"" + equipamento.getCode()
 				+ "\" and " + "equipamento.descricao = \""
 				+ equipamento.getDescription();
+		return select;
 	}
 
 	private String where_reserva_equipamento_professor( 
 			TeacherEquipmentReserve r ) {
-		return " WHERE " + "id_professor = ( "
+		String select = " WHERE " + "id_professor = ( "
 				+ select_id_professor( r.getProfessor() ) + " ) and "
 				+ "id_equipamento = ( "
 				+ select_id_equipamento( r.getEquipment() ) + " ) and "
 				+ "hora = \"" + r.getHour() + "\" and " + "data = \""
 				+ r.getDate();
+		return select;
 	}
 
 	private String values_reserva_equipamento_professor( 
 			TeacherEquipmentReserve r ) {
-		return "( " + select_id_professor( r.getProfessor() ) + " ), " + "( "
+		String select = "( " + select_id_professor( r.getProfessor() ) + " ), " + "( "
 				+ select_id_equipamento( r.getEquipment() ) + " ), " + "\""
 				+ r.getHour() + "\", " + "\"" + r.getDate();
+		return select;
 	}
 
 	private String atributes_value_reserva_equipamento_professor( 
 			TeacherEquipmentReserve r ) {
-		return "id_professor = ( " + select_id_professor( r.getProfessor() )
+		String select = "id_professor = ( " + select_id_professor( r.getProfessor() )
 				+ " ), " + "id_equipamento = ( "
 				+ select_id_equipamento( r.getEquipment() ) + " ), "
 				+ "hora = \"" + r.getHour() + "\", " + "data = \""
 				+ r.getDate();
+		return select;
 	}
 
 	private String insert_into( TeacherEquipmentReserve r ) {
-		return "INSERT INTO "
+		String select = "INSERT INTO "
 				+ "reserva_equipamento_professor (id_professor, id_equipamento, hora, data) "
 				+ "VALUES ( " + values_reserva_equipamento_professor( r ) + " );";
+		return select;
 	}
 
 	private String update( TeacherEquipmentReserve r,
 			TeacherEquipmentReserve r2 ) {
-		return "UPDATE reserva_equipamento_professor SET "
+		String select = "UPDATE reserva_equipamento_professor SET "
 				+ this.atributes_value_reserva_equipamento_professor( r2 )
 				+ this.where_reserva_equipamento_professor( r ) + " ;";
+		return select;
 	}
 
 	private String delete_from_professor( TeacherEquipmentReserve r ) {
-		return "DELETE FROM reserva_equipamento_professor "
+		String select = "DELETE FROM reserva_equipamento_professor "
 				+ this.where_reserva_equipamento_professor( r ) + " ;";
+		return select;
 	}
 
 	private String delete_from_aluno( TeacherEquipmentReserve r ) {
-		return "DELETE FROM reserva_equipamento_aluno WHERE " + "hora = \""
+		String select = "DELETE FROM reserva_equipamento_aluno WHERE " + "hora = \""
 				+ r.getHour() + "\" and " + "data = \"" + r.getDate() + " ;";
+		return select;
 	}
 
 	/**
