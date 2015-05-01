@@ -229,7 +229,8 @@ public class EquipmentDAO {
      * @return Equipamento -  Equipment
      */
     private Equipment fetchEquipamento( ResultSet rs ) throws PatrimonyException, SQLException {
-        return new Equipment( rs.getString( "codigo" ), rs.getString( "descricao" ) );
+    	Equipment equipment = new Equipment( rs.getString( "codigo" ), rs.getString( "descricao" ) );
+        return equipment;
     }
     
     /**

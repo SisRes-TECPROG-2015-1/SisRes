@@ -272,8 +272,9 @@ public class ClassRoomDAO {
 	 */
 	private Room fetchSala( ResultSet resultSetObject ) throws PatrimonyException,
 			SQLException {
-		return new Room( resultSetObject.getString( "codigo" ), resultSetObject.getString( "descricao" ),
+		Room room = new Room( resultSetObject.getString( "codigo" ), resultSetObject.getString( "descricao" ),
 				resultSetObject.getString( "capacidade" ) );
+		return room;
 	}
 	
 	/**

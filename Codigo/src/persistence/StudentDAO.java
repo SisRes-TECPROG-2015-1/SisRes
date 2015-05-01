@@ -296,8 +296,9 @@ public class StudentDAO {
 	 * @throws ClientException 
      */
 	private Student fetchAluno( ResultSet resultSet ) throws ClientException, SQLException, ClientException {
-		return new Student( resultSet.getString( "nome" ), resultSet.getString( "cpf" ), resultSet.getString( "matricula" ),
+		Student student = new Student( resultSet.getString( "nome" ), resultSet.getString( "cpf" ), resultSet.getString( "matricula" ),
 				resultSet.getString( "telefone" ), resultSet.getString( "email" ) );
+		return student;
 	}
 	
 	/**
