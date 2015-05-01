@@ -199,8 +199,9 @@ public class EquipmentDAO {
      * @return Boolean - Existence of an equipment 
      */
     private boolean inDB( Equipment e ) throws SQLException, PatrimonyException {
-        return this.inDBGeneric( "SELECT * FROM equipamento WHERE " + "equipamento.codigo = \"" + e.getCode() + "\" and "
+    	boolean select = this.inDBGeneric( "SELECT * FROM equipamento WHERE " + "equipamento.codigo = \"" + e.getCode() + "\" and "
                 + "equipamento.descricao = \"" + e.getDescription() + "\";" );
+        return select;
     }
 
     /**
@@ -208,7 +209,8 @@ public class EquipmentDAO {
      * @return Boolean - Existence of a code
      */
     private boolean inDBCodigo( String codigo ) throws SQLException {
-        return this.inDBGeneric( "SELECT * FROM equipamento WHERE " + "codigo = \"" + codigo + "\";" );
+    	boolean select = this.inDBGeneric( "SELECT * FROM equipamento WHERE " + "codigo = \"" + codigo + "\";" );
+        return select;
     }
 
     /**
@@ -216,9 +218,10 @@ public class EquipmentDAO {
      * @return Boolean - Existence of an equipment 
      */
     private boolean inOtherDB( Equipment e ) throws SQLException {
-        return this.inDBGeneric( "SELECT * FROM reserva_equipamento WHERE "
+        boolean select = this.inDBGeneric( "SELECT * FROM reserva_equipamento WHERE "
                 + "id_equipamento = (SELECT id_equipamento FROM equipamento WHERE " + "equipamento.codigo = \"" + e.getCode()
                 + "\" and " + "equipamento.descricao = \"" + e.getDescription() + "\");" );
+    	return select;
     }
 
     /**
