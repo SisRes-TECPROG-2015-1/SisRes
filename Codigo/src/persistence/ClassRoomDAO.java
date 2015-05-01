@@ -223,10 +223,11 @@ public class ClassRoomDAO {
      * @return Boolean - Existence of a classroom 
      */
 	private boolean inDB( Room classRoom ) throws SQLException {
-		return this.inDBGeneric( "SELECT * FROM sala WHERE "
+		boolean select = this.inDBGeneric( "SELECT * FROM sala WHERE "
 				+ "sala.codigo = \"" + classRoom.getCode() + "\" and "
 				+ "sala.descricao = \"" + classRoom.getDescription() + "\" and "
 				+ "sala.capacidade = " + classRoom.getCapacity() + ";" );
+		return select;
 	}
 
 	
@@ -235,8 +236,9 @@ public class ClassRoomDAO {
      * @return Boolean - Existence of a code
      */
 	private boolean inDBCodigo( String code ) throws SQLException {
-		return this.inDBGeneric( "SELECT * FROM sala WHERE "
+		boolean select = this.inDBGeneric( "SELECT * FROM sala WHERE "
 				+ "sala.codigo = \"" + code + "\";" );
+		return select;
 	}
 
 	/**
