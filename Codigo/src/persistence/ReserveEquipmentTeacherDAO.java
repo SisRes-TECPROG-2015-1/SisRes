@@ -203,10 +203,11 @@ public class ReserveEquipmentTeacherDAO extends DAO {
 	@SuppressWarnings( "unchecked" )
 	public Vector<Object> buscarTodos() throws SQLException, ClientException,
 			PatrimonyException, ReserveException, ClientException {
-		return super
+		Vector<Object> searchSelect = super
 				.search( "SELECT * FROM reserva_sala_professor "
 						+ "INNER JOIN sala ON sala.id_sala = reserva_sala_professor.id_sala "
 						+ "INNER JOIN professor ON professor.id_professor = reserva_sala_professor.id_professor;" );
+		return searchSelect;
 	}
 
 	@SuppressWarnings( "unchecked" )
@@ -238,12 +239,13 @@ public class ReserveEquipmentTeacherDAO extends DAO {
 		if ( hora.charAt( 0 ) == '0' ) {
 			hora_b = hora.substring( 1 );
 		}
-		return super
+		Vector<TeacherEquipmentReserve> searchSelect = super
 				.search( "SELECT * FROM reserva_equipamento_professor "
 						+ "INNER JOIN equipamento ON equipamento.id_equipamento = reserva_equipamento_professor.id_equipamento "
 						+ "INNER JOIN professor ON professor.id_professor = reserva_equipamento_professor.id_professor "
 						+ " WHERE hora = \"" + hora + "\" or hora = \""
 						+ hora_a + "\" or hora = \"" + hora_b + "\";" );
+		return searchSelect;
 	}
 
 	@Override
@@ -264,26 +266,28 @@ public class ReserveEquipmentTeacherDAO extends DAO {
 	}
 
 	private boolean professorinDB( Teacher professor ) throws SQLException {
-		return super.inDBGeneric( "SELECT * FROM professor WHERE "
+		boolean select = super.inDBGeneric( "SELECT * FROM professor WHERE "
 				+ "professor.nome = \"" + professor.getName() + "\" and "
 				+ "professor.cpf = \"" + professor.getCpf() + "\" and "
 				+ "professor.telefone = \"" + professor.getFone()
 				+ "\" and " + "professor.email = \"" + professor.getEmail()
 				+ "\" and " + "professor.matricula = \""
 				+ professor.getRegistration() + "\";" );
+		return select;
 	}
 
 	private boolean equipamentoinDB( Equipment equipamento )
 			throws SQLException {
-		return super.inDBGeneric( "SELECT * FROM equipamento WHERE "
+		boolean select = super.inDBGeneric( "SELECT * FROM equipamento WHERE "
 				+ "equipamento.codigo = \"" + equipamento.getCode()
 				+ "\" and " + "equipamento.descricao = \""
 				+ equipamento.getDescription() + "\" and " + ";" );
+		return select;
 	}
 
 	private boolean professorinReservaDB( Teacher professor, String data,
 			String hora ) throws SQLException {
-		return super.inDBGeneric( "SELECT * FROM reserva_sala_professor WHERE "
+		boolean select = super.inDBGeneric( "SELECT * FROM reserva_sala_professor WHERE "
 				+ "data = \"" + data + "\" and " + "hora = \"" + hora
 				+ "\" and "
 				+ "id_professor = (SELECT id_professor FROM professor WHERE "
@@ -293,11 +297,12 @@ public class ReserveEquipmentTeacherDAO extends DAO {
 				+ "\" and " + "professor.email = \"" + professor.getEmail()
 				+ "\" and " + "professor.matricula = \""
 				+ professor.getRegistration() + "\");" );
+		return select;
 	}
 
 	private boolean equipamentoinReservaDB( Equipment equipamento,
 			String data, String hora ) throws SQLException {
-		return super
+		boolean select = super
 				.inDBGeneric("SELECT * FROM reserva_equipamento_professor WHERE "
 						+ "data = \""
 						+ data
@@ -311,11 +316,12 @@ public class ReserveEquipmentTeacherDAO extends DAO {
 						+ "\" and "
 						+ "equipamento.descricao = \""
 						+ equipamento.getDescription() + "\" and " + ");");
+		return select;
 	}
 
 	private boolean reservainDB( TeacherEquipmentReserve r )
 			throws SQLException {
-		return super
+		boolean select = super
 				.inDBGeneric( "SELECT * FROM reserva_equipamento_professor WHERE "
 						+ "id_professor = (SELECT id_professor FROM professor WHERE "
 						+ "professor.nome = \""
@@ -345,6 +351,7 @@ public class ReserveEquipmentTeacherDAO extends DAO {
 						+ "\" and "
 						+ "data = \""
 						+ r.getDate() + ";" );
+		return select;
 	}
 
 }
