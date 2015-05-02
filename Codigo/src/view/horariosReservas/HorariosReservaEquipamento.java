@@ -29,27 +29,26 @@ import exception.ReserveException;
  */
 public class HorariosReservaEquipamento extends HorariosReservaPatrimonio {
 
-    Equipment eq;
+    Equipment equipment;
     MaintainEquipmentReservationByTeacher instance;
 
-    public HorariosReservaEquipamento (java.awt.Frame parent, boolean modal, String data, Equipment eq ) {
-        super( parent, modal, data, eq );
-        this.eq = eq;
+    public HorariosReservaEquipamento (java.awt.Frame parent, boolean modal, String data, Equipment equipment ) {
+        super( parent, modal, data, equipment );
+        this.equipment = equipment;
     }
 
-    // This method fills a vector with the data informated by the user
-    protected Vector<String> fillDataVector( Object o, int index ) {
+    /** This method fills a vector with the data informated by the user
+     * @param object: object to be filled into the vector
+     * @param index: number of indexes
+     * @return: arrayList of String
+     */
+    protected Vector<String> fillDataVector( Object object, int index ) {
         Vector<String> nomesTabela = new Vector<String>();
-        if ( o instanceof TeacherEquipmentReserve ) {
-            TeacherEquipmentReserve r = ( TeacherEquipmentReserve ) o;
-            if ( this.eq != null && ( r.getEquipment().equals( this.eq ) ) ) {
+        if ( object instanceof TeacherEquipmentReserve ) {
+            TeacherEquipmentReserve r = ( TeacherEquipmentReserve ) object;
+            if ( equipmentIsNotNull() && reservedEquipmentIsEqual( r ) ) {
 
-                nomesTabela.add( String.valueOf( index ) );
-                nomesTabela.add( r.getHour() );
-                nomesTabela.add( r.getProfessor().getName() );
-                nomesTabela.add( r.getProfessor().getRegistration() );
-                nomesTabela.add( r.getEquipment().getCode() );
-                nomesTabela.add( r.getEquipment().getDescription() );
+                addNamesInTable( index, nomesTabela, r );
             }
         }
 
@@ -57,17 +56,42 @@ public class HorariosReservaEquipamento extends HorariosReservaPatrimonio {
 
     }
 
+	/**
+	 * @param r
+	 * @return
+	 */
+	private boolean reservedEquipmentIsEqual( TeacherEquipmentReserve r ) {
+		return r.getEquipment().equals( this.equipment );
+	}
+
+	/**
+	 * @return
+	 */
+	private boolean equipmentIsNotNull() {
+		return this.equipment != null;
+	}
+
+	/**
+	 * @param index
+	 * @param nomesTabela
+	 * @param r
+	 */
+	private void addNamesInTable( int index, Vector<String> nomesTabela,
+			TeacherEquipmentReserve r ) {
+		nomesTabela.add( String.valueOf( index ) );
+		nomesTabela.add( r.getHour() );
+		nomesTabela.add( r.getProfessor().getName() );
+		nomesTabela.add( r.getProfessor().getRegistration() );
+		nomesTabela.add( r.getEquipment().getCode() );
+		nomesTabela.add( r.getEquipment().getDescription() );
+	}
+
     @Override protected DefaultTableModel fillTable( Heritage equip ) {
-        this.eq = ( Equipment ) equip;
+        this.equipment = ( Equipment ) equip;
         DefaultTableModel table = new DefaultTableModel();
         instance = MaintainEquipmentReservationByTeacher.getInstance();
         try {
-            table.addColumn( "" );
-            table.addColumn( "Hora:" );
-            table.addColumn( "Nome" );
-            table.addColumn( "Matricula" );
-            table.addColumn( "Codigo Eqpt." );
-            table.addColumn( "Descricao Eqpt." );
+            addColumnsInTable( table );
 
             this.mes = Integer.parseInt( this.data.substring( 3, 5 ) );
 
@@ -90,6 +114,18 @@ public class HorariosReservaEquipamento extends HorariosReservaPatrimonio {
         return table;
 
     }
+
+	/**
+	 * @param table
+	 */
+	private void addColumnsInTable( DefaultTableModel table ) {
+		table.addColumn( "" );
+		table.addColumn( "Hora:" );
+		table.addColumn( "Nome" );
+		table.addColumn( "Matricula" );
+		table.addColumn( "Codigo Eqpt." );
+		table.addColumn( "Descricao Eqpt." );
+	}
 
     @Override protected void cancelarReservaAction( int index ) {
         try {
@@ -116,7 +152,7 @@ public class HorariosReservaEquipamento extends HorariosReservaPatrimonio {
 
     @Override protected void reservarAction() {
         try {
-            ReservaEquipamentoView reserva = new FazerReservaEquipamentoView( new JFrame(), true, this.eq, this.data );
+            ReservaEquipamentoView reserva = new FazerReservaEquipamentoView( new JFrame(), true, this.equipment, this.data );
             reserva.setVisible( true );
         } catch ( SQLException ex ) {
             JOptionPane.showMessageDialog( this, ex.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE, null );
