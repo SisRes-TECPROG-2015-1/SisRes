@@ -3,7 +3,7 @@ package user_stories;
 import java.awt.Dimension;
 import java.sql.SQLException;
 
-import model.Aluno;
+import model.Student;
 
 import org.fest.swing.core.BasicRobot;
 import org.fest.swing.core.Robot;
@@ -15,7 +15,7 @@ import org.junit.Test;
 
 import persistence.StudentDAO;
 import view.Main2;
-import exception.ClienteException;
+import exception.ClientException;
 
 /**
  * US5 Título: Excluir Aluno. Como aluno Eu quero solicitar a exclusão do meu
@@ -33,20 +33,20 @@ import exception.ClienteException;
 public class US05_ExcluirAluno {
 	private FrameFixture window;
 	private Robot robot;
-	private Aluno aluno;
+	private Student student;
 	private DialogFixture dialog;
 	private int index;
 	
 	@Before
-	public void setUp() throws ClienteException, SQLException {
+	public void setUp() throws ClientException, SQLException {
 		robot = BasicRobot.robotWithNewAwtHierarchy();
 		robot.settings().delayBetweenEvents(5);
 
 		window = new FrameFixture(robot, new Main2());
 		window.show(new Dimension(900, 500)); // shows the frame to test
 
-		aluno = new Aluno("Teste", "658.535.144-40", "110038096","9211-2144", "teste incluir repetido");
-		StudentDAO.getInstance().includeNewStudent(aluno);
+		student = new Student("Teste", "658.535.144-40", "110038096","9211-2144", "teste incluir repetido");
+		StudentDAO.getInstance().includeNewStudent(student);
 
 		index = StudentDAO.getInstance().captureStudents().size() - 1;
 		
@@ -56,9 +56,9 @@ public class US05_ExcluirAluno {
 	}
 	
 	@After
-	public void tearDown() throws SQLException, ClienteException {
-		if(aluno != null)
-			StudentDAO.getInstance().deleteStudent(aluno);
+	public void tearDown() throws SQLException, ClientException {
+		if(student != null)
+			StudentDAO.getInstance().deleteStudent(student);
 		window.cleanUp();
 	}
 
@@ -72,7 +72,7 @@ public class US05_ExcluirAluno {
 	}
 
 	@Test
-	public void testCenario1() throws SQLException, ClienteException{
+	public void testCenario1() throws SQLException, ClientException{
 		dialog.button("Excluir").click();
 		dialog.optionPane().requireMessage("Selecione uma linha!");
 		sleep();
@@ -80,15 +80,15 @@ public class US05_ExcluirAluno {
 	}
 	
 	@Test
-	public void testCenario2() throws SQLException, ClienteException{
+	public void testCenario2() throws SQLException, ClientException{
 		dialog.table("tabelaCliente").selectRows(index);
 		dialog.button("Excluir").click();
-		dialog.optionPane().requireMessage("Deseja mesmo excluir Aluno: " + aluno.getNome() + "?");
+		dialog.optionPane().requireMessage("Deseja mesmo excluir Aluno: " + student.getName() + "?");
 		sleep();
 		dialog.optionPane().yesButton().click();
 		sleep();
 		dialog.optionPane().requireMessage("Aluno excluido com sucesso");
 		dialog.optionPane().okButton().click();
-		aluno = null;
+		student = null;
 	}
 }

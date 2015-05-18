@@ -3,7 +3,7 @@ package user_stories;
 import java.awt.Dimension;
 import java.sql.SQLException;
 
-import model.Equipamento;
+import model.Equipment;
 
 import org.fest.swing.core.BasicRobot;
 import org.fest.swing.core.Robot;
@@ -48,7 +48,7 @@ E não deve registrar um novo cadastro.
 public class US09_CadastrarEquipamento {
     private FrameFixture window;
     private Robot robot;
-    private Equipamento equipamento;
+    private Equipment equipment;
     private DialogFixture dialog;
     private int index;
 
@@ -63,8 +63,8 @@ public class US09_CadastrarEquipamento {
     }
 
     @After public void tearDown() throws SQLException, PatrimonyException {
-        if (equipamento != null)
-            EquipmentDAO.getInstance().excludeRoom(equipamento);
+        if (equipment != null)
+            EquipmentDAO.getInstance().excludeEquipment( equipment );
         window.cleanUp();
     }
 
@@ -96,13 +96,13 @@ public class US09_CadastrarEquipamento {
         cadastro.optionPane().okButton().click();
 
         index = EquipmentDAO.getInstance().searchForAll().size() - 1;
-        equipamento = EquipmentDAO.getInstance().searchForAll().get(index);
+        equipment = EquipmentDAO.getInstance().searchForAll().get(index);
     }
 
     @Test public void testCenario2() throws SQLException, PatrimonyException {
 
-        equipamento = new Equipamento("code","Equipamento para testes de aceitacao");
-        EquipmentDAO.getInstance().includeReserve(equipamento);
+        equipment = new Equipment("code","Equipamento para testes de aceitacao");
+        EquipmentDAO.getInstance().includeEquipment( equipment );
 
         dialog.button("Cadastrar").click();
         DialogFixture cadastro = dialog.dialog("CadastroEquipamento");

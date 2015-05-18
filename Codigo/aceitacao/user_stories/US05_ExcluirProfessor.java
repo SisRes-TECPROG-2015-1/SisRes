@@ -15,7 +15,7 @@ import org.junit.Test;
 
 import persistence.TeacherDAO;
 import view.Main2;
-import exception.ClienteException;
+import exception.ClientException;
 
 /**
  * US5 Título: Excluir Professor. Como professor Eu quero solicitar a exclusão do meu
@@ -38,7 +38,7 @@ public class US05_ExcluirProfessor {
 	private int index;
 	
 	@Before
-	public void setUp() throws ClienteException, SQLException {
+	public void setUp() throws ClientException, SQLException {
 		robot = BasicRobot.robotWithNewAwtHierarchy();
 		robot.settings().delayBetweenEvents(5);
 
@@ -56,7 +56,7 @@ public class US05_ExcluirProfessor {
 	}
 	
 	@After
-	public void tearDown() throws SQLException, ClienteException {
+	public void tearDown() throws SQLException, ClientException {
 		if(professor != null)
 			TeacherDAO.getInstance().excludeATeacher(professor);
 		window.cleanUp();
@@ -72,7 +72,7 @@ public class US05_ExcluirProfessor {
 	}
 
 	@Test
-	public void testCenario1() throws SQLException, ClienteException{
+	public void testCenario1() throws SQLException, ClientException{
 		dialog.button("Excluir").click();
 		dialog.optionPane().requireMessage("Selecione uma linha!");
 		sleep();
@@ -80,10 +80,10 @@ public class US05_ExcluirProfessor {
 	}
 	
 	@Test
-	public void testCenario2() throws SQLException, ClienteException{
+	public void testCenario2() throws SQLException, ClientException{
 		dialog.table("tabelaCliente").selectRows(index);
 		dialog.button("Excluir").click();
-		dialog.optionPane().requireMessage("Deseja mesmo excluir Professor: " + professor.getNome() + "?");
+		dialog.optionPane().requireMessage("Deseja mesmo excluir Professor: " + professor.getName() + "?");
 		sleep();
 		dialog.optionPane().yesButton().click();
 		sleep();

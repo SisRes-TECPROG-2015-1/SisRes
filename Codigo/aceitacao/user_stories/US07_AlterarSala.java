@@ -3,7 +3,7 @@ package user_stories;
 import java.awt.Dimension;
 import java.sql.SQLException;
 
-import model.Sala;
+import model.Room;
 
 import org.fest.swing.core.BasicRobot;
 import org.fest.swing.core.Robot;
@@ -39,7 +39,7 @@ import exception.PatrimonyException;
 public class US07_AlterarSala {
     private FrameFixture window;
     private Robot robot;
-    private Sala sala;
+    private Room room;
     private DialogFixture dialog;
     private int index;
 
@@ -50,8 +50,8 @@ public class US07_AlterarSala {
         window = new FrameFixture(robot, new Main2());
         window.show(new Dimension(900, 500)); // shows the frame to test
 
-        sala = new Sala("code", "Sala para testes de aceitacao", "123");
-        ClassRoomDAO.getInstance().includeARoom(sala);
+        room = new Room("code", "Sala para testes de aceitacao", "123");
+        ClassRoomDAO.getInstance().includeARoom(room);
 
         index = ClassRoomDAO.getInstance().searchAll().size() - 1;
 
@@ -61,8 +61,8 @@ public class US07_AlterarSala {
     }
 
     @After public void tearDown() throws SQLException, PatrimonyException {
-        if (sala != null)
-            ClassRoomDAO.getInstance().excludeRoom(sala);
+        if (room != null)
+            ClassRoomDAO.getInstance().excludeRoom(room);
         window.cleanUp();
     }
 
@@ -96,14 +96,14 @@ public class US07_AlterarSala {
         sleep();
         cadastro.optionPane().okButton().click();
 
-        sala = ClassRoomDAO.getInstance().searchAll().get(index);
+        room = ClassRoomDAO.getInstance().searchAll().get(index);
     }
 
     @Test public void testCenario2() throws SQLException, PatrimonyException {
 
-        if (sala != null)
-            ClassRoomDAO.getInstance().excludeRoom(sala);
-        sala = null;
+        if (room != null)
+            ClassRoomDAO.getInstance().excludeRoom(room);
+        room = null;
         dialog.button("Alterar").click();
         dialog.optionPane().requireMessage("Selecione uma linha!");
         sleep();
@@ -124,7 +124,7 @@ public class US07_AlterarSala {
         cadastro.optionPane().requireMessage("Capacidade Invalida.");
         sleep();
         cadastro.optionPane().okButton().click();
-        sala = ClassRoomDAO.getInstance().searchAll().get(index);
+        room = ClassRoomDAO.getInstance().searchAll().get(index);
 
     }
 
@@ -142,7 +142,7 @@ public class US07_AlterarSala {
         cadastro.optionPane().requireMessage("Capacidade em Branco.");
         sleep();
         cadastro.optionPane().okButton().click();
-        sala = ClassRoomDAO.getInstance().searchAll().get(index);
+        room = ClassRoomDAO.getInstance().searchAll().get(index);
     }
 
     @Test public void testCenario3CodigoBranco() throws SQLException, PatrimonyException {
@@ -159,7 +159,7 @@ public class US07_AlterarSala {
         cadastro.optionPane().requireMessage("Codigo em Branco.");
         sleep();
         cadastro.optionPane().okButton().click();
-        sala = ClassRoomDAO.getInstance().searchAll().get(index);
+        room = ClassRoomDAO.getInstance().searchAll().get(index);
     }
 
     @Test public void testCenario3DescricaoBranco() throws SQLException, PatrimonyException {
@@ -176,7 +176,7 @@ public class US07_AlterarSala {
         cadastro.optionPane().requireMessage("Descricao em Branco.");
         sleep();
         cadastro.optionPane().okButton().click();
-        sala = ClassRoomDAO.getInstance().searchAll().get(index);
+        room = ClassRoomDAO.getInstance().searchAll().get(index);
     }
 
 }
