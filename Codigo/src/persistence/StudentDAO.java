@@ -7,6 +7,12 @@ import java.util.Vector;
 
 import exception.ClientException;
 
+//Importing Log4J2 classes 
+import org.apache.logging.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+
+
+
 
 public class StudentDAO {
 
@@ -16,7 +22,8 @@ public class StudentDAO {
 		private static final String studentInUse = "Sala esta sendo utilizada em uma reserva."; // Student already registered into a room
 		private static final String existentCPF = "Ja existe um aluno cadastrado com esse CPF."; // Already exist a student with this cpf
 		private static final String ExistentRegistration = "Ja existe um aluno cadastrado com essa matricula."; // Already exists a student with this registration
-	
+		static final Logger logger = LogManager.getLogger( StudentDAO.class.getName() );
+		
 		private static StudentDAO instance;
 	
 		/**
@@ -45,6 +52,7 @@ public class StudentDAO {
 		} else if ( this.inDBMatricula( student.getRegistration() ) ){
 				throw new ClientException( ExistentRegistration );
 		} else if ( !this.inDB( student ) ) {
+			logger.trace( "Saving new user." );
 			this.updateQuery( "INSERT INTO " +
 					"aluno ( nome, cpf, telefone, email, matricula ) VALUES (" +
 					"\"" + student.getName() + "\", " +
@@ -53,6 +61,7 @@ public class StudentDAO {
 					"\"" + student.getEmail() + "\", " +
 					"\"" + student.getRegistration() + "\"); "
 					);
+			logger.trace( "User has been saved." );
 		} else {
 			throw new ClientException( existentStudent );
 		}
