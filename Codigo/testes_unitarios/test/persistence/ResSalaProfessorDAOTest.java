@@ -12,23 +12,23 @@ import java.util.Date;
 import java.util.Iterator;
 import java.util.Vector;
 
+import model.Room;
 import model.Teacher;
 import model.TeacherRoomReserve;
-import model.Room;
 
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
+import persistence.ClassRoomDAO;
 import persistence.FactoryConnection;
 import persistence.TeacherDAO;
-import persistence.ResRoomProfessorDAO;
-import persistence.ClassRoomDAO;
+import persistence.TeacherRoomReserveDAO;
 import exception.ClientException;
 import exception.PatrimonyException;
 import exception.ReserveException;
 
-public class ResRoomProfessorDAOTest {
+public class ResSalaProfessorDAOTest {
 	
 	private static Room sala_a;
 	private static Room sala_b;

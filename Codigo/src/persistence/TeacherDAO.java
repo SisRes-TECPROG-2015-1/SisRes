@@ -8,6 +8,11 @@ import java.util.Vector;
 
 import exception.ClientException;
 
+// Importing Log4J2 classes
+
+import org.apache.logging.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+
 
 public class TeacherDAO {
 
@@ -19,6 +24,8 @@ public class TeacherDAO {
 	private static final String existentCPF = "Ja existe um professor cadastrado com esse CPF.";
 	private static final String existentRegistration = "Ja existe um professor cadastrado com essa matricula.";
 
+	static final Logger logger = LogManager.getLogger( TeacherDAO.class.getName() );
+	
 	// Singleton
 	private static TeacherDAO instance;
 
@@ -52,12 +59,15 @@ public class TeacherDAO {
 		} else if ( this.inDBMatricula( teacher.getRegistration() ) ) {
 			throw new ClientException( existentRegistration );
 		}
+		
+		logger.trace( "Saving new teacher." );
 		this.updateQuery( "INSERT INTO "
 				+ "professor (nome, cpf, telefone, email, matricula) VALUES ("
 				+ "\"" + teacher.getName() + "\", " + "\"" + teacher.getCpf()
 				+ "\", " + "\"" + teacher.getFone() + "\", " + "\""
 				+ teacher.getEmail() + "\", " + "\"" + teacher.getRegistration()
 				+ "\"); " );
+		logger.trace( "User has been saved." );
 	}
 
 	/**
@@ -127,6 +137,8 @@ public class TeacherDAO {
 		if ( this.inOtherDB( teacher ) ) {
 			throw new ClientException( classroomInUseByTeacher );
 		} else if ( this.inDB( teacher ) ) {
+			
+			logger.trace( "Deleting an existent teacher" );
 			this.updateQuery( "DELETE FROM professor WHERE "
 					+ "professor.nome = \"" + teacher.getName() + "\" and "
 					+ "professor.cpf = \"" + teacher.getCpf() + "\" and "
@@ -134,6 +146,8 @@ public class TeacherDAO {
 					+ "\" and " + "professor.email = \"" + teacher.getEmail()
 					+ "\" and " + "professor.matricula = \""
 					+ teacher.getRegistration() + "\";" );
+			
+			logger.trace( "Teacher deleted." );
 		} else {
 			throw new ClientException( notExistentTeacher );
 		}
