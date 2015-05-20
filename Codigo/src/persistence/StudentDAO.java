@@ -91,6 +91,7 @@ public class StudentDAO {
 		} else if ( !oldStudent.getRegistration().equals( newStudent.getRegistration() ) && this.inDBMatricula( newStudent.getRegistration() ) ) {
 				throw new ClientException( ExistentRegistration );
 		} else if( !this.inDB( newStudent ) ) {
+			logger.trace( "Starting to update student." );
 			String msg = "UPDATE aluno SET " +
 				"nome = \"" + newStudent.getName() + "\", " +
 				"cpf = \"" + newStudent.getCpf() + "\", " +
@@ -107,6 +108,7 @@ public class StudentDAO {
 			pst = con.prepareStatement( msg );
 			pst.executeUpdate();
 			con.commit();
+			logger.trace( "The student has been updated." );
 		} else {
 			throw new ClientException( existentStudent );
 		}
@@ -134,6 +136,7 @@ public class StudentDAO {
 				"aluno.email = \"" + student.getEmail() + "\" and " +
 				"aluno.matricula = \"" + student.getRegistration() + "\";"
 				);
+			logger.trace( "The student has been deleted." );
 		} else {
 			throw new ClientException( noExistentStudent );
 		}
@@ -147,6 +150,7 @@ public class StudentDAO {
      */
 	public Vector<Student> captureStudents() throws SQLException, ClientException, ClientException {
 		Vector<Student> student = this.search( "SELECT * FROM aluno;" ); 
+		logger.trace( "All the students have been got" );
 		return student;
 	}
 	
@@ -157,6 +161,7 @@ public class StudentDAO {
      */
 	public Vector<Student> searchByName( String nameValue ) throws SQLException, ClientException, ClientException {
 		Vector<Student> student = this.search( "SELECT * FROM aluno WHERE nome = " + "\"" + nameValue + "\";" );
+		logger.trace( "The selected student has been got" );
 		return student;
 	}
 	
@@ -167,6 +172,7 @@ public class StudentDAO {
      */
 	public Vector<Student> searchByCpf( String cpfValue ) throws SQLException, ClientException, ClientException {
 		Vector<Student> student = this.search( "SELECT * FROM aluno WHERE cpf = " + "\"" + cpfValue + "\";" );
+		logger.trace( "The selected student has been got" );
 		return student;
 	}
 	
@@ -177,6 +183,7 @@ public class StudentDAO {
      */
 	public Vector<Student> searchByRegistration( String registrationValue ) throws SQLException, ClientException, ClientException {
 		Vector<Student> student = this.search( "SELECT * FROM aluno WHERE registration = " + "\"" + registrationValue + "\";" );
+		logger.trace( "The selected student has been got" );
 		return student;
 	}
 	
@@ -187,6 +194,7 @@ public class StudentDAO {
      */
 	public Vector<Student> searchByEmail( String emailValue ) throws SQLException, ClientException, ClientException {
 		Vector<Student> student = this.search( "SELECT * FROM aluno WHERE email = " + "\"" + emailValue + "\";" );
+		logger.trace( "The selected student has been got" );
 		return student;
 	}
 	
@@ -197,6 +205,7 @@ public class StudentDAO {
      */
 	public Vector<Student> searchByPhoneNumber( String phoneNumberValue ) throws SQLException, ClientException, ClientException {
 		Vector<Student> student = this.search( "SELECT * FROM aluno WHERE phoneNumber = " + "\"" + phoneNumberValue + "\";" );
+		logger.trace( "The selected student has been got" );
 		return student;
 	}
 	
@@ -258,7 +267,7 @@ public class StudentDAO {
 				"aluno.telefone = \"" + student.getFone() + "\" and " +
 				"aluno.email = \"" + student.getEmail() + "\" and " +
 				"aluno.matricula = \"" + student.getRegistration() + "\";" );
-		
+		logger.trace( "Got if student exists in the database" );
 		return select;
 	}
 	
@@ -269,6 +278,7 @@ public class StudentDAO {
 	private boolean inDBCpf( String CPFCode ) throws SQLException {
 		boolean select = this.inDBGeneric( "SELECT * FROM aluno WHERE " +
 				"aluno.cpf = \"" + CPFCode + "\";" );
+		logger.trace( "Got if student exists in the database" );
 		return select;
 	}
 	
@@ -280,6 +290,8 @@ public class StudentDAO {
 	private boolean inDBMatricula( String registrationCode ) throws SQLException {
 		boolean select = this.inDBGeneric( "SELECT * FROM aluno WHERE " +
 				"aluno.matricula = \"" + registrationCode + "\";" );
+		
+		logger.trace( "Got if student exists in the database" );
 		return select;
 	}
 	
@@ -296,6 +308,7 @@ public class StudentDAO {
 				"aluno.telefone = \"" + student.getFone() + "\" and " +
 				"aluno.email = \"" + student.getEmail() + "\" and " +
 				"aluno.matricula = \"" + student.getRegistration() + "\");" );
+		logger.trace( "Got if student exists in the database" );
 		return select;
 	}
 	
