@@ -70,6 +70,7 @@ public class MaintainClassroomReservationByTeacher {
 		TeacherRoomReserve reserva = new TeacherRoomReserve( date, hour, room , finality, teacher );
 		TeacherRoomReserveDAO.getInstance().saveNewTeacherRoomReserve( reserva );
 		this.roomReserve.add( reserva );
+		logger.trace( "A new reserve was inserted");
 	}
 
 	
@@ -84,6 +85,7 @@ public class MaintainClassroomReservationByTeacher {
 		
 		reserve.setFinality( finality );
 		TeacherRoomReserveDAO.getInstance().updateTeacherRoomReserve( old_reserve, reserve );
+		logger.trace( "The reserve had its atribbutes changed succesfully");
 		
 	}
 
@@ -91,6 +93,7 @@ public class MaintainClassroomReservationByTeacher {
      * Excludes a classroom reserve for a teacher.
      */
 	public void excludeReserve( TeacherRoomReserve reserve ) throws SQLException, ReserveException {
+		logger.trace( "Asking for a reserve exclusion");
 		TeacherRoomReserveDAO.getInstance().deleteTeacherReservedRoom( reserve );
 		this.roomReserve.remove( reserve );
 	}

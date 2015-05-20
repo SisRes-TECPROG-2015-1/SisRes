@@ -55,6 +55,7 @@ public class MaintainRoom {
 		Room room = new Room( code, description, capacity );
 		ClassRoomDAO.getInstance().includeARoom( room );
 		this.room.add( room );
+		logger.trace( "A new room was inserted");
 	}
 
 
@@ -68,6 +69,7 @@ public class MaintainRoom {
 		room.setDescription( description );
 		room.setCapacity( capacity );
 		ClassRoomDAO.getInstance().alterar( old_room, room );
+		logger.trace( "The room" + room.getCode() + " had its atribbutes changed succesfully");
 	}
 
 	
@@ -75,6 +77,7 @@ public class MaintainRoom {
 	 * Excludes a classroom from the database.
 	 */
 	public void excludeRoom( Room room ) throws SQLException, PatrimonyException {
+		logger.trace( "Asking for a room exclusion");
 		ClassRoomDAO.getInstance().excludeRoom( room );
 		this.room.remove( room );
 	}

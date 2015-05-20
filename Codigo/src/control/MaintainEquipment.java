@@ -52,6 +52,7 @@ public class MaintainEquipment {
 		Equipment equipment = new Equipment ( code, description );
 		EquipmentDAO.getInstance().includeEquipment( equipment );
 		getEquipments();
+		logger.trace( "A new student was inserted");
 	}
 
 	
@@ -66,6 +67,7 @@ public class MaintainEquipment {
 		equipment.setCode(code);
 		equipment.setDescription(description);
 		EquipmentDAO.getInstance().modifyEquipment(old_equipment, equipment);
+		logger.trace( "The equipment" + equipment.getCode()+" had its atribbutes changed succesfully");
 		getEquipments();
 	}
 
@@ -75,6 +77,7 @@ public class MaintainEquipment {
 	 * @return void
 	 */
 	public void excludeEquipment(Equipment equipment) throws SQLException, PatrimonyException {
+		logger.trace( "Asking for an equipment exclusion");
 		if (equipment == null) {
 			throw new PatrimonyException("Equipamento em branco");
 		}

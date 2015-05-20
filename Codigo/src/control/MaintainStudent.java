@@ -100,6 +100,7 @@ public class MaintainStudent {
 		Student student = new Student ( name, cpf, registration, telephone, email );
 		StudentDAO.getInstance().includeNewStudent(student);
 		this.student_vet.add(student);
+		logger.trace( "A new student was inserted");
 	}
 
 	
@@ -122,6 +123,7 @@ public class MaintainStudent {
 						student.setTelefone(fone);
 						student.setEmail(email);
 						StudentDAO.getInstance().modifyStudent(old_student, student);
+		logger.trace( "The student had its atribbutes changed succesfully");
 	}
 	
 	
@@ -130,6 +132,7 @@ public class MaintainStudent {
 	 * @return void
 	 */
 	public void excludeStudent ( Student student ) throws SQLException, ClientException {
+		logger.trace( "Asking for a student exclusion");
 		StudentDAO.getInstance().deleteStudent(student);
 		this.student_vet.remove(student);
 	}

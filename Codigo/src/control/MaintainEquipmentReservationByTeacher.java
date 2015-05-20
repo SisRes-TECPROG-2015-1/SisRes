@@ -79,6 +79,7 @@ public class MaintainEquipmentReservationByTeacher {
         TeacherEquipmentReserve reserve = new TeacherEquipmentReserve( date, time, equipment, teacher );
         ReserveEquipmentTeacherDAO.getInstance().includeReserve( reserve );
         this.rev_equipamento_professor_vet.add( reserve );
+        logger.trace( "A new equipment to a teacher was inserted");
     }
 
     
@@ -90,6 +91,7 @@ public class MaintainEquipmentReservationByTeacher {
         TeacherEquipmentReserve reserva_old = new TeacherEquipmentReserve( reserve.getDate(), reserve.getHour(),
                 reserve.getEquipment(), reserve.getProfessor());
         ReserveEquipmentTeacherDAO.getInstance().alterar( reserva_old, reserve );
+        logger.trace( "The reserve had its atribbutes changed succesfully");
 
     }
 
@@ -98,6 +100,7 @@ public class MaintainEquipmentReservationByTeacher {
      * Excludes a classroom reserve.
      */
     public void excludeClassroomReserve( TeacherEquipmentReserve reserve ) throws SQLException, ReserveException {
+    	logger.trace( "Asking for a reserve exclusion");
         ReserveEquipmentTeacherDAO.getInstance().excludeReservation( reserve );
         this.rev_equipamento_professor_vet.remove( reserve );
     }

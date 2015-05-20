@@ -102,6 +102,7 @@ public class MaintainTeacher {
 		Teacher prof = new Teacher(name, cpf, registration, telephone, email );
 		TeacherDAO.getInstance().includeNewTeacher( prof );
 		this.teacher_vet.add( prof );
+		logger.trace( "A new teacher was inserted");
 	}
 
 	
@@ -123,6 +124,7 @@ public class MaintainTeacher {
 		teacher.setTelefone( telephone );
 		teacher.setEmail( email );
 		TeacherDAO.getInstance().modifyATeacher( old_teacher, teacher );
+		logger.trace( "The teacher " + teacher.getName() + "had atribbutes changed succesfully");
 	}
 
 	
@@ -131,6 +133,7 @@ public class MaintainTeacher {
 	 * @return void
 	 */
 	public void excludeTeacher( Teacher teacher ) throws SQLException, ClientException {
+		logger.trace( "Asking for a teacher exclusion");
 		TeacherDAO.getInstance().excludeATeacher( teacher );
 		this.teacher_vet.remove( teacher );
 	}

@@ -89,6 +89,7 @@ public class MaintainClassroomReservationByStudent {
 		StudentRoomReserve r = new StudentRoomReserve( date, hour, room, finality, reservedChairs, student );
 		StudentRoomReserveDAO.getInstance().saveNewStudentRoomReserve(r);
 		this.reserve_vet.add(r);
+		logger.trace( "A new classroom reserve was inserted");
 	}
 
 	
@@ -103,6 +104,7 @@ public class MaintainClassroomReservationByStudent {
 		r.setFinality( finality );
 		r.setReservedChairs( reservedChairs );
 		StudentRoomReserveDAO.getInstance().updateStudentRoomReserve( res_old, r );
+		logger.trace( "The reserve had atribbutes changed succesfully");
 	}
 
 	
@@ -110,6 +112,7 @@ public class MaintainClassroomReservationByStudent {
      * Excludes a classroom reserve for a student.
      */
 	public void excludeRoom( StudentRoomReserve r ) throws SQLException, ReserveException {
+		logger.trace( "Asking for a reserve exclusion");
 		StudentRoomReserveDAO.getInstance().deleteStudentReservedRoom( r );
 		this.reserve_vet.remove( r );
 	}
