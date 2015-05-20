@@ -6,8 +6,10 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Vector;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import model.Equipment;
-import model.Student;
 import exception.PatrimonyException;
 
 public class EquipmentDAO {
@@ -17,6 +19,8 @@ public class EquipmentDAO {
     private static final String nullEquipment = "Equipamento esta nulo.";
     private static final String inUseEquipment = "Equipamento esta sendo utilizado em uma reserva.";
     private static final String existentCode = "Equipamento com o mesmo codigo ja cadastrado.";
+    
+    static final Logger logger = LogManager.getLogger( EquipmentDAO.class.getName() );
 
     // Singleton
     private static EquipmentDAO instance;
@@ -48,8 +52,10 @@ public class EquipmentDAO {
             throw new PatrimonyException( existentCode );
         }
         else if ( !this.inDB( equipment ) ) {
+        	logger.trace( "Saving new equipment." );
             this.updateQuery( "INSERT INTO " + "equipamento ( codigo, descricao ) VALUES ( " + "\"" + equipment.getCode() + "\", "
                     + "\"" + equipment.getDescription() + "\" );" );
+            logger.trace( "New equipment has been saved." );
         }
     }
     
@@ -81,10 +87,13 @@ public class EquipmentDAO {
         } else if ( !new_equipment.getCode().equals( old_equipment.getCode() ) && this.inDBCodigo( new_equipment.getCode() ) ) {
             throw new PatrimonyException( existentCode );
         } else if ( !this.inDB( new_equipment ) ) {
+        	logger.trace( "Modifying equipment" );
             String msg = "UPDATE equipamento SET " + "codigo = \"" + new_equipment.getCode() + "\", " + "descricao = \""
                     + new_equipment.getDescription() + "\"" + " WHERE " + "equipamento.codigo = \"" + old_equipment.getCode()
                     + "\" and " + "equipamento.descricao = \"" + old_equipment.getDescription() + "\";";
 
+            logger.trace( "Equipment data has been modified." );
+            
             con.setAutoCommit( false );
             pst = con.prepareStatement( msg );
             pst.executeUpdate();
@@ -111,8 +120,12 @@ public class EquipmentDAO {
             throw new PatrimonyException( inUseEquipment );
         }
         if ( this.inDB( equipment ) ) {
+        	
+        	logger.trace( "Deleting equipment." );
             this.updateQuery( "DELETE FROM equipamento WHERE " + "equipamento.codigo = \"" + equipment.getCode() + "\" and "
                     + "equipamento.descricao = \"" + equipment.getDescription() + "\";" );
+            
+            logger.trace( "Equipment has been deleted." );
         } else {
             throw new PatrimonyException( noExistentEquipment );
         }
