@@ -3,13 +3,20 @@ package control;
 import java.sql.SQLException;
 import java.util.Vector;
 
+
 import persistence.TeacherDAO;
 import exception.ClientException;
 import model.Teacher;
 
+//Importing Log4J2 classes 
+import org.apache.logging.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+
 public class MaintainTeacher {
 	
 	private Vector < Teacher > teacher_vet = new Vector < Teacher > ();
+	
+	static final Logger logger = LogManager.getLogger( MaintainTeacher.class.getName() );
 	
 	//Singleton
 	private static MaintainTeacher instance;
@@ -24,7 +31,9 @@ public class MaintainTeacher {
 	 */
 	public static MaintainTeacher getInstance() {
 		if ( instance == null )
+			logger.trace( "There is any teacher." );
 			instance = new MaintainTeacher();
+			logger.trace( "A new teacher is just instantiated" );
 		return instance;
 	}
 	

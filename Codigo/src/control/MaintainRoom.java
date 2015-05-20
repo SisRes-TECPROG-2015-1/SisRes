@@ -7,9 +7,15 @@ import persistence.ClassRoomDAO;
 import exception.PatrimonyException;
 import model.Room;
 
+//Importing Log4J2 classes 
+import org.apache.logging.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+
 public class MaintainRoom {
 
 	private Vector < Room > room = new Vector < Room >();
+	
+	static final Logger logger = LogManager.getLogger( MaintainTeacher.class.getName() );
 	
 	//Singleton
 	private static MaintainRoom instance;
@@ -23,8 +29,11 @@ public class MaintainRoom {
 	 * @return ManterSala - A classroom
 	 */	
 	public static MaintainRoom getInstance() {
-		if ( instance == null )
+		if ( instance == null ){
+			logger.trace( "There is any instance of classrom");
 			instance = new MaintainRoom();
+			logger.trace( "A new classroom is just instantiated" );
+		}
 		return instance;
 	}
 	

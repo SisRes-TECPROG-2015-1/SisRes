@@ -11,8 +11,15 @@ import exception.ClientException;
 import exception.PatrimonyException;
 import exception.ReserveException;
 
+
+//Importing Log4J2 classes 
+import org.apache.logging.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+
 public class MaintainClassroomReservationByTeacher {
 	private Vector<TeacherRoomReserve> roomReserve = new Vector<TeacherRoomReserve>();
+	
+	static final Logger logger = LogManager.getLogger( MaintainTeacher.class.getName() );
 	
 	//Singleton
 	private static MaintainClassroomReservationByTeacher instance;
@@ -26,7 +33,9 @@ public class MaintainClassroomReservationByTeacher {
 	 */
 	public static MaintainClassroomReservationByTeacher getInstance() {
 		if ( instance == null ) {
+			logger.trace( "There is any instance of classroom reserve for a teacher");
 			instance = new MaintainClassroomReservationByTeacher();
+			logger.trace( "A new classroom reserve is just instantiated" );
 		}
 			return instance;
 	}

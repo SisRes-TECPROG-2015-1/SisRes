@@ -6,9 +6,15 @@ import persistence.EquipmentDAO;
 import exception.PatrimonyException;
 import model.Equipment;
 
+//Importing Log4J2 classes 
+import org.apache.logging.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+
 public class MaintainEquipment {
 
 	private Vector <Equipment> Equipment_vet = new Vector <Equipment>();
+	
+	static final Logger logger = LogManager.getLogger( MaintainTeacher.class.getName() );
 	
 	//Singleton
 	private static MaintainEquipment instance;
@@ -22,7 +28,9 @@ public class MaintainEquipment {
 	 */
 	public static MaintainEquipment getInstance() {
 		if ( instance == null ) {
+			logger.trace( "There is any instance of an equipment" );
 			instance = new MaintainEquipment();
+			logger.trace( "A new equipment is just instantiated" );
 		}
 		return instance;
 	}

@@ -7,9 +7,15 @@ import persistence.StudentDAO;
 import exception.ClientException;
 import model.Student;
 
+//Importing Log4J2 classes 
+import org.apache.logging.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+
 public class MaintainStudent {
 	
 	private Vector <Student> student_vet = new Vector <Student> ();
+	
+	static final Logger logger = LogManager.getLogger( MaintainTeacher.class.getName() );
 	
 	//Singlenton
 	private static MaintainStudent instance;
@@ -23,8 +29,11 @@ public class MaintainStudent {
 	 * @return - Student - A student
 	 */
 	public static MaintainStudent getInstance () {
-		if ( instance == null )
-		instance = new MaintainStudent();
+		if ( instance == null ){
+			logger.trace( "There is any instance of student"); 
+			instance = new MaintainStudent();
+			logger.trace( "A new student is just instantiated" );
+		}
 		return instance;
 	}
 	
