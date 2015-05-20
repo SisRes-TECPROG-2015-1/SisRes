@@ -12,6 +12,11 @@ import exception.ClientException;
 import exception.PatrimonyException;
 import exception.ReserveException;
 
+
+//Importing Log4J2 classes 
+import org.apache.logging.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+
 public class ReserveEquipmentTeacherDAO extends DAO {
 
 	// Mensagens e Alertas
@@ -21,7 +26,10 @@ public class ReserveEquipmentTeacherDAO extends DAO {
 	private final String EQUIPAMENTO_INEXISTENTE = "Equipamento inexistente";
 	private final String RESERVA_INEXISTENTE = "Reserva inexistente";
 	private final String RESERVA_EXISTENTE = "A reserva ja existe.";
-
+	
+	//logger
+	static final Logger logger = LogManager.getLogger( ReserveEquipmentTeacherDAO.class.getName() );
+	
 	// Singleton
 	private static ReserveEquipmentTeacherDAO instance;
 
@@ -30,7 +38,9 @@ public class ReserveEquipmentTeacherDAO extends DAO {
 
 	public static ReserveEquipmentTeacherDAO getInstance() {
 		if ( instance == null ) { 
+			logger.trace( "There is any instance of teacher equipment reserve DAO");
 			instance = new ReserveEquipmentTeacherDAO();
+			logger.trace( "A new teacher equipment reserve DAO is just instantiated" );
 		}
 		return instance;
 	}
@@ -43,20 +53,24 @@ public class ReserveEquipmentTeacherDAO extends DAO {
 	 * @return
 	 */
 	private String select_id_professor( Teacher p ) {
+		logger.trace( "Selecting teacher id." );
 		String select = "SELECT id_professor FROM professor WHERE "
 				+ "professor.nome = \"" + p.getName() + "\" and "
 				+ "professor.cpf = \"" + p.getCpf() + "\" and "
 				+ "professor.telefone = \"" + p.getFone() + "\" and "
 				+ "professor.email = \"" + p.getEmail() + "\" and "
 				+ "professor.matricula = \"" + p.getRegistration() + "\"";
+		logger.trace( "Teacher id has been colected." );
 		return select;
 	}
 
 	private String select_id_equipamento( Equipment equipamento ) {
+		logger.trace( "Selecting equipment id." );
 		String select = "SELECT id_equipamento FROM equipamento WHERE "
 				+ "equipamento.codigo = \"" + equipamento.getCode()
 				+ "\" and " + "equipamento.descricao = \""
 				+ equipamento.getDescription();
+		logger.trace( "Equipment id has been selected." );
 		return select;
 	}
 
@@ -90,29 +104,37 @@ public class ReserveEquipmentTeacherDAO extends DAO {
 	}
 
 	private String insert_into( TeacherEquipmentReserve r ) {
+		logger.trace( "Inserting a new equipment reserve." );
 		String select = "INSERT INTO "
 				+ "reserva_equipamento_professor (id_professor, id_equipamento, hora, data) "
 				+ "VALUES ( " + values_reserva_equipamento_professor( r ) + " );";
+		logger.trace( "A new equipment reserve has been saved." );
 		return select;
 	}
 
 	private String update( TeacherEquipmentReserve r,
 			TeacherEquipmentReserve r2 ) {
+		logger.trace( "Updating an equipment reserve." );
 		String select = "UPDATE reserva_equipamento_professor SET "
 				+ this.atributes_value_reserva_equipamento_professor( r2 )
 				+ this.where_reserva_equipamento_professor( r ) + " ;";
+		logger.trace( "An equipment reserve has been updated." );
 		return select;
 	}
 
 	private String delete_from_professor( TeacherEquipmentReserve r ) {
+		logger.trace( "Deleting an equipment reserve." );
 		String select = "DELETE FROM reserva_equipamento_professor "
 				+ this.where_reserva_equipamento_professor( r ) + " ;";
+		logger.trace( "An equipment reserve has been deleted." );
 		return select;
 	}
 
 	private String delete_from_aluno( TeacherEquipmentReserve r ) {
+		logger.trace( "Deleting an equipment reserve." );
 		String select = "DELETE FROM reserva_equipamento_aluno WHERE " + "hora = \""
 				+ r.getHour() + "\" and " + "data = \"" + r.getDate() + " ;";
+		logger.trace( "An equipment reserve has been deleted." );
 		return select;
 	}
 
