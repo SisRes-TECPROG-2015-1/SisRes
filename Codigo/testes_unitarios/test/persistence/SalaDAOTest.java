@@ -10,7 +10,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Vector;
 
-import model.Sala;
+import model.Room;
 
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
@@ -96,7 +96,7 @@ public class SalaDAOTest {
 					"sala.descricao = \"" + s2.getDescricao() +  "\" and " +
 					"sala.capacidade = " + s2.getCapacidade() + ";");
 		}
-		assertFalse("Teste de Inclusão.", rs);
+		assertFalse("Teste de Inclusï¿½o.", rs);
 	}
 	
 	@Test

@@ -7,9 +7,15 @@ import persistence.StudentDAO;
 import exception.ClientException;
 import model.Student;
 
+//Importing Log4J2 classes 
+import org.apache.logging.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+
 public class MaintainStudent {
 	
 	private Vector <Student> student_vet = new Vector <Student> ();
+	
+	static final Logger logger = LogManager.getLogger( MaintainTeacher.class.getName() );
 	
 	//Singlenton
 	private static MaintainStudent instance;
@@ -23,8 +29,11 @@ public class MaintainStudent {
 	 * @return - Student - A student
 	 */
 	public static MaintainStudent getInstance () {
-		if ( instance == null )
-		instance = new MaintainStudent();
+		if ( instance == null ){
+			logger.trace( "There is any instance of student"); 
+			instance = new MaintainStudent();
+			logger.trace( "A new student is just instantiated" );
+		}
 		return instance;
 	}
 	
@@ -91,6 +100,7 @@ public class MaintainStudent {
 		Student student = new Student ( name, cpf, registration, telephone, email );
 		StudentDAO.getInstance().includeNewStudent(student);
 		this.student_vet.add(student);
+		logger.trace( "A new student was inserted");
 	}
 
 	
@@ -113,6 +123,7 @@ public class MaintainStudent {
 						student.setTelefone(fone);
 						student.setEmail(email);
 						StudentDAO.getInstance().modifyStudent(old_student, student);
+		logger.trace( "The student had its atribbutes changed succesfully");
 	}
 	
 	
@@ -121,6 +132,7 @@ public class MaintainStudent {
 	 * @return void
 	 */
 	public void excludeStudent ( Student student ) throws SQLException, ClientException {
+		logger.trace( "Asking for a student exclusion");
 		StudentDAO.getInstance().deleteStudent(student);
 		this.student_vet.remove(student);
 	}

@@ -3,13 +3,20 @@ package control;
 import java.sql.SQLException;
 import java.util.Vector;
 
+
 import persistence.TeacherDAO;
 import exception.ClientException;
 import model.Teacher;
 
+//Importing Log4J2 classes 
+import org.apache.logging.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+
 public class MaintainTeacher {
 	
 	private Vector < Teacher > teacher_vet = new Vector < Teacher > ();
+	
+	static final Logger logger = LogManager.getLogger( MaintainTeacher.class.getName() );
 	
 	//Singleton
 	private static MaintainTeacher instance;
@@ -24,7 +31,9 @@ public class MaintainTeacher {
 	 */
 	public static MaintainTeacher getInstance() {
 		if ( instance == null )
+			logger.trace( "There is any teacher." );
 			instance = new MaintainTeacher();
+			logger.trace( "A new teacher is just instantiated" );
 		return instance;
 	}
 	
@@ -93,6 +102,7 @@ public class MaintainTeacher {
 		Teacher prof = new Teacher(name, cpf, registration, telephone, email );
 		TeacherDAO.getInstance().includeNewTeacher( prof );
 		this.teacher_vet.add( prof );
+		logger.trace( "A new teacher was inserted");
 	}
 
 	
@@ -114,6 +124,7 @@ public class MaintainTeacher {
 		teacher.setTelefone( telephone );
 		teacher.setEmail( email );
 		TeacherDAO.getInstance().modifyATeacher( old_teacher, teacher );
+		logger.trace( "The teacher " + teacher.getName() + "had atribbutes changed succesfully");
 	}
 
 	
@@ -122,6 +133,7 @@ public class MaintainTeacher {
 	 * @return void
 	 */
 	public void excludeTeacher( Teacher teacher ) throws SQLException, ClientException {
+		logger.trace( "Asking for a teacher exclusion");
 		TeacherDAO.getInstance().excludeATeacher( teacher );
 		this.teacher_vet.remove( teacher );
 	}

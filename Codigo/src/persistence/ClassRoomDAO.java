@@ -9,6 +9,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Vector;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import exception.PatrimonyException;
 
 public class ClassRoomDAO {
@@ -20,6 +23,8 @@ public class ClassRoomDAO {
 	private static final String NullClassRoom = "Sala esta nula."; // Indicates the room is null 
 	private static final String CodeAlreadyExist = "Sala com o mesmo codigo ja cadastrada."; // Indicates a room with the same code is already registered
 	private static ClassRoomDAO instance;
+	
+	static final Logger logger = LogManager.getLogger( EquipmentDAO.class.getName() );
 
 	/**
 	 * Empty Constructor
@@ -52,10 +57,13 @@ public class ClassRoomDAO {
 		} else if ( this.inDBCodigo( classroom.getCode() ) ) {
 			throw new PatrimonyException( CodeAlreadyExist );
 		}
+		
+		logger.trace( "Saving new classroom." );
 		this.updateQuery( "INSERT INTO "
 				+ "sala (codigo, descricao, capacidade) VALUES (" + "\""
 				+ classroom.getCode() + "\", " + "\"" + classroom.getDescription()
 				+ "\", " + classroom.getCapacity() + ");" );
+		logger.trace( "New classroom has been saved." );
 	}
 
 	/**
@@ -86,6 +94,7 @@ public class ClassRoomDAO {
 			throw new PatrimonyException( CodeAlreadyExist );
 		}
 		if ( !this.inDB( newRoom ) ) {
+			logger.trace( "Updating classroom..." );
 			String msg = "UPDATE sala SET " + "codigo = \""
 					+ newRoom.getCode() + "\", " + "descricao = \""
 					+ newRoom.getDescription() + "\", " + "capacidade = "
@@ -97,6 +106,8 @@ public class ClassRoomDAO {
 			pst = con.prepareStatement( msg );
 			pst.executeUpdate();
 			con.commit();
+			
+			logger.trace( "Classroom has been modified." );
 		} else {
 			throw new PatrimonyException( classRoomAlreadyExisted );
 		}
@@ -117,10 +128,12 @@ public class ClassRoomDAO {
 		} else if ( this.inOtherDB( room ) ) {
 			throw new PatrimonyException( classRoomInUse );
 		} else if ( this.inDB( room ) ) {
+			logger.trace( "Removing classroom..." );
 			this.updateQuery( "DELETE FROM sala WHERE " + "sala.codigo = \""
 					+ room.getCode() + "\" and " + "sala.descricao = \""
 					+ room.getDescription() + "\" and " + "sala.capacidade = "
 					+ room.getCapacity() + ";" );
+			logger.trace( "Classroom has been removed." );
 		} else {
 			throw new PatrimonyException( classRoomDoesntExist );
 		}
