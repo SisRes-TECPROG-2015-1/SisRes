@@ -11,9 +11,17 @@ import exception.ClientException;
 import exception.PatrimonyException;
 import exception.ReserveException;
 
+//Importing Log4J2 classes 
+import org.apache.logging.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+
 public class MaintainClassroomReservationByStudent {
 
 	private Vector < StudentRoomReserve > reserve_vet = new Vector < StudentRoomReserve >();
+
+	static final Logger logger = LogManager.getLogger( MaintainTeacher.class.getName() );
+	
+	
 	//Singleton
 	private static MaintainClassroomReservationByStudent instance;
 
@@ -27,8 +35,10 @@ public class MaintainClassroomReservationByStudent {
 	 */
 	public static MaintainClassroomReservationByStudent getInstance() {
 		if ( instance == null ) {
+			logger.trace( "There is any classroom reserve for a student");
 			instance = new MaintainClassroomReservationByStudent();
-	}
+			logger.trace( "A new classroom reserve for a student is instantiated" );
+		}
 		return instance;
 	}
 	
@@ -79,6 +89,7 @@ public class MaintainClassroomReservationByStudent {
 		StudentRoomReserve r = new StudentRoomReserve( date, hour, room, finality, reservedChairs, student );
 		StudentRoomReserveDAO.getInstance().saveNewStudentRoomReserve(r);
 		this.reserve_vet.add(r);
+		logger.trace( "A new classroom reserve was inserted");
 	}
 
 	
@@ -93,6 +104,7 @@ public class MaintainClassroomReservationByStudent {
 		r.setFinality( finality );
 		r.setReservedChairs( reservedChairs );
 		StudentRoomReserveDAO.getInstance().updateStudentRoomReserve( res_old, r );
+		logger.trace( "The reserve had atribbutes changed succesfully");
 	}
 
 	
@@ -100,6 +112,7 @@ public class MaintainClassroomReservationByStudent {
      * Excludes a classroom reserve for a student.
      */
 	public void excludeRoom( StudentRoomReserve r ) throws SQLException, ReserveException {
+		logger.trace( "Asking for a reserve exclusion");
 		StudentRoomReserveDAO.getInstance().deleteStudentReservedRoom( r );
 		this.reserve_vet.remove( r );
 	}

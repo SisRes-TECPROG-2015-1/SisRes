@@ -11,10 +11,16 @@ import exception.ClientException;
 import exception.PatrimonyException;
 import exception.ReserveException;
 
+//Importing Log4J2 classes 
+import org.apache.logging.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+
 public class MaintainEquipmentReservationByTeacher {
 	
     private Vector < Object > rev_equipamento_professor_vet = new Vector < Object >();
 
+    static final Logger logger = LogManager.getLogger( MaintainTeacher.class.getName() );
+    
     // Singleton
     private static MaintainEquipmentReservationByTeacher instance;
 
@@ -27,8 +33,11 @@ public class MaintainEquipmentReservationByTeacher {
 	 * @return - MaintainEquipmentReservationByTeacher - Equipment reserve
 	 */
     public static MaintainEquipmentReservationByTeacher getInstance() {
-        if ( instance == null )
+        if ( instance == null ){
+        	logger.trace( "There is any instance of equipment reserve for a teacher");
             instance = new MaintainEquipmentReservationByTeacher();
+            logger.trace( "A new equipment reserve for a teacher is just instantiated" );
+    	}
         return instance;
     }
 
@@ -70,6 +79,7 @@ public class MaintainEquipmentReservationByTeacher {
         TeacherEquipmentReserve reserve = new TeacherEquipmentReserve( date, time, equipment, teacher );
         ReserveEquipmentTeacherDAO.getInstance().includeReserve( reserve );
         this.rev_equipamento_professor_vet.add( reserve );
+        logger.trace( "A new equipment to a teacher was inserted");
     }
 
     
@@ -81,6 +91,7 @@ public class MaintainEquipmentReservationByTeacher {
         TeacherEquipmentReserve reserva_old = new TeacherEquipmentReserve( reserve.getDate(), reserve.getHour(),
                 reserve.getEquipment(), reserve.getProfessor());
         ReserveEquipmentTeacherDAO.getInstance().alterar( reserva_old, reserve );
+        logger.trace( "The reserve had its atribbutes changed succesfully");
 
     }
 
@@ -89,6 +100,7 @@ public class MaintainEquipmentReservationByTeacher {
      * Excludes a classroom reserve.
      */
     public void excludeClassroomReserve( TeacherEquipmentReserve reserve ) throws SQLException, ReserveException {
+    	logger.trace( "Asking for a reserve exclusion");
         ReserveEquipmentTeacherDAO.getInstance().excludeReservation( reserve );
         this.rev_equipamento_professor_vet.remove( reserve );
     }
