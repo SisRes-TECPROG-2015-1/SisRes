@@ -21,7 +21,12 @@ import exception.ClientException;
  */
 public class ProfessorView extends ClienteView {
 
-    public ProfessorView( java.awt.Frame parent, boolean modal ) {
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	public ProfessorView( java.awt.Frame parent, boolean modal ) {
         super( parent, modal );
         this.setName( "ProfessorView" );
     }
@@ -29,7 +34,7 @@ public class ProfessorView extends ClienteView {
     /**
      * This method obtains an interator
      */
-    public Iterator getIterator() {
+    public Iterator<?> getIterator() {
         try {
             return MaintainTeacher.getInstance().getTeachers().iterator();
 

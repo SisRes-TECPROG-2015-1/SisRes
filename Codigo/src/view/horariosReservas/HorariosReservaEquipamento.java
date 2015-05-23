@@ -29,7 +29,11 @@ import exception.ReserveException;
  */
 public class HorariosReservaEquipamento extends HorariosReservaPatrimonio {
 
-    Equipment equipment;
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	Equipment equipment;
     MaintainEquipmentReservationByTeacher instance;
 
     public HorariosReservaEquipamento (java.awt.Frame parent, boolean modal, String data, Equipment equipment ) {

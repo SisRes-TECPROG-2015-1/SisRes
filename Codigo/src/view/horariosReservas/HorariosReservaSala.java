@@ -33,7 +33,11 @@ import exception.ReserveException;
  */
 public class HorariosReservaSala extends HorariosReservaPatrimonio {
 
-    MaintainClassroomReservationByStudent instanceAluno;
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	MaintainClassroomReservationByStudent instanceAluno;
     MaintainClassroomReservationByTeacher instanceProf;
     Room room;
 
@@ -112,7 +116,7 @@ public class HorariosReservaSala extends HorariosReservaPatrimonio {
         this.mes = Integer.parseInt( this.data.substring( 3, 5 ) );
 
         try {
-            Vector v = instanceProf.getRoomByDate( this.data );
+            Vector<?> v = instanceProf.getRoomByDate( this.data );
 
             if ( v != null )
                 for ( int i = 0; i < v.size(); i++ ) {

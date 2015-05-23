@@ -68,7 +68,7 @@ public class MaintainRoom {
 		room.setCode( code );
 		room.setDescription( description );
 		room.setCapacity( capacity );
-		ClassRoomDAO.getInstance().alterar( old_room, room );
+		ClassRoomDAO.getInstance().modifyRoom( old_room, room );
 		logger.trace( "The room" + room.getCode() + " had its atribbutes changed succesfully");
 	}
 

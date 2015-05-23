@@ -15,6 +15,10 @@ import javax.swing.table.DefaultTableModel;
 public abstract class PatrimonioView extends JDialog {
 
     /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	/**
      * Creates new form ClienteView
      */
     public PatrimonioView( java.awt.Frame parent, boolean modal ) {
