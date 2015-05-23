@@ -3,7 +3,7 @@ package user_stories;
 import java.awt.Dimension;
 import java.sql.SQLException;
 
-import model.Sala;
+import model.Room;
 
 import org.fest.swing.core.BasicRobot;
 import org.fest.swing.core.Robot;
@@ -39,7 +39,7 @@ import exception.PatrimonyException;
 public class US07_AlterarSala {
     private FrameFixture window;
     private Robot robot;
-    private Sala sala;
+    private Room sala;
     private DialogFixture dialog;
     private int index;
 
@@ -50,7 +50,7 @@ public class US07_AlterarSala {
         window = new FrameFixture(robot, new Main2());
         window.show(new Dimension(900, 500)); // shows the frame to test
 
-        sala = new Sala("code", "Sala para testes de aceitacao", "123");
+        sala = new Room("code", "Sala para testes de aceitacao", "123");
         ClassRoomDAO.getInstance().includeARoom(sala);
 
         index = ClassRoomDAO.getInstance().searchAll().size() - 1;

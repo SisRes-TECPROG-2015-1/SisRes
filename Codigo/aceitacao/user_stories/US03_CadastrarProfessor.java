@@ -15,7 +15,7 @@ import org.junit.Test;
 
 import persistence.TeacherDAO;
 import view.Main2;
-import exception.ClienteException;
+import exception.ClientException;
 
 /**
  * US3 Título: Cadastrar Professor. Como professor Eu quero me cadastrar Para poder
@@ -59,7 +59,7 @@ public class US03_CadastrarProfessor {
 	}
 	
 	@After
-	public void tearDown() throws SQLException, ClienteException {
+	public void tearDown() throws SQLException, ClientException {
 		if(professor != null)
 			TeacherDAO.getInstance().excludeATeacher(professor);
 		window.cleanUp();
@@ -82,7 +82,7 @@ public class US03_CadastrarProfessor {
 	}
 		
 	@Test
-	public void testCenario1() throws SQLException, ClienteException {
+	public void testCenario1() throws SQLException, ClientException {
 		dialog.button("Cadastrar").click();
 		DialogFixture cadastro = dialog.dialog("CadastroProfessor");
 
@@ -102,7 +102,7 @@ public class US03_CadastrarProfessor {
 	}
 	
 	@Test
-	public void testCenario2() throws SQLException, ClienteException {
+	public void testCenario2() throws SQLException, ClientException {
 
 		professor = new Teacher("Teste", "658.535.144-40", "110038096","9211-2144", "teste incluir repetido");
 		TeacherDAO.getInstance().includeNewTeacher(professor);
@@ -124,7 +124,7 @@ public class US03_CadastrarProfessor {
 
 	@Test
 	public void testCenario3NomeInvalido() throws SQLException,
-			ClienteException {
+			ClientException {
 
 		dialog.button("Cadastrar").click();
 		DialogFixture cadastro = dialog.dialog("CadastroProfessor");
@@ -144,7 +144,7 @@ public class US03_CadastrarProfessor {
 
 	@Test
 	public void testCenario3NomeBranco() throws SQLException,
-			ClienteException {
+			ClientException {
 
 		dialog.button("Cadastrar").click();
 		DialogFixture cadastro = dialog.dialog("CadastroProfessor");
@@ -163,7 +163,7 @@ public class US03_CadastrarProfessor {
 
 	@Test
 	public void testCenario3CpfInvalido() throws SQLException,
-			ClienteException {
+			ClientException {
 		
 		dialog.button("Cadastrar").click();
 		DialogFixture cadastro = dialog.dialog("CadastroProfessor");
@@ -182,7 +182,7 @@ public class US03_CadastrarProfessor {
 	
 	@Test
 	public void testCenario3CpfBranco() throws SQLException,
-			ClienteException {
+			ClientException {
 		
 		dialog.button("Cadastrar").click();
 		DialogFixture cadastro = dialog.dialog("CadastroProfessor");
@@ -201,7 +201,7 @@ public class US03_CadastrarProfessor {
 	
 	@Test
 	public void testCenario3TelefoneInvalido() throws SQLException,
-			ClienteException {
+			ClientException {
 		
 		dialog.button("Cadastrar").click();
 		DialogFixture cadastro = dialog.dialog("CadastroProfessor");

@@ -15,7 +15,7 @@ import org.junit.Test;
 
 import persistence.TeacherDAO;
 import view.Main2;
-import exception.ClienteException;
+import exception.ClientException;
 
 /**
  * US4 Título: Alterar Professor. Como professor Eu quero alterar meus dados Para
@@ -45,7 +45,7 @@ public class US04_AlterarProfessor {
 	private int index;
 	
 	@Before
-	public void setUp() throws ClienteException, SQLException {
+	public void setUp() throws ClientException, SQLException {
 		robot = BasicRobot.robotWithNewAwtHierarchy();
 		robot.settings().delayBetweenEvents(5);
 
@@ -62,7 +62,7 @@ public class US04_AlterarProfessor {
 	}
 	
 	@After
-	public void tearDown() throws SQLException, ClienteException {
+	public void tearDown() throws SQLException, ClientException {
 		if(professor != null)
 			TeacherDAO.getInstance().excludeATeacher(professor);
 		window.cleanUp();
@@ -86,7 +86,7 @@ public class US04_AlterarProfessor {
 	}
 	
 	@Test
-	public void testCenario1() throws SQLException, ClienteException{
+	public void testCenario1() throws SQLException, ClientException{
 		if(professor != null)
 			TeacherDAO.getInstance().excludeATeacher(professor);
 		dialog.button("Alterar").click();
@@ -95,7 +95,7 @@ public class US04_AlterarProfessor {
 	}
 	
 	@Test
-	public void testCenario2() throws SQLException, ClienteException{
+	public void testCenario2() throws SQLException, ClientException{
 		
 		dialog.table("tabelaCliente").selectRows(index);
 		dialog.button("Alterar").click();
@@ -114,7 +114,7 @@ public class US04_AlterarProfessor {
 	}
 	
 	@Test
-	public void testCenario3NomeInvalido() throws SQLException, ClienteException{
+	public void testCenario3NomeInvalido() throws SQLException, ClientException{
 		
 		dialog.table("tabelaCliente").selectRows(index);
 		dialog.button("Alterar").click();
@@ -133,7 +133,7 @@ public class US04_AlterarProfessor {
 	}
 	
 	@Test
-	public void testCenario3NomeEmBranco() throws SQLException, ClienteException{
+	public void testCenario3NomeEmBranco() throws SQLException, ClientException{
 		
 		dialog.table("tabelaCliente").selectRows(index);
 		dialog.button("Alterar").click();
@@ -152,7 +152,7 @@ public class US04_AlterarProfessor {
 	}
 	
 	@Test
-	public void testCenario3CpfInvalido() throws SQLException, ClienteException{
+	public void testCenario3CpfInvalido() throws SQLException, ClientException{
 		
 		dialog.table("tabelaCliente").selectRows(index);
 		dialog.button("Alterar").click();
@@ -171,7 +171,7 @@ public class US04_AlterarProfessor {
 	}
 	
 	@Test
-	public void testCenario3CpfEmBranco() throws SQLException, ClienteException{
+	public void testCenario3CpfEmBranco() throws SQLException, ClientException{
 		
 		dialog.table("tabelaCliente").selectRows(index);
 		dialog.button("Alterar").click();
@@ -190,7 +190,7 @@ public class US04_AlterarProfessor {
 	}
 	
 	@Test
-	public void testCenario3TelefeoneInvalido() throws SQLException, ClienteException{
+	public void testCenario3TelefeoneInvalido() throws SQLException, ClientException{
 		
 		dialog.table("tabelaCliente").selectRows(index);
 		dialog.button("Alterar").click();

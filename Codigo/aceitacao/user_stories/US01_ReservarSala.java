@@ -81,7 +81,7 @@ public class US01_ReservarSala {
         this.data = formatador.format(date);
     }
 
-    @Before public void setUp() throws PatrimonyException, SQLException, ClienteException, ReserveException {
+    @Before public void setUp() throws PatrimonyException, SQLException, ClientException, ReserveException {
         robot = BasicRobot.robotWithNewAwtHierarchy();
         robot.settings().delayBetweenEvents(5);
 
@@ -155,7 +155,7 @@ public class US01_ReservarSala {
         reservaProf = TeacherRoomReserveDAO.getInstance().getTeacherReservedRoomsByDay(data).get(indexReserva);
     }
 
-    @Test public void testCenario1ProfessorCpfInvalido() throws SQLException, ClienteException, PatrimonyException, ReserveException {
+    @Test public void testCenario1ProfessorCpfInvalido() throws SQLException, ClientException, PatrimonyException, ReserveException {
 
         dialog.table("tabelaPatrimonio").selectRows(index);
         dialog.button("Visualizar Horarios").click();
@@ -176,7 +176,7 @@ public class US01_ReservarSala {
         reservaProf = null;
     }
 
-    @Test public void testProfessorHoraAnterior() throws SQLException, ClienteException, PatrimonyException, ReserveException {
+    @Test public void testProfessorHoraAnterior() throws SQLException, ClientException, PatrimonyException, ReserveException {
 
         dialog.table("tabelaPatrimonio").selectRows(index);
         dialog.button("Visualizar Horarios").click();
@@ -200,7 +200,7 @@ public class US01_ReservarSala {
         
     }
 
-    @Test public void testCenario2Aluno() throws SQLException, ClienteException, PatrimonyException, ReserveException {
+    @Test public void testCenario2Aluno() throws SQLException, ClientException, PatrimonyException, ReserveException {
 
         dialog.table("tabelaPatrimonio").selectRows(index);
         dialog.button("Visualizar Horarios").click();
@@ -228,7 +228,7 @@ public class US01_ReservarSala {
         reservaAluno = StudentRoomReserveDAO.getInstance().getAllStudentReservedRooms().lastElement();
     }
 
-    @Test public void testCenario2AlunoCpfInvalido() throws SQLException, ClienteException, PatrimonyException, ReserveException {
+    @Test public void testCenario2AlunoCpfInvalido() throws SQLException, ClientException, PatrimonyException, ReserveException {
 
         dialog.table("tabelaPatrimonio").selectRows(index);
         dialog.button("Visualizar Horarios").click();
@@ -248,7 +248,7 @@ public class US01_ReservarSala {
         reservaProf = null;
     }
 
-    @Test public void testCenario2AlunoHoraAnterior() throws SQLException, ClienteException, PatrimonyException, ReserveException {
+    @Test public void testCenario2AlunoHoraAnterior() throws SQLException, ClientException, PatrimonyException, ReserveException {
 
         dialog.table("tabelaPatrimonio").selectRows(index);
         dialog.button("Visualizar Horarios").click();
@@ -274,7 +274,7 @@ public class US01_ReservarSala {
 
     }
 
-    @Test public void testCenario2AlunoCadeirasIndisponiveis() throws SQLException, ClienteException, PatrimonyException, ReserveException {
+    @Test public void testCenario2AlunoCadeirasIndisponiveis() throws SQLException, ClientException, PatrimonyException, ReserveException {
                 
         dialog.table("tabelaPatrimonio").selectRows(index);
         dialog.button("Visualizar Horarios").click();
@@ -301,9 +301,9 @@ public class US01_ReservarSala {
     }
 
     
-    @Test public void testCenario3() throws SQLException, ClienteException, PatrimonyException, ReserveException {
+    @Test public void testCenario3() throws SQLException, ClientException, PatrimonyException, ReserveException {
 
-        reservaAluno = new StudentRoomReserve(data, "23:59", room, "abc", room.getCapacidade(), student);
+        reservaAluno = new StudentRoomReserve(data, "23:59", room, "abc", room.getCapacity(), student);
         StudentRoomReserveDAO.getInstance().saveNewStudentRoomReserve(reservaAluno);
 
         dialog.table("tabelaPatrimonio").selectRows(index);
@@ -332,8 +332,8 @@ public class US01_ReservarSala {
     }
 
     
-    @Test public void testCenario3AlunoReserva() throws SQLException, ClienteException, PatrimonyException, ReserveException {
-        Aluno aluno2 = new Aluno("Aluno Teste", "382.808.446-00", "110", "", "abc");
+    @Test public void testCenario3AlunoReserva() throws SQLException, ClientException, PatrimonyException, ReserveException {
+        Student aluno2 = new Student("Aluno Teste", "382.808.446-00", "110", "", "abc");
         StudentDAO.getInstance().includeNewStudent(aluno2);
 
         StudentRoomReserve reservaAluno2 = new StudentRoomReserve(data, "23:59", room, "abc", "100", aluno2);
@@ -369,7 +369,7 @@ public class US01_ReservarSala {
     }
 
     
-    @Test public void testCenario4() throws SQLException, ClienteException, ReserveException, PatrimonyException {
+    @Test public void testCenario4() throws SQLException, ClientException, ReserveException, PatrimonyException {
 
         reservaProf = new TeacherRoomReserve(data, "23:59", room, "abc", prof);
         TeacherRoomReserveDAO.getInstance().saveNewTeacherRoomReserve(reservaProf);

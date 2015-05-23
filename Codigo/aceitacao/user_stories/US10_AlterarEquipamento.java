@@ -3,8 +3,7 @@ package user_stories;
 import java.awt.Dimension;
 import java.sql.SQLException;
 
-import model.Equipamento;
-import model.Equipamento;
+import model.Equipment;
 
 import org.fest.swing.core.BasicRobot;
 import org.fest.swing.core.Robot;
@@ -49,7 +48,7 @@ E não realizar alteração.
 public class US10_AlterarEquipamento {
     private FrameFixture window;
     private Robot robot;
-    private Equipamento equipamento;
+    private Equipment equipment;
     private DialogFixture dialog;
     private int index;
 
@@ -61,8 +60,8 @@ public class US10_AlterarEquipamento {
     window = new FrameFixture(robot, new Main2());
     window.show(new Dimension(900, 500)); // shows the frame to test
 
-    equipamento = new Equipamento("code", "Equipamento para testes de aceitacao");
-    EquipmentDAO.getInstance().includeReserve(equipamento);
+    equipment = new Equipment("code", "Equipamento para testes de aceitacao");
+    EquipmentDAO.getInstance().includeEquipment( equipment );
 
     index = EquipmentDAO.getInstance().searchForAll().size() - 1;
 
@@ -72,8 +71,8 @@ public class US10_AlterarEquipamento {
 }
 
 @After public void tearDown() throws SQLException, PatrimonyException {
-    if (equipamento != null)
-        EquipmentDAO.getInstance().excludeRoom(equipamento);
+    if (equipment != null)
+        EquipmentDAO.getInstance().excludeEquipment( equipment );
     window.cleanUp();
 }
 
@@ -107,14 +106,14 @@ public void sleep() {
     sleep();
     cadastro.optionPane().okButton().click();
 
-    equipamento = EquipmentDAO.getInstance().searchForAll().get(index);
+    equipment = EquipmentDAO.getInstance().searchForAll().get(index);
 }
 
 @Test public void testCenario2() throws SQLException, PatrimonyException {
 
-    if (equipamento != null)
-        EquipmentDAO.getInstance().excludeRoom(equipamento);
-    equipamento = null;
+    if (equipment != null)
+        EquipmentDAO.getInstance().excludeEquipment( equipment );
+    equipment = null;
     dialog.button("Alterar").click();
     dialog.optionPane().requireMessage("Selecione uma linha!");
     sleep();
@@ -135,7 +134,7 @@ public void sleep() {
     cadastro.optionPane().requireMessage("Codigo em Branco.");
     sleep();
     cadastro.optionPane().okButton().click();
-    equipamento = EquipmentDAO.getInstance().searchForAll().get(index);
+    equipment = EquipmentDAO.getInstance().searchForAll().get(index);
 }
 
 @Test public void testCenario3DescricaoBranco() throws SQLException, PatrimonyException {
@@ -152,7 +151,7 @@ public void sleep() {
     cadastro.optionPane().requireMessage("Descricao em Branco.");
     sleep();
     cadastro.optionPane().okButton().click();
-    equipamento = EquipmentDAO.getInstance().searchForAll().get(index);
+    equipment = EquipmentDAO.getInstance().searchForAll().get(index);
 }
 
 }

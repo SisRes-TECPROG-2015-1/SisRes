@@ -3,8 +3,7 @@ package user_stories;
 import java.awt.Dimension;
 import java.sql.SQLException;
 
-import model.Aluno;
-import model.Sala;
+import model.Room;
 
 import org.fest.swing.core.BasicRobot;
 import org.fest.swing.core.Robot;
@@ -14,10 +13,9 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import persistence.StudentDAO;
 import persistence.ClassRoomDAO;
 import view.Main2;
-import exception.ClienteException;
+import exception.ClientException;
 import exception.PatrimonyException;
 
 /**
@@ -37,7 +35,7 @@ public class US08_ExcluirSala {
 
     private FrameFixture window;
     private Robot robot;
-    private Sala sala;
+    private Room sala;
     private DialogFixture dialog;
     private int index;
 
@@ -48,7 +46,7 @@ public class US08_ExcluirSala {
         window = new FrameFixture(robot, new Main2());
         window.show(new Dimension(900, 500)); // shows the frame to test
 
-        sala = new Sala("code", "Sala para testes de aceitacao", "123");
+        sala = new Room("code", "Sala para testes de aceitacao", "123");
         ClassRoomDAO.getInstance().includeARoom(sala);
 
         index = ClassRoomDAO.getInstance().searchAll().size() - 1;
@@ -73,10 +71,10 @@ public class US08_ExcluirSala {
 
     }
     @Test
-    public void testCenario1() throws SQLException, ClienteException{
+    public void testCenario1() throws SQLException, ClientException{
         dialog.table("tabelaPatrimonio").selectRows(index);
         dialog.button("Excluir").click();
-        dialog.optionPane().requireMessage("Deseja mesmo excluir Sala: " + sala.getDescricao() + "?");
+        dialog.optionPane().requireMessage("Deseja mesmo excluir Sala: " + sala.getDescription() + "?");
         sleep();
         dialog.optionPane().yesButton().click();
         sleep();
@@ -86,7 +84,7 @@ public class US08_ExcluirSala {
     }
     
     @Test
-    public void testCenario2() throws SQLException, ClienteException{
+    public void testCenario2() throws SQLException, ClientException{
         
         dialog.button("Excluir").click();
         dialog.optionPane().requireMessage("Selecione uma linha!");
