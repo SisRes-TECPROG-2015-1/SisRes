@@ -9,6 +9,9 @@ import java.util.Iterator;
 
 import javax.swing.JOptionPane;
 
+import model.Client;
+import model.Student;
+
 import view.alteracoes.AlterarAluno;
 import view.cadastros.CadastroAluno;
 import view.cadastros.CadastroCliente;
@@ -29,7 +32,7 @@ public class AlunoView extends ClienteView {
     /**
      *  This method obtains the iterator 
      */
-    public Iterator getIterator() {
+    public Iterator<Student> getIterator() {
         try {
             return MaintainStudent.getInstance().getStudents().iterator();
 
@@ -42,7 +45,7 @@ public class AlunoView extends ClienteView {
     }
 
     /**
-     *  This method is the action of the button that cadastres a new student to the room
+     *  This method is the action of the button that sets a new student to the room
      */
     @Override public void cadastrarAction() {
 

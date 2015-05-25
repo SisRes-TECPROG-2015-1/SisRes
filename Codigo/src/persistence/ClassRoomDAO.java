@@ -71,7 +71,7 @@ public class ClassRoomDAO {
 	 * @throws SQLException
 	 * @throws PatrimonyException
 	 */
-	public void alterar( Room oldRoom, Room newRoom ) throws SQLException,
+	public void modifyRoom( Room oldRoom, Room newRoom ) throws SQLException,
 			PatrimonyException {
 		if ( newRoom == null ) {
 			throw new PatrimonyException( NullClassRoom );
