@@ -31,7 +31,10 @@ public class MaintainEquipment {
 			logger.trace( "There is any instance of an equipment" );
 			instance = new MaintainEquipment();
 			logger.trace( "A new equipment is just instantiated" );
+		}else{
+			//do nothing
 		}
+		
 		return instance;
 	}
 
@@ -60,9 +63,13 @@ public class MaintainEquipment {
 	 * Changes an equipment's attributes
 	 */
 	public void changeEquipmentsAttributes(String code, String description, Equipment equipment) throws PatrimonyException, SQLException {
+		
 		if (equipment == null) {
 			throw new PatrimonyException("Equipamento em branco");
+		}else{
+			//do nothing
 		}
+		
 		Equipment old_equipment = new Equipment (equipment.getCode(), equipment.getDescription());
 		equipment.setCode(code);
 		equipment.setDescription(description);
@@ -78,9 +85,13 @@ public class MaintainEquipment {
 	 */
 	public void excludeEquipment(Equipment equipment) throws SQLException, PatrimonyException {
 		logger.trace( "Asking for an equipment exclusion");
+		
 		if (equipment == null) {
 			throw new PatrimonyException("Equipamento em branco");
+		}else{
+			//do nothing
 		}
+		
 		EquipmentDAO.getInstance().excludeEquipment(equipment);
 		getEquipments();
 	}

@@ -38,7 +38,10 @@ public class MaintainClassroomReservationByStudent {
 			logger.trace( "There is any classroom reserve for a student");
 			instance = new MaintainClassroomReservationByStudent();
 			logger.trace( "A new classroom reserve for a student is instantiated" );
+		}else{
+			//do nothing
 		}
+		
 		return instance;
 	}
 	

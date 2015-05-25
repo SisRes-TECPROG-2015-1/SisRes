@@ -77,7 +77,9 @@ public class StudentDAO {
 	public void modifyStudent( Student oldStudent, Student newStudent ) throws SQLException, ClientException {
 		if( oldStudent == null || newStudent == null ) {
 			throw new ClientException( nullStudent );
-		}
+		}else{
+        	//do nothing
+        }
 				
 		Connection con = FactoryConnection.getInstance().getConnection();
 		PreparedStatement pst;

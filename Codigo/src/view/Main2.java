@@ -216,6 +216,8 @@ import view.mainViews.SalaView;
                 if ("Nimbus".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
+                }else{
+                	//do nothing
                 }
             }
         } catch (ClassNotFoundException ex) {

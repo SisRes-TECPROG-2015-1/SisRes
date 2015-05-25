@@ -30,10 +30,14 @@ public class MaintainTeacher {
 	 * @return Vector - A teacher
 	 */
 	public static MaintainTeacher getInstance() {
-		if ( instance == null )
+		if ( instance == null ){
 			logger.trace( "There is any teacher." );
 			instance = new MaintainTeacher();
 			logger.trace( "A new teacher is just instantiated" );
+		}else{
+			//do nothing
+		}
+		
 		return instance;
 	}
 	

@@ -41,6 +41,8 @@ public class ReserveEquipmentTeacherDAO extends DAO {
 			logger.trace( "There is any instance of teacher equipment reserve DAO");
 			instance = new ReserveEquipmentTeacherDAO();
 			logger.trace( "A new teacher equipment reserve DAO is just instantiated" );
+		}else{
+			//do nothing
 		}
 		return instance;
 	}
@@ -155,8 +157,7 @@ public class ReserveEquipmentTeacherDAO extends DAO {
 		} else if ( this.equipamentoinReservaDB(teacherReserve.getEquipment(), teacherReserve.getDate(),
 				teacherReserve.getHour() ) ) {
 			throw new ReserveException( EQUIPAMENTO_INDISPONIVEL );
-		}
-		else if ( this.professorinReservaDB( teacherReserve.getProfessor(), teacherReserve.getDate(),
+		} else if ( this.professorinReservaDB( teacherReserve.getProfessor(), teacherReserve.getDate(),
 				teacherReserve.getHour() ) ) {
 			throw new ReserveException( RESERVA_EXISTENTE );
 		} else {
@@ -200,7 +201,10 @@ public class ReserveEquipmentTeacherDAO extends DAO {
 			} else {
 				super.updateQuery( this.update( oldReservation, newReservation ) );
 			}
+		}else{
+			//do nothing
 		}
+		
 	}
 
 	/**
@@ -245,6 +249,8 @@ public class ReserveEquipmentTeacherDAO extends DAO {
 			TeacherEquipmentReserve obj = it.next();
 			if ( Integer.parseInt( obj.getDate().split( "[./-]" )[1] ) != mes ) {
 				reservas_prof_mes.remove( obj );
+			}else{
+				//do nothing
 			}
 		}
 		return reservas_prof_mes;
@@ -257,10 +263,16 @@ public class ReserveEquipmentTeacherDAO extends DAO {
 		String hora_a = "", hora_b = "";
 		if ( hora.length() == 4 ) {
 			hora_a = "0" + hora;
+		}else{
+			//do nothing
 		}
+		
 		if ( hora.charAt( 0 ) == '0' ) {
 			hora_b = hora.substring( 1 );
+		}else{
+			//do nothing
 		}
+		
 		Vector<TeacherEquipmentReserve> searchSelect = super
 				.search( "SELECT * FROM reserva_equipamento_professor "
 						+ "INNER JOIN equipamento ON equipamento.id_equipamento = reserva_equipamento_professor.id_equipamento "

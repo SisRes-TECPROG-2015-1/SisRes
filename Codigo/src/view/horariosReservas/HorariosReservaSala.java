@@ -54,12 +54,16 @@ public class HorariosReservaSala extends HorariosReservaPatrimonio {
             StudentRoomReserve r = ( StudentRoomReserve ) o;
             if ( this.room != null && ( r.getRoom().equals( this.room ) ) ) {
                 addNamesInTableStudentReserve( index, nomesTabela, r );
+            }else{
+            	//do nothing
             }
         } else if ( o instanceof TeacherRoomReserve ) {
             TeacherRoomReserve r = ( TeacherRoomReserve ) o;
             if (this.room != null && ( r.getRoom().equals( this.room ) ) ) {
 
                 addNamesInTableTeacherReserve( index, nomesTabela, r );
+            }else{
+            	//do nothing
             }
         }
 
@@ -118,24 +122,32 @@ public class HorariosReservaSala extends HorariosReservaPatrimonio {
         try {
             Vector<?> v = instanceProf.getRoomByDate( this.data );
 
-            if ( v != null )
+            if ( v != null ){
                 for ( int i = 0; i < v.size(); i++ ) {
                     Vector<String> linha = fillDataVector( v.get(i), i );
                     if ( !linha.isEmpty() )
                         table.addRow( linha );
 
                 }
+            }else{
+            	//do nothing
+            }
+            
             v.clear();
 
             v = instanceAluno.getRoomReservesByDate( this.data );
-            if ( v != null )
+            
+            if ( v != null ){
                 for ( int i = 0; i < v.size(); i++ ) {
                     Vector<String> linha = fillDataVector( v.get(i), i );
-                    if ( !linha.isEmpty() )
+                    if ( !linha.isEmpty() ){
                         table.addRow( linha );
-
+                    }else{
+                    	//do nothing
+                    }
                 }
-
+            }
+            
         } catch ( SQLException ex) {
             Logger.getLogger( HorariosReservaPatrimonio.class.getName() ).log( Level.SEVERE, null, ex );
         } catch ( PatrimonyException ex ) {
@@ -182,6 +194,8 @@ public class HorariosReservaSala extends HorariosReservaPatrimonio {
                     this.instanceAluno.excludeRoom( instanceAluno.getRoomReservesByDate( data ).get( index ) );
                     JOptionPane.showMessageDialog( this, "Reserva excluida com sucesso", "Sucesso", JOptionPane.INFORMATION_MESSAGE,
                             null );
+                }else{
+                	//do nothing
                 }
             } else if ( tipoCliente.equals( "Professor" ) ) {
                 int confirm = JOptionPane.showConfirmDialog( this,
@@ -192,7 +206,11 @@ public class HorariosReservaSala extends HorariosReservaPatrimonio {
                     this.instanceProf.excludeReserve( instanceProf.getRoomByDate( data ).get( index ) );
                     JOptionPane.showMessageDialog( this, "Reserva excluida com sucesso", "Sucesso", JOptionPane.INFORMATION_MESSAGE,
                             null );
+                }else{
+                	//do nothing
                 }
+            }else{
+            	//do nothing
             }
 
         } catch ( SQLException ex ) {
@@ -233,7 +251,10 @@ public class HorariosReservaSala extends HorariosReservaPatrimonio {
             } else if ( tipoCliente.equals( "Professor") ) {
                 ReservaSalaView reserva = new AlterarReservaProfSalaView( new JFrame(), true, index, this.data );
                 reserva.setVisible( true );
+            }else{
+            	//do nothing
             }
+            
         } catch ( SQLException ex ) {
             JOptionPane.showMessageDialog( this, ex.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE, null );
         } catch ( PatrimonyException ex ) {

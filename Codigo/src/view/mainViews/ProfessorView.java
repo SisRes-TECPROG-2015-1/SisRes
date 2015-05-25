@@ -32,9 +32,9 @@ public class ProfessorView extends ClienteView {
     }
 
     /**
-     * This method obtains an interator
+     * This method obtains an iterator
      */
-    public Iterator<?> getIterator() {
+    public Iterator getIterator() {
         try {
             return MaintainTeacher.getInstance().getTeachers().iterator();
 
@@ -78,16 +78,22 @@ public class ProfessorView extends ClienteView {
             if ( index < 0 ) {
                 JOptionPane.showMessageDialog( this, "Selecione uma linha!", "Erro", JOptionPane.ERROR_MESSAGE, null );
                 return;
+            }else{
+            	//do nothing
             }
 
             int confirm = JOptionPane.showConfirmDialog( this, "Deseja mesmo excluir Professor: "
                     + MaintainTeacher.getInstance().getTeachers().get(index).getName() + "?", "Excluir",
                     JOptionPane.YES_NO_OPTION );
+            
             if ( confirm == JOptionPane.YES_OPTION ) {
                 MaintainTeacher.getInstance().excludeTeacher( MaintainTeacher.getInstance().getTeachers().get(index) );
                 JOptionPane.showMessageDialog( this, "Professor excluido com sucesso", "Sucesso", JOptionPane.INFORMATION_MESSAGE,
                         null );
+            }else{
+            	//do nothing
             }
+            
             this.tabelaCliente.setModel( fillTable() );
 
         } catch ( ClientException ex ) {

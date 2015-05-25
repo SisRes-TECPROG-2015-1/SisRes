@@ -11,7 +11,6 @@ import exception.PatrimonyException;
 import exception.ReserveException;
 
 public abstract class DAO {
-	//Esta classe nao sera testada diretamente.
 		
 	/**
 	 * The vector obtained in this method have to be converted into the
@@ -74,9 +73,8 @@ public abstract class DAO {
 	
 	
 	/**
-	 * Este metodo eh utilizado para Incluir e Excluir algum registro do
-	 * banco, dependendo da query.
-	 * */
+	 * This method is used to add and delete any record of the bank, depending on the query.
+	 */
 	protected void executeQuery( String msg ) throws SQLException {
 		Connection con =  FactoryConnection.getInstance().getConnection();
 		PreparedStatement pst = con.prepareStatement( msg );

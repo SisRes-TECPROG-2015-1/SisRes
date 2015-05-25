@@ -26,6 +26,8 @@ public class FactoryConnection {
 		public static FactoryConnection getInstance() {
 			if ( instance == null ) {
 				instance = new FactoryConnection();
+			}else{
+				//do nothing
 			}
 			return instance;
 		}

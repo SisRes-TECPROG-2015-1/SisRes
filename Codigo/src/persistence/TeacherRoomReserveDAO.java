@@ -222,10 +222,16 @@ public class TeacherRoomReserveDAO extends DAO {
 			throw new ReserveException( EXISTING_RESERV );
 		} else if ( isAStudentRoomReserve ) {
 			super.executeQuery( this.createDeleteClause( roomToReserve ) );
-		}
+		}else{
+        	//do nothing
+        }
+		
 		if ( isPassedDate ) {
 			throw new ReserveException( DATE_TIME_PASSED );
-		}
+		}else{
+        	//do nothing
+        }
+		
 		if ( isPassedHour ) {
 			if ( isPassedSeconds ) {
 				throw new ReserveException( HOUR_PASSED );
@@ -287,10 +293,16 @@ public class TeacherRoomReserveDAO extends DAO {
 			if ( isRoomReserve ) {
 				throw new ReserveException( UNAVAILABLE_ROOM );
 			}
-		}
+		}else{
+        	//do nothing
+        }
+		
 		if ( isPassedDate ) {
 			throw new ReserveException( DATE_TIME_PASSED );
-		}
+		}else{
+        	//do nothing
+        }
+		
 		if ( isPassedDateAndTime ) {
 			throw new ReserveException( HOUR_PASSED );
 		} else {
@@ -532,7 +544,9 @@ public class TeacherRoomReserveDAO extends DAO {
 		if ( Integer.parseInt( currentDate[ 2 ] ) > Integer
 				.parseInt( dateToCheck[ 2 ] ) ) {
 			return true;
-		}
+		}else{
+        	//do nothing
+        }
 
 		dif = currentDate[ 1 ].length() - dateToCheck[ 1 ].length();
 		dateToCheck[ 1 ] = currentDate[ 1 ].substring( 0, dif )
@@ -551,7 +565,10 @@ public class TeacherRoomReserveDAO extends DAO {
 					.parseInt( dateToCheck[ 0 ] ) ) {
 				return true;
 			}
-		}
+		}else{
+        	//do nothing
+        }
+		
 		return false;
 	}
 
@@ -569,8 +586,9 @@ public class TeacherRoomReserveDAO extends DAO {
 		if ( currentDate[ 0 ].equals( dateToCheck[ 0 ] ) && currentDate[ 1 ].equals( dateToCheck[ 1 ] )
 				&& currentDate[ 2 ].equals( dateToCheck[ 2 ] ) ) {
 			return true;
+		}else{
+        	return false;
 		}
-		return false;
 	}
 
 	

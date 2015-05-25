@@ -100,11 +100,14 @@ public class HorariosReservaEquipamento extends HorariosReservaPatrimonio {
             this.mes = Integer.parseInt( this.data.substring( 3, 5 ) );
 
             Vector<TeacherEquipmentReserve> v = instance.getClassroomReservesByMonth( mes );
-            if ( v != null )
+            if ( v != null ){
                 for ( int i = 0; i < v.size(); i++ ) {
                     table.addRow( fillDataVector( v.get( i ), i ) );
 
                 }
+	        }else{
+	        	//do nothing
+	        }
 
         } catch ( SQLException ex ) {
             Logger.getLogger( HorariosReservaPatrimonio.class.getName()).log( Level.SEVERE, null, ex );
@@ -141,6 +144,8 @@ public class HorariosReservaEquipamento extends HorariosReservaPatrimonio {
                 this.instance.excludeClassroomReserve( instance.getClassroomReservesByMonth( mes ).get( index ) );
                 JOptionPane.showMessageDialog( this, "Reserva excluida com sucesso", "Sucesso", JOptionPane.INFORMATION_MESSAGE,
                         null );
+            }else{
+            	//do nothing
             }
 
         } catch ( SQLException ex ) {

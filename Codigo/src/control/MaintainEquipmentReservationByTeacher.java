@@ -37,7 +37,10 @@ public class MaintainEquipmentReservationByTeacher {
         	logger.trace( "There is any instance of equipment reserve for a teacher");
             instance = new MaintainEquipmentReservationByTeacher();
             logger.trace( "A new equipment reserve for a teacher is just instantiated" );
-    	}
+    	}else{
+			//do nothing
+		}
+        
         return instance;
     }
 

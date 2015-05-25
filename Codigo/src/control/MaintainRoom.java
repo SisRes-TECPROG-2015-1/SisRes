@@ -33,7 +33,10 @@ public class MaintainRoom {
 			logger.trace( "There is any instance of classrom");
 			instance = new MaintainRoom();
 			logger.trace( "A new classroom is just instantiated" );
+		}else{
+			//do nothing
 		}
+		
 		return instance;
 	}
 	

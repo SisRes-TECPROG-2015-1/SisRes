@@ -206,10 +206,16 @@ public class StudentRoomReserveDAO extends DAO {
 				roomToReserve.getReservedChairs(), roomToReserve.getRoom(),
 				roomToReserve.getDate(), roomToReserve.getHour() ) ) {
 			throw new ReserveException( UNAVAILABLE_CHAIRS );
-		}
+		}else{
+        	//do nothing
+        }
+		
 		if ( this.checkPassedDate( roomToReserve.getDate() ) ) {
 			throw new ReserveException( DATE_TIME_PASSED );
-		}
+		}else{
+        	//do nothing
+        }
+		
 		if ( this.checkDateWithCurrent( roomToReserve.getDate() ) ) {
 			if ( this.checkHourHasPassed( roomToReserve.getHour() ) ) {
 				throw new ReserveException( HOUR_PASSED );
@@ -271,10 +277,16 @@ public class StudentRoomReserveDAO extends DAO {
 				newReserveRoomData.getRoom(), newReserveRoomData.getDate(),
 				newReserveRoomData.getHour() ) ) {
 			throw new ReserveException( UNAVAILABLE_CHAIRS );
-		}
+		}else{
+        	//do nothing
+        }
+		
 		if ( this.checkPassedDate( newReserveRoomData.getDate() ) ) {
 			throw new ReserveException( DATE_TIME_PASSED );
-		}
+		}else{
+        	//do nothing
+        }
+		
 		if ( this.checkHourHasPassed( newReserveRoomData.getHour() )
 				&& this.checkDateWithCurrent( newReserveRoomData.getDate() ) ) {
 			throw new ReserveException( HOUR_PASSED );
@@ -603,7 +615,9 @@ public class StudentRoomReserveDAO extends DAO {
 
 		if ( Integer.parseInt( currentDate[ 2 ] ) > Integer.parseInt( dateToCheck[ 2 ] ) ) {
 			return true;
-		}
+		}else{
+        	//do nothing
+        }
 
 		dif = currentDate[ 1 ].length() - dateToCheck[ 1 ].length();
 		dateToCheck[ 1 ] = currentDate[ 1 ].substring( 0, dif ) + dateToCheck[ 1 ];
@@ -617,7 +631,9 @@ public class StudentRoomReserveDAO extends DAO {
 
 			if ( Integer.parseInt( currentDate[ 0 ] ) > Integer.parseInt( dateToCheck[ 0 ] ) ) {
 				return true;
-			}
+			}else{
+            	//do nothing
+            }
 		}
 		return false;
 	}
@@ -635,7 +651,10 @@ public class StudentRoomReserveDAO extends DAO {
 		if ( currentDate[ 0 ].equals( dateToCheck[ 0 ] ) && currentDate[ 1 ].equals( dateToCheck[ 1 ] )
 				&& currentDate[ 2 ].equals( dateToCheck[ 2 ] ) ) {
 			return true;
-		}
+		}else{
+        	//do nothing
+        }
+		
 		return false;
 	}
 
@@ -652,7 +671,9 @@ public class StudentRoomReserveDAO extends DAO {
 		
 		if(hasLengthFour == true){
 			givenHour = "0" + givenHour;
-		}
+		}else{
+        	//do nothing
+        }
 		
 		int currentHourFirstAlgarisms = Integer.parseInt( currentHour.substring( 0, 2 ));
 		int givenHourFirstAlgarisms = Integer.parseInt( givenHour.substring( 0, 2 ));
@@ -713,7 +734,10 @@ public class StudentRoomReserveDAO extends DAO {
 		boolean isStandardized = (givenHour.length() == 4) ;
 		if (isStandardized == true){
 			return "0" + givenHour;
-		}
+		}else{
+        	//do nothing
+        }
+		
 		return givenHour;
 	}
 

@@ -33,6 +33,8 @@ public class MaintainStudent {
 			logger.trace( "There is any instance of student"); 
 			instance = new MaintainStudent();
 			logger.trace( "A new student is just instantiated" );
+		}else{
+			//do nothing
 		}
 		return instance;
 	}

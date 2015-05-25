@@ -31,6 +31,8 @@ public class EquipamentoView extends PatrimonioView {
 
         if ( equipamento == null ) {
             return null;
+        }else{
+        	//do nothing
         }
 
         Vector<String> nomesTabela = new Vector<String>();
@@ -102,7 +104,10 @@ public class EquipamentoView extends PatrimonioView {
                 MaintainEquipment.getInstance().excludeEquipment( MaintainEquipment.getInstance().getEquipments().get(index) );
                 JOptionPane.showMessageDialog( this, "Equipamento excluido com sucesso", "Sucesso", JOptionPane.INFORMATION_MESSAGE,
                         null );
+            }else{
+            	//do nothing
             }
+            
             this.tabelaPatrimonio.setModel( fillTable() );
 
         } catch ( PatrimonyException ex ) {

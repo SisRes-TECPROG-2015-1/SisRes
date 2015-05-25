@@ -32,7 +32,7 @@ public class AlunoView extends ClienteView {
     /**
      *  This method obtains the iterator 
      */
-    public Iterator<Student> getIterator() {
+    public Iterator getIterator() {
         try {
             return MaintainStudent.getInstance().getStudents().iterator();
 
@@ -76,6 +76,8 @@ public class AlunoView extends ClienteView {
             if ( index < 0 ) {
                 JOptionPane.showMessageDialog(this, "Selecione uma linha!", "Erro", JOptionPane.ERROR_MESSAGE, null);
                 return;
+            }else{
+            	//do nothing
             }
 
             int confirm = JOptionPane.showConfirmDialog( this, "Deseja mesmo excluir Aluno: "
@@ -83,6 +85,8 @@ public class AlunoView extends ClienteView {
             if (confirm == JOptionPane.YES_OPTION ) {
                 MaintainStudent.getInstance().excludeStudent( MaintainStudent.getInstance().getStudents().get(index) );
                 JOptionPane.showMessageDialog( this, "Aluno excluido com sucesso", "Sucesso", JOptionPane.INFORMATION_MESSAGE, null );
+            }else{
+            	//do nothing
             }
             this.tabelaCliente.setModel( fillTable() );
 

@@ -127,7 +127,10 @@ public class SalaView extends PatrimonioView {
             if ( confirm == JOptionPane.YES_OPTION ) {
                 MaintainRoom.getInstance().excludeRoom( MaintainRoom.getInstance().getRooms().get( index) );
                 JOptionPane.showMessageDialog(this, "Sala excluida com sucesso", "Sucesso", JOptionPane.INFORMATION_MESSAGE, null );
+            }else{
+            	//do nothing
             }
+            
             this.tabelaPatrimonio.setModel( fillTable() );
 
         } catch ( PatrimonyException ex ) {

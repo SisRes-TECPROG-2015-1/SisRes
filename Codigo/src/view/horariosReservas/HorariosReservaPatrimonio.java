@@ -195,7 +195,10 @@ public abstract class HorariosReservaPatrimonio extends javax.swing.JDialog {
         if ( indexLinha < 0 ) {
             JOptionPane.showMessageDialog( this, "Selecione uma linha!", "Erro", JOptionPane.ERROR_MESSAGE, null );
             return;
+        }else{
+        	//do nothing
         }
+        
         cancelarReservaAction( indexLinha );
         this.reservasTable.setModel( fillTable( this.p ) );
     }// GEN-LAST:event_cancelarReservaButtonActionPerformed
@@ -213,7 +216,10 @@ public abstract class HorariosReservaPatrimonio extends javax.swing.JDialog {
         if ( indexLinha < 0 ) {
             JOptionPane.showMessageDialog( this, "Selecione uma linha!", "Erro", JOptionPane.ERROR_MESSAGE, null );
             return;
+        }else{
+        	//do nothing
         }
+        
         alterarAction( indexLinha );
         this.reservasTable.setModel( fillTable( this.p ) );
     }// GEN-LAST:event_alterarButtonActionPerformed

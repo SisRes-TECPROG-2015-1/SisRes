@@ -35,7 +35,10 @@ public class EquipmentDAO {
     public static EquipmentDAO getInstance() {
         if ( instance == null ) {
             instance = new EquipmentDAO();
-        }
+        }else{
+			//do nothing
+		}
+        
         return instance;
     }
 
@@ -56,7 +59,9 @@ public class EquipmentDAO {
             this.updateQuery( "INSERT INTO " + "equipamento ( codigo, descricao ) VALUES ( " + "\"" + equipment.getCode() + "\", "
                     + "\"" + equipment.getDescription() + "\" );" );
             logger.trace( "New equipment has been saved." );
-        }
+        }else{
+			//do nothing
+		}
     }
     
     /**
@@ -75,7 +80,9 @@ public class EquipmentDAO {
     public void modifyEquipment( Equipment old_equipment, Equipment new_equipment ) throws SQLException, PatrimonyException {
         if ( old_equipment == null || new_equipment == null) {
             throw new PatrimonyException( nullEquipment );
-        }
+        }else{
+			//do nothing
+		}
 
         Connection con = FactoryConnection.getInstance().getConnection();
         PreparedStatement pst;
@@ -239,7 +246,7 @@ public class EquipmentDAO {
 
     /**
      * Captures the next equipment resulted of the query made before 
-     * @return Equipamento -  Equipment
+     * @return Equipment -  equipment
      */
     private Equipment fetchEquipamento( ResultSet rs ) throws PatrimonyException, SQLException {
     	Equipment equipment = new Equipment( rs.getString( "codigo" ), rs.getString( "descricao" ) );

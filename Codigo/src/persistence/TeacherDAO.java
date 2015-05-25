@@ -38,7 +38,10 @@ public class TeacherDAO {
 	public static TeacherDAO getInstance() {
 		if ( instance == null ) {
 			instance = new TeacherDAO();
-		}
+		}else{
+        	//do nothing
+        }
+		
 		return instance;
 	}
 
@@ -57,7 +60,9 @@ public class TeacherDAO {
 			throw new ClientException( existentCPF );
 		} else if ( this.inDBMatricula( teacher.getRegistration() ) ) {
 			throw new ClientException( existentRegistration );
-		}
+		}else{
+        	//do nothing
+        }
 		
 		logger.trace( "Saving new teacher." );
 		this.updateQuery( "INSERT INTO "
@@ -87,11 +92,13 @@ public class TeacherDAO {
 
 		if ( !this.inDB( oldTeacher ) ) {
 			throw new ClientException( notExistentTeacher );
-		}
+		}else{
+        	//do nothing
+        }
+		
 		if ( this.inOtherDB( oldTeacher ) ) {
 			throw new ClientException( classroomInUseByTeacher );
-		}
-		else if ( !oldTeacher.getCpf().equals( newTeacher.getCpf() ) 
+		}else if ( !oldTeacher.getCpf().equals( newTeacher.getCpf() ) 
 				&& this.inDBCpf( newTeacher.getCpf() ) ) {
 			throw new ClientException( existentCPF );
 		} else if ( !oldTeacher.getRegistration().equals( newTeacher.getRegistration() )
@@ -130,9 +137,13 @@ public class TeacherDAO {
 	 * @throws ClienteException
 	 */
 	public void excludeATeacher( Teacher teacher ) throws SQLException, ClientException {
+		
 		if ( teacher == null ) {
 			throw new ClientException(nullTeacher);
-		}
+		}else{
+        	//do nothing
+        }
+		
 		if ( this.inOtherDB( teacher ) ) {
 			throw new ClientException( classroomInUseByTeacher );
 		} else if ( this.inDB( teacher ) ) {
@@ -328,8 +339,12 @@ public class TeacherDAO {
 					+ "\" and " + "professor.matricula = \""
 					+ prof.getRegistration() + "\");" ) == false ) {
 				return false;
-			}
-		}
+			}else{
+            	//do nothing
+            }
+		}else{
+        	//do nothing
+        }
 
 		return true;
 	}

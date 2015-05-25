@@ -37,6 +37,8 @@ public class ClassRoomDAO {
 	public static ClassRoomDAO getInstance() {
 		if ( instance == null ) {
 			instance = new ClassRoomDAO();
+		}else{
+			//do nothing
 		}
 		return instance;
 	}
@@ -75,9 +77,14 @@ public class ClassRoomDAO {
 			PatrimonyException {
 		if ( newRoom == null ) {
 			throw new PatrimonyException( NullClassRoom );
+		}else{
+			//do nothing
 		}
+		
 		if ( oldRoom == null ) {
 			throw new PatrimonyException( NullClassRoom );
+		}else{
+			//do nothing
 		}
 
 		Connection con = FactoryConnection.getInstance().getConnection();
@@ -268,7 +275,11 @@ public class ClassRoomDAO {
 					+ "sala.descricao = \"" + classRoom.getDescription() + "\" and "
 					+ "sala.capacidade = " + classRoom.getCapacity() + " );" ) == false ) {
 				return false;
+			} else{
+				//do nothing
 			}
+		} else{
+			//do nothing
 		}
 
 		return true;
@@ -277,7 +288,7 @@ public class ClassRoomDAO {
 	/**
 	 * This method puts the result of the search of a room into an object
 	 * @param resultSetObject: object get the database information
-	 * @return: Sala object
+	 * @return: Room object
 	 * @throws PatrimonyException
 	 * @throws SQLException
 	 */

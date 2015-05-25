@@ -33,7 +33,10 @@ public class CadastroAluno extends CadastroCliente {
                         null );
 
                 this.setVisible( false );
+            }else{
+            	//do nothing
             }
+            
         } catch ( ClientException ex ) {
             JOptionPane.showMessageDialog( this, ex.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE, null );
         } catch ( SQLException ex ) {
