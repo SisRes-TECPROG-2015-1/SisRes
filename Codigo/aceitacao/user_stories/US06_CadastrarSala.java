@@ -3,7 +3,7 @@ package user_stories;
 import java.awt.Dimension;
 import java.sql.SQLException;
 
-import model.Sala;
+import model.Room;
 
 import org.fest.swing.core.BasicRobot;
 import org.fest.swing.core.Robot;
@@ -42,7 +42,7 @@ public class US06_CadastrarSala {
 
     private FrameFixture window;
     private Robot robot;
-    private Sala sala;
+    private Room sala;
     private DialogFixture dialog;
     private int index;
 
@@ -96,7 +96,7 @@ public class US06_CadastrarSala {
 
     @Test public void testCenario2() throws SQLException, PatrimonyException {
 
-        sala = new Sala("code","Sala para testes de aceitacao","123");
+        sala = new Room("code","Sala para testes de aceitacao","123");
         ClassRoomDAO.getInstance().includeARoom(sala);
 
         dialog.button("Cadastrar").click();

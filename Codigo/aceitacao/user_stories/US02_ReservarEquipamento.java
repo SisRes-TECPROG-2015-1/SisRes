@@ -3,7 +3,7 @@ package user_stories;
 import java.awt.Dimension;
 import java.sql.SQLException;
 
-import model.Equipamento;
+import model.Equipment;
 
 import org.fest.swing.core.BasicRobot;
 import org.fest.swing.core.Robot;
@@ -42,7 +42,7 @@ import exception.PatrimonyException;
 public class US02_ReservarEquipamento {
     private FrameFixture window;
     private Robot robot;
-    private Equipamento equipamento;
+    private Equipment equipment;
     private DialogFixture dialog;
     private int index;
 
@@ -54,8 +54,8 @@ public class US02_ReservarEquipamento {
         window = new FrameFixture(robot, new Main2());
         window.show(new Dimension(900, 500)); // shows the frame to test
 
-        equipamento = new Equipamento("code", "Equipamento para testes de aceitacao");
-        EquipmentDAO.getInstance().includeReserve(equipamento);
+        equipment = new Equipment("code", "Equipamento para testes de aceitacao");
+        EquipmentDAO.getInstance().includeEquipment( equipment );
 
         index = EquipmentDAO.getInstance().searchForAll().size() - 1;
 
@@ -65,8 +65,9 @@ public class US02_ReservarEquipamento {
     }
 
     @After public void tearDown() throws SQLException, PatrimonyException {
-        if (equipamento != null)
-            EquipmentDAO.getInstance().excludeRoom(equipamento);
+        if (equipment != null)
+            EquipmentDAO.getInstance().excludeEquipment( equipment );
+           
         window.cleanUp();
     }
 
