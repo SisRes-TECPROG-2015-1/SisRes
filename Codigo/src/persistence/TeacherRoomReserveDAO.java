@@ -6,7 +6,6 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Vector;
 
-import model.StudentRoomReserve;
 import model.Teacher;
 import model.TeacherRoomReserve;
 import model.Room;
@@ -189,6 +188,7 @@ public class TeacherRoomReserveDAO extends DAO {
 	 * @throws ReserveException
 	 * @throws SQLException
 	 */
+	@SuppressWarnings("unused")
 	public void saveNewTeacherRoomReserve( TeacherRoomReserve roomToReserve )
 			throws ReserveException, SQLException {
 		
@@ -275,11 +275,7 @@ public class TeacherRoomReserveDAO extends DAO {
 		
 		boolean isPassedDateAndTime = ( ( isPassedHour ) && ( isPassedDateWithCurrent ) );
 		
-		if ( alreadyReservedRoom == null ) {
-			throw new ReserveException( NULL_TERM );
-		} else if ( newReserveRoomData == null ) {
-			throw new ReserveException( NULL_TERM );
-		} else if ( isTeacherRoomReserve == false ) {
+		if ( isTeacherRoomReserve == false ) {
 			throw new ReserveException( ABSENT_RESERVE );
 		} else if ( isAReserveInTheGivenDay ) {
 			throw new ReserveException( EXISTING_RESERV );
@@ -327,7 +323,7 @@ public class TeacherRoomReserveDAO extends DAO {
 
 	@SuppressWarnings("unchecked")
 	/**
-	 * Function to get all the teacheres reserved rooms from database
+	 * Function to get all the teachers reserved rooms from database
 	 * 
 	 * @return Vector<TeacherRoomReserve> - Reserves
 	 * @throws SQLException

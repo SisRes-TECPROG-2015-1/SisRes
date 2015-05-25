@@ -1,8 +1,6 @@
 package persistence;
 
 import model.Room;
-import model.Teacher;
-
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -73,7 +71,7 @@ public class ClassRoomDAO {
 	 * @throws SQLException
 	 * @throws PatrimonyException
 	 */
-	public void modifyRoom( Room oldRoom, Room newRoom ) throws SQLException,
+	public void alterar( Room oldRoom, Room newRoom ) throws SQLException,
 			PatrimonyException {
 		if ( newRoom == null ) {
 			throw new PatrimonyException( NullClassRoom );

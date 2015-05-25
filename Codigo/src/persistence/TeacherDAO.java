@@ -1,6 +1,5 @@
 package persistence;
 
-import model.Equipment;
 import model.Teacher;
 
 import java.sql.*;

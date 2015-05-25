@@ -13,8 +13,10 @@ import exception.PatrimonyException;
  * @author Parley
  */
 public class AlterarEquipamento extends CadastroPatrimonio {
-
-    private int index2 = 0;
+    
+	private static final long serialVersionUID = 5154835153930983108L;
+	
+	private int index2 = 0;
 
     public AlterarEquipamento( java.awt.Frame parent, boolean modal, int index ) {
         super(parent, modal);

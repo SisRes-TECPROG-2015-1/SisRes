@@ -18,7 +18,10 @@ import exception.ClientException;
  */
 public class AlterarAluno extends CadastroCliente {
 
-    int index2 = 0;
+    
+	private static final long serialVersionUID = 1269596966446202752L;
+	
+	int index2 = 0;
 
     //Constructor
     public AlterarAluno( java.awt.Frame parent, boolean modal, int index ) {

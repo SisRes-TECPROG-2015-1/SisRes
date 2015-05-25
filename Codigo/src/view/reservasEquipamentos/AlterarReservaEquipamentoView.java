@@ -20,8 +20,10 @@ import exception.ReserveException;
  * @author Parley
  */
 public class AlterarReservaEquipamentoView extends ReservaEquipamentoView {
-
-    int index;
+	
+	private static final long serialVersionUID = 1L;
+	
+	int index;
     TeacherEquipmentReserve reserva;
 
     private void resetComponents() {

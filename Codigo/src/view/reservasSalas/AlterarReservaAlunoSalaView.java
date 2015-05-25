@@ -21,8 +21,10 @@ import exception.ReserveException;
  * @author Parley
  */
 public class AlterarReservaAlunoSalaView extends ReservaSalaView {
-
-    int index;
+   
+	private static final long serialVersionUID = 4754926486498567281L;
+	
+	int index;
     StudentRoomReserve reservaAluno;
     TeacherRoomReserve reservaProfessor;
 

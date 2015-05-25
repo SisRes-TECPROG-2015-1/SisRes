@@ -17,8 +17,10 @@ import exception.ClientException;
  * @author Parley
  */
 public class AlterarProfessor extends CadastroCliente {
-
-    int index2 = 0;
+	
+	private static final long serialVersionUID = 2631700585396893224L;
+	
+	int index2 = 0;
 
     public AlterarProfessor(java.awt.Frame parent, boolean modal, int index) {
         super(parent, modal);

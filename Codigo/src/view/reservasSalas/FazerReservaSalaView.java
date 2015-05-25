@@ -6,7 +6,6 @@ package view.reservasSalas;
 
 import java.awt.Color;
 import java.awt.Frame;
-import java.awt.event.ActionEvent;
 import java.sql.SQLException;
 
 import javax.swing.JOptionPane;
@@ -23,8 +22,10 @@ import exception.ReserveException;
  * @author Parley
  */
 public class FazerReservaSalaView extends ReservaSalaView {
+	
+	private static final long serialVersionUID = -2889898476742801545L;
 
-    public FazerReservaSalaView( Frame parent, boolean modal, Room sala, String data ) throws SQLException, PatrimonyException,
+	public FazerReservaSalaView( Frame parent, boolean modal, Room sala, String data ) throws SQLException, PatrimonyException,
             PatrimonyException, ClientException, ReserveException {
         super( parent, modal );
         this.classRoom = sala;
