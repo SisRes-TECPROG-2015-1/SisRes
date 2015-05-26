@@ -14,6 +14,10 @@ public abstract class CadastroCliente extends javax.swing.JDialog {// implements
                                                                    // {
 
     /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	/**
      * Creates new form CadastroCliente
      */
     public CadastroCliente( java.awt.Frame parent, boolean modal ) {

@@ -17,7 +17,12 @@ import exception.ClientException;
  */
 public class CadastroAluno extends CadastroCliente {
 
-    public CadastroAluno( java.awt.Frame parent, boolean modal ) {
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	public CadastroAluno( java.awt.Frame parent, boolean modal ) {
         super( parent, modal );
         this.setName( "CadastroAluno" );
     }

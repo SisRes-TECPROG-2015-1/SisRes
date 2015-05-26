@@ -17,7 +17,12 @@ import exception.PatrimonyException;
  */
 public class CadastroEquipamento extends CadastroPatrimonio {
 
-    public CadastroEquipamento( java.awt.Frame parent, boolean modal ) {
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	public CadastroEquipamento( java.awt.Frame parent, boolean modal ) {
         super( parent, modal );
         this.setName( "CadastroEquipamento" );
         this.capacidadeLbl.setVisible( false );

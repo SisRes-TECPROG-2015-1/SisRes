@@ -17,7 +17,12 @@ import exception.PatrimonyException;
  */
 public class CadastroSala extends CadastroPatrimonio {
 
-    public CadastroSala(java.awt.Frame parent, boolean modal) {
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	public CadastroSala(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         this.setName("CadastroSala");
     }
