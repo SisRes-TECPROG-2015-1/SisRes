@@ -21,7 +21,11 @@ import exception.ReserveException;
  */
 public class AlterarReservaProfSalaView extends ReservaSalaView {
 
-    int index;
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	int index;
     TeacherRoomReserve reservaProfessor;
 
     private void resetComponents() {

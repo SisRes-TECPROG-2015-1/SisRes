@@ -20,7 +20,11 @@ import exception.ReserveException;
  */
 public class FazerReservaEquipamentoView extends ReservaEquipamentoView {
 
-    Equipment equipamento;
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	Equipment equipamento;
 
     public FazerReservaEquipamentoView( Frame parent, boolean modal, Equipment e, String data ) throws SQLException,
             PatrimonyException, PatrimonyException, ClientException, ReserveException {
