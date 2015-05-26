@@ -20,7 +20,11 @@ import exception.PatrimonyException;
  */
 public class DiaReservaSala extends DiaReservaPatrimonio {
 
-    Room classRoom;
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	Room classRoom;
 
     public DiaReservaSala( Frame parent, boolean modal, int indexSala ) throws SQLException, PatrimonyException {
         super( parent, modal );
