@@ -18,7 +18,11 @@ import exception.PatrimonyException;
  */
 public class AlterarSala extends CadastroPatrimonio {
 
-    private int index2 = 0;
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	private int index2 = 0;
 
     public AlterarSala( java.awt.Frame parent, boolean modal, int index ) {
         super( parent, modal );
