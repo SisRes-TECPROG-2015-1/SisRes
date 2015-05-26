@@ -9,9 +9,6 @@ import java.util.Iterator;
 
 import javax.swing.JOptionPane;
 
-import model.Client;
-import model.Student;
-
 import view.alteracoes.AlterarAluno;
 import view.cadastros.CadastroAluno;
 import view.cadastros.CadastroCliente;
@@ -24,7 +21,12 @@ import exception.ClientException;
  */
 public class AlunoView extends ClienteView {
 
-    public AlunoView( java.awt.Frame parent, boolean modal ) {
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	public AlunoView( java.awt.Frame parent, boolean modal ) {
         super( parent, modal );
         this.setName( "AlunoView" );
     }

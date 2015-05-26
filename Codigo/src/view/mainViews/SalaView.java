@@ -25,7 +25,12 @@ import exception.PatrimonyException;
  */
 public class SalaView extends PatrimonioView {
 
-    public SalaView( java.awt.Frame parent, boolean modal ) {
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	public SalaView( java.awt.Frame parent, boolean modal ) {
         super( parent, modal );
         pesquisarLbl.setText( "Digite a sala desejada: " );
         this.setName( "SalaView" );
