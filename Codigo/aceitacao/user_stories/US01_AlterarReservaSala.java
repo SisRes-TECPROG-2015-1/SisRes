@@ -68,7 +68,7 @@ public class US01_AlterarReservaSala {
         dataAtual();
                 
         index = ClassRoomDAO.getInstance().searchAll().size() - 1;
-        indexReserva = TeacherRoomReserveDAO.getInstance().getTeacherReservedRoomsByDay(data).size() - 1;
+        setIndexReserva( TeacherRoomReserveDAO.getInstance().getTeacherReservedRoomsByDay(data).size() - 1 );
 
         StudentDAO.getInstance().includeNewStudent(student);
 
@@ -126,6 +126,14 @@ public class US01_AlterarReservaSala {
         fazerReservaSalaView.optionPane().okButton().click();
 
     }
+
+	public int getIndexReserva() {
+		return indexReserva;
+	}
+
+	public void setIndexReserva( int indexReserva ) {
+		this.indexReserva = indexReserva;
+	}
 
 
 }
