@@ -18,7 +18,9 @@ import exception.PatrimonyException;
  */
 public class AlterarSala extends CadastroPatrimonio {
 
-    private int index2 = 0;
+    
+	private static final long serialVersionUID = 1L;
+	private int index2 = 0;
 
     public AlterarSala( java.awt.Frame parent, boolean modal, int index ) {
         super( parent, modal );
@@ -45,7 +47,9 @@ public class AlterarSala extends CadastroPatrimonio {
 
     }
 
-    // This method is the action to the cadastre button
+    /**
+     * This method is the action of the cadastre button
+     */
     @Override protected void cadastroAction() {
         try {
 

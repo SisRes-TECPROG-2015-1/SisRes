@@ -21,7 +21,11 @@ import exception.PatrimonyException;
  */
 public class DiaReservaEquipamento extends DiaReservaPatrimonio {
 
-    Equipment equipment;
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	Equipment equipment;
 
     public DiaReservaEquipamento( Frame parent, boolean modal, int indexEquipamento ) throws SQLException, PatrimonyException {
         super( parent, modal );
