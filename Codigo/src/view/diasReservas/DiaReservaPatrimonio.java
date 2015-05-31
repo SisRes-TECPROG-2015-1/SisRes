@@ -5,11 +5,7 @@ package view.diasReservas;
  * @author Parley
  */
 public abstract class DiaReservaPatrimonio extends javax.swing.JDialog {
-    /**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
-	public DiaReservaPatrimonio( java.awt.Frame parent, boolean modal ) {
+    public DiaReservaPatrimonio( java.awt.Frame parent, boolean modal ) {
         super( parent, modal );
         initComponents();
     }
@@ -17,7 +13,8 @@ public abstract class DiaReservaPatrimonio extends javax.swing.JDialog {
     // This method sets the action visible to the user
     protected abstract void visualizarAction(String data);
 
-    
+    @SuppressWarnings( "unchecked" )// <editor-fold defaultstate="collapsed"
+                                  // desc="Generated Code">//GEN-BEGIN:initComponents
     
     // This method initialize the swing components
     private void initComponents() {
