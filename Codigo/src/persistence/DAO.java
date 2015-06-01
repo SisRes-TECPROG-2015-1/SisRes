@@ -11,37 +11,39 @@ import exception.PatrimonyException;
 import exception.ReserveException;
 
 public abstract class DAO {
-		
+
 	/**
-	 * The vector obtained in this method have to be converted into the
-	 * vector of the type will be used.
-	 * @throws ClientException 
+	 * The vector obtained in this method have to be converted into the vector
+	 * of the type will be used.
+	 * 
+	 * @throws ClientException
 	 * */
 
-	@SuppressWarnings( { "rawtypes", "unchecked" } )
-	protected Vector search(String query) throws SQLException, ClientException, 
-													PatrimonyException, ReserveException, ClientException {
+	@SuppressWarnings({ "rawtypes", "unchecked" })
+	protected Vector search( String query ) throws SQLException,
+			ClientException, PatrimonyException, ReserveException,
+			ClientException {
 		Vector vet = new Vector();
-		
-		Connection con =  FactoryConnection.getInstance().getConnection();
-		
+
+		Connection con = FactoryConnection.getInstance().getConnection();
+
 		PreparedStatement pst = con.prepareStatement( query );
 		ResultSet rs = pst.executeQuery();
-		
+
 		while ( rs.next() ) {
 			vet.add( this.fetch( rs ) );
 		}
-		
+
 		pst.close();
 		rs.close();
 		con.close();
 		return vet;
 	}
-	
-	
-	//Metodo privado para checar se o registro esta no banco.
+
+	// Metodo privado para checar se o registro esta no banco.
 	/**
 	 * This method checks if there is a register into the database
+	 * 
 	 * @param query
 	 * @return
 	 * @throws SQLException
@@ -50,7 +52,7 @@ public abstract class DAO {
 		Connection con = FactoryConnection.getInstance().getConnection();
 		PreparedStatement pst = con.prepareStatement( query );
 		ResultSet rs = pst.executeQuery();
-		
+
 		if ( rs.next() ) {
 			rs.close();
 			pst.close();
@@ -66,31 +68,33 @@ public abstract class DAO {
 
 	/**
 	 * Function used into search method, implemented into others DAO class
-	 * @throws ClientException 
+	 * 
+	 * @throws ClientException
 	 * */
-	protected abstract Object fetch( ResultSet rs ) throws SQLException, ClientException,
-														PatrimonyException, ReserveException, ClientException;
-	
-	
+	protected abstract Object fetch( ResultSet rs ) throws SQLException,
+			ClientException, PatrimonyException, ReserveException,
+			ClientException;
+
 	/**
-	 * This method is used to add and delete any record of the bank, depending on the query.
+	 * This method is used to add and delete any record of the bank, depending
+	 * on the query.
 	 */
 	protected void executeQuery( String msg ) throws SQLException {
-		Connection con =  FactoryConnection.getInstance().getConnection();
+		Connection con = FactoryConnection.getInstance().getConnection();
 		PreparedStatement pst = con.prepareStatement( msg );
-		pst.executeUpdate();		
+		pst.executeUpdate();
 		pst.close();
 		con.close();
 	}
-	
-	
+
 	/**
 	 * This method is used to update a query into the database
+	 * 
 	 * @param msg
 	 * @throws SQLException
 	 */
 	protected void updateQuery( String msg ) throws SQLException {
-		Connection con =  FactoryConnection.getInstance().getConnection();
+		Connection con = FactoryConnection.getInstance().getConnection();
 		con.setAutoCommit( false );
 		PreparedStatement pst = con.prepareStatement( msg );
 		pst.executeUpdate();
