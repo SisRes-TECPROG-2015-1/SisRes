@@ -149,7 +149,11 @@ public class AlunoTest {
 	public void testEmailNulo() throws ClientException {
 		new Student("Nome", "040.757.021-70", "123456", "9999-9999", null);
 	}
-
+	@Test 
+	public void testToString() throws ClientException{
+		Student student = new Student("Nome", "040.757.021-70", "123456", "9999-9999", "Nome@email");
+		assertNotNull(student.toString());
+	}
 	
 	
 	@Test
