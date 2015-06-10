@@ -101,11 +101,21 @@ public class StudentRoomReserve extends RoomReserve {
 		
 		if ( chairs_control.equals( "" ) ) { 
 			launchException( BLANK_CHAIRS );
-		} else {		
+		} else {	
+			try{
+				Integer value_control = new Integer(chairs_control);
+				value_control.toString();
+			}
+			catch(NumberFormatException nfe){
+				launchException( INVALID_CHAIRS );
+			}
 			boolean hasCapacity = roomHasCapacity( chairs_control );
 			if ( hasCapacity == true){
 				this.reserved_chairs = reserved_chairs;
-			} else launchException( INVALID_CHAIRS );
+				
+			} else {				
+				launchException( INVALID_CHAIRS );
+			}
 		}
 	}
 
