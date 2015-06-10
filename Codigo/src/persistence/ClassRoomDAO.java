@@ -14,31 +14,31 @@ import exception.PatrimonyException;
 
 public class ClassRoomDAO {
 
-	private static final String classRoomAlreadyExisted = "Sala ja cadastrada."; // Attribute
+	private static final String classRoomAlreadyExisted = "room ja cadastrada."; // Attribute
 																					// indicates
 																					// if
 																					// the
 																					// room
 																					// already
 																					// exists
-	private static final String classRoomDoesntExist = "Sala nao cadastrada."; // Attribute
+	private static final String classRoomDoesntExist = "room nao cadastrada."; // Attribute
 																				// indicates
 																				// if
 																				// the
 																				// room
 																				// doesnt
 																				// exists
-	private static final String classRoomInUse = "Sala esta sendo utilizada em uma reserva."; // Indicates
+	private static final String classRoomInUse = "room esta sendo utilizada em uma reserva."; // Indicates
 																								// if
 																								// the
 																								// room
 																								// is
 																								// in
 																								// use
-	private static final String NullClassRoom = "Sala esta nula."; // Indicates
+	private static final String NullClassRoom = "room esta nula."; // Indicates
 																	// the room
 																	// is null
-	private static final String CodeAlreadyExist = "Sala com o mesmo codigo ja cadastrada."; // Indicates
+	private static final String CodeAlreadyExist = "room com o mesmo code ja cadastrada."; // Indicates
 																								// a
 																								// room
 																								// with
@@ -60,9 +60,9 @@ public class ClassRoomDAO {
 	}
 
 	/**
-	 * Instantiates a SalaDAO if there is no instance of it.
+	 * Instantiates a roomDAO if there is no instance of it.
 	 * 
-	 * @return SalaDAO - Classroom
+	 * @return roomDAO - Classroom
 	 */
 	public static ClassRoomDAO getInstance() {
 		if ( instance == null ) {
@@ -85,13 +85,13 @@ public class ClassRoomDAO {
 			PatrimonyException {
 		if ( classroom == null ) {
 			throw new PatrimonyException( NullClassRoom );
-		} else if ( this.inDBCodigo( classroom.getCode() ) ) {
+		} else if ( this.inDBcode( classroom.getCode() ) ) {
 			throw new PatrimonyException( CodeAlreadyExist );
 		}
 
 		logger.trace( "Saving new classroom." );
 		this.updateQuery( "INSERT INTO "
-				+ "sala (codigo, descricao, capacidade) VALUES (" + "\""
+				+ "room (code, description, capacity) VALUES (" + "\""
 				+ classroom.getCode() + "\", " + "\""
 				+ classroom.getDescription() + "\", " + classroom.getCapacity()
 				+ ");" );
@@ -115,7 +115,6 @@ public class ClassRoomDAO {
 		} else {
 			// do nothing
 		}
-
 		if ( oldRoom == null ) {
 			throw new PatrimonyException( NullClassRoom );
 		} else {
@@ -130,18 +129,18 @@ public class ClassRoomDAO {
 		} else if ( this.inOtherDB( oldRoom ) ) {
 			throw new PatrimonyException( classRoomInUse );
 		} else if ( !oldRoom.getCode().equals( newRoom.getCode() )
-				&& this.inDBCodigo( newRoom.getCode() ) ) {
+				&& this.inDBcode( newRoom.getCode() ) ) {
 			throw new PatrimonyException( CodeAlreadyExist );
 		}
 		if ( !this.inDB( newRoom ) ) {
 			logger.trace( "Updating classroom..." );
-			String msg = "UPDATE sala SET " + "codigo = \"" + newRoom.getCode()
-					+ "\", " + "descricao = \"" + newRoom.getDescription()
-					+ "\", " + "capacidade = " + newRoom.getCapacity()
-					+ " WHERE " + "sala.codigo = \"" + oldRoom.getCode()
-					+ "\" and " + "sala.descricao = \""
+			String msg = "UPDATE room SET " + "code = \"" + newRoom.getCode()
+					+ "\", " + "description = \"" + newRoom.getDescription()
+					+ "\", " + "capacity = " + newRoom.getCapacity()
+					+ " WHERE " + "room.code = \"" + oldRoom.getCode()
+					+ "\" and " + "room.description = \""
 					+ oldRoom.getDescription() + "\" and "
-					+ "sala.capacidade = " + oldRoom.getCapacity() + ";";
+					+ "room.capacity = " + oldRoom.getCapacity() + ";";
 			con.setAutoCommit( false );
 			pst = con.prepareStatement( msg );
 			pst.executeUpdate();
@@ -172,9 +171,9 @@ public class ClassRoomDAO {
 			throw new PatrimonyException( classRoomInUse );
 		} else if ( this.inDB( room ) ) {
 			logger.trace( "Removing classroom..." );
-			this.updateQuery( "DELETE FROM sala WHERE " + "sala.codigo = \""
-					+ room.getCode() + "\" and " + "sala.descricao = \""
-					+ room.getDescription() + "\" and " + "sala.capacidade = "
+			this.updateQuery( "DELETE FROM room WHERE " + "room.code = \""
+					+ room.getCode() + "\" and " + "room.description = \""
+					+ room.getDescription() + "\" and " + "room.capacity = "
 					+ room.getCapacity() + ";" );
 			logger.trace( "Classroom has been removed." );
 		} else {
@@ -188,7 +187,7 @@ public class ClassRoomDAO {
 	 * @return Vector - All the classrooms
 	 */
 	public Vector<Room> searchAll() throws SQLException, PatrimonyException {
-		Vector<Room> room = this.searchByQuery( "SELECT * FROM sala;" );
+		Vector<Room> room = this.searchByQuery( "SELECT * FROM room;" );
 		return room;
 	}
 
@@ -200,7 +199,7 @@ public class ClassRoomDAO {
 	public Vector<Room> searchByCode( String roomCode ) throws SQLException,
 			PatrimonyException {
 		Vector<Room> room = this
-				.searchByQuery( "SELECT * FROM sala WHERE codigo = " + "\""
+				.searchByQuery( "SELECT * FROM room WHERE code = " + "\""
 						+ roomCode + "\";" );
 		return room;
 	}
@@ -213,7 +212,7 @@ public class ClassRoomDAO {
 	public Vector<Room> searchByDescription( String roomDescription )
 			throws SQLException, PatrimonyException {
 		Vector<Room> room = this
-				.searchByQuery( "SELECT * FROM sala WHERE descricao = " + "\""
+				.searchByQuery( "SELECT * FROM room WHERE description = " + "\""
 						+ roomDescription + "\";" );
 		return room;
 	}
@@ -226,7 +225,7 @@ public class ClassRoomDAO {
 	public Vector<Room> searchByCapacity( String capacityValue )
 			throws SQLException, PatrimonyException {
 		Vector<Room> room = this
-				.searchByQuery( "SELECT * FROM sala WHERE capacidade = "
+				.searchByQuery( "SELECT * FROM room WHERE capacity = "
 						+ capacityValue + ";" );
 		return room;
 	}
@@ -246,7 +245,7 @@ public class ClassRoomDAO {
 		ResultSet rs = pst.executeQuery();
 
 		while ( rs.next() ) {
-			vet.add( this.fetchSala( rs ) );
+			vet.add( this.fetchroom( rs ) );
 		}
 
 		pst.close();
@@ -284,10 +283,10 @@ public class ClassRoomDAO {
 	 * @return Boolean - Existence of a classroom
 	 */
 	private boolean inDB( Room classRoom ) throws SQLException {
-		boolean select = this.inDBGeneric( "SELECT * FROM sala WHERE "
-				+ "sala.codigo = \"" + classRoom.getCode() + "\" and "
-				+ "sala.descricao = \"" + classRoom.getDescription()
-				+ "\" and " + "sala.capacidade = " + classRoom.getCapacity()
+		boolean select = this.inDBGeneric( "SELECT * FROM room WHERE "
+				+ "room.code = \"" + classRoom.getCode() + "\" and "
+				+ "room.description = \"" + classRoom.getDescription()
+				+ "\" and " + "room.capacity = " + classRoom.getCapacity()
 				+ ";" );
 		return select;
 	}
@@ -297,9 +296,9 @@ public class ClassRoomDAO {
 	 * 
 	 * @return Boolean - Existence of a code
 	 */
-	private boolean inDBCodigo( String code ) throws SQLException {
-		boolean select = this.inDBGeneric( "SELECT * FROM sala WHERE "
-				+ "sala.codigo = \"" + code + "\";" );
+	private boolean inDBcode( String code ) throws SQLException {
+		boolean select = this.inDBGeneric( "SELECT * FROM room WHERE "
+				+ "room.code = \"" + code + "\";" );
 		return select;
 	}
 
@@ -309,17 +308,17 @@ public class ClassRoomDAO {
 	 * @return Boolean - Existence of an classroom
 	 */
 	private boolean inOtherDB( Room classRoom ) throws SQLException {
-		if ( this.inDBGeneric( "SELECT * FROM reserva_sala_professor WHERE "
-				+ "id_sala = ( SELECT id_sala FROM sala WHERE "
-				+ "sala.codigo = \"" + classRoom.getCode() + "\" and "
-				+ "sala.descricao = \"" + classRoom.getDescription()
-				+ "\" and " + "sala.capacidade = " + classRoom.getCapacity()
+		if ( this.inDBGeneric( "SELECT * FROM reservation_room_teacher WHERE "
+				+ "id_room = ( SELECT id_room FROM room WHERE "
+				+ "room.code = \"" + classRoom.getCode() + "\" and "
+				+ "room.description = \"" + classRoom.getDescription()
+				+ "\" and " + "room.capacity = " + classRoom.getCapacity()
 				+ " );" ) == false ) {
-			if ( this.inDBGeneric( "SELECT * FROM reserva_sala_aluno WHERE "
-					+ "id_sala = ( SELECT id_sala FROM sala WHERE "
-					+ "sala.codigo = \"" + classRoom.getCode() + "\" and "
-					+ "sala.descricao = \"" + classRoom.getDescription()
-					+ "\" and " + "sala.capacidade = "
+			if ( this.inDBGeneric( "SELECT * FROM reservation_room_student WHERE "
+					+ "id_room = ( SELECT id_room FROM room WHERE "
+					+ "room.code = \"" + classRoom.getCode() + "\" and "
+					+ "room.description = \"" + classRoom.getDescription()
+					+ "\" and " + "room.capacity = "
 					+ classRoom.getCapacity() + " );" ) == false ) {
 				return false;
 			} else {
@@ -341,11 +340,11 @@ public class ClassRoomDAO {
 	 * @throws PatrimonyException
 	 * @throws SQLException
 	 */
-	private Room fetchSala( ResultSet resultSetObject )
+	private Room fetchroom( ResultSet resultSetObject )
 			throws PatrimonyException, SQLException {
-		Room room = new Room( resultSetObject.getString( "codigo" ),
-				resultSetObject.getString( "descricao" ),
-				resultSetObject.getString( "capacidade" ) );
+		Room room = new Room( resultSetObject.getString( "code" ),
+				resultSetObject.getString( "description" ),
+				resultSetObject.getString( "capacity" ) );
 		return room;
 	}
 
