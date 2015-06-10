@@ -61,7 +61,7 @@ public class ResSalaAlunoTest {
 		new StudentRoomReserve(this.dataAtual(), this.horaAtual(), Room, "Grupo de Estudos", "     ", Student);
 	}
 	
-	@Test (expected= ReserveException.class)
+	@Test(expected= ReserveException.class)
 	public void testCadeirasDespadronizadas() throws PatrimonyException, ClientException, ReserveException {
 		Room Room = new Room("123", "Room de Aula", "120");
 		Student Student = new Student("testInstance", "501.341.852-69", "456678", "", "");
