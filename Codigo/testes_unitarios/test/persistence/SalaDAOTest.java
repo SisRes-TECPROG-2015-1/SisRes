@@ -36,7 +36,7 @@ public class SalaDAOTest {
 	
 	@Test
 	public void testInstance() {
-		assertTrue("Instanciando SalaDAO", ClassRoomDAO.getInstance() instanceof ClassRoomDAO);
+		assertTrue("Instanciando roomDAO", ClassRoomDAO.getInstance() instanceof ClassRoomDAO);
 	}
 	@Test
 	public void testSingleton() {
@@ -48,22 +48,22 @@ public class SalaDAOTest {
 
 	@Test
 	public void testIncluir() throws PatrimonyException, SQLException {
-		Room s = new Room("CodigoInc", "Descricao Da Sala Inclusao", "123");
+		Room s = new Room("codeInc", "description Da room Inclusao", "123");
 		boolean rs = false;
 		
 		ClassRoomDAO.getInstance().includeARoom(s);
 		
-		rs = this.estaNoBanco("SELECT * FROM sala WHERE " +
-				"sala.codigo = \"" + s.getCode() + "\" and " +
-				"sala.descricao = \"" + s.getDescription() + "\" and " +
-				"sala.capacidade = " + s.getCapacity() +
+		rs = this.estaNoBanco("SELECT * FROM room WHERE " +
+				"room.code = \"" + s.getCode() + "\" and " +
+				"room.description = \"" + s.getDescription() + "\" and " +
+				"room.capacity = " + s.getCapacity() +
 				";");
 		
 		if(rs)
-			this.executaNoBanco("DELETE FROM sala WHERE " +
-				"sala.codigo = \"" + s.getCode() + "\" and " +
-				"sala.descricao = \"" + s.getDescription() +  "\" and " +
-				"sala.capacidade = " + s.getCapacity() + ";");
+			this.executaNoBanco("DELETE FROM room WHERE " +
+				"room.code = \"" + s.getCode() + "\" and " +
+				"room.description = \"" + s.getDescription() +  "\" and " +
+				"room.capacity = " + s.getCapacity() + ";");
 		
 		assertTrue("Testando Inclusao no Banco", rs);
 	}
@@ -72,41 +72,41 @@ public class SalaDAOTest {
 		ClassRoomDAO.getInstance().includeARoom(null);
 	}
 	@Test (expected= PatrimonyException.class)
-	public void testIncluirCodigoExistente() throws PatrimonyException, SQLException {
-		Room s = new Room("CodigoInc", "Descricao Da Sala Inclusao", "123");
-		Room s2 = new Room("CodigoInc", "Descricao Dois", "200");
+	public void testIncluircodeExistente() throws PatrimonyException, SQLException {
+		Room s = new Room("codeInc", "description Da room Inclusao", "123");
+		Room s2 = new Room("codeInc", "description Dois", "200");
 		boolean rs = false;
 		
 		ClassRoomDAO.getInstance().includeARoom(s2);
 		try{
 			ClassRoomDAO.getInstance().includeARoom(s);
 		} finally {
-			rs = this.estaNoBanco("SELECT * FROM sala WHERE " +
-					"sala.codigo = \"" + s.getCode() + "\" and " +
-					"sala.descricao = \"" + s.getDescription() + "\" and " +
-					"sala.capacidade = " + s.getCapacity() +
+			rs = this.estaNoBanco("SELECT * FROM room WHERE " +
+					"room.code = \"" + s.getCode() + "\" and " +
+					"room.description = \"" + s.getDescription() + "\" and " +
+					"room.capacity = " + s.getCapacity() +
 					";");
 			if(rs)
-				this.executaNoBanco("DELETE FROM sala WHERE " +
-						"sala.codigo = \"" + s.getCode() + "\" and " +
-						"sala.descricao = \"" + s.getDescription() +  "\" and " +
-						"sala.capacidade = " + s.getCapacity() + ";");
-			this.executaNoBanco("DELETE FROM sala WHERE " +
-					"sala.codigo = \"" + s2.getCode() + "\" and " +
-					"sala.descricao = \"" + s2.getDescription() +  "\" and " +
-					"sala.capacidade = " + s2.getCapacity() + ";");
+				this.executaNoBanco("DELETE FROM room WHERE " +
+						"room.code = \"" + s.getCode() + "\" and " +
+						"room.description = \"" + s.getDescription() +  "\" and " +
+						"room.capacity = " + s.getCapacity() + ";");
+			this.executaNoBanco("DELETE FROM room WHERE " +
+					"room.code = \"" + s2.getCode() + "\" and " +
+					"room.description = \"" + s2.getDescription() +  "\" and " +
+					"room.capacity = " + s2.getCapacity() + ";");
 		}
 		assertFalse("Teste de Inclus�o.", rs);
 	}
 	
 	@Test
 	public void testAlerar() throws PatrimonyException, SQLException {
-		Room oldRoom = new Room("CodigoInc", "Descricao Da Sala Inclusao", "123");
-		Room newRoom = new Room("CodigoAlt", "Descricao Dois", "200");
+		Room oldRoom = new Room("codeInc", "description Da room Inclusao", "123");
+		Room newRoom = new Room("codeAlt", "description Dois", "200");
 		boolean rs = true, rs2 = false;
 		
 		this.executaNoBanco("INSERT INTO " +
-				"sala (codigo, descricao, capacidade) VALUES (" +
+				"room (code, description, capacity) VALUES (" +
 				"\"" + oldRoom.getCode() + "\", " +
 				"\"" + oldRoom.getDescription() + "\", " +
 				oldRoom.getCapacity() + ");");
@@ -114,62 +114,62 @@ public class SalaDAOTest {
 		ClassRoomDAO.getInstance().modifyRoom( oldRoom , newRoom );
 		//changeRoomReserve(s, s2);
 		
-		rs = this.estaNoBanco("SELECT * FROM sala WHERE " +
-				"sala.codigo = \"" + oldRoom.getCode() + "\" and " +
-				"sala.descricao = \"" + oldRoom.getDescription() + "\" and " +
-				"sala.capacidade = " + oldRoom.getCapacity() +
+		rs = this.estaNoBanco("SELECT * FROM room WHERE " +
+				"room.code = \"" + oldRoom.getCode() + "\" and " +
+				"room.description = \"" + oldRoom.getDescription() + "\" and " +
+				"room.capacity = " + oldRoom.getCapacity() +
 				";");
 		
 		if(rs)
-			this.executaNoBanco("DELETE FROM sala WHERE " +
-				"sala.codigo = \"" + oldRoom.getCode() + "\" and " +
-				"sala.descricao = \"" + oldRoom.getDescription() +  "\" and " +
-				"sala.capacidade = " + oldRoom.getCapacity() + ";");
+			this.executaNoBanco("DELETE FROM room WHERE " +
+				"room.code = \"" + oldRoom.getCode() + "\" and " +
+				"room.description = \"" + oldRoom.getDescription() +  "\" and " +
+				"room.capacity = " + oldRoom.getCapacity() + ";");
 		
 		
-		rs2 = this.estaNoBanco("SELECT * FROM sala WHERE " +
-				"sala.codigo = \"" + newRoom.getCode() + "\" and " +
-				"sala.descricao = \"" + newRoom.getDescription() + "\" and " +
-				"sala.capacidade = " + newRoom.getCapacity() +
+		rs2 = this.estaNoBanco("SELECT * FROM room WHERE " +
+				"room.code = \"" + newRoom.getCode() + "\" and " +
+				"room.description = \"" + newRoom.getDescription() + "\" and " +
+				"room.capacity = " + newRoom.getCapacity() +
 				";");
 		if(rs2)
-			this.executaNoBanco("DELETE FROM sala WHERE " +
-				"sala.codigo = \"" + newRoom.getCode() + "\" and " +
-				"sala.descricao = \"" + newRoom.getDescription() +  "\" and " +
-				"sala.capacidade = " + newRoom.getCapacity() + ";");
+			this.executaNoBanco("DELETE FROM room WHERE " +
+				"room.code = \"" + newRoom.getCode() + "\" and " +
+				"room.description = \"" + newRoom.getDescription() +  "\" and " +
+				"room.capacity = " + newRoom.getCapacity() + ";");
 		
 		assertTrue("Testando Inclusao no Banco", rs2 && !rs);
 	}
 	@Test (expected= PatrimonyException.class)
 	public void testAletarPrimeiroNulo() throws PatrimonyException, SQLException {
-		Room s = new Room("CodigoInc", "Descricao Da Sala Inclusao", "123");
+		Room s = new Room("codeInc", "description Da room Inclusao", "123");
 		ClassRoomDAO.getInstance().modifyRoom(null, s);
 	}
 	@Test (expected= PatrimonyException.class)
 	public void testAletarSegundoNulo() throws PatrimonyException, SQLException {
-		Room room = new Room("CodigoInc", "Descricao Da Sala Inclusao", "123");
+		Room room = new Room("codeInc", "description Da room Inclusao", "123");
 		ClassRoomDAO.getInstance().modifyRoom(room, null);
 	}
 	@Test (expected= PatrimonyException.class)
 	public void testAletarNaoExistente() throws PatrimonyException, SQLException {
-		Room s = new Room("CodigoInc", "Descricao Da Sala Inclusao", "123");
-		Room s2 = new Room("CodigoAlt", "Descricao Dois", "200");
+		Room s = new Room("codeInc", "description Da room Inclusao", "123");
+		Room s2 = new Room("codeAlt", "description Dois", "200");
 		boolean rs2 = true;
 		
 		try{
 			ClassRoomDAO.getInstance().modifyRoom(s, s2);
 		} finally {		
 		
-		rs2 = this.estaNoBanco("SELECT * FROM sala WHERE " +
-				"sala.codigo = \"" + s2.getCode() + "\" and " +
-				"sala.descricao = \"" + s2.getDescription() + "\" and " +
-				"sala.capacidade = " + s2.getCapacity() +
+		rs2 = this.estaNoBanco("SELECT * FROM room WHERE " +
+				"room.code = \"" + s2.getCode() + "\" and " +
+				"room.description = \"" + s2.getDescription() + "\" and " +
+				"room.capacity = " + s2.getCapacity() +
 				";");
 		if(rs2)
-			this.executaNoBanco("DELETE FROM sala WHERE " +
-				"sala.codigo = \"" + s2.getCode() + "\" and " +
-				"sala.descricao = \"" + s2.getDescription() +  "\" and " +
-				"sala.capacidade = " + s2.getCapacity() + ";");
+			this.executaNoBanco("DELETE FROM room WHERE " +
+				"room.code = \"" + s2.getCode() + "\" and " +
+				"room.description = \"" + s2.getDescription() +  "\" and " +
+				"room.capacity = " + s2.getCapacity() + ";");
 		}
 		assertTrue("Testando Inclusao no Banco", !rs2);
 	}
@@ -177,20 +177,20 @@ public class SalaDAOTest {
 	public void testAletarEvolvidoEmReserva() throws PatrimonyException, SQLException {
 	}
 	@Test (expected= PatrimonyException.class)
-	public void testAletarComMesmoCodigo() throws PatrimonyException, SQLException {
-		Room s = new Room("CodigoInc", "Descricao Da Sala Inclusao", "123");
-		Room s2 = new Room("CodigoAlt", "Descricao Dois", "200");
-		Room s3 = new Room("CodigoInc", "Descricao Dois", "200");
+	public void testAletarComMesmocode() throws PatrimonyException, SQLException {
+		Room s = new Room("codeInc", "description Da room Inclusao", "123");
+		Room s2 = new Room("codeAlt", "description Dois", "200");
+		Room s3 = new Room("codeInc", "description Dois", "200");
 		boolean rs = false, rs2 = false, rs3 = true;
 		
 		this.executaNoBanco("INSERT INTO " +
-				"sala (codigo, descricao, capacidade) VALUES (" +
+				"room (code, description, capacity) VALUES (" +
 				"\"" + s.getCode() + "\", " +
 				"\"" + s.getDescription() + "\", " +
 				s.getCapacity() + ");");
 		
 		this.executaNoBanco("INSERT INTO " +
-				"sala (codigo, descricao, capacidade) VALUES (" +
+				"room (code, description, capacity) VALUES (" +
 				"\"" + s2.getCode() + "\", " +
 				"\"" + s2.getDescription() + "\", " +
 				s2.getCapacity() + ");");
@@ -199,51 +199,51 @@ public class SalaDAOTest {
 			ClassRoomDAO.getInstance().modifyRoom(s, s2);
 		} finally {
 		
-		rs = this.estaNoBanco("SELECT * FROM sala WHERE " +
-				"sala.codigo = \"" + s.getCode() + "\" and " +
-				"sala.descricao = \"" + s.getDescription() + "\" and " +
-				"sala.capacidade = " + s.getCapacity() +
+		rs = this.estaNoBanco("SELECT * FROM room WHERE " +
+				"room.code = \"" + s.getCode() + "\" and " +
+				"room.description = \"" + s.getDescription() + "\" and " +
+				"room.capacity = " + s.getCapacity() +
 				";");
 		
 		if(rs)
-			this.executaNoBanco("DELETE FROM sala WHERE " +
-				"sala.codigo = \"" + s.getCode() + "\" and " +
-				"sala.descricao = \"" + s.getDescription() +  "\" and " +
-				"sala.capacidade = " + s.getCapacity() + ";");
+			this.executaNoBanco("DELETE FROM room WHERE " +
+				"room.code = \"" + s.getCode() + "\" and " +
+				"room.description = \"" + s.getDescription() +  "\" and " +
+				"room.capacity = " + s.getCapacity() + ";");
 		
 		
-		rs2 = this.estaNoBanco("SELECT * FROM sala WHERE " +
-				"sala.codigo = \"" + s2.getCode() + "\" and " +
-				"sala.descricao = \"" + s2.getDescription() + "\" and " +
-				"sala.capacidade = " + s2.getCapacity() +
+		rs2 = this.estaNoBanco("SELECT * FROM room WHERE " +
+				"room.code = \"" + s2.getCode() + "\" and " +
+				"room.description = \"" + s2.getDescription() + "\" and " +
+				"room.capacity = " + s2.getCapacity() +
 				";");
 		if(rs2)
-			this.executaNoBanco("DELETE FROM sala WHERE " +
-				"sala.codigo = \"" + s2.getCode() + "\" and " +
-				"sala.descricao = \"" + s2.getDescription() +  "\" and " +
-				"sala.capacidade = " + s2.getCapacity() + ";");
+			this.executaNoBanco("DELETE FROM room WHERE " +
+				"room.code = \"" + s2.getCode() + "\" and " +
+				"room.description = \"" + s2.getDescription() +  "\" and " +
+				"room.capacity = " + s2.getCapacity() + ";");
 		
-		rs3 = this.estaNoBanco("SELECT * FROM sala WHERE " +
-				"sala.codigo = \"" + s3.getCode() + "\" and " +
-				"sala.descricao = \"" + s3.getDescription() + "\" and " +
-				"sala.capacidade = " + s3.getCapacity() +
+		rs3 = this.estaNoBanco("SELECT * FROM room WHERE " +
+				"room.code = \"" + s3.getCode() + "\" and " +
+				"room.description = \"" + s3.getDescription() + "\" and " +
+				"room.capacity = " + s3.getCapacity() +
 				";");
 		if(rs3)
-			this.executaNoBanco("DELETE FROM sala WHERE " +
-				"sala.codigo = \"" + s3.getCode() + "\" and " +
-				"sala.descricao = \"" + s3.getDescription() +  "\" and " +
-				"sala.capacidade = " + s3.getCapacity() + ";");
+			this.executaNoBanco("DELETE FROM room WHERE " +
+				"room.code = \"" + s3.getCode() + "\" and " +
+				"room.description = \"" + s3.getDescription() +  "\" and " +
+				"room.capacity = " + s3.getCapacity() + ";");
 		}
 		assertTrue("Testando Inclusao no Banco", rs && rs2 && !rs3);
 	}
 	@Test (expected= PatrimonyException.class)
 	public void testAletarParaExistente() throws PatrimonyException, SQLException {
-		Room s = new Room("CodigoAlt", "Descricao Dois", "200");
-		Room s2 = new Room("CodigoAlt", "Descricao Dois", "200");
+		Room s = new Room("codeAlt", "description Dois", "200");
+		Room s2 = new Room("codeAlt", "description Dois", "200");
 		boolean rs = false, rs2 = true;
 		
 		this.executaNoBanco("INSERT INTO " +
-				"sala (codigo, descricao, capacidade) VALUES (" +
+				"room (code, description, capacity) VALUES (" +
 				"\"" + s.getCode() + "\", " +
 				"\"" + s.getDescription() + "\", " +
 				s.getCapacity() + ");");
@@ -252,28 +252,28 @@ public class SalaDAOTest {
 			ClassRoomDAO.getInstance().modifyRoom(s, s2);
 		} finally {
 		
-		rs = this.estaNoBanco("SELECT * FROM sala WHERE " +
-				"sala.codigo = \"" + s.getCode() + "\" and " +
-				"sala.descricao = \"" + s.getDescription() + "\" and " +
-				"sala.capacidade = " + s.getCapacity() +
+		rs = this.estaNoBanco("SELECT * FROM room WHERE " +
+				"room.code = \"" + s.getCode() + "\" and " +
+				"room.description = \"" + s.getDescription() + "\" and " +
+				"room.capacity = " + s.getCapacity() +
 				";");
 		
 		if(rs)
-			this.executaNoBanco("DELETE FROM sala WHERE " +
-				"sala.codigo = \"" + s.getCode() + "\" and " +
-				"sala.descricao = \"" + s.getDescription() +  "\" and " +
-				"sala.capacidade = " + s.getCapacity() + ";");
+			this.executaNoBanco("DELETE FROM room WHERE " +
+				"room.code = \"" + s.getCode() + "\" and " +
+				"room.description = \"" + s.getDescription() +  "\" and " +
+				"room.capacity = " + s.getCapacity() + ";");
 		
-		rs2 = this.estaNoBanco("SELECT * FROM sala WHERE " +
-				"sala.codigo = \"" + s2.getCode() + "\" and " +
-				"sala.descricao = \"" + s2.getDescription() + "\" and " +
-				"sala.capacidade = " + s2.getCapacity() +
+		rs2 = this.estaNoBanco("SELECT * FROM room WHERE " +
+				"room.code = \"" + s2.getCode() + "\" and " +
+				"room.description = \"" + s2.getDescription() + "\" and " +
+				"room.capacity = " + s2.getCapacity() +
 				";");
 		if(rs2)
-			this.executaNoBanco("DELETE FROM sala WHERE " +
-				"sala.codigo = \"" + s2.getCode() + "\" and " +
-				"sala.descricao = \"" + s2.getDescription() +  "\" and " +
-				"sala.capacidade = " + s2.getCapacity() + ";");
+			this.executaNoBanco("DELETE FROM room WHERE " +
+				"room.code = \"" + s2.getCode() + "\" and " +
+				"room.description = \"" + s2.getDescription() +  "\" and " +
+				"room.capacity = " + s2.getCapacity() + ";");
 		}
 		assertTrue("Testando Inclusao no Banco", rs && !rs2);
 	}
@@ -281,28 +281,28 @@ public class SalaDAOTest {
 	
 	@Test
 	public void testExcluir() throws PatrimonyException, SQLException {
-		Room s = new Room("CodigoInc", "Descricao Da Sala Inclusao", "123");
+		Room s = new Room("codeInc", "description Da room Inclusao", "123");
 		boolean rs = true;
 		
 		this.executaNoBanco("INSERT INTO " +
-				"sala (codigo, descricao, capacidade) VALUES (" +
+				"room (code, description, capacity) VALUES (" +
 				"\"" + s.getCode() + "\", " +
 				"\"" + s.getDescription() + "\", " +
 				s.getCapacity() + ");");
 		
 		ClassRoomDAO.getInstance().excludeRoom(s);
 		
-		rs = this.estaNoBanco("SELECT * FROM sala WHERE " +
-				"sala.codigo = \"" + s.getCode() + "\" and " +
-				"sala.descricao = \"" + s.getDescription() + "\" and " +
-				"sala.capacidade = " + s.getCapacity() +
+		rs = this.estaNoBanco("SELECT * FROM room WHERE " +
+				"room.code = \"" + s.getCode() + "\" and " +
+				"room.description = \"" + s.getDescription() + "\" and " +
+				"room.capacity = " + s.getCapacity() +
 				";");
 		
 		if(rs)
-			this.executaNoBanco("DELETE FROM sala WHERE " +
-				"sala.codigo = \"" + s.getCode() + "\" and " +
-				"sala.descricao = \"" + s.getDescription() +  "\" and " +
-				"sala.capacidade = " + s.getCapacity() + ";");
+			this.executaNoBanco("DELETE FROM room WHERE " +
+				"room.code = \"" + s.getCode() + "\" and " +
+				"room.description = \"" + s.getDescription() +  "\" and " +
+				"room.capacity = " + s.getCapacity() + ";");
 		
 		assertTrue("Testando Inclusao no Banco", !rs);
 	}
@@ -316,65 +316,65 @@ public class SalaDAOTest {
 	}
 	@Test (expected= PatrimonyException.class)
 	public void testExcluirNaoExistente() throws PatrimonyException, SQLException {
-		Room s = new Room("CodigoInc", "Descricao Da Sala Inclusao", "123");
+		Room s = new Room("codeInc", "description Da room Inclusao", "123");
 		ClassRoomDAO.getInstance().excludeRoom(s);
 	}
 	
 	
 	@Test
-	public void testBuscarCodigo() throws PatrimonyException, SQLException {
-		Room s = new Room("CodigoInc", "Descricao Da Sala Inclusao", "123");
+	public void testBuscarcode() throws PatrimonyException, SQLException {
+		Room s = new Room("codeInc", "description Da room Inclusao", "123");
 		
 		this.executaNoBanco("INSERT INTO " +
-				"sala (codigo, descricao, capacidade) VALUES (" +
+				"room (code, description, capacity) VALUES (" +
 				"\"" + s.getCode() + "\", " +
 				"\"" + s.getDescription() + "\", " +
 				s.getCapacity() + ");");
 		
-		Vector<Room> vet = ClassRoomDAO.getInstance().searchByCode("CodigoInc");
+		Vector<Room> vet = ClassRoomDAO.getInstance().searchByCode("codeInc");
 		
-		this.executaNoBanco("DELETE FROM sala WHERE " +
-				"sala.codigo = \"" + s.getCode() + "\" and " +
-				"sala.descricao = \"" + s.getDescription() +  "\" and " +
-				"sala.capacidade = " + s.getCapacity() + ";");
+		this.executaNoBanco("DELETE FROM room WHERE " +
+				"room.code = \"" + s.getCode() + "\" and " +
+				"room.description = \"" + s.getDescription() +  "\" and " +
+				"room.capacity = " + s.getCapacity() + ";");
 		
 		assertTrue("Testando Buscar o Vetor de ", vet.size() > 0);
 	}
 	@Test
-	public void testDescricao() throws PatrimonyException, SQLException {
-		Room s = new Room("CodigoInc", "Descricao Da Sala Inclusao", "123");
+	public void testdescription() throws PatrimonyException, SQLException {
+		Room s = new Room("codeInc", "description Da room Inclusao", "123");
 		
 		this.executaNoBanco("INSERT INTO " +
-				"sala (codigo, descricao, capacidade) VALUES (" +
+				"room (code, description, capacity) VALUES (" +
 				"\"" + s.getCode() + "\", " +
 				"\"" + s.getDescription() + "\", " +
 				s.getCapacity() + ");");
 		
-		Vector<Room> vet = ClassRoomDAO.getInstance().searchByDescription("Descricao Da Sala Inclusao");
+		Vector<Room> vet = ClassRoomDAO.getInstance().searchByDescription("description Da room Inclusao");
 		
-		this.executaNoBanco("DELETE FROM sala WHERE " +
-				"sala.codigo = \"" + s.getCode() + "\" and " +
-				"sala.descricao = \"" + s.getDescription() +  "\" and " +
-				"sala.capacidade = " + s.getCapacity() + ";");
+		this.executaNoBanco("DELETE FROM room WHERE " +
+				"room.code = \"" + s.getCode() + "\" and " +
+				"room.description = \"" + s.getDescription() +  "\" and " +
+				"room.capacity = " + s.getCapacity() + ";");
 		
 		assertTrue("Testando Buscar o Vetor de ", vet.size() > 0);
 	}
 	@Test
-	public void testCapacidade() throws PatrimonyException, SQLException {
-		Room s = new Room("CodigoInc", "Descricao Da Sala Inclusao", "123");
+	public void testcapacity() throws PatrimonyException, SQLException {
+		Room s = new Room("codeInc", "description Da room Inclusao", "123");
 		
 		this.executaNoBanco("INSERT INTO " +
-				"sala (codigo, descricao, capacidade) VALUES (" +
+				"room (code, description, capacity) VALUES (" +
 				"\"" + s.getCode() + "\", " +
 				"\"" + s.getDescription() + "\", " +
 				s.getCapacity() + ");");
 		
 		Vector<Room> vet = ClassRoomDAO.getInstance().searchByCapacity("123");
 		
-		this.executaNoBanco("DELETE FROM sala WHERE " +
-				"sala.codigo = \"" + s.getCode() + "\" and " +
-				"sala.descricao = \"" + s.getDescription() +  "\" and " +
-				"sala.capacidade = " + s.getCapacity() + ";");
+		this.executaNoBanco("DELETE FROM room WHERE " +
+				"room.code = \"" + s.getCode() + "\" and " +
+				"room.description = \"" + s.getDescription() +  "\" and " +
+				"room.capacity = " + s.getCapacity() + ";");
 		
 		assertTrue("Testando Buscar o Vetor de ", vet.size() > 0);
 	}
