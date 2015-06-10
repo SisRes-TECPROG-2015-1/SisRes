@@ -48,52 +48,52 @@ public class ManterSalaTest {
 
 	@Test
 	public void testInserir() throws PatrimonyException, SQLException {
-		Room sala_new = new Room("codigo", "descricao", "2");
-		MaintainRoom.getInstance().insertRooms("codigo", "descricao", "2");
-		assertNotNull("Falha ao inserir", this.procurarNoVetor(sala_new));
-		this.executaNoBanco("DELETE FROM sala WHERE " +
-				"sala.codigo = \"" + sala_new.getCode() + "\" and " +
-				"sala.descricao = \"" + sala_new.getDescription() +  "\" and " +
-				"sala.capacidade = " + sala_new.getCapacity() + ";"
+		Room room_new = new Room("code", "description", "2");
+		MaintainRoom.getInstance().insertRooms("code", "description", "2");
+		assertNotNull("Falha ao inserir", this.procurarNoVetor(room_new));
+		this.executaNoBanco("DELETE FROM room WHERE " +
+				"room.code = \"" + room_new.getCode() + "\" and " +
+				"room.description = \"" + room_new.getDescription() +  "\" and " +
+				"room.capacity = " + room_new.getCapacity() + ";"
 				);
 	}
 
 	@Test
 	public void testAlterar() throws PatrimonyException, SQLException {
-		Room sala = new Room("codigo_old", "descricao", "1");
-		Room sala_new = new Room("codigo", "descricao", "2");
+		Room room = new Room("code_old", "description", "1");
+		Room room_new = new Room("code", "description", "2");
 		
 		this.executaNoBanco("INSERT INTO " +
-				"sala (codigo, descricao, capacidade) VALUES (" +
-				"\"" + sala.getCode() + "\", " +
-				"\"" + sala.getDescription() + "\", " +
-				"" + sala.getCapacity() + "); "
+				"room (code, description, capacity) VALUES (" +
+				"\"" + room.getCode() + "\", " +
+				"\"" + room.getDescription() + "\", " +
+				"" + room.getCapacity() + "); "
 				);
-		MaintainRoom.getInstance().changeRoom("codigo", "descricao", "2", sala);
+		MaintainRoom.getInstance().changeRoom("code", "description", "2", room);
 		
-		assertNotNull("Falha ao alterar", this.procurarNoVetor(sala_new));
+		assertNotNull("Falha ao alterar", this.procurarNoVetor(room_new));
 		
-		this.executaNoBanco("DELETE FROM sala WHERE " +
-				"sala.codigo = \"" + sala_new.getCode() + "\" and " +
-				"sala.descricao = \"" + sala_new.getDescription() +  "\" and " +
-				"sala.capacidade = " + sala_new.getCapacity() + ";"
+		this.executaNoBanco("DELETE FROM room WHERE " +
+				"room.code = \"" + room_new.getCode() + "\" and " +
+				"room.description = \"" + room_new.getDescription() +  "\" and " +
+				"room.capacity = " + room_new.getCapacity() + ";"
 				);
 	}
 
 	@Test
 	public void testExcluir() throws SQLException, PatrimonyException {
-		Room sala = new Room("codigo_old", "descricao", "1");
+		Room room = new Room("code_old", "description", "1");
 		
 		this.executaNoBanco("INSERT INTO " +
-				"sala (codigo, descricao, capacidade) VALUES (" +
-				"\"" + sala.getCode() + "\", " +
-				"\"" + sala.getDescription() + "\", " +
-				"" + sala.getCapacity() + "); "
+				"room (code, description, capacity) VALUES (" +
+				"\"" + room.getCode() + "\", " +
+				"\"" + room.getDescription() + "\", " +
+				"" + room.getCapacity() + "); "
 				);
 		
-		MaintainRoom.getInstance().excludeRoom(sala);
+		MaintainRoom.getInstance().excludeRoom(room);
 		
-		assertNull("Falha ao excluir", this.procurarNoVetor(sala));
+		assertNull("Falha ao excluir", this.procurarNoVetor(room));
 	}
 
 	public Room procurarNoVetor(Room teste) throws PatrimonyException, SQLException {
