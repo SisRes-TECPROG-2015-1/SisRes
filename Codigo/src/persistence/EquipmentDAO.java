@@ -14,11 +14,11 @@ import exception.PatrimonyException;
 
 public class EquipmentDAO {
 
-	private static final String existentEquipment = "Equipamento ja cadastrado.";
-	private static final String noExistentEquipment = "Equipamento nao cadastrado.";
-	private static final String nullEquipment = "Equipamento esta nulo.";
-	private static final String inUseEquipment = "Equipamento esta sendo utilizado em uma reserva.";
-	private static final String existentCode = "Equipamento com o mesmo codigo ja cadastrado.";
+	private static final String existentEquipment = "equipment ja cadastrado.";
+	private static final String noExistentEquipment = "equipment nao cadastrado.";
+	private static final String nullEquipment = "equipment esta nulo.";
+	private static final String inUseEquipment = "equipment esta sendo utilizado em uma reserva.";
+	private static final String existentCode = "equipment com o mesmo code ja cadastrado.";
 
 	static final Logger logger = LogManager.getLogger( EquipmentDAO.class
 			.getName() );
@@ -32,7 +32,7 @@ public class EquipmentDAO {
 	/**
 	 * Instantiates an EquipmentDAO if there is no instance of it.
 	 * 
-	 * @return EquipamentoDAO - Equipment
+	 * @return equipmentDAO - Equipment
 	 */
 	public static EquipmentDAO getInstance() {
 		if ( instance == null ) {
@@ -56,12 +56,12 @@ public class EquipmentDAO {
 			PatrimonyException {
 		if ( equipment == null ) {
 			throw new PatrimonyException( nullEquipment );
-		} else if ( this.inDBCodigo( equipment.getCode() ) ) {
+		} else if ( this.inDBcode( equipment.getCode() ) ) {
 			throw new PatrimonyException( existentCode );
 		} else if ( !this.inDB( equipment ) ) {
 			logger.trace( "Saving new equipment." );
 			this.updateQuery( "INSERT INTO "
-					+ "equipamento ( codigo, descricao ) VALUES ( " + "\""
+					+ "equipment ( code, description ) VALUES ( " + "\""
 					+ equipment.getCode() + "\", " + "\""
 					+ equipment.getDescription() + "\" );" );
 			logger.trace( "New equipment has been saved." );
@@ -96,15 +96,15 @@ public class EquipmentDAO {
 		} else if ( this.inOtherDB( old_equipment ) ) {
 			throw new PatrimonyException( inUseEquipment );
 		} else if ( !new_equipment.getCode().equals( old_equipment.getCode() )
-				&& this.inDBCodigo( new_equipment.getCode() ) ) {
+				&& this.inDBcode( new_equipment.getCode() ) ) {
 			throw new PatrimonyException( existentCode );
 		} else if ( !this.inDB( new_equipment ) ) {
 			logger.trace( "Modifying equipment" );
-			String msg = "UPDATE equipamento SET " + "codigo = \""
-					+ new_equipment.getCode() + "\", " + "descricao = \""
+			String msg = "UPDATE equipment SET " + "code = \""
+					+ new_equipment.getCode() + "\", " + "description = \""
 					+ new_equipment.getDescription() + "\"" + " WHERE "
-					+ "equipamento.codigo = \"" + old_equipment.getCode()
-					+ "\" and " + "equipamento.descricao = \""
+					+ "equipment.code = \"" + old_equipment.getCode()
+					+ "\" and " + "equipment.description = \""
 					+ old_equipment.getDescription() + "\";";
 
 			logger.trace( "Equipment data has been modified." );
@@ -125,7 +125,7 @@ public class EquipmentDAO {
 	/**
 	 * Method delete an equipment into the database.
 	 * 
-	 * @param equipamento
+	 * @param equipment
 	 *            : equipment to be deleted
 	 * @throws SQLException
 	 * @throws PatrimonyException
@@ -140,9 +140,9 @@ public class EquipmentDAO {
 		if ( this.inDB( equipment ) ) {
 
 			logger.trace( "Deleting equipment." );
-			this.updateQuery( "DELETE FROM equipamento WHERE "
-					+ "equipamento.codigo = \"" + equipment.getCode()
-					+ "\" and " + "equipamento.descricao = \""
+			this.updateQuery( "DELETE FROM equipment WHERE "
+					+ "equipment.code = \"" + equipment.getCode()
+					+ "\" and " + "equipment.description = \""
 					+ equipment.getDescription() + "\";" );
 
 			logger.trace( "Equipment has been deleted." );
@@ -159,7 +159,7 @@ public class EquipmentDAO {
 	public Vector<Equipment> searchForAll() throws SQLException,
 			PatrimonyException {
 		Vector<Equipment> equipment = this
-				.search( "SELECT * FROM equipamento;" );
+				.search( "SELECT * FROM equipment;" );
 		return equipment;
 	}
 
@@ -171,7 +171,7 @@ public class EquipmentDAO {
 	public Vector<Equipment> searchByCode( String value ) throws SQLException,
 			PatrimonyException {
 		Vector<Equipment> equipment = this
-				.search( "SELECT * FROM equipamento WHERE codigo = " + "\""
+				.search( "SELECT * FROM equipment WHERE code = " + "\""
 						+ value + "\";" );
 		return equipment;
 	}
@@ -184,7 +184,7 @@ public class EquipmentDAO {
 	public Vector<Equipment> searchByDescription( String value )
 			throws SQLException, PatrimonyException {
 		Vector<Equipment> equipment = this
-				.search( "SELECT * FROM equipamento WHERE descricao = " + "\""
+				.search( "SELECT * FROM equipment WHERE description = " + "\""
 						+ value + "\";" );
 		return equipment;
 	}
@@ -206,7 +206,7 @@ public class EquipmentDAO {
 		ResultSet rs = pst.executeQuery();
 
 		while ( rs.next() ) {
-			vet.add( this.fetchEquipamento( rs ) );
+			vet.add( this.fetchequipment( rs ) );
 		}
 
 		pst.close();
@@ -244,9 +244,9 @@ public class EquipmentDAO {
 	 * @return Boolean - Existence of an equipment
 	 */
 	private boolean inDB( Equipment e ) throws SQLException, PatrimonyException {
-		boolean select = this.inDBGeneric( "SELECT * FROM equipamento WHERE "
-				+ "equipamento.codigo = \"" + e.getCode() + "\" and "
-				+ "equipamento.descricao = \"" + e.getDescription() + "\";" );
+		boolean select = this.inDBGeneric( "SELECT * FROM equipment WHERE "
+				+ "equipment.code = \"" + e.getCode() + "\" and "
+				+ "equipment.description = \"" + e.getDescription() + "\";" );
 		return select;
 	}
 
@@ -255,9 +255,9 @@ public class EquipmentDAO {
 	 * 
 	 * @return Boolean - Existence of a code
 	 */
-	private boolean inDBCodigo( String codigo ) throws SQLException {
-		boolean select = this.inDBGeneric( "SELECT * FROM equipamento WHERE "
-				+ "codigo = \"" + codigo + "\";" );
+	private boolean inDBcode( String code ) throws SQLException {
+		boolean select = this.inDBGeneric( "SELECT * FROM equipment WHERE "
+				+ "code = \"" + code + "\";" );
 		return select;
 	}
 
@@ -268,10 +268,10 @@ public class EquipmentDAO {
 	 */
 	private boolean inOtherDB( Equipment e ) throws SQLException {
 		boolean select = this
-				.inDBGeneric( "SELECT * FROM reserva_equipamento WHERE "
-						+ "id_equipamento = (SELECT id_equipamento FROM equipamento WHERE "
-						+ "equipamento.codigo = \"" + e.getCode() + "\" and "
-						+ "equipamento.descricao = \"" + e.getDescription()
+				.inDBGeneric( "SELECT * FROM reservation_equipment WHERE "
+						+ "id_equipment = (SELECT id_equipment FROM equipment WHERE "
+						+ "equipment.code = \"" + e.getCode() + "\" and "
+						+ "equipment.description = \"" + e.getDescription()
 						+ "\");" );
 		return select;
 	}
@@ -281,10 +281,10 @@ public class EquipmentDAO {
 	 * 
 	 * @return Equipment - equipment
 	 */
-	private Equipment fetchEquipamento( ResultSet rs )
+	private Equipment fetchequipment( ResultSet rs )
 			throws PatrimonyException, SQLException {
-		Equipment equipment = new Equipment( rs.getString( "codigo" ),
-				rs.getString( "descricao" ) );
+		Equipment equipment = new Equipment( rs.getString( "code" ),
+				rs.getString( "description" ) );
 		return equipment;
 	}
 
