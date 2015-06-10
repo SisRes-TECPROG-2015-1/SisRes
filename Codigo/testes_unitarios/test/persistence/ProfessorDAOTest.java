@@ -81,6 +81,7 @@ public class ProfessorDAOTest {
 		Teacher prof = new Teacher("name para Incluir", "868.563.327-34", "123456", "1234-5678", "name@email");
 		Teacher prof2 = new Teacher("name para Incluir Segundo", "868.563.327-34", "0987", "5678-5555", "");
 		try{
+			TeacherDAO.getInstance().includeNewTeacher(prof);
 			TeacherDAO.getInstance().includeNewTeacher(prof2);
 			this.executaNoBanco("DELETE FROM teacher WHERE " +
 					"teacher.name = \"" + prof2.getName() + "\" and " +
