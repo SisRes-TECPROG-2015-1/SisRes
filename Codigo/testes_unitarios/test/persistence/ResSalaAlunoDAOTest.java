@@ -121,7 +121,7 @@ public class ResSalaAlunoDAOTest {
 		"VALUES (\"teacherDAO\", \"257.312.954-33\", \"11009988\");");
 		this.executeQuery("INSERT INTO reservation_room_teacher (id_teacher,id_room,finality,hour,date) "+
 		"VALUES ((SELECT id_teacher FROM teacher WHERE cpf = \"257.312.954-33\")," +
-				"(SELECT id_room FROM Room WHERE code = \"123\")," +
+				"(SELECT id_room FROM room WHERE code = \"123\")," +
 				"\"Aula de Calculo\", \"08:00\", \"20/12/2034\");");
 		
 		StudentRoomReserve reserva = new StudentRoomReserve("20/12/34", "8:00", Room1,
