@@ -136,9 +136,9 @@ public class TeacherRoomReserveDAOTest {
 		this.executeQuery("INSERT INTO reservation_room_student (id_student,id_room,finality,hour,date, reserved_chairs) "+
 		"VALUES ((SELECT id_student FROM student WHERE cpf = \"257.312.954-33\")," +
 				"(SELECT id_room FROM room WHERE code = \"S2\")," +
-				"\"Estudo de Fisica\", \"08:00\", \"20/12/2013\", 20);");
+				"\"Estudo de Fisica\", \"08:00\", \"20/12/2020\", 20);");
 		
-		TeacherRoomReserve reserva = new TeacherRoomReserve("20/12/13", "8:00", room_a,
+		TeacherRoomReserve reserva = new TeacherRoomReserve("20/12/20", "8:00", room_a,
 				"Aula de EA",  teacher1);
 		
 		TeacherRoomReserveDAO.getInstance().saveNewTeacherRoomReserve(reserva);
