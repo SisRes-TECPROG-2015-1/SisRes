@@ -38,8 +38,8 @@ public class EquipamentoDAOTest {
 	
 	@Before
 	public void setUp() throws PatrimonyException, SQLException {
-		 antigo = new Equipment("codigo", "descricao - antigo");
-		 novo = new Equipment("codigo", "descricao - alterada");
+		 antigo = new Equipment("code", "descricao - antigo");
+		 novo = new Equipment("code", "descricao - alterada");
 		 instance.includeEquipment(antigo);
 		 todos = instance.searchForAll();
 	}
@@ -78,8 +78,8 @@ public class EquipamentoDAOTest {
 	}
 	
 	@Test
-	public void testBuscarPorCodigo() throws SQLException, PatrimonyException {
-		assertNotNull("Testando a busca por codigo de elementos no BD.", instance.searchByCode(antigo.getCode()));
+	public void testBuscarPorcode() throws SQLException, PatrimonyException {
+		assertNotNull("Testando a busca por code de elementos no BD.", instance.searchByCode(antigo.getCode()));
 	}
 	
 	@Test
@@ -88,8 +88,8 @@ public class EquipamentoDAOTest {
 	}
 	
 	@Test
-	public void testBuscarPorCodigoNull() throws SQLException, PatrimonyException {
-		assertTrue("Testando a busca por codigo nulo de elementos no BD.", instance.searchByCode(null).isEmpty());
+	public void testBuscarPorcodeNull() throws SQLException, PatrimonyException {
+		assertTrue("Testando a busca por code nulo de elementos no BD.", instance.searchByCode(null).isEmpty());
 	}
 	
 	@Test
@@ -106,7 +106,7 @@ public class EquipamentoDAOTest {
 	}
 	
 	@Test (expected= PatrimonyException.class)
-	public void testIncluirComCodigoExistente() throws PatrimonyException, SQLException {
+	public void testIncluirComcodeExistente() throws PatrimonyException, SQLException {
 		instance.includeEquipment(antigo);
 	}
 	
@@ -128,8 +128,8 @@ public class EquipamentoDAOTest {
 	
 	@Test (expected= PatrimonyException.class)
 	public void testAlterarNaoExistente() throws PatrimonyException, SQLException {
-		Equipment equip = new Equipment("codigo", "eqpt nao existente");
-		Equipment equipAlter = new Equipment("codigo", "eqpt nao existente alteraddo");
+		Equipment equip = new Equipment("code", "eqpt nao existente");
+		Equipment equipAlter = new Equipment("code", "eqpt nao existente alteraddo");
 		instance.modifyEquipment(equip, equipAlter);
 	}
 	
@@ -152,7 +152,7 @@ public class EquipamentoDAOTest {
 	
 	@Test (expected= PatrimonyException.class)
 	public void testExcluirNaoExistente() throws PatrimonyException, SQLException {
-		Equipment eq = new Equipment("codigo"," nao existe descricao");
+		Equipment eq = new Equipment("code"," nao existe descricao");
 		instance.excludeEquipment(eq);
 	}
 	
