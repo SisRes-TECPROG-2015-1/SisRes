@@ -26,24 +26,24 @@ import exception.PatrimonyException;
 import exception.ReserveException;
 
 public class ManterResSalaProfessorTest {
-	private static Room sala1;
-	private static Teacher professor1;
+	private static Room room1;
+	private static Teacher teacher1;
 	private static Vector<TeacherRoomReserve> vet;
 
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {
 		vet = MaintainClassroomReservationByTeacher.getInstance().getRoomsReserves();
-		sala1 = new Room("123", "Sala de Aula", "120");
-		professor1 = new Teacher("testInstance", "040.757.021-70", "0058801", "3333-3333", "nome@email");
+		room1 = new Room("123", "Sala de Aula", "120");
+		teacher1 = new Teacher("testInstance", "040.757.021-70", "0058801", "3333-3333", "name@email");
 		
-		TeacherDAO.getInstance().includeNewTeacher(professor1);
-		ClassRoomDAO.getInstance().includeARoom(sala1);
+		TeacherDAO.getInstance().includeNewTeacher(teacher1);
+		ClassRoomDAO.getInstance().includeARoom(room1);
 	}
 
 	@AfterClass
 	public static void tearDownAfterClass() throws Exception {
-		TeacherDAO.getInstance().excludeATeacher(professor1);
-		ClassRoomDAO.getInstance().excludeRoom(sala1);
+		TeacherDAO.getInstance().excludeATeacher(teacher1);
+		ClassRoomDAO.getInstance().excludeRoom(room1);
 	}
 
 	@Test
@@ -58,99 +58,99 @@ public class ManterResSalaProfessorTest {
 	
 	@Test
 	public void testInserir() throws SQLException, ReserveException, ClientException, PatrimonyException {
-		String finalidade = "Sala de Estudos";
-		String data = "20/12/33";
-		String hora = "9:11";
-		TeacherRoomReserve reserva = new TeacherRoomReserve(data, hora, sala1, finalidade, professor1);
-		MaintainClassroomReservationByTeacher.getInstance().insertReserve(sala1, professor1, data, hora, finalidade);
-		boolean resultado = this.inDB(reserva);
-		boolean resultado2 = reserva.equals(vet.lastElement());
+		String finality = "Sala de Estudos";
+		String date = "20/12/33";
+		String hour = "9:11";
+		TeacherRoomReserve reservation = new TeacherRoomReserve(date, hour, room1, finality, teacher1);
+		MaintainClassroomReservationByTeacher.getInstance().insertReserve(room1, teacher1, date, hour, finality);
+		boolean resultado = this.inDB(reservation);
+		boolean resultado2 = reservation.equals(vet.lastElement());
 		if(resultado)
-			this.delete_from(reserva);
+			this.delete_from(reservation);
 		assertTrue("Teste de Insercao.", resultado && resultado2);
 	}
 	@Test
 	public void testAlterar() throws ReserveException, SQLException, ClientException, PatrimonyException {
 		
-		TeacherRoomReserve reserva = new TeacherRoomReserve("20/12/33", "9:11", sala1, "Pesquisa", professor1);
-		this.insert_into(reserva);
-		vet.add(reserva);
-		TeacherRoomReserve reserva2 = new TeacherRoomReserve("20/12/33", "9:11", sala1, "Reuniao", professor1);
+		TeacherRoomReserve reservation = new TeacherRoomReserve("20/12/33", "9:11", room1, "Pesquisa", teacher1);
+		this.insert_into(reservation);
+		vet.add(reservation);
+		TeacherRoomReserve reservation2 = new TeacherRoomReserve("20/12/33", "9:11", room1, "Reuniao", teacher1);
 		MaintainClassroomReservationByTeacher.getInstance().changeRoomReserve("Reuniao", vet.lastElement());
-		boolean resultado = this.inDB(reserva2);
-		boolean resultado2 = reserva2.equals(vet.lastElement());
+		boolean resultado = this.inDB(reservation2);
+		boolean resultado2 = reservation2.equals(vet.lastElement());
 		if(resultado)
-			this.delete_from(reserva2);
-		if(this.inDB(reserva))
-			this.delete_from(reserva);
+			this.delete_from(reservation2);
+		if(this.inDB(reservation))
+			this.delete_from(reservation);
 		assertTrue("Teste de Alteracao.", resultado && resultado2);
 	}
 	@Test
 	public void testExcluir() throws ReserveException, SQLException {
-		String finalidade = "Pesquisa";
-		String data = "20/12/33";
-		String hora = "9:11";
-		TeacherRoomReserve reserva = new TeacherRoomReserve(data, hora, sala1, finalidade, professor1);
-		this.insert_into(reserva);
-		vet.add(reserva);
-		MaintainClassroomReservationByTeacher.getInstance().excludeReserve(reserva);
-		boolean resultado = this.inDB(reserva);
-		vet.remove(reserva);
+		String finality = "Pesquisa";
+		String date = "20/12/33";
+		String hour = "9:11";
+		TeacherRoomReserve reservation = new TeacherRoomReserve(date, hour, room1, finality, teacher1);
+		this.insert_into(reservation);
+		vet.add(reservation);
+		MaintainClassroomReservationByTeacher.getInstance().excludeReserve(reservation);
+		boolean resultado = this.inDB(reservation);
+		vet.remove(reservation);
 
 		if(resultado)
-			this.delete_from(reserva);
+			this.delete_from(reservation);
 		assertTrue("Teste de Exclusao.", !resultado );
 	}
 
-	private String select_id_professor(Teacher prof){
-		return "SELECT id_professor FROM professor WHERE " +
-				"professor.nome = \"" + prof.getName() + "\" and " +
-				"professor.cpf = \"" + prof.getCpf() + "\" and " +
-				"professor.telefone = \"" + prof.getFone() + "\" and " +
-				"professor.email = \"" + prof.getEmail() + "\" and " +
-				"professor.matricula = \"" + prof.getRegistration() + "\"";
+	private String select_id_teacher(Teacher prof){
+		return "SELECT id_teacher FROM teacher WHERE " +
+				"teacher.name = \"" + prof.getName() + "\" and " +
+				"teacher.cpf = \"" + prof.getCpf() + "\" and " +
+				"teacher.fone = \"" + prof.getFone() + "\" and " +
+				"teacher.email = \"" + prof.getEmail() + "\" and " +
+				"teacher.registration = \"" + prof.getRegistration() + "\"";
 	}
-	private String select_id_sala(Room sala){
-		return "SELECT id_sala FROM sala WHERE " +
-				"sala.codigo = \"" + sala.getCode() + "\" and " +
-				"sala.descricao = \"" + sala.getDescription() +  "\" and " +
-				"sala.capacidade = " + sala.getCapacity();
+	private String select_id_room(Room room){
+		return "SELECT id_room FROM room WHERE " +
+				"room.code = \"" + room.getCode() + "\" and " +
+				"room.description = \"" + room.getDescription() +  "\" and " +
+				"room.capacity = " + room.getCapacity();
 	}
-	private String where_reserva_sala_professor(TeacherRoomReserve reserva){
+	private String where_reservation_room_teacher(TeacherRoomReserve reservation){
 		return " WHERE " +
-		"id_professor = ( " + select_id_professor(reserva.getTeacher()) + " ) and " +
-		"id_sala = ( " + select_id_sala(reserva.getRoom()) + " ) and " +
-		"finalidade = \"" + reserva.getFinality() + "\" and " +
-		"hora = \"" + reserva.getHour() + "\" and " +
-		"data = \"" + reserva.getDate() + "\" ";
+		"id_teacher = ( " + select_id_teacher(reservation.getTeacher()) + " ) and " +
+		"id_room = ( " + select_id_room(reservation.getRoom()) + " ) and " +
+		"finality = \"" + reservation.getFinality() + "\" and " +
+		"hour = \"" + reservation.getHour() + "\" and " +
+		"date = \"" + reservation.getDate() + "\" ";
 	}
-	private String values_reserva_sala_professor(TeacherRoomReserve reserva){
-		return "( " + select_id_professor(reserva.getTeacher()) + " ), " +
-		"( " + select_id_sala(reserva.getRoom()) + " ), " +
-		"\"" + reserva.getFinality() + "\", " +
-		"\"" + reserva.getHour() + "\", " +
-		"\"" + reserva.getDate() + "\"";
+	private String values_reservation_room_teacher(TeacherRoomReserve reservation){
+		return "( " + select_id_teacher(reservation.getTeacher()) + " ), " +
+		"( " + select_id_room(reservation.getRoom()) + " ), " +
+		"\"" + reservation.getFinality() + "\", " +
+		"\"" + reservation.getHour() + "\", " +
+		"\"" + reservation.getDate() + "\"";
 	}
-	private void insert_into(TeacherRoomReserve reserva){
+	private void insert_into(TeacherRoomReserve reservation){
 		try {
 			this.executeQuery("INSERT INTO " +
-					"reserva_sala_professor (id_professor, id_sala, finalidade, hora, data) " +
-					"VALUES ( " + values_reserva_sala_professor(reserva) + " );");
+					"reservation_room_teacher (id_teacher, id_room, finality, hour, date) " +
+					"VALUES ( " + values_reservation_room_teacher(reservation) + " );");
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 	}
-	private void delete_from(TeacherRoomReserve reserva){
+	private void delete_from(TeacherRoomReserve reservation){
 		try {
-			this.executeQuery("DELETE FROM reserva_sala_professor " + 
-								this.where_reserva_sala_professor(reserva) + " ;");
+			this.executeQuery("DELETE FROM reservation_room_teacher " + 
+								this.where_reservation_room_teacher(reservation) + " ;");
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 	}
-	private boolean inDB(TeacherRoomReserve reserva) throws SQLException{
-		return this.inDBGeneric("SELECT * FROM reserva_sala_professor " + 
-								this.where_reserva_sala_professor(reserva) + " ;");
+	private boolean inDB(TeacherRoomReserve reservation) throws SQLException{
+		return this.inDBGeneric("SELECT * FROM reservation_room_teacher " + 
+								this.where_reservation_room_teacher(reservation) + " ;");
 	}
 	private boolean inDBGeneric(String query) throws SQLException{
 		Connection con = FactoryConnection.getInstance().getConnection();
