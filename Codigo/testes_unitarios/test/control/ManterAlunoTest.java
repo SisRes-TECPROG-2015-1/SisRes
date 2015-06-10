@@ -21,11 +21,11 @@ import exception.ClientException;
 
 public class ManterAlunoTest {
 
-	private static Vector<Student> alunos;
+	private static Vector<Student> students;
 	
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {
-		alunos = MaintainStudent.getInstance().getStudents();
+		students = MaintainStudent.getInstance().getStudents();
 	}
 
 	@AfterClass
@@ -36,7 +36,7 @@ public class ManterAlunoTest {
 	
 	@Test
 	public void testGetInstance() {
-		assertTrue("Verifica método getInstance() de MaintainStudent.", MaintainStudent.getInstance() instanceof MaintainStudent);
+		assertTrue("Verifica mï¿½todo getInstance() de MaintainStudent.", MaintainStudent.getInstance() instanceof MaintainStudent);
 	}
 
 	@Test
@@ -50,96 +50,96 @@ public class ManterAlunoTest {
 	
 	@Test
 	public void testInserir() throws ClientException, SQLException {
-		Student aluno = new Student("Incluindo", "040.757.021-70", "123456", "9999-9999", "aluno@email");
-		MaintainStudent.getInstance().insertStudents("Incluindo", "040.757.021-70", "123456", "9999-9999", "aluno@email");
+		Student student = new Student("Incluindo", "040.757.021-70", "123456", "9999-9999", "student@email");
+		MaintainStudent.getInstance().insertStudents("Incluindo", "040.757.021-70", "123456", "9999-9999", "student@email");
 		
-		boolean resultado = this.estaNoBanco("SELECT * FROM aluno WHERE " +
-				"aluno.nome = \"" + aluno.getName() + "\" and " +
-				"aluno.cpf = \"" + aluno.getCpf() + "\" and " +
-				"aluno.telefone = \"" + aluno.getFone() + "\" and " +
-				"aluno.email = \"" + aluno.getEmail() + "\" and " +
-				"aluno.matricula = \"" + aluno.getRegistration() + "\";");
+		boolean resultado = this.estaNoBanco("SELECT * FROM student WHERE " +
+				"student.name = \"" + student.getName() + "\" and " +
+				"student.cpf = \"" + student.getCpf() + "\" and " +
+				"student.fone = \"" + student.getFone() + "\" and " +
+				"student.email = \"" + student.getEmail() + "\" and " +
+				"student.registration = \"" + student.getRegistration() + "\";");
 				
 		if(resultado){
-			this.executaNoBanco("DELETE FROM aluno WHERE " +
-					"aluno.nome = \"" + aluno.getName() + "\" and " +
-					"aluno.cpf = \"" + aluno.getCpf() + "\" and " +
-					"aluno.telefone = \"" + aluno.getFone() + "\" and " +
-					"aluno.email = \"" + aluno.getEmail() + "\" and " +
-					"aluno.matricula = \"" + aluno.getRegistration() + "\";");
+			this.executaNoBanco("DELETE FROM student WHERE " +
+					"student.name = \"" + student.getName() + "\" and " +
+					"student.cpf = \"" + student.getCpf() + "\" and " +
+					"student.fone = \"" + student.getFone() + "\" and " +
+					"student.email = \"" + student.getEmail() + "\" and " +
+					"student.registration = \"" + student.getRegistration() + "\";");
 		}
 		
-		Student a = alunos.lastElement();
-		boolean resultado2 = aluno.equals(a);
-		alunos.remove(alunos.lastElement());
+		Student a = students.lastElement();
+		boolean resultado2 = student.equals(a);
+		students.remove(students.lastElement());
 		assertTrue("Teste de Inclusao do Aluno.", resultado == true && resultado2 == true);
 	}
 	
 	
 	@Test
 	public void testAlterar() throws ClientException, SQLException {
-		Student aluno = new Student("Incluindo", "040.757.021-70", "123456", "9999-9999", "aluno@email");
+		Student student = new Student("Incluindo", "040.757.021-70", "123456", "9999-9999", "student@email");
 		Student a = new Student("Alterando", "040.757.021-70", "123456", "9999-9999", "Nome@email");
 		
 		this.executaNoBanco("INSERT INTO " +
-				"aluno (nome, cpf, telefone, email, matricula) VALUES (" +
-				"\"" + aluno.getName() + "\", " +
-				"\"" + aluno.getCpf()+ "\", " +
-				"\"" + aluno.getFone() + "\", " +
-				"\"" + aluno.getEmail() + "\", " +
-				"\"" + aluno.getRegistration() + "\"); ");
+				"student (name, cpf, fone, email, registration) VALUES (" +
+				"\"" + student.getName() + "\", " +
+				"\"" + student.getCpf()+ "\", " +
+				"\"" + student.getFone() + "\", " +
+				"\"" + student.getEmail() + "\", " +
+				"\"" + student.getRegistration() + "\"); ");
 		
 		MaintainStudent.getInstance().changeStudent("Alterando", "040.757.021-70", "123456", 
-				"9999-9999", "Nome@email", aluno);
+				"9999-9999", "Nome@email", student);
 		
-		boolean resultado =  this.estaNoBanco("SELECT * FROM aluno WHERE " +
-				"aluno.nome = \"" + a.getName() + "\" and " +
-				"aluno.cpf = \"" + a.getCpf() + "\" and " +
-				"aluno.telefone = \"" + a.getFone() + "\" and " +
-				"aluno.email = \"" + a.getEmail() + "\" and " +
-				"aluno.matricula = \"" + a.getRegistration() + "\";");
+		boolean resultado =  this.estaNoBanco("SELECT * FROM student WHERE " +
+				"student.name = \"" + a.getName() + "\" and " +
+				"student.cpf = \"" + a.getCpf() + "\" and " +
+				"student.fone = \"" + a.getFone() + "\" and " +
+				"student.email = \"" + a.getEmail() + "\" and " +
+				"student.registration = \"" + a.getRegistration() + "\";");
 		if(resultado)
-			this.executaNoBanco("DELETE FROM aluno WHERE " +
-					"aluno.nome = \"" + a.getName() + "\" and " +
-					"aluno.cpf = \"" + a.getCpf() + "\" and " +
-					"aluno.telefone = \"" + a.getFone() + "\" and " +
-					"aluno.email = \"" + a.getEmail() + "\" and " +
-					"aluno.matricula = \"" + a.getRegistration() + "\";");
+			this.executaNoBanco("DELETE FROM student WHERE " +
+					"student.name = \"" + a.getName() + "\" and " +
+					"student.cpf = \"" + a.getCpf() + "\" and " +
+					"student.fone = \"" + a.getFone() + "\" and " +
+					"student.email = \"" + a.getEmail() + "\" and " +
+					"student.registration = \"" + a.getRegistration() + "\";");
 		
 		assertTrue("Teste de Alteracao do Aluno.", resultado);
 	}
 	
 	@Test
 	public void testExcluir() throws ClientException, SQLException {
-		Student aluno = new Student("Incluindo", "040.757.021-70", "123456", "9999-9999", "aluno@email");
+		Student student = new Student("Incluindo", "040.757.021-70", "123456", "9999-9999", "student@email");
 		
 		this.executaNoBanco("INSERT INTO " +
-				"aluno (nome, cpf, telefone, email, matricula) VALUES (" +
-				"\"" + aluno.getName() + "\", " +
-				"\"" + aluno.getCpf()+ "\", " +
-				"\"" + aluno.getFone() + "\", " +
-				"\"" + aluno.getEmail() + "\", " +
-				"\"" + aluno.getRegistration() + "\");");
+				"student (name, cpf, fone, email, registration) VALUES (" +
+				"\"" + student.getName() + "\", " +
+				"\"" + student.getCpf()+ "\", " +
+				"\"" + student.getFone() + "\", " +
+				"\"" + student.getEmail() + "\", " +
+				"\"" + student.getRegistration() + "\");");
 		
-		MaintainStudent.getInstance().excludeStudent(aluno);
+		MaintainStudent.getInstance().excludeStudent(student);
 		
-		boolean resultado =  this.estaNoBanco("SELECT * FROM aluno WHERE " +
-				"aluno.nome = \"" + aluno.getName() + "\" and " +
-				"aluno.cpf = \"" + aluno.getCpf() + "\" and " +
-				"aluno.telefone = \"" + aluno.getFone() + "\" and " +
-				"aluno.email = \"" + aluno.getEmail() + "\" and " +
-				"aluno.matricula = \"" + aluno.getRegistration() + "\";");
+		boolean resultado =  this.estaNoBanco("SELECT * FROM student WHERE " +
+				"student.name = \"" + student.getName() + "\" and " +
+				"student.cpf = \"" + student.getCpf() + "\" and " +
+				"student.fone = \"" + student.getFone() + "\" and " +
+				"student.email = \"" + student.getEmail() + "\" and " +
+				"student.registration = \"" + student.getRegistration() + "\";");
 		if(resultado)
-			this.executaNoBanco("DELETE FROM aluno WHERE " +
-					"aluno.nome = \"" + aluno.getName() + "\" and " +
-					"aluno.cpf = \"" + aluno.getCpf() + "\" and " +
-					"aluno.telefone = \"" + aluno.getFone() + "\" and " +
-					"aluno.email = \"" + aluno.getEmail() + "\" and " +
-					"aluno.matricula = \"" + aluno.getRegistration() + "\";");
+			this.executaNoBanco("DELETE FROM student WHERE " +
+					"student.name = \"" + student.getName() + "\" and " +
+					"student.cpf = \"" + student.getCpf() + "\" and " +
+					"student.fone = \"" + student.getFone() + "\" and " +
+					"student.email = \"" + student.getEmail() + "\" and " +
+					"student.registration = \"" + student.getRegistration() + "\";");
 		
 		boolean resultado2 = true;
-		if(alunos.size() > 0)
-			resultado2 = !alunos.lastElement().equals(aluno);
+		if(students.size() > 0)
+			resultado2 = !students.lastElement().equals(student);
 		
 		assertTrue("Teste de Exclusao do Professor.", resultado == false && resultado2 == true);
 	}
