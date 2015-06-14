@@ -256,6 +256,21 @@ public class TeacherRoomReserveDAO extends DAO {
 			TeacherRoomReserve newReserveRoomdate ) throws ReserveException,
 			SQLException {
 		
+		if(alreadyReservedRoom == null){
+			throw new ReserveException( NULL_TERM );
+		}
+		else{
+			//Nothing to do.
+		}
+		
+		if(newReserveRoomdate == null){
+			throw new ReserveException( NULL_TERM );
+		}
+		else{
+			//Nothing to do.
+		}
+		
+
 		boolean isTeacherRoomReserve = this.checkExistingTeacherRoomReserve( alreadyReservedRoom );
 		
 		boolean isAReserveInTheGivenDay = this.checkExistingTeacherRoomReserve( newReserveRoomdate );
