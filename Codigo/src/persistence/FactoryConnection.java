@@ -10,8 +10,8 @@ public class FactoryConnection {
 	static String statusConnection = "";
 	
 	private String local = "jdbc:mysql://localhost/sisres_db";
-	private String user = "testuser";
-	private String password = "password";
+	private String user = "root";
+	private String password = "";
 	
 	//Singleton
 		private static FactoryConnection instance;
