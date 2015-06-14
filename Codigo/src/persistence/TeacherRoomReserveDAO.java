@@ -6,7 +6,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Vector;
 
-import sun.launcher.resources.launcher;
+
 
 import model.Teacher;
 import model.TeacherRoomReserve;
@@ -212,7 +212,7 @@ public class TeacherRoomReserveDAO extends DAO {
 		
 		boolean isPassedSeconds =  this.checkHourHasPassed( roomToReserve.getHour() );		
 				
-		if ( roomToReserve.equals( null ) ) {
+		if ( roomToReserve == null  ) {
 			throw new ReserveException( NULL_TERM );			
 		} else if ( isATeacher == false ) {
 			throw new ReserveException( ABSENT_TEACHER );
