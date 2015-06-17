@@ -13,8 +13,8 @@ import javax.swing.table.DefaultTableModel;
 
 import model.Room;
 import view.alteracoes.AlterarSala;
-import view.cadastros.CadastroPatrimonio;
-import view.cadastros.CadastroSala;
+import view.cadastros.HeritageCadastre;
+import view.cadastros.ClassroomCadastre;
 import view.diasReservas.DiaReservaSala;
 import control.MaintainRoom;
 import exception.PatrimonyException;
@@ -97,7 +97,7 @@ public class SalaView extends PatrimonioView {
      * This method is the action of the cadastre button.
      */
     @Override protected void cadastrarAction() {
-        CadastroPatrimonio cadastro = new CadastroSala( new javax.swing.JFrame(), true );
+        HeritageCadastre cadastro = new ClassroomCadastre( new javax.swing.JFrame(), true );
         cadastro.setResizable( false );
         cadastro.setVisible( true );
         this.tabelaPatrimonio.setModel( fillTable() );

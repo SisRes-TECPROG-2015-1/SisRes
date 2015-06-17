@@ -36,7 +36,7 @@ public class ManterAlunoTest {
 	
 	@Test
 	public void testGetInstance() {
-		assertTrue("Verifica m�todo getInstance() de MaintainStudent.", MaintainStudent.getInstance() instanceof MaintainStudent);
+		assertTrue("Verifica metodo getInstance() de MaintainStudent.", MaintainStudent.getInstance() instanceof MaintainStudent);
 	}
 
 	@Test
@@ -98,7 +98,9 @@ public class ManterAlunoTest {
 				"student.fone = \"" + a.getFone() + "\" and " +
 				"student.email = \"" + a.getEmail() + "\" and " +
 				"student.registration = \"" + a.getRegistration() + "\";");
-		if(resultado)
+		if(resultado) {
+			
+		
 			this.executaNoBanco("DELETE FROM student WHERE " +
 					"student.name = \"" + a.getName() + "\" and " +
 					"student.cpf = \"" + a.getCpf() + "\" and " +
@@ -107,6 +109,12 @@ public class ManterAlunoTest {
 					"student.registration = \"" + a.getRegistration() + "\";");
 		
 		assertTrue("Teste de Alteracao do Aluno.", resultado);
+	
+		}
+		else
+		{
+			// Do nothing
+		}
 	}
 	
 	@Test
@@ -129,7 +137,7 @@ public class ManterAlunoTest {
 				"student.fone = \"" + student.getFone() + "\" and " +
 				"student.email = \"" + student.getEmail() + "\" and " +
 				"student.registration = \"" + student.getRegistration() + "\";");
-		if(resultado)
+		if(resultado){
 			this.executaNoBanco("DELETE FROM student WHERE " +
 					"student.name = \"" + student.getName() + "\" and " +
 					"student.cpf = \"" + student.getCpf() + "\" and " +
@@ -142,6 +150,9 @@ public class ManterAlunoTest {
 			resultado2 = !students.lastElement().equals(student);
 		
 		assertTrue("Teste de Exclusao do Professor.", resultado == false && resultado2 == true);
+		} else {
+			//Do nothing
+		}
 	}
 	
 	

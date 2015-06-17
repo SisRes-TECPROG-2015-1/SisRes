@@ -8,7 +8,7 @@ import java.sql.SQLException;
 
 import javax.swing.JOptionPane;
 
-import view.cadastros.CadastroPatrimonio;
+import view.cadastros.HeritageCadastre;
 import control.MaintainRoom;
 import exception.PatrimonyException;
 
@@ -16,7 +16,7 @@ import exception.PatrimonyException;
  * 
  * @author Parley
  */
-public class AlterarSala extends CadastroPatrimonio {
+public class AlterarSala extends HeritageCadastre {
 
     
 	private static final long serialVersionUID = 1L;

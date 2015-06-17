@@ -9,7 +9,7 @@ import javax.swing.table.DefaultTableModel;
 
 import model.Equipment;
 import view.alteracoes.AlterarEquipamento;
-import view.cadastros.CadastroEquipamento;
+import view.cadastros.EquipmentCadastre;
 import view.diasReservas.DiaReservaEquipamento;
 import control.MaintainEquipment;
 import exception.PatrimonyException;
@@ -20,7 +20,12 @@ import exception.PatrimonyException;
  */
 public class EquipamentoView extends PatrimonioView {
 
-    public EquipamentoView( java.awt.Frame parent, boolean modal ) {
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	public EquipamentoView( java.awt.Frame parent, boolean modal ) {
         super( parent, modal );
         pesquisarLbl.setText( "Digite o eqpto. desejado: " );
         this.setTitle( "Equipamentos" );
@@ -78,7 +83,7 @@ public class EquipamentoView extends PatrimonioView {
     }
 
     @Override protected void cadastrarAction() {
-        CadastroEquipamento cadastro = new CadastroEquipamento( new javax.swing.JFrame(), true );
+        EquipmentCadastre cadastro = new EquipmentCadastre( new javax.swing.JFrame(), true );
         cadastro.setResizable( false );
         cadastro.setVisible( true );
         this.tabelaPatrimonio.setModel( fillTable() );

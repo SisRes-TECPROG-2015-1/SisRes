@@ -31,6 +31,7 @@ public class MaintainTeacher {
 	 */
 	public static MaintainTeacher getInstance() {
 		if ( instance == null ){
+			
 			logger.trace( "There is any teacher." );
 			instance = new MaintainTeacher();
 			logger.trace( "A new teacher is just instantiated" );

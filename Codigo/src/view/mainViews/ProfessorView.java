@@ -10,8 +10,8 @@ import java.util.Iterator;
 import javax.swing.JOptionPane;
 
 import view.alteracoes.AlterarProfessor;
-import view.cadastros.CadastroCliente;
-import view.cadastros.CadastroProfessor;
+import view.cadastros.ClientCadastre;
+import view.cadastros.TeacherCadastre;
 import control.MaintainTeacher;
 import exception.ClientException;
 
@@ -51,7 +51,7 @@ public class ProfessorView extends ClienteView {
      */
     @Override public void cadastrarAction() {
 
-        CadastroCliente cadastrar = new CadastroProfessor( new javax.swing.JFrame(), true );
+        ClientCadastre cadastrar = new TeacherCadastre( new javax.swing.JFrame(), true );
         cadastrar.setResizable( false );
         cadastrar.setVisible( true );
         tabelaCliente.setModel( fillTable() );

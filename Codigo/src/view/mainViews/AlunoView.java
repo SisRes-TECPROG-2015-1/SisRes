@@ -12,8 +12,8 @@ import javax.swing.JOptionPane;
 
 
 import view.alteracoes.AlterarAluno;
-import view.cadastros.CadastroAluno;
-import view.cadastros.CadastroCliente;
+import view.cadastros.StudentCadastre;
+import view.cadastros.ClientCadastre;
 import control.MaintainStudent;
 import exception.ClientException;
 
@@ -53,7 +53,7 @@ public class AlunoView extends ClienteView {
      */
     @Override public void cadastrarAction() {
 
-        CadastroCliente cadastrar = new CadastroAluno( new javax.swing.JFrame(), true );
+        ClientCadastre cadastrar = new StudentCadastre( new javax.swing.JFrame(), true );
         cadastrar.setResizable( false );
         cadastrar.setVisible( true );
         tabelaCliente.setModel( fillTable() );
@@ -85,13 +85,17 @@ public class AlunoView extends ClienteView {
             }
 
             int confirm = JOptionPane.showConfirmDialog( this, "Deseja mesmo excluir Aluno: "
-                    + MaintainStudent.getInstance().getStudents().get(index).getName() + "?", "Excluir", JOptionPane.YES_NO_OPTION);
+                    + MaintainStudent.getInstance().getStudents().get(index).getName() + "?"
+                    , "Excluir", JOptionPane.YES_NO_OPTION);
+            
             if (confirm == JOptionPane.YES_OPTION ) {
-                MaintainStudent.getInstance().excludeStudent( MaintainStudent.getInstance().getStudents().get(index) );
+                MaintainStudent.getInstance().excludeStudent(
+                		MaintainStudent.getInstance().getStudents().get(index) );
                 JOptionPane.showMessageDialog( this, "Aluno excluido com sucesso", "Sucesso", JOptionPane.INFORMATION_MESSAGE, null );
             }else{
             	//do nothing
             }
+            
             this.tabelaCliente.setModel( fillTable() );
 
         } catch ( ClientException ex ) {

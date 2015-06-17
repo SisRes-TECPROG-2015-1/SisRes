@@ -8,7 +8,7 @@ import java.sql.SQLException;
 
 import javax.swing.JOptionPane;
 
-import view.cadastros.CadastroCliente;
+import view.cadastros.ClientCadastre;
 import control.MaintainStudent;
 import exception.ClientException;
 
@@ -16,7 +16,7 @@ import exception.ClientException;
  * 
  * @author Parley
  */
-public class AlterarAluno extends CadastroCliente {
+public class AlterarAluno extends ClientCadastre {
 
     
 	private static final long serialVersionUID = 1269596966446202752L;
