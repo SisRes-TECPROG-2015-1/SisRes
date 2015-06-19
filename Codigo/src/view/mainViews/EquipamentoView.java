@@ -8,9 +8,9 @@ import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 import model.Equipment;
-import view.alteracoes.AlterarEquipamento;
+import view.alteracoes.ModifyEquipment;
 import view.cadastros.EquipmentCadastre;
-import view.diasReservas.DiaReservaEquipamento;
+import view.diasReservas.ReservationDaysEquipment;
 import control.MaintainEquipment;
 import exception.PatrimonyException;
 
@@ -91,7 +91,7 @@ public class EquipamentoView extends PatrimonioView {
 
     @Override protected void alterarAction( int index ) {
 
-        AlterarEquipamento alteracao = new AlterarEquipamento( new javax.swing.JFrame(), true, index );
+        ModifyEquipment alteracao = new ModifyEquipment( new javax.swing.JFrame(), true, index );
         alteracao.setResizable( false );
         alteracao.setVisible( true);
         this.tabelaPatrimonio.setModel( fillTable() );
@@ -127,7 +127,7 @@ public class EquipamentoView extends PatrimonioView {
 
     @Override protected void visualizarAction( int index ) {
         try {
-            DiaReservaEquipamento reserva = new DiaReservaEquipamento( new javax.swing.JFrame(), true, index );
+            ReservationDaysEquipment reserva = new ReservationDaysEquipment( new javax.swing.JFrame(), true, index );
             reserva.setResizable( false );
             reserva.setVisible( true );
         } catch ( PatrimonyException ex ) {

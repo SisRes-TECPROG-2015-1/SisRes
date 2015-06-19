@@ -18,13 +18,13 @@ import exception.PatrimonyException;
  * 
  * @author Parley
  */
-public class DiaReservaSala extends DiaReservaPatrimonio {
+public class ReservationDaysRoom extends ReservationDaysHeritage {
 
     
 	private static final long serialVersionUID = 1L;
 	Room classRoom;
 
-    public DiaReservaSala( Frame parent, boolean modal, int indexSala ) throws SQLException, PatrimonyException {
+    public ReservationDaysRoom( Frame parent, boolean modal, int indexSala ) throws SQLException, PatrimonyException {
         super( parent, modal );
         classRoom = MaintainRoom.getInstance().getRooms().get( indexSala );
         this.setName( "DiaReservaSala" );

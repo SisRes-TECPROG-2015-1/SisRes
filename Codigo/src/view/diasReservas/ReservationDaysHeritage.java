@@ -4,11 +4,11 @@ package view.diasReservas;
  * 
  * @author Parley
  */
-public abstract class DiaReservaPatrimonio extends javax.swing.JDialog {
+public abstract class ReservationDaysHeritage extends javax.swing.JDialog {
    
 	
 	private static final long serialVersionUID = 1L;
-	public DiaReservaPatrimonio( java.awt.Frame parent, boolean modal ) {
+	public ReservationDaysHeritage( java.awt.Frame parent, boolean modal ) {
         super( parent, modal );
         initComponents();
     }

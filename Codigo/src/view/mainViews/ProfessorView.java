@@ -9,7 +9,7 @@ import java.util.Iterator;
 
 import javax.swing.JOptionPane;
 
-import view.alteracoes.AlterarProfessor;
+import view.alteracoes.ModifyTeacher;
 import view.cadastros.ClientCadastre;
 import view.cadastros.TeacherCadastre;
 import control.MaintainTeacher;
@@ -63,7 +63,7 @@ public class ProfessorView extends ClienteView {
      */
     @Override public void alterarAction( int index ) {
 
-        AlterarProfessor alterar = new AlterarProfessor( new javax.swing.JFrame(), true, index );
+        ModifyTeacher alterar = new ModifyTeacher( new javax.swing.JFrame(), true, index );
         alterar.setResizable( false );
         alterar.setVisible( true );
         this.tabelaCliente.setModel( fillTable() );

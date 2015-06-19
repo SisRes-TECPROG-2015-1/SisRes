@@ -16,13 +16,13 @@ import exception.ClientException;
  * 
  * @author Parley
  */
-public class AlterarProfessor extends ClientCadastre {
+public class ModifyTeacher extends ClientCadastre {
 	
 	private static final long serialVersionUID = 2631700585396893224L;
 	
 	int index2 = 0;
 
-    public AlterarProfessor(java.awt.Frame parent, boolean modal, int index) {
+    public ModifyTeacher(java.awt.Frame parent, boolean modal, int index) {
         super(parent, modal);
         this.setName("AlterarProfessor");
         this.cadastroBtn.setText("Alterar");

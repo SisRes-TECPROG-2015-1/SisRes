@@ -16,7 +16,7 @@ import exception.ClientException;
  * 
  * @author Parley
  */
-public class AlterarAluno extends ClientCadastre {
+public class ModifyStudent extends ClientCadastre {
 
     
 	private static final long serialVersionUID = 1269596966446202752L;
@@ -24,7 +24,7 @@ public class AlterarAluno extends ClientCadastre {
 	int index2 = 0;
 
     //Constructor
-    public AlterarAluno( java.awt.Frame parent, boolean modal, int index ) {
+    public ModifyStudent( java.awt.Frame parent, boolean modal, int index ) {
         super( parent, modal );
         this.setTitle( "Alterar" );
         this.setName( "AlterarAluno" );

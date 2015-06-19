@@ -11,7 +11,7 @@ import javax.swing.JOptionPane;
 
 
 
-import view.alteracoes.AlterarAluno;
+import view.alteracoes.ModifyStudent;
 import view.cadastros.StudentCadastre;
 import view.cadastros.ClientCadastre;
 import control.MaintainStudent;
@@ -65,7 +65,7 @@ public class AlunoView extends ClienteView {
     **/
     @Override public void alterarAction( int index ) {
 
-        AlterarAluno alterar = new AlterarAluno( new javax.swing.JFrame(), true, index );
+        ModifyStudent alterar = new ModifyStudent( new javax.swing.JFrame(), true, index );
         alterar.setResizable( false );
         alterar.setVisible( true );
         this.tabelaCliente.setModel( fillTable() );

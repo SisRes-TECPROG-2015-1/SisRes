@@ -19,7 +19,7 @@ import exception.PatrimonyException;
  * 
  * @author Parley
  */
-public class DiaReservaEquipamento extends DiaReservaPatrimonio {
+public class ReservationDaysEquipment extends ReservationDaysHeritage {
 
     /**
 	 * 
@@ -27,7 +27,7 @@ public class DiaReservaEquipamento extends DiaReservaPatrimonio {
 	private static final long serialVersionUID = 1L;
 	Equipment equipment;
 
-    public DiaReservaEquipamento( Frame parent, boolean modal, int indexEquipamento ) throws SQLException, PatrimonyException {
+    public ReservationDaysEquipment( Frame parent, boolean modal, int indexEquipamento ) throws SQLException, PatrimonyException {
         super( parent, modal );
         equipment = MaintainEquipment.getInstance().getEquipments().get( indexEquipamento );
     }

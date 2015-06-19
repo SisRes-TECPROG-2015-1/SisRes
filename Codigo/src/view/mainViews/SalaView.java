@@ -12,10 +12,10 @@ import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 import model.Room;
-import view.alteracoes.AlterarSala;
+import view.alteracoes.ModifyRoom;
 import view.cadastros.HeritageCadastre;
 import view.cadastros.ClassroomCadastre;
-import view.diasReservas.DiaReservaSala;
+import view.diasReservas.ReservationDaysRoom;
 import control.MaintainRoom;
 import exception.PatrimonyException;
 
@@ -108,7 +108,7 @@ public class SalaView extends PatrimonioView {
      */
     @Override protected void alterarAction( int index ) {
 
-        AlterarSala alteracao = new AlterarSala( new javax.swing.JFrame(), true, index );
+        ModifyRoom alteracao = new ModifyRoom( new javax.swing.JFrame(), true, index );
         alteracao.setResizable( false );
         alteracao.setVisible( true );
         this.tabelaPatrimonio.setModel( fillTable() );
@@ -145,7 +145,7 @@ public class SalaView extends PatrimonioView {
      */
     @Override protected void visualizarAction( int index ) {
         try {
-            DiaReservaSala reserva = new DiaReservaSala( new javax.swing.JFrame(), true, index );
+            ReservationDaysRoom reserva = new ReservationDaysRoom( new javax.swing.JFrame(), true, index );
             reserva.setResizable( false );
             reserva.setVisible( true );
         } catch ( PatrimonyException ex ) {
