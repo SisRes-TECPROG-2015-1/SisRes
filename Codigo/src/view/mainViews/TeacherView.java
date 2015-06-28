@@ -19,14 +19,14 @@ import exception.ClientException;
  * 
  * @author Parley
  */
-public class ProfessorView extends ClienteView {
+public class TeacherView extends ClientView {
 
     /**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
 
-	public ProfessorView( java.awt.Frame parent, boolean modal ) {
+	public TeacherView( java.awt.Frame parent, boolean modal ) {
         super( parent, modal );
         this.setName( "ProfessorView" );
     }

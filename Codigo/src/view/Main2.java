@@ -1,11 +1,11 @@
 package view;
 
-import view.mainViews.AlunoView;
-import view.mainViews.ClienteView;
-import view.mainViews.EquipamentoView;
-import view.mainViews.PatrimonioView;
-import view.mainViews.ProfessorView;
-import view.mainViews.SalaView;
+import view.mainViews.StudentView;
+import view.mainViews.ClientView;
+import view.mainViews.EquipmentView;
+import view.mainViews.HeritageView;
+import view.mainViews.TeacherView;
+import view.mainViews.ClassRoomView;
 
 /**
  * 
@@ -170,14 +170,14 @@ import view.mainViews.SalaView;
 
     private void salaBtnActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_salaBtnActionPerformed
         // TODO add your handling code here:
-        PatrimonioView room = new SalaView(this, true);
+        HeritageView room = new ClassRoomView(this, true);
         room.setResizable(false);
         room.setVisible(true);
     }// GEN-LAST:event_salaBtnActionPerformed
 
     private void equipamentoBtnActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_equipamentoBtnActionPerformed
 
-        PatrimonioView equipamento = new EquipamentoView(this, true);
+        HeritageView equipamento = new EquipmentView(this, true);
         equipamento.setResizable(false);
         equipamento.setVisible(true);
 
@@ -185,14 +185,14 @@ import view.mainViews.SalaView;
 
     private void professorBtnActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_professorBtnActionPerformed
         // TODO add your handling code here:
-        ClienteView client = new ProfessorView(this, true);
+        ClientView client = new TeacherView(this, true);
         client.setResizable(false);
         client.setVisible(true);
     }// GEN-LAST:event_professorBtnActionPerformed
 
     private void alunoBtnActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_alunoBtnActionPerformed
         // TODO add your handling code here:
-        ClienteView client = new AlunoView(this, true);
+        ClientView client = new StudentView(this, true);
         client.setResizable(false);
         client.setVisible(true);
     }// GEN-LAST:event_alunoBtnActionPerformed

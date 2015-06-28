@@ -17,14 +17,14 @@ import model.Client;;
  * 
  * @author Parley
  */
-public abstract class ClienteView extends javax.swing.JDialog {
+public abstract class ClientView extends javax.swing.JDialog {
 
     
 	private static final long serialVersionUID = 1L;
 	/**
      * Creates new form ClienteView
      */
-    public ClienteView( java.awt.Frame parent, boolean modal ) {
+    public ClientView( java.awt.Frame parent, boolean modal ) {
         super( parent, modal );
         initComponents();
     }

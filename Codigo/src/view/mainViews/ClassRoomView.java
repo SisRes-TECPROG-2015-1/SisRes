@@ -23,9 +23,9 @@ import exception.PatrimonyException;
  * 
  * @author Parley
  */
-public class SalaView extends PatrimonioView {
+public class ClassRoomView extends HeritageView {
 
-    public SalaView( java.awt.Frame parent, boolean modal ) {
+    public ClassRoomView( java.awt.Frame parent, boolean modal ) {
         super( parent, modal );
         pesquisarLbl.setText( "Digite a sala desejada: " );
         this.setName( "SalaView" );

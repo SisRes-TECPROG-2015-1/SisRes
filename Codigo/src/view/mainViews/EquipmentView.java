@@ -18,14 +18,14 @@ import exception.PatrimonyException;
  * 
  * @author Parley
  */
-public class EquipamentoView extends PatrimonioView {
+public class EquipmentView extends HeritageView {
 
     /**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
 
-	public EquipamentoView( java.awt.Frame parent, boolean modal ) {
+	public EquipmentView( java.awt.Frame parent, boolean modal ) {
         super( parent, modal );
         pesquisarLbl.setText( "Digite o eqpto. desejado: " );
         this.setTitle( "Equipamentos" );

@@ -21,14 +21,14 @@ import exception.ClientException;
  * 
  * @author Parley
  */
-public class AlunoView extends ClienteView {
+public class StudentView extends ClientView {
 
     /**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
 
-	public AlunoView( java.awt.Frame parent, boolean modal ) {
+	public StudentView( java.awt.Frame parent, boolean modal ) {
         super( parent, modal );
         this.setName( "AlunoView" );
     }

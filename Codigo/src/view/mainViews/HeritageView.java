@@ -12,7 +12,7 @@ import javax.swing.table.DefaultTableModel;
  * 
  * @author Parley
  */
-public abstract class PatrimonioView extends JDialog {
+public abstract class HeritageView extends JDialog {
 
     /**
 	 * 
@@ -21,7 +21,7 @@ public abstract class PatrimonioView extends JDialog {
 	/**
      * Creates new form ClienteView
      */
-    public PatrimonioView( java.awt.Frame parent, boolean modal ) {
+    public HeritageView( java.awt.Frame parent, boolean modal ) {
         super( parent, modal );
         initComponents();
     }
